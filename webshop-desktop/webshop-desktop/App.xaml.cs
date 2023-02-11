@@ -1,6 +1,8 @@
 ﻿// Copyright (c) Microsoft Corporation and Contributors.
 // Licensed under the MIT License.
 
+using CommunityToolkit.Mvvm.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Controls.Primitives;
@@ -36,6 +38,8 @@ namespace webshop_desktop
         public App()
         {
             this.InitializeComponent();
+            Ioc.Default.ConfigureServices(new ServiceCollection()
+                .BuildServiceProvider());
         }
 
         /// <summary>
