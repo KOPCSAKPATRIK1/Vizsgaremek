@@ -10,7 +10,20 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-        <Button x:Name="myButton" Click="myButton_Click">Click Me</Button>
-    </StackPanel>
+
+    <Grid RowDefinitions="28,*">
+        <StackPanel
+            x:Name="TitleBar"
+            Grid.Row="0"
+            Margin="0,0,120,0"
+            Background="{ThemeResource AppBarBackgroundThemeBrush}"
+            Orientation="Horizontal">
+            <Image Source="Assets/app-icon.gif"/>
+            <TextBlock 
+                Margin="10,0,0,0"
+                VerticalAlignment="Center"
+                Text="{x:Bind Title}"/>
+            
+        </StackPanel>
+    </Grid>
 </Window>
