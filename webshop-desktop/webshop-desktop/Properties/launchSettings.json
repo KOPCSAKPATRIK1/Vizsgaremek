@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "webshop-desktop (Package)": {
+      "commandName": "MsixPackage"
+    },
+    "webshop-desktop (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}
