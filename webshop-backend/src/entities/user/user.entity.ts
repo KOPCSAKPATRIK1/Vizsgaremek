@@ -1,6 +1,7 @@
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
-import { ShoppingCart } from '../cart/shoppingCart.entity';
+import { ShoppingCartItem } from '../cart/shoppingCartItem.entity';
 import { Order } from '../order/order.entity';
+import { OrderItem } from '../order/orderItem.entity';
 import { Address } from './address.entity';
 
 @Entity()
@@ -17,9 +18,12 @@ export class User {
   @OneToMany(() => Address, (address) => address.user)
   addresses: Address[];
 
-  @OneToMany(() => ShoppingCart, (shoppingCart) => shoppingCart.user)
-  shoppingCarts: ShoppingCart[];
-
   @OneToMany(() => Order, (order) => order.user)
   orders: Order[];
+
+  @OneToMany(() => ShoppingCartItem, (cartItem) => cartItem.user)
+  cartItems: ShoppingCartItem[];
+
+  @OneToMany(() => OrderItem, (orderItem) => orderItem.user)
+  orderItems: OrderItem[];
 }

@@ -1,8 +1,8 @@
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { ColumnMetadata } from 'typeorm/metadata/ColumnMetadata';
-import { ShoppingCart } from '../cart/shoppingCart.entity';
 import { Address } from '../user/address.entity';
 import { User } from '../user/user.entity';
+import { OrderItem } from './orderItem.entity';
 import { PaymentMethod } from './paymentMethod.entity';
 import { ShippingMethod } from './shippingMethod.entity';
 
@@ -10,9 +10,6 @@ import { ShippingMethod } from './shippingMethod.entity';
 export class Order {
   @PrimaryGeneratedColumn()
   id: number;
-
-  @Column()
-  totalPrice: number;
 
   @Column()
   orderDate: Date;
@@ -29,6 +26,6 @@ export class Order {
   @ManyToOne(() => PaymentMethod, (paymentMethod) => paymentMethod.orders)
   paymentMethod: PaymentMethod;
 
-  @ManyToOne(() => ShoppingCart, (cart) => cart.orders)
-  cart: ShoppingCart;
+  @OneToMany(() => OrderItem, (orderItem) => orderItem.order)
+  orderItems: OrderItem[];
 }

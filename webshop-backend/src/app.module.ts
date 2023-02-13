@@ -8,12 +8,11 @@ import { Product } from './entities/product/product.entity';
 import { Category } from './entities/product/category.entity';
 import { Size } from './entities/product/size.entity';
 import { Stock } from './entities/product/stock.entity';
-import { Price } from './entities/product/price.entity';
-import { ShoppingCart } from './entities/cart/shoppingCart.entity';
 import { ShoppingCartItem } from './entities/cart/shoppingCartItem.entity';
 import { Order } from './entities/order/order.entity';
 import { PaymentMethod } from './entities/order/paymentMethod.entity';
 import { ShippingMethod } from './entities/order/shippingMethod.entity';
+import { OrderItem } from './entities/order/orderItem.entity';
 
 @Module({
   imports: [
@@ -30,12 +29,11 @@ import { ShippingMethod } from './entities/order/shippingMethod.entity';
         Category,
         Size,
         Stock,
-        Price,
-        ShoppingCart,
         ShoppingCartItem,
         Order,
         PaymentMethod,
         ShippingMethod,
+        OrderItem,
       ],
       synchronize: true,
     }),

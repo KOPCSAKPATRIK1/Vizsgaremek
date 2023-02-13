@@ -8,8 +8,8 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { ShoppingCartItem } from '../cart/shoppingCartItem.entity';
+import { OrderItem } from '../order/orderItem.entity';
 import { Category } from './category.entity';
-import { Price } from './price.entity';
 import { Size } from './size.entity';
 import { Stock } from './stock.entity';
 
@@ -27,17 +27,20 @@ export class Product {
   @Column()
   imageUrl: string;
 
+  @Column()
+  price: number;
+
   @ManyToOne(() => Category, (category) => category.products)
   category: Category;
 
   @OneToMany(() => Stock, (stock) => stock.product)
   stocks: Stock[];
 
-  @OneToMany(() => Price, (price) => price.product)
-  prices: Price[];
-
   @OneToMany(() => ShoppingCartItem, (cartItem) => cartItem.product)
   cartItems: ShoppingCartItem[];
+
+  @OneToMany(() => OrderItem, (orderItem) => orderItem.user)
+  orderItems: OrderItem[];
 
   @ManyToMany(() => Size)
   @JoinTable()
