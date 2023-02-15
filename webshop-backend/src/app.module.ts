@@ -13,6 +13,7 @@ import { Order } from './entities/order/order.entity';
 import { PaymentMethod } from './entities/order/paymentMethod.entity';
 import { ShippingMethod } from './entities/order/shippingMethod.entity';
 import { OrderItem } from './entities/order/orderItem.entity';
+import { Release } from './entities/product/release.entity';
 
 @Module({
   imports: [
@@ -34,6 +35,7 @@ import { OrderItem } from './entities/order/orderItem.entity';
         PaymentMethod,
         ShippingMethod,
         OrderItem,
+        Release,
       ],
       synchronize: true,
     }),

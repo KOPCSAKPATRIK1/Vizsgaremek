@@ -25,7 +25,16 @@ export class Product {
   desc: string;
 
   @Column()
-  imageUrl: string;
+  imageUrl1: string;
+
+  @Column()
+  imageUrl2: string;
+
+  @Column()
+  imageUrl3: string;
+
+  @Column()
+  imageUrl4: string;
 
   @Column()
   price: number;
