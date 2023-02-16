@@ -49,6 +49,7 @@ const Logo = styled.div`
  flex:1;
  margin-right: 30px;
  align-items: center;
+ cursor: pointer;
 
 `
 const Linkek = styled.div`
