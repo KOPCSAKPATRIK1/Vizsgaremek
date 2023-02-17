@@ -26,7 +26,7 @@ const Arrow = styled.div`
     opacity: 0.8;
     color: #ffa1ff;
 
-    top: 0;
+    top: -200px;
     bottom: 0;
     cursor: pointer;
     left: ${props=> props.direction === 'left' && "10px"};
@@ -70,6 +70,9 @@ const InfoContainer = styled.div`
 flex: 1;
 padding: 50px;
 position: absolute;
+margin-left: 200px;
+color: white;
+text-shadow: 0px 0px 15px black;
 `
 const Title = styled.h1`
 font-size: 50px;
@@ -87,7 +90,10 @@ padding: 10px;
 background-color: transparent;
 font-size: 20px;
 cursor: pointer;
-
+color: white;
+box-shadow: 0px 0px 15px black;
+text-shadow: 0px 0px 15px black;
+border-color: white;
 `
 
 const Slideshow = () => {
