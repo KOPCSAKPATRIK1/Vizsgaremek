@@ -1,0 +1,12 @@
+C:\Users\kl\Desktop\Suli\Vizsgaremek\webshop-desktop\webshop-desktop\Webshop.Repository\bin\Debug\net7.0\Webshop.Repository.deps.json
+C:\Users\kl\Desktop\Suli\Vizsgaremek\webshop-desktop\webshop-desktop\Webshop.Repository\bin\Debug\net7.0\Webshop.Repository.dll
+C:\Users\kl\Desktop\Suli\Vizsgaremek\webshop-desktop\webshop-desktop\Webshop.Repository\bin\Debug\net7.0\Webshop.Repository.pdb
+C:\Users\kl\Desktop\Suli\Vizsgaremek\webshop-desktop\webshop-desktop\Webshop.Repository\obj\Debug\net7.0\Webshop.Repository.csproj.AssemblyReference.cache
+C:\Users\kl\Desktop\Suli\Vizsgaremek\webshop-desktop\webshop-desktop\Webshop.Repository\obj\Debug\net7.0\Webshop.Repository.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\kl\Desktop\Suli\Vizsgaremek\webshop-desktop\webshop-desktop\Webshop.Repository\obj\Debug\net7.0\Webshop.Repository.AssemblyInfoInputs.cache
+C:\Users\kl\Desktop\Suli\Vizsgaremek\webshop-desktop\webshop-desktop\Webshop.Repository\obj\Debug\net7.0\Webshop.Repository.AssemblyInfo.cs
+C:\Users\kl\Desktop\Suli\Vizsgaremek\webshop-desktop\webshop-desktop\Webshop.Repository\obj\Debug\net7.0\Webshop.Repository.csproj.CoreCompileInputs.cache
+C:\Users\kl\Desktop\Suli\Vizsgaremek\webshop-desktop\webshop-desktop\Webshop.Repository\obj\Debug\net7.0\Webshop.Repository.dll
+C:\Users\kl\Desktop\Suli\Vizsgaremek\webshop-desktop\webshop-desktop\Webshop.Repository\obj\Debug\net7.0\refint\Webshop.Repository.dll
+C:\Users\kl\Desktop\Suli\Vizsgaremek\webshop-desktop\webshop-desktop\Webshop.Repository\obj\Debug\net7.0\Webshop.Repository.pdb
+C:\Users\kl\Desktop\Suli\Vizsgaremek\webshop-desktop\webshop-desktop\Webshop.Repository\obj\Debug\net7.0\ref\Webshop.Repository.dll

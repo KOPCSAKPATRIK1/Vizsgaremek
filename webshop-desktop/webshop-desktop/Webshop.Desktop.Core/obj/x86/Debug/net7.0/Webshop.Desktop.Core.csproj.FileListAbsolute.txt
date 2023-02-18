@@ -1,0 +1,12 @@
+C:\Users\kl\Desktop\Suli\Vizsgaremek\webshop-desktop\webshop-desktop\Webshop.Desktop.Core\bin\x86\Debug\net7.0\Webshop.Desktop.Core.deps.json
+C:\Users\kl\Desktop\Suli\Vizsgaremek\webshop-desktop\webshop-desktop\Webshop.Desktop.Core\bin\x86\Debug\net7.0\Webshop.Desktop.Core.dll
+C:\Users\kl\Desktop\Suli\Vizsgaremek\webshop-desktop\webshop-desktop\Webshop.Desktop.Core\bin\x86\Debug\net7.0\Webshop.Desktop.Core.pdb
+C:\Users\kl\Desktop\Suli\Vizsgaremek\webshop-desktop\webshop-desktop\Webshop.Desktop.Core\obj\x86\Debug\net7.0\Webshop.Desktop.Core.csproj.AssemblyReference.cache
+C:\Users\kl\Desktop\Suli\Vizsgaremek\webshop-desktop\webshop-desktop\Webshop.Desktop.Core\obj\x86\Debug\net7.0\Webshop.Desktop.Core.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\kl\Desktop\Suli\Vizsgaremek\webshop-desktop\webshop-desktop\Webshop.Desktop.Core\obj\x86\Debug\net7.0\Webshop.Desktop.Core.AssemblyInfoInputs.cache
+C:\Users\kl\Desktop\Suli\Vizsgaremek\webshop-desktop\webshop-desktop\Webshop.Desktop.Core\obj\x86\Debug\net7.0\Webshop.Desktop.Core.AssemblyInfo.cs
+C:\Users\kl\Desktop\Suli\Vizsgaremek\webshop-desktop\webshop-desktop\Webshop.Desktop.Core\obj\x86\Debug\net7.0\Webshop.Desktop.Core.csproj.CoreCompileInputs.cache
+C:\Users\kl\Desktop\Suli\Vizsgaremek\webshop-desktop\webshop-desktop\Webshop.Desktop.Core\obj\x86\Debug\net7.0\Webshop.Desktop.Core.dll
+C:\Users\kl\Desktop\Suli\Vizsgaremek\webshop-desktop\webshop-desktop\Webshop.Desktop.Core\obj\x86\Debug\net7.0\refint\Webshop.Desktop.Core.dll
+C:\Users\kl\Desktop\Suli\Vizsgaremek\webshop-desktop\webshop-desktop\Webshop.Desktop.Core\obj\x86\Debug\net7.0\Webshop.Desktop.Core.pdb
+C:\Users\kl\Desktop\Suli\Vizsgaremek\webshop-desktop\webshop-desktop\Webshop.Desktop.Core\obj\x86\Debug\net7.0\ref\Webshop.Desktop.Core.dll
