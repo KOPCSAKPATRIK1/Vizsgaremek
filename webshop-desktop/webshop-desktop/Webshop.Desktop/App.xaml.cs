@@ -1,16 +1,22 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.UI.Xaml;
-
+using Webshop.Business;
 using Webshop.Desktop.Activation;
 using Webshop.Desktop.Contracts.Services;
 using Webshop.Desktop.Core.Contracts.Services;
+using Webshop.Desktop.Core.Interfaces.Business;
+using Webshop.Desktop.Core.Interfaces.Repository;
+using Webshop.Desktop.Core.Models.Repository;
 using Webshop.Desktop.Core.Services;
 using Webshop.Desktop.Helpers;
 using Webshop.Desktop.Models;
 using Webshop.Desktop.Services;
 using Webshop.Desktop.ViewModels;
 using Webshop.Desktop.Views;
+using Webshop.Repository.Context;
+using Webshop.Repository.Repository;
 
 namespace Webshop.Desktop;
 
@@ -22,76 +28,84 @@ public partial class App : Application
     // https://docs.microsoft.com/dotnet/core/extensions/dependency-injection
     // https://docs.microsoft.com/dotnet/core/extensions/configuration
     // https://docs.microsoft.com/dotnet/core/extensions/logging
-    public IHost Host
-    {
-        get;
-    }
-
-    public static T GetService<T>()
-        where T : class
-    {
-        if ((App.Current as App)!.Host.Services.GetService(typeof(T)) is not T service)
+    private static IHost AppHost = Host
+        .CreateDefaultBuilder()
+        .ConfigureServices((context, services) =>
         {
-            throw new ArgumentException($"{typeof(T)} needs to be registered in ConfigureServices within App.xaml.cs.");
-        }
+            //DbContext
+            services.AddDbContextPool<WebshopContext>(options =>
+            {
+                options.UseMySQL("server=localhost;uid=root;pwd=;database=webshop");
+            });
+            services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 
-        return service;
-    }
+            // Configuration
+            services.Configure<LocalSettingsOptions>(context.Configuration.GetSection(nameof(LocalSettingsOptions)));
 
-    public static WindowEx MainWindow { get; } = new MainWindow();
-
-    public App()
-    {
-        InitializeComponent();
-
-        Host = Microsoft.Extensions.Hosting.Host.
-        CreateDefaultBuilder().
-        UseContentRoot(AppContext.BaseDirectory).
-        ConfigureServices((context, services) =>
-        {
             // Default Activation Handler
             services.AddTransient<ActivationHandler<LaunchActivatedEventArgs>, DefaultActivationHandler>();
 
-            // Other Activation Handlers
+            // Core Services
+            services.AddSingleton<ISampleDataService, SampleDataService>();
+            services.AddSingleton<IFileService, FileService>();
 
             // Services
             services.AddSingleton<ILocalSettingsService, LocalSettingsService>();
             services.AddSingleton<IThemeSelectorService, ThemeSelectorService>();
             services.AddTransient<IWebViewService, WebViewService>();
             services.AddTransient<INavigationViewService, NavigationViewService>();
-
             services.AddSingleton<IActivationService, ActivationService>();
             services.AddSingleton<IPageService, PageService>();
             services.AddSingleton<INavigationService, NavigationService>();
 
-            // Core Services
-            services.AddSingleton<ISampleDataService, SampleDataService>();
-            services.AddSingleton<IFileService, FileService>();
+            //Repositories
+            services.AddTransient<IRepository<Product>, Repository<Product>>();
+
+
+            //Business services
+            services.AddTransient<IProductService, ProductService>();
 
             // Views and ViewModels
             services.AddTransient<SettingsViewModel>();
             services.AddTransient<SettingsPage>();
+
             services.AddTransient<WebshopViewModel>();
             services.AddTransient<WebshopPage>();
+
             services.AddTransient<NewReleaseViewModel>();
             services.AddTransient<NewReleasePage>();
+
             services.AddTransient<NewProductViewModel>();
             services.AddTransient<NewProductPage>();
+
             services.AddTransient<ReleasesViewModel>();
             services.AddTransient<ReleasesPage>();
+
             services.AddTransient<OrdersViewModel>();
             services.AddTransient<OrdersPage>();
+
             services.AddTransient<ProductsViewModel>();
             services.AddTransient<ProductsPage>();
+
             services.AddTransient<ShellPage>();
             services.AddTransient<ShellViewModel>();
+        })
+        .Build();
 
-            // Configuration
-            services.Configure<LocalSettingsOptions>(context.Configuration.GetSection(nameof(LocalSettingsOptions)));
-        }).
-        Build();
 
+
+    public static WindowEx MainWindow { get; } = new MainWindow();
+
+    public App()
+    {
+        InitializeComponent();
         UnhandledException += App_UnhandledException;
+    }
+
+    public static T GetService<T>() where T : class
+    {
+        HostService.AppHost ??= AppHost; ;
+        return AppHost.Services.GetService(typeof(T)) as T;
     }
 
     private void App_UnhandledException(object sender, Microsoft.UI.Xaml.UnhandledExceptionEventArgs e)

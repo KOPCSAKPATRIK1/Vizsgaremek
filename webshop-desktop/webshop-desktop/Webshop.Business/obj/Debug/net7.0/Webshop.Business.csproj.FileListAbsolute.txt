@@ -10,3 +10,6 @@ C:\Users\kl\Desktop\Suli\Vizsgaremek\webshop-desktop\webshop-desktop\Webshop.Bus
 C:\Users\kl\Desktop\Suli\Vizsgaremek\webshop-desktop\webshop-desktop\Webshop.Business\obj\Debug\net7.0\refint\Webshop.Business.dll
 C:\Users\kl\Desktop\Suli\Vizsgaremek\webshop-desktop\webshop-desktop\Webshop.Business\obj\Debug\net7.0\Webshop.Business.pdb
 C:\Users\kl\Desktop\Suli\Vizsgaremek\webshop-desktop\webshop-desktop\Webshop.Business\obj\Debug\net7.0\ref\Webshop.Business.dll
+C:\Users\kl\Desktop\Suli\Vizsgaremek\webshop-desktop\webshop-desktop\Webshop.Business\bin\Debug\net7.0\Webshop.Desktop.Core.dll
+C:\Users\kl\Desktop\Suli\Vizsgaremek\webshop-desktop\webshop-desktop\Webshop.Business\bin\Debug\net7.0\Webshop.Desktop.Core.pdb
+C:\Users\kl\Desktop\Suli\Vizsgaremek\webshop-desktop\webshop-desktop\Webshop.Business\obj\Debug\net7.0\Webshop.Business.csproj.CopyComplete

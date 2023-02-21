@@ -10,3 +10,6 @@ C:\Users\kl\Desktop\Suli\Vizsgaremek\webshop-desktop\webshop-desktop\Webshop.Rep
 C:\Users\kl\Desktop\Suli\Vizsgaremek\webshop-desktop\webshop-desktop\Webshop.Repository\obj\Debug\net7.0\refint\Webshop.Repository.dll
 C:\Users\kl\Desktop\Suli\Vizsgaremek\webshop-desktop\webshop-desktop\Webshop.Repository\obj\Debug\net7.0\Webshop.Repository.pdb
 C:\Users\kl\Desktop\Suli\Vizsgaremek\webshop-desktop\webshop-desktop\Webshop.Repository\obj\Debug\net7.0\ref\Webshop.Repository.dll
+C:\Users\kl\Desktop\Suli\Vizsgaremek\webshop-desktop\webshop-desktop\Webshop.Repository\bin\Debug\net7.0\Webshop.Desktop.Core.dll
+C:\Users\kl\Desktop\Suli\Vizsgaremek\webshop-desktop\webshop-desktop\Webshop.Repository\bin\Debug\net7.0\Webshop.Desktop.Core.pdb
+C:\Users\kl\Desktop\Suli\Vizsgaremek\webshop-desktop\webshop-desktop\Webshop.Repository\obj\Debug\net7.0\Webshop.Repository.csproj.CopyComplete

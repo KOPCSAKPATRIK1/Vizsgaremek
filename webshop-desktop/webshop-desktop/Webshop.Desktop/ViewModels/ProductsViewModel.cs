@@ -4,31 +4,31 @@ using CommunityToolkit.Mvvm.ComponentModel;
 
 using Webshop.Desktop.Contracts.ViewModels;
 using Webshop.Desktop.Core.Contracts.Services;
+using Webshop.Desktop.Core.Interfaces.Business;
 using Webshop.Desktop.Core.Models;
+using Webshop.Desktop.Core.Models.Business;
 
 namespace Webshop.Desktop.ViewModels;
 
 public class ProductsViewModel : ObservableRecipient, INavigationAware
 {
-    private readonly ISampleDataService _sampleDataService;
+    private readonly IProductService _productService;
 
-    public ObservableCollection<SampleOrder> Source { get; } = new ObservableCollection<SampleOrder>();
+    public ObservableCollection<ProductVmList> ProductsWithCategory { get; set; } = new();
 
-    public ProductsViewModel(ISampleDataService sampleDataService)
+    public ProductsViewModel(IProductService productService)
     {
-        _sampleDataService = sampleDataService;
+        _productService = productService;
     }
 
-    public async void OnNavigatedTo(object parameter)
+    public void OnNavigatedTo(object parameter)
     {
-        Source.Clear();
 
-        // TODO: Replace with real data.
-        var data = await _sampleDataService.GetGridDataAsync();
-
-        foreach (var item in data)
+        ProductsWithCategory.Clear();
+        var productsWithCategory = _productService.GetProductsWithCategory();
+        foreach (var product in productsWithCategory)
         {
-            Source.Add(item);
+            ProductsWithCategory.Add(product);
         }
     }
 

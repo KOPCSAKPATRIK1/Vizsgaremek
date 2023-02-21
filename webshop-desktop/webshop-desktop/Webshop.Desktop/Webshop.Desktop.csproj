@@ -29,7 +29,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Webshop.Business\Webshop.Business.csproj" />
     <ProjectReference Include="..\Webshop.Desktop.Core\Webshop.Desktop.Core.csproj" />
+    <ProjectReference Include="..\Webshop.Repository\Webshop.Repository.csproj" />
   </ItemGroup>
   <ItemGroup>
     <None Update="appsettings.json">

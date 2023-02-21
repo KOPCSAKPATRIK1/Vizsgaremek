@@ -6,16 +6,17 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Webshop.Desktop", "Webshop.Desktop\Webshop.Desktop.csproj", "{13D29F84-F51B-42CA-89E2-F20BD863DB6E}"
 	ProjectSection(ProjectDependencies) = postProject
 		{A7757909-A641-4CDA-9767-77F708E5D69E} = {A7757909-A641-4CDA-9767-77F708E5D69E}
+		{CB239DEA-D9C2-4E7E-8563-685E407FB7BE} = {CB239DEA-D9C2-4E7E-8563-685E407FB7BE}
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Webshop.Desktop.Core", "Webshop.Desktop.Core\Webshop.Desktop.Core.csproj", "{34F58E73-5046-4953-9F16-B91AE06BAE38}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Webshop.Repository", "Webshop.Repository\Webshop.Repository.csproj", "{CB239DEA-D9C2-4E7E-8563-685E407FB7BE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Webshop.Repository", "Webshop.Repository\Webshop.Repository.csproj", "{CB239DEA-D9C2-4E7E-8563-685E407FB7BE}"
 	ProjectSection(ProjectDependencies) = postProject
 		{34F58E73-5046-4953-9F16-B91AE06BAE38} = {34F58E73-5046-4953-9F16-B91AE06BAE38}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Webshop.Business", "Webshop.Business\Webshop.Business.csproj", "{A7757909-A641-4CDA-9767-77F708E5D69E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Webshop.Business", "Webshop.Business\Webshop.Business.csproj", "{A7757909-A641-4CDA-9767-77F708E5D69E}"
 	ProjectSection(ProjectDependencies) = postProject
 		{34F58E73-5046-4953-9F16-B91AE06BAE38} = {34F58E73-5046-4953-9F16-B91AE06BAE38}
 		{CB239DEA-D9C2-4E7E-8563-685E407FB7BE} = {CB239DEA-D9C2-4E7E-8563-685E407FB7BE}
