@@ -59,7 +59,7 @@ position: relative;
 
 `
 const Img = styled.img`
-width: 1900px;
+width: 100vw;
 border-bottom: 2px solid #ffa1ff;
 color: #ffa1ff;
 box-shadow: 0px 4px 30px;
