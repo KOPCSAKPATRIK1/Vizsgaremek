@@ -10,6 +10,7 @@ const Container = styled.div`
   justify-content: center;
   flex-direction: column;
   border-bottom: 1px solid #ffa1ff;
+  padding-bottom: 30px;
 `;
 
 const Title = styled.h1`
