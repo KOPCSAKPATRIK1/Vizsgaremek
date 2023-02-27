@@ -9,6 +9,7 @@ const Container = styled.div`
     padding-bottom: 6vw;
     justify-content: space-between;
     border-bottom: 1px solid #ffa1ff;
+    
 `
 const Text = styled.div`
       

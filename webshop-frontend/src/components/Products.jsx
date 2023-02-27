@@ -11,6 +11,8 @@ const Container = styled.div`
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
+    border-bottom: 1px solid #ffa1ff;
+    
 `;
 const Text = styled.div`
       margin-top: 100px;
@@ -19,13 +21,14 @@ const Text = styled.div`
       font-size: 50px;
       text-shadow: 0px 0px 10px black;
       font-weight: bold;
+      
 `
 
 const Products = () => {
   return (
-   <div>
+   <div> 
     <Text>NÉPSZERŰ SNEAKEREK</Text>
-   <Container>          
+    <Container>          
       {popularProducts.map((item) => (
         <Product item={item}  />
       ))}
