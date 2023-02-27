@@ -50,7 +50,7 @@ const Logo = styled.div`
  margin-right: 30px;
  align-items: center;
  cursor: pointer;
-
+ font-variant: small-caps;
 `
 const Linkek = styled.div`
 justify-content: right;
