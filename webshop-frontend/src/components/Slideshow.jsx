@@ -8,7 +8,7 @@ import { sliderItems } from "../data";
 
 const Container = styled.div`
     width: 100%;
-    height: 100vh;
+    height: 90vh;
     display: flex;
     position: relative;
     overflow: hidden;
@@ -50,7 +50,6 @@ display: flex;
 align-items: center;
 width: 100vw;
 height: 100vh;
-background-color: #${props=> props.bg};
 `
 const ImgContainer = styled.div`
 flex: 1;
@@ -59,6 +58,7 @@ position: relative;
 
 `
 const Img = styled.img`
+
 width: 100vw;
 border-bottom: 2px solid #ffa1ff;
 color: #ffa1ff;
@@ -73,6 +73,7 @@ position: absolute;
 margin-left: 200px;
 color: white;
 text-shadow: 0px 0px 15px black;
+
 `
 const Title = styled.h1`
 font-size: 50px;

@@ -4,17 +4,31 @@ import CategoryItem from "./CategoryItem";
 
 const Container = styled.div`
     display: flex;
-    padding: 20px;
+    padding-left: 10vw;
+    padding-right: 10vw;
+    padding-bottom: 6vw;
     justify-content: space-between;
+    border-bottom: 1px solid #ffa1ff;
+`
+const Text = styled.div`
+      
+      color: white;
+      text-align: center;
+      font-size: 50px;
+      text-shadow: 0px 0px 10px black;
+      font-weight: bold;
 `
 
 function Categories() {
   return (
-    <Container>
-      {categories.map(item=>(
-         <CategoryItem item={item} />
-      ))}
-    </Container>
+    <div>
+    <Text>VÁLOGASS A KEDVENCEID KÖZÜL!</Text>
+     <Container>
+              {categories.map(item=>(
+              <CategoryItem item={item} />
+              ))}
+      </Container>
+    </div>
   )
 }
 
