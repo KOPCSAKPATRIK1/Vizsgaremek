@@ -95,6 +95,7 @@ color: white;
 box-shadow: 0px 0px 15px black;
 text-shadow: 0px 0px 15px black;
 border-color: white;
+border-radius: 10px;
 `
 
 const Slideshow = () => {
@@ -121,7 +122,7 @@ const Slideshow = () => {
             <InfoContainer>
               <Title>{item.title}</Title>
               <Desc>{item.desc}</Desc>
-              <Button>SHOP NOW</Button>
+              <Button>NÉZD MEG</Button>
             </InfoContainer>
           </Slide>
         ))}

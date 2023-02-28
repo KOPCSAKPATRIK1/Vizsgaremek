@@ -3,8 +3,8 @@ export const sliderItems = [
   {
     id: 1,
     img: "https://cdn.shopify.com/s/files/1/2999/5106/files/TTS-SHOPIFY-SLIDE-DESK_2000x.jpg?v=1675428078",
-    title: "VALAMI VALAMI",
-    desc: "NEW",
+    title: "SP5DER - YOUNG THUG",
+    desc: "NEW IN",
     
   },
   
