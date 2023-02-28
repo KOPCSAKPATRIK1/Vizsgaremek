@@ -29,13 +29,13 @@
     <AppXManifest Include="C:\Users\kl\Desktop\Suli\Vizsgaremek\webshop-desktop\webshop-desktop\Webshop.Desktop\bin\x86\Debug\net7.0-windows10.0.19041.0\win10-x86\AppxManifest.xml">
       <PackagePath>AppxManifest.xml</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2023-02-21T18:43:16.136</Modified>
+      <Modified>2023-02-21T18:56:25.096</Modified>
     </AppXManifest>
   </ItemGroup>
   <ItemGroup>
     <AppxPackagedFile Include="C:\Users\kl\Desktop\Suli\Vizsgaremek\webshop-desktop\webshop-desktop\Webshop.Desktop\bin\x86\Debug\net7.0-windows10.0.19041.0\win10-x86\resources.pri">
       <PackagePath>resources.pri</PackagePath>
-      <Modified>2023-02-21T18:43:15.774</Modified>
+      <Modified>2023-02-21T18:56:24.794</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\kl\Desktop\Suli\Vizsgaremek\webshop-desktop\webshop-desktop\Webshop.Desktop\bin\x86\Debug\net7.0-windows10.0.19041.0\win10-x86\Webshop.Desktop.runtimeconfig.json">
       <PackagePath>Webshop.Desktop.runtimeconfig.json</PackagePath>
@@ -43,7 +43,7 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\kl\Desktop\Suli\Vizsgaremek\webshop-desktop\webshop-desktop\Webshop.Desktop\bin\x86\Debug\net7.0-windows10.0.19041.0\win10-x86\Webshop.Desktop.dll">
       <PackagePath>Webshop.Desktop.dll</PackagePath>
-      <Modified>2023-02-21T18:43:15.164</Modified>
+      <Modified>2023-02-21T18:56:24.550</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\kl\Desktop\Suli\Vizsgaremek\webshop-desktop\webshop-desktop\Webshop.Desktop\appsettings.json">
       <PackagePath>appsettings.json</PackagePath>
@@ -51,7 +51,7 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\kl\Desktop\Suli\Vizsgaremek\webshop-desktop\webshop-desktop\Webshop.Desktop\obj\x86\Debug\net7.0-windows10.0.19041.0\win10-x86\apphost.exe">
       <PackagePath>Webshop.Desktop.exe</PackagePath>
-      <Modified>2023-02-21T18:43:15.191</Modified>
+      <Modified>2023-02-21T18:56:24.577</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\kl\Desktop\Suli\Vizsgaremek\webshop-desktop\webshop-desktop\Webshop.Desktop\bin\x86\Debug\net7.0-windows10.0.19041.0\win10-x86\Webshop.Desktop.deps.json">
       <PackagePath>Webshop.Desktop.deps.json</PackagePath>

@@ -17,7 +17,6 @@
                 <SolidColorBrush x:Key="DataGridColumnHeaderBackgroundColor" Color="Transparent" />
             </controls:DataGrid.Resources>
             <controls:DataGrid.Columns>
-                <!-- TODO: Replace column definitions to match real data. Consider adding Header values to Resources.resw. -->
                 <controls:DataGridTextColumn Binding="{Binding Name}" Header="Név" />
                 <controls:DataGridTextColumn Binding="{Binding Price}" Header="Ár" />
                 <controls:DataGridTextColumn Binding="{Binding CategoryName}" Header="Kategória" />
