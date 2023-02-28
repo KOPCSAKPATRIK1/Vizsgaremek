@@ -62,17 +62,37 @@ import {
     }
   `;
   
+  const Title = styled.p`
+  color:white;
+    width: 100%;
+    height: 165%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+ 
+    
+`;
+
   const Product = ({ item }) => {
     return (
-    
+     
       <Container>
         <Image src={item.img} />
         <Info>
           <Icon>
             <ShoppingCartOutlined />
           </Icon>        
+          
         </Info>
+        <Title>{item.title}</Title>
       </Container>
+      
+   
     );
   };
   
