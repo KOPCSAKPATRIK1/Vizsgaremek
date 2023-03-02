@@ -1,4 +1,4 @@
-import { BadRequestException, Body, Controller, Get, HttpCode, Post, Render } from '@nestjs/common';
+import { BadRequestException, Body, Controller, Get, HttpCode, Post, Render, Param } from '@nestjs/common';
 import { DataSource } from 'typeorm';
 import { AppService } from './app.service';
 import RegisterDto from './dto/register.dto';
@@ -45,5 +45,23 @@ export class AppController {
    await userRepo.save(user);
 
     return user;
+  }
+
+  @Get('/shoes')
+  async getShoes() {
+    const productRepo = this.dataSource.getRepository(Product);
+    return productRepo.find();
+  }
+
+  @Get('/shoes/:id')
+  async getShoe(@Param('id') id: number) {
+    const productRepo = this.dataSource.getRepository(Product);
+    productRepo.find(id);
+  }
+
+  @Get('/shoes/:name')
+  async getShoesByName(@Param('name') name: string) {
+    const productRepo = this.dataSource.getRepository(Product);
+    productRepo.find(name);
   }
 }
