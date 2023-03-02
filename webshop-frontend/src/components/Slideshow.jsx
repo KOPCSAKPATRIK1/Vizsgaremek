@@ -8,7 +8,7 @@ import { sliderItems } from "../data";
 
 const Container = styled.div`
     width: 100%;
-    height: 100vh;
+    height: 90vh;
     display: flex;
     position: relative;
     overflow: hidden;
@@ -50,7 +50,6 @@ display: flex;
 align-items: center;
 width: 100vw;
 height: 100vh;
-background-color: #${props=> props.bg};
 `
 const ImgContainer = styled.div`
 flex: 1;
@@ -59,7 +58,8 @@ position: relative;
 
 `
 const Img = styled.img`
-width: 1900px;
+
+width: 100vw;
 border-bottom: 2px solid #ffa1ff;
 color: #ffa1ff;
 box-shadow: 0px 4px 30px;
@@ -73,6 +73,7 @@ position: absolute;
 margin-left: 200px;
 color: white;
 text-shadow: 0px 0px 15px black;
+
 `
 const Title = styled.h1`
 font-size: 50px;
@@ -94,6 +95,7 @@ color: white;
 box-shadow: 0px 0px 15px black;
 text-shadow: 0px 0px 15px black;
 border-color: white;
+border-radius: 10px;
 `
 
 const Slideshow = () => {
@@ -120,7 +122,7 @@ const Slideshow = () => {
             <InfoContainer>
               <Title>{item.title}</Title>
               <Desc>{item.desc}</Desc>
-              <Button>SHOP NOW</Button>
+              <Button>NÉZD MEG</Button>
             </InfoContainer>
           </Slide>
         ))}

@@ -28,7 +28,7 @@ public partial class App : Application
     // https://docs.microsoft.com/dotnet/core/extensions/dependency-injection
     // https://docs.microsoft.com/dotnet/core/extensions/configuration
     // https://docs.microsoft.com/dotnet/core/extensions/logging
-    private static IHost AppHost = Host
+    private static readonly IHost AppHost = Host
         .CreateDefaultBuilder()
         .ConfigureServices((context, services) =>
         {
@@ -102,7 +102,7 @@ public partial class App : Application
         UnhandledException += App_UnhandledException;
     }
 
-    public static T GetService<T>() where T : class
+    public static T? GetService<T>() where T : class
     {
         HostService.AppHost ??= AppHost; ;
         return AppHost.Services.GetService(typeof(T)) as T;
@@ -118,6 +118,6 @@ public partial class App : Application
     {
         base.OnLaunched(args);
 
-        await App.GetService<IActivationService>().ActivateAsync(args);
+        await GetService<IActivationService>().ActivateAsync(args);
     }
 }
