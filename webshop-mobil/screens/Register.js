@@ -62,7 +62,7 @@ const Register = () => {
             </TouchableOpacity>
             <View className="absolute w-[200%] h-[100vh] top-[15vh] left-[-65vw] z-[-10] bg-[#ffa1ff] mt-[2vh]  rounded-full">
             <TouchableOpacity 
-            className="mt-[10vh] justify-center items-center"
+            className="mt-[8vh] justify-center items-center"
             onPress={()=> navigation.navigate("SignIn")}>
                 <Text className="text-white underline">Already have an account? Sign in</Text>
             </TouchableOpacity>
