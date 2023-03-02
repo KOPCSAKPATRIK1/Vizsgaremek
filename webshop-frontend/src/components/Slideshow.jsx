@@ -122,7 +122,7 @@ const Slideshow = () => {
             <InfoContainer>
               <Title>{item.title}</Title>
               <Desc>{item.desc}</Desc>
-              <Button>NÉZD MEG</Button>
+              
             </InfoContainer>
           </Slide>
         ))}

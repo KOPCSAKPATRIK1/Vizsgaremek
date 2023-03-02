@@ -18,6 +18,7 @@ import {
     transition: all 0.5s ease;
     cursor: pointer;
     border-radius: 20px;
+    
   `;
   
   const Container = styled.div`
@@ -28,6 +29,7 @@ import {
     display: flex;
     align-items: center;
     justify-content: center;
+    cursor: pointer;
     background-color: #272727;
     border-radius: 20px;
     position: relative;
@@ -84,10 +86,7 @@ import {
       <Container>
         <Image src={item.img} />
         <Info>
-          <Icon>
-            <ShoppingCartOutlined />
-          </Icon>        
-          
+     
         </Info>
         <Title>{item.title}</Title>
       </Container>
