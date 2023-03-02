@@ -3,6 +3,10 @@ import { Badge } from '@mui/material'
 import { red } from '@mui/material/colors'
 import React from 'react'
 import styled from 'styled-components'
+import { BrowserRouter as Router,Routes, Route, Link } from 'react-router-dom';
+import Login from '../pages/Login'
+import Register from '../pages/Register'
+import Home from '../pages/Home'
 
 
 const Wrapper = styled.div`
