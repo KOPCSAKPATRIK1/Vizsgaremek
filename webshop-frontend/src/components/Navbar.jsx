@@ -63,7 +63,29 @@ word-spacing: 20px;
 cursor: pointer;
 align-items: center;
 display: flex;
+
 `
+
+const NavbarLink = styled(Link)`
+justify-content: right;
+font-size: 20px;
+word-spacing: 20px;
+cursor: pointer;
+align-items: center;
+display: flex;
+color: #ffa1ff;
+margin: 15px;
+ text-decoration: none;
+
+&:hover,
+&:focus{
+   
+}
+&:active{
+    
+};
+`
+
 const MenuIcons = styled.div`
 cursor: pointer;
 align-items: center;
@@ -72,6 +94,8 @@ display: flex;
 margin-left: 25px;
 
 `
+
+
 const StyledBadge = styled(Badge)(({ theme }) => ({
     '& .MuiBadge-badge': {
         right: 5,
@@ -97,7 +121,7 @@ const Navbar = () => {
             <Language>HU</Language>
            
         </Left>
-        <Center><Logo>FootFrenzy</Logo><Linkek> FŐOLDAL SNEAKEREK RELEASES INFO</Linkek>  </Center>
+        <Center><Logo>FootFrenzy</Logo><Linkek> <NavbarLink to="/">  FŐOLDAL </NavbarLink> <NavbarLink to="/product"> SNEAKEREK </NavbarLink> <NavbarLink to="/product"> RELEASES </NavbarLink> <NavbarLink to="/product"> INFO </NavbarLink> </Linkek>  </Center>
         <Right>
                 <MenuIcons>
                                

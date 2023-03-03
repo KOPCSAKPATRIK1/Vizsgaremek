@@ -8,14 +8,16 @@ import { Routes, Route, Router } from "react-router-dom";
 function App() {
   return (
     <>
-
+  
       <Routes>
-        <Route  path="/" component={<Home />}></Route>
-        <Route path="/login" component={<Login />}></Route>
-     
+        <Route exact path="/" element={<Home />}></Route>
+        <Route exact path="/login" element = {<Login />}></Route>
+        <Route exact path="/register" element={<Register />}></Route>
+        <Route exact path="/product" element={<SingleProduct/>}></Route>
+        <Route exact path="/*" element={<Home />}></Route>
      
       </Routes>
-      <Home/>
+     
      
    
     </>
