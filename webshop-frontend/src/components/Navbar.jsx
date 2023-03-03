@@ -85,7 +85,25 @@ margin: 15px;
     
 };
 `
+const IconLink = styled(Link)`
+justify-content: right;
+font-size: 20px;
+word-spacing: 20px;
+cursor: pointer;
+align-items: center;
+display: flex;
+color: #ffa1ff;
+margin: 1px;
+ text-decoration: none;
 
+&:hover,
+&:focus{
+   
+}
+&:active{
+    
+};
+`
 const MenuIcons = styled.div`
 cursor: pointer;
 align-items: center;
@@ -126,10 +144,10 @@ const Navbar = () => {
                 <MenuIcons>
                                
                   
-                <AccountCircle style={{fontSize:"40px", marginLeft:"10px", marginRight:"10px"}}></AccountCircle>
-                <Search style={{fontSize:"40px", marginLeft:"10px", marginRight:"10px"}}></Search>
+                <IconLink to="/login"><AccountCircle style={{fontSize:"40px", marginLeft:"10px", marginRight:"10px"}}></AccountCircle></IconLink>
+                <IconLink to="/login"><Search style={{fontSize:"40px", marginLeft:"10px", marginRight:"10px"}}></Search></IconLink>
                 <StyledBadge badgeContent={4} color="default">
-                <LocalMall style={{fontSize:"40px", marginLeft:"10px", marginRight:"10px"}} color="inherit"></LocalMall> 
+                <IconLink to="/login"><LocalMall style={{fontSize:"40px", marginLeft:"10px", marginRight:"10px"}} color="inherit"></LocalMall> </IconLink>
                 </StyledBadge>  
                 </MenuIcons>   
         </Right>

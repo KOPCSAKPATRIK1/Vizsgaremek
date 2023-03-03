@@ -2,6 +2,8 @@ import styled from "styled-components";
 import Navbar from '../components/Navbar'
 import Newsletter from "../components/Newsletter";
 import Footer from "../components/Footer";
+import { BrowserRouter as Router,Routes, Route, Link } from 'react-router-dom';
+
 const Container = styled.div`
   width: 100vw;
   height: 100vh;
@@ -57,11 +59,13 @@ const Button = styled.button`
   border: 2px solid #323232;
 `;
 
-const Link = styled.a`
+ const Links = styled(Link)`
   margin: 5px 0px;
   font-size: 12px;
   text-decoration: underline;
   cursor: pointer;
+   
+   color: white;
 `;
 
 const Login = () => {
@@ -75,8 +79,8 @@ const Login = () => {
           <Input placeholder="E-mail" />
           <Input placeholder="Jelszó" />
           <Button>BEJELENTKEZÉS</Button>
-          <Link>ELFELEJTETTED A JELSZAVAD?</Link>
-          <Link>NINCS FIÓKOD? CSINÁLJ EGYET MOST!</Link>
+          <Links to="/register">ELFELEJTETTED A JELSZAVAD?</Links>
+          <Links to="/register">NINCS FIÓKOD? CSINÁLJ EGYET MOST!</Links>
         </Form>
       </Wrapper>
     </Container>
