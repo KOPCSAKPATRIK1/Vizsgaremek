@@ -27,8 +27,5 @@ public partial class Stock
         get; set;
     }
 
-    public virtual Size? Size
-    {
-        get; set;
-    }
+    public virtual Size Size { get; set; } = null!;
 }

@@ -30,11 +30,11 @@ public class ProductsViewModel : ObservableRecipient, INavigationAware
     #endregion
 
     #region Events
-    public void OnNavigatedTo(object parameter)
+    public  void OnNavigatedTo(object parameter)
     {
 
         ProductsWithInfo.Clear();
-        var productsWithCategory = _productService.GetProductsWithCategory();
+        var productsWithCategory =  _productService.GetProductsWithCategory();
         foreach (var product in productsWithCategory)
         {
             ProductsWithInfo.Add(product);
