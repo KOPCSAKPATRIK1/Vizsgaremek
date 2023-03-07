@@ -195,9 +195,6 @@ public partial class WebshopContext : DbContext
                 .HasDefaultValueSql("'NULL'")
                 .HasColumnType("int(11)")
                 .HasColumnName("orderId");
-            entity.Property(e => e.Price)
-                .HasColumnType("int(11)")
-                .HasColumnName("price");
             entity.Property(e => e.ProductId)
                 .HasDefaultValueSql("'NULL'")
                 .HasColumnType("int(11)")
@@ -217,6 +214,10 @@ public partial class WebshopContext : DbContext
             entity.HasOne(d => d.Product).WithMany(p => p.OrderItems)
                 .HasForeignKey(d => d.ProductId)
                 .HasConstraintName("FK_904370c093ceea4369659a3c810");
+
+            entity.HasOne(d => d.Size).WithMany(p => p.OrderItems)
+               .HasForeignKey(d => d.SizeId)
+               .HasConstraintName("FK_b92d3a6017b15d811d4b0c7b789");
 
             entity.HasOne(d => d.User).WithMany(p => p.OrderItems)
                 .HasForeignKey(d => d.UserId)

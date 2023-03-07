@@ -12,9 +12,6 @@ export class OrderItem {
   @Column()
   quantity: number;
 
-  @Column()
-  price: number;
-
   @ManyToOne(() => Product, (product) => product.orderItems)
   product: Product;
 

@@ -10,6 +10,9 @@ public partial class Size
     {
         get; set;
     }
+
+    public virtual ICollection<OrderItem> OrderItems { get; } = new List<OrderItem>();
+
     public virtual ICollection<Stock> Stocks { get; } = new List<Stock>();
 
     public virtual ICollection<Product> Products { get; } = new List<Product>();

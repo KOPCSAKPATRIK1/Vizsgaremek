@@ -1,7 +1,7 @@
 ﻿using Webshop.Desktop.Core.Models.Business;
 
 namespace Webshop.Desktop.Core.Interfaces.Business;
-public interface IProductService
+public interface IOrderService
 {
-    ProductVmList[] GetProductsWithInfo();
+    OrderVmList[] GetOrdersWithInfo();
 }

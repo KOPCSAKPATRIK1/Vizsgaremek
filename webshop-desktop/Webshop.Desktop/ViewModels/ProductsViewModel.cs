@@ -34,8 +34,8 @@ public class ProductsViewModel : ObservableRecipient, INavigationAware
     {
 
         ProductsWithInfo.Clear();
-        var productsWithCategory =  _productService.GetProductsWithCategory();
-        foreach (var product in productsWithCategory)
+        var productsWithInfo =  _productService.GetProductsWithInfo();
+        foreach (var product in productsWithInfo)
         {
             ProductsWithInfo.Add(product);
         }

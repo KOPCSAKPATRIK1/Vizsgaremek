@@ -22,9 +22,9 @@ public class ProductService : IProductService
     }
 
     #endregion
-    public ProductVmList[] GetProductsWithCategory()
+    public ProductVmList[] GetProductsWithInfo()
     {
-        return _productRepository.GetAll()
+        var res = _productRepository.GetAll()
             .Include(p => p.Category)
             .Include(p => p.Stocks)
             .Include(p => p.Sizes)
@@ -41,6 +41,6 @@ public class ProductService : IProductService
                 }).ToArray(),
             })
             .ToArray();
+        return res;
     }
-
 }

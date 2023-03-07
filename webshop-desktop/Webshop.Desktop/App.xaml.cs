@@ -65,6 +65,7 @@ public partial class App : Application
 
             //Business services
             services.AddTransient<IProductService, ProductService>();
+            services.AddTransient<IOrderService, OrderService>();
 
 
             // Views and ViewModels

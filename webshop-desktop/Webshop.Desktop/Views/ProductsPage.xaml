@@ -12,7 +12,6 @@
             <controls:DataGrid
             AutoGenerateColumns="False"
             GridLinesVisibility="Horizontal"
-            AlternatingRowBackground="LightGray"
             HeadersVisibility="Column"
             IsReadOnly="True"
             ItemsSource="{x:Bind ViewModel.ProductsWithInfo, Mode=OneWay}">
