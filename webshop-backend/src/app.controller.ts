@@ -13,7 +13,7 @@ import { AppService } from './app.service';
 import RegisterDto from './dto/register.dto';
 import { Product } from './entities/product/product.entity';
 import { User } from './entities/user/user.entity';
-import bcrypt from 'bcrypt';
+import * as bcrypt from 'bcrypt';
 
 @Controller()
 export class AppController {
@@ -31,27 +31,11 @@ export class AppController {
   @Post('/register')
   @HttpCode(200)
   async register(@Body() registerDto: RegisterDto) {
-    if (
-      !registerDto.email ||
-      !registerDto.password ||
-      !registerDto.rePassword
-    ) {
-      throw new BadRequestException('All fields are required');
-    }
-    if (!registerDto.email.includes('@')) {
-      throw new BadRequestException('Email must contain a @ character');
-    }
-    if (registerDto.password !== registerDto.rePassword) {
-      throw new BadRequestException('The two passwords must match');
-    }
-    if (registerDto.password.length < 8) {
-      throw new BadRequestException(
-        'The password must be at least 8 characters long',
-      );
-    }
+  
 
     const userRepo = this.dataSource.getRepository(User);
     const user = new User();
+    user.username = registerDto.username;
     user.email = registerDto.email;
     user.password = await bcrypt.hash(registerDto.password, 15);
     await userRepo.save(user);
@@ -68,12 +52,38 @@ export class AppController {
   @Get('/shoes/:id')
   async getShoe(@Param('id') id: number) {
     const productRepo = this.dataSource.getRepository(Product);
-    productRepo.find();
+    return productRepo.findOneBy({ id: id });
   }
 
-  @Get('/shoes/:name')
+  @Get('/shoes/name/:name')
   async getShoesByName(@Param('name') name: string) {
     const productRepo = this.dataSource.getRepository(Product);
-    productRepo.find();
+    return productRepo.findBy({ name: name});
   }
+
+  @Get('/users')
+  async getUsers() {
+    const productRepo = this.dataSource.getRepository(User);
+    return productRepo.find();
+  }
+
+  @Get('/user/:id')
+  async getUser(@Param('id') id: number) {
+    const productRepo = this.dataSource.getRepository(User);
+    return productRepo.findOneBy({ id: id });
+  }
+
+  @Get('/users/username/:name')
+  async getUsersByName(@Param('name') name: string) {
+    const productRepo = this.dataSource.getRepository(User);
+    return productRepo.findOneBy({ username: name});
+  }
+
+  @Get('/users/email/:email')
+  async getUsersByEmail(@Param('email') email: string) {
+    const productRepo = this.dataSource.getRepository(User);
+    return productRepo.findOneBy({ email: email});
+  }
+
+  
 }
