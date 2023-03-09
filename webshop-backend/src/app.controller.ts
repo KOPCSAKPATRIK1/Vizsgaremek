@@ -31,6 +31,7 @@ export class AppController {
   @Post('/register')
   @HttpCode(200)
   async register(@Body() registerDto: RegisterDto) {
+    console.log(registerDto);
     const userRepo = this.dataSource.getRepository(User);
     const user = new User();
     user.username = registerDto.username;

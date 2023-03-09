@@ -40,7 +40,7 @@ const SignIn = () => {
         <TouchableOpacity className="mt-[5vh] w-[100%] px-[10vw]">
             <Text className="text-white underline">Forgot password</Text>
         </TouchableOpacity>
-        <View className="absolute w-[200%] h-[100vh] top-[87vh] left-[-50vw] z-[-10] bg-[#ffa1ff] mt-[2vh]  rounded-full">
+        <View className="absolute w-[200%] h-[100vh] top-[80vh] left-[-50vw] z-[-10] bg-[#ffa1ff] mt-[2vh]  rounded-full">
             <TouchableOpacity 
             className="mt-[10vh] justify-center items-center"
             onPress={()=> navigation.navigate("Register")}>

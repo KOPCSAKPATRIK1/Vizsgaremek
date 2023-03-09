@@ -31,7 +31,7 @@ const HomeScreen = () => {
                 <Text className="text-[20px] text-black tracking-wider">Register</Text>
             </View>
         </TouchableOpacity>
-        <View className="absolute w-[200%] h-[200%] top-[82vh] left-[-50vw] z-[-10] bg-[#ffa1ff] mt-[2vh]  rounded-full">
+        <View className="absolute w-[200%] h-[200%] top-[75vh] left-[-50vw] z-[-10] bg-[#ffa1ff] mt-[2vh]  rounded-full">
             <TouchableOpacity 
             className="mt-[15vh] justify-center items-center"
             onPress={()=> navigation.navigate("Store")}>
