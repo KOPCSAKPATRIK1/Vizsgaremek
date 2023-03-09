@@ -7,14 +7,25 @@ import Products from "../components/Products";
 import Newsletter from '../components/Newsletter';
 import Footer from '../components/Footer';
 import NewProducts from '../components/newProducts';
-
+import styled from "styled-components";
+const Text = styled.div`
+      margin-top: 100px;
+      color: white;
+      text-align: center;
+      font-size: 50px;
+      text-shadow: 0px 0px 10px black;
+      font-weight: bold;
+      
+`
 const Home = () => {
   return (
     <div>
       <Navbar/>
       <Slideshow/>
       <Categories />
+      <Text>MOST ÉRKEZETT</Text>
       <NewProducts/>
+      <Text>NÉPSZERŰ SNEAKEREK</Text>
       <Products/>
       <Newsletter/>
       <Footer/>

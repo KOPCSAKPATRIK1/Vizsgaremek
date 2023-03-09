@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { popularProducts } from "../data";
 import Product from "./Product";
-
+import React, { useState, useEffect } from "react";
 const Container = styled.div`
     margin-top: 20px;
     padding: 20px;
@@ -25,11 +25,44 @@ const Text = styled.div`
 `
 
 const NewProducts = () => {
+  const [data, setData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const getData = async () => {
+      try {
+        const response = await fetch(
+          "http://localhost:3000/shoes"
+        );
+        if (!response.ok) {
+          throw new Error(
+            `This is an HTTP error: The status is ${response.status}`
+          );
+        }
+        let actualData = await response.json();
+        setData(actualData);
+        setError(null);
+      } catch(err) {
+        setError(err.message);
+        setData(null);
+      } finally {
+        setLoading(false);
+      }  
+    }
+    getData()
+  }, [])
+
   return (
    <div> 
-    <Text>MOST ÉRKEZETT</Text>
+     {loading && <div>A moment please...</div>}
+    {error && (
+      <div>{`There is a problem fetching the post data - ${error}`}</div>
+    )}
+    
     <Container>          
-      {popularProducts.map((item) => (
+      {data &&
+      data.slice(0, 8).map((item) => (
         <Product item={item}  />
       ))}
     </Container>
