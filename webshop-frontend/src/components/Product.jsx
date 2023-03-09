@@ -38,6 +38,7 @@ import {
     &:hover ${Info}{
       opacity: 1;
     }
+    
   `;
   
 
@@ -67,7 +68,7 @@ import {
   const Title = styled.p`
   color:white;
     width: 100%;
-    height: 165%;
+    height: 155%;
     position: absolute;
     top: 0;
     left: 0;
@@ -75,20 +76,36 @@ import {
     display: flex;
     align-items: center;
     justify-content: center;
-
- 
+    text-transform: uppercase;
+    text-align: center;
     
 `;
 
+const Price = styled.p`
+color:white;
+  width: 100%;
+  height: 175%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+
+  
+`;
   const Product = ({ item }) => {
     return (
      
       <Container>
-        <Image src={item.img} />
+        <Image src={item.imageUrl1} />
         <Info>
      
         </Info>
-        <Title>{item.title}</Title>
+        <Title>{item.name}</Title>
+        <Price>{item.price} Ft </Price>
       </Container>
       
    
