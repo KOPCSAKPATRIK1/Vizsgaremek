@@ -86,9 +86,9 @@ export class AppController {
         throw new UnauthorizedException();
       }
 
-      const user = await this.appService.findOne({ id: data['id'] });
+      //const user = await this.appService.findOne({ id: data['id'] });
 
-      return user;
+      //return user;
     } catch (e) {
       throw new UnauthorizedException();
     }
@@ -109,7 +109,7 @@ export class AppController {
   @Get('/shoes/name/:name')
   async getShoesByName(@Param('name') name: string) {
     const productRepo = this.dataSource.getRepository(Product);
-    return productRepo.findBy({ name: name});
+    return productRepo.findBy({ name: name });
   }
 
   @Get('/users')
@@ -127,14 +127,12 @@ export class AppController {
   @Get('/users/username/:name')
   async getUsersByName(@Param('name') name: string) {
     const productRepo = this.dataSource.getRepository(User);
-    return productRepo.findOneBy({ username: name});
+    return productRepo.findOneBy({ username: name });
   }
 
   @Get('/users/email/:email')
   async getUsersByEmail(@Param('email') email: string) {
     const productRepo = this.dataSource.getRepository(User);
-    return productRepo.findOneBy({ email: email});
+    return productRepo.findOneBy({ email: email });
   }
-
-  
 }
