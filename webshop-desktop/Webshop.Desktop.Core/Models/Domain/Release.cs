@@ -8,7 +8,7 @@ public partial class Release
 
     public string Name { get; set; } = null!;
 
-    public DateTime ReleaseData
+    public DateTime ReleaseDate 
     {
         get; set;
     }

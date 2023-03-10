@@ -61,6 +61,7 @@ public partial class App : Application
             services.AddTransient<IRepository<OrderItem>, Repository<OrderItem>>();
             services.AddTransient<IRepository<Category>, Repository<Category>>();
             services.AddTransient<IRepository<Size>, Repository<Size>>();
+            services.AddTransient<IRepository<Release>, Repository<Release>>();
 
 
             //Business services
@@ -68,6 +69,7 @@ public partial class App : Application
             services.AddTransient<IOrderService, OrderService>();
             services.AddTransient<ICategoryService, CategoryService>();
             services.AddTransient<ISizeService, SizeService>();
+            services.AddTransient<IReleaseService, ReleaseService>();
 
 
 
@@ -118,7 +120,8 @@ public partial class App : Application
 
     private void App_UnhandledException(object sender, Microsoft.UI.Xaml.UnhandledExceptionEventArgs e)
     {
-
+        // TODO: Log and handle exceptions as appropriate.
+        // https://docs.microsoft.com/windows/windows-app-sdk/api/winrt/microsoft.ui.xaml.application.unhandledexception.
     }
 
     protected async override void OnLaunched(LaunchActivatedEventArgs args)

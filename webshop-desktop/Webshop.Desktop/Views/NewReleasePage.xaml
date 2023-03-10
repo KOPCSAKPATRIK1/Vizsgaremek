@@ -6,7 +6,49 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <Grid x:Name="ContentArea">
-        
-    </Grid>
+    <ScrollViewer>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <StackPanel Grid.Row="0" Grid.ColumnSpan="2">
+                <TextBox Text="{x:Bind ViewModel.ReleaseName, Mode=TwoWay}"                         
+                             Margin="10" Header="Név:" PlaceholderText="Air Force 1"/>
+
+                <TextBox Text="{x:Bind ViewModel.ReleaseDesc, Mode=TwoWay}"                         
+                         Margin="10" Header="Leirás:" PlaceholderText="Ez egy cipo"/>
+
+                <TextBox Text="{x:Bind ViewModel.ImageUrl1, Mode=TwoWay}"
+                         Margin="10" Header="Link 1:" PlaceholderText="Első Kép"/>
+
+                <TextBox Text="{x:Bind ViewModel.ImageUrl2, Mode=TwoWay}"
+                         Margin="10" Header="Link 2:" PlaceholderText="Második kép"/>
+
+                <TextBox Text="{x:Bind ViewModel.ImageUrl3, Mode=TwoWay}"
+                         Margin="10" Header="Link 3:" PlaceholderText="Harmadik Kép"/>
+
+                <TextBox Text="{x:Bind ViewModel.ImageUrl4, Mode=TwoWay}"
+                         Margin="10" Header="Link 4:" PlaceholderText="Negyedik kép"/>
+
+                <DatePicker Header="Megjelenés dátuma" Margin="10"
+                            SelectedDate="{x:Bind ViewModel.SelectedDate, Mode=TwoWay}"/>
+
+            </StackPanel>
+            
+            <Button                
+                Content="Save" 
+                Margin="10" 
+                Grid.Row="1" 
+                Grid.ColumnSpan="2" 
+                HorizontalAlignment="Right"
+                Command="{x:Bind ViewModel.SaveReleaseCommand}"/>
+
+        </Grid>
+    </ScrollViewer>
 </Page>

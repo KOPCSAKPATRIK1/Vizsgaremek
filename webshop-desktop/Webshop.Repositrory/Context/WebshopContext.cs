@@ -330,9 +330,9 @@ public partial class WebshopContext : DbContext
             entity.Property(e => e.Name)
                 .HasMaxLength(255)
                 .HasColumnName("name");
-            entity.Property(e => e.ReleaseData)
+            entity.Property(e => e.ReleaseDate)
                 .HasColumnType("datetime")
-                .HasColumnName("releaseData");
+                .HasColumnName("releaseDate");
         });
 
         modelBuilder.Entity<ShippingMethod>(entity =>
