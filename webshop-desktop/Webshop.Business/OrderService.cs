@@ -10,9 +10,6 @@ public class OrderService : IOrderService
     #region Private members
 
     private readonly IRepository<Order> _orderRepository;
-    private readonly IRepository<OrderItem> _orderItemRepository;
-    private readonly IRepository<User> _userRepository;
-    private readonly IRepository<Product> _productRepository;
 
     #endregion
 
@@ -25,9 +22,6 @@ public class OrderService : IOrderService
         IRepository<Product> productRepository)
     {
         _orderRepository = orderRepository;
-        _orderItemRepository = orderItemRepository;
-        _userRepository = userRepository;
-        _productRepository = productRepository;
     }
 
     #endregion

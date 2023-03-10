@@ -133,7 +133,7 @@
     <value>Megjelenések</value>
   </data>
   <data name="Shell_NewProduct.Content" xml:space="preserve">
-    <value>Új Termék</value>
+    <value>Raktározás</value>
   </data>
   <data name="Shell_NewRelease.Content" xml:space="preserve">
     <value>Új Megjelenés</value>

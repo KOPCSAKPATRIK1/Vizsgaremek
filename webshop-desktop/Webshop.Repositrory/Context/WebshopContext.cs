@@ -282,7 +282,7 @@ public partial class WebshopContext : DbContext
             entity.HasMany(d => d.Sizes).WithMany(p => p.Products)
                 .UsingEntity<Dictionary<string, object>>(
                     "ProductSizesSize",
-                    r => r.HasOne<Desktop.Core.Models.Domain.Size>().WithMany()
+                    r => r.HasOne<Size>().WithMany()
                         .HasForeignKey("SizeId")
                         .HasConstraintName("FK_a7bd6fac9cf96620ec68761ef3b"),
                     l => l.HasOne<Product>().WithMany()
