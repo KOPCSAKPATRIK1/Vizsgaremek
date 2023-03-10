@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity, Button, TextInput} from 'react-native'
+import { View, Text, TouchableOpacity, Button, TextInput, Alert, ToastAndroid} from 'react-native'
 import React, { useLayoutEffect, useState } from 'react'
 import { useNavigation } from '@react-navigation/native'
 import CheckBox from '@react-native-community/checkbox';
@@ -21,10 +21,94 @@ const Register = () => {
     const [password, setPassword] = useState('');
     const [rePassword, setRePassword] = useState('');
 
+    let [emailErrorMessage, setEmailErrorMessage] = useState("");
 
+    const validateEmail = async (email) => {
+        setEmailErrorMessage("");
+        var re = /[a-z0-9]+@[a-z]+\.[a-z]{2,3}/;
+        if(!re.test(email)){
+            setEmailErrorMessage("Wrong email format")
+        }
+
+        const response = await fetch('http://192.168.0.184:3000/users/email/' + email
+        ,{
+        headers : { 
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+        }
+        })
+        const emailAddress = await response.json();
+        console.log(emailAddress);
+        if(emailAddress.email == email){
+            setEmailErrorMessage("Email address already used");
+        }
+
+        if(email == ""){
+            setEmailErrorMessage("You must enter an email address")
+        }
+
+        return (emailErrorMessage == "");
+      };
+
+      let [usernameErrorMessage, setUsernameErrorMessage] = useState("");
+
+      const validateUsername = async (username) => {
+        setUsernameErrorMessage("")
+        if(username.length < 6){
+            setUsernameErrorMessage("Username must be over 6 characters");
+        }
+
+        const response = await fetch('http://192.168.0.184:3000/users/username/' + username
+        ,{
+        headers : { 
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+        }
+        })
+        const usernameErrorChecker = await response.json();
+        console.log(usernameErrorChecker);
+        if(usernameErrorChecker.username == username){
+            setUsernameErrorMessage("Username already used");
+        }
+        return (usernameErrorMessage == "");
+      }
+
+      let [passwordErrorMessage, setPasswordErrorMessage] = useState("");
+
+      const validatePassword = (password) => {
+        setPasswordErrorMessage("");
+        var re = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}/;
+        if(password.length == 0){
+            setPasswordErrorMessage("You must have a password");
+        }
+        else if(password.length < 8){
+            setPasswordErrorMessage("Password must be atleast 8 characters");
+        }
+        else if(!re.test(password)){
+            setPasswordErrorMessage("Password must contain uppercase, lowercase and number");
+        }
+
+        return (passwordErrorMessage == "");
+      }
+
+      let [rePasswordErrorMessage, setRePasswordErrorMessage] = useState("");
+
+      const validateRePassword = (password, rePassword) => {
+        setRePasswordErrorMessage("");
+        if(password != rePassword){
+            setRePasswordErrorMessage("Two passwords must match");
+        }
+
+        return (rePasswordErrorMessage == "");
+      }
+      
     const register = async (username, email, password) => {
-        if(canRegister){
-            await fetch('http://10.4.118.6:3000/register', {
+        validateEmail(email);
+        validateUsername(username);
+        validatePassword(password);
+        validateRePassword(rePassword);
+        if(validateEmail && validateUsername && validatePassword && validateRePassword){
+            await fetch('http://192.168.0.184:3000/register', {
                 method: 'POST', 
                 headers: {
                     'Content-Type': 'application/json',
@@ -39,47 +123,17 @@ const Register = () => {
                 )
                 })
                 console.log(username, email, password);
+                ToastAndroid.show('Registration succesful!', ToastAndroid.SHORT);
+                navigation.navigate("Store")
         }
     }
-
-    let [emailErrorMessage, setEmailErrorMessage] = useState("");
-    let canRegister = false;
-
-    const validateEmail = async (email) => {
-        setEmailErrorMessage("");
-        var re = /[a-z0-9]+@[a-z]+\.[a-z]{2,3}/;
-        if(!re.test(email)){
-            setEmailErrorMessage("Wrong email format")
-        }
-
-        const response = await fetch('http://10.4.118.6:3000/users/email/' + email
-        ,{
-        headers : { 
-            'Content-Type': 'application/json',
-            'Accept': 'application/json'
-        }
-        })
-        if (response.ok) {
-            setEmailErrorMessage("This email is already used")
-        }
-        const emailAddress = await response.json()
-        console.log(emailAddress);
-      };
-
-      let [usernameErrorMessage, setUsernameErrorMessage] = useState("");
-
-      const validateUsername = (username) => {
-        if(username.length < 6){
-
-        }
-      }
 
   return (
     <View className="bg-[#212121] flex-1">
         <View className="mt-[12vh] justify-center items-center">
             <Text className="text-[30px] font-bold text-[#ffa1ff]">Create a New Account</Text> 
         </View>
-        <View className="mt-[8vh] justify-center items-center space-y-10">
+        <View className="mt-[8vh] justify-center items-center space-y-8">
             <View>
                 <TextInput 
                 className="border-b border-[#ffa1ff] w-[80vw] text-[#fff] text-[18px] p-2"
@@ -87,6 +141,7 @@ const Register = () => {
                 placeholderTextColor="#fff"
                 onChangeText={newUsername => setUsername(newUsername)}
                 defaultValue={username}
+                onBlur={() => validateUsername(username)}
                 />
                 <Text className="text-red-600">{usernameErrorMessage}</Text>
             </View>
@@ -109,8 +164,9 @@ const Register = () => {
                 secureTextEntry={true}
                 onChangeText={newPassword => setPassword(newPassword)}
                 defaultValue={password}
+                onBlur={() => validatePassword(password)}
                 />
-                <Text className="text-red-600">Hibás jelszó</Text>
+                <Text className="text-red-600">{passwordErrorMessage}</Text>
             </View>
             <View>
                 <TextInput 
@@ -120,8 +176,9 @@ const Register = () => {
                 secureTextEntry={true}
                 onChangeText={newRePassword => setRePassword(newRePassword)}
                 defaultValue={rePassword}
+                onBlur={() => validateRePassword(password, rePassword)}
                 />
-                <Text className="text-red-600">Hibás jelszó</Text>
+                <Text className="text-red-600">{rePasswordErrorMessage}</Text>
             </View>
             <View className="flex-row space-x-2">
                 {/*<CheckBox
