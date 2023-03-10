@@ -14,6 +14,7 @@ import { PaymentMethod } from './entities/order/paymentMethod.entity';
 import { ShippingMethod } from './entities/order/shippingMethod.entity';
 import { OrderItem } from './entities/order/orderItem.entity';
 import { Release } from './entities/product/release.entity';
+import { JwtModule } from '@nestjs/jwt';
 
 @Module({
   imports: [
@@ -38,6 +39,10 @@ import { Release } from './entities/product/release.entity';
         Release,
       ],
       synchronize: true,
+    }),
+    JwtModule.register({
+      secret: 'secret',
+      signOptions: { expiresIn: '1d' },
     }),
   ],
   controllers: [AppController],
