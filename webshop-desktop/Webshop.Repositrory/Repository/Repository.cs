@@ -21,6 +21,15 @@ public class Repository<TEntity> : IRepository<TEntity> where TEntity : class
         _entities.Find(id);
 #pragma warning restore CS8603 // Possible null reference return.
 
+    public IQueryable<TEntity> GetAllIncluding(params Expression<Func<TEntity, object>>[] includeProperties)
+    {
+        IQueryable<TEntity> query = _entities;
+        foreach (var includeProperty in includeProperties)
+        {
+            query = query.Include(includeProperty);
+        }
+        return query;
+    }
 
     public IQueryable<TEntity> GetAll()
     {

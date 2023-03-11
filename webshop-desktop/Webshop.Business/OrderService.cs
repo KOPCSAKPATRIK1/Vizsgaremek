@@ -27,9 +27,7 @@ public class OrderService : IOrderService
     #endregion
     public OrderVmList[] GetOrdersWithInfo()
     {
-        return _orderRepository.GetAll()
-             .Include(o => o.User)
-             .Include(o => o.OrderItems)
+        return _orderRepository.GetAllIncluding(o => o.User, o => o.OrderItems)
              .Select(o => new OrderVmList
              {
                  OrderId = o.Id,

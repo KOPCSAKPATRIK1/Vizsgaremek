@@ -24,6 +24,13 @@
                     <controls:DataGridTextColumn Binding="{Binding Name}" Header="Név"/>
                     <controls:DataGridTextColumn Binding="{Binding Price}" Header="Ár"/>
                     <controls:DataGridTextColumn Binding="{Binding CategoryName}" Header="Kategória"/>
+                    <controls:DataGridTemplateColumn>
+                        <controls:DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Image Source="{Binding ImageUrl1}" Width="65" Height="65"/>
+                            </DataTemplate>
+                        </controls:DataGridTemplateColumn.CellTemplate>
+                    </controls:DataGridTemplateColumn>
                 </controls:DataGrid.Columns>
 
                 <controls:DataGrid.RowDetailsTemplate>
@@ -38,6 +45,7 @@
                                 <controls:DataGrid.Columns>
                                     <controls:DataGridTextColumn Binding="{Binding Size}" Header="Méret"/>
                                     <controls:DataGridTextColumn Binding="{Binding Quantity}" Header="Raktáron"/>
+
                                 </controls:DataGrid.Columns>
                             </controls:DataGrid>
                         </ScrollViewer>

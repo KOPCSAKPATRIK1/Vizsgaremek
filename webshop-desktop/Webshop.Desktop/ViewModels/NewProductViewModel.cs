@@ -75,7 +75,7 @@ public class NewProductViewModel : ObservableRecipient, INavigationAware
 
     public string? ImageUrl1
     {
-        get => _imageUrl1;
+        get => _imageUrl1 ?? "";
         set
         {
             if (value != null)
@@ -87,7 +87,7 @@ public class NewProductViewModel : ObservableRecipient, INavigationAware
 
     public string? ImageUrl2
     {
-        get => _imageUrl2;
+        get => _imageUrl2 ?? "";
         set
         {
             if (value != null)
@@ -99,7 +99,7 @@ public class NewProductViewModel : ObservableRecipient, INavigationAware
 
     public string? ImageUrl3
     {
-        get => _imageUrl3;
+        get => _imageUrl3 ?? "";
         set
         {
             if (value != null)
@@ -111,7 +111,7 @@ public class NewProductViewModel : ObservableRecipient, INavigationAware
 
     public string? ImageUrl4
     {
-        get => _imageUrl4;
+        get => _imageUrl4 ?? "";
         set
         {
             if (value != null)

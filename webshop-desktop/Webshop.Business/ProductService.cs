@@ -28,24 +28,21 @@ public class ProductService : IProductService
     #endregion
     public ProductVmList[] GetProductsWithInfo()
     {
-        var res = _productRepository.GetAll()
-            .Include(p => p.Category)
-            .Include(p => p.Stocks)
-            .Include(p => p.Sizes)
+        return _productRepository.GetAllIncluding(p => p.Category, p => p.Stocks, p => p.Sizes)
             .Select(p => new ProductVmList
             {
                 Id = p.Id,
                 Name = p.Name,
                 Price = p.Price,
                 CategoryName = p.Category.Name,
+                ImageUrl1= p.ImageUrl1,
                 Info = p.Stocks.Select(s => new ProductInfoVmList
                 {
                     Size = s.Size.Size1,
-                    Quantity = s.InStock
-                }).ToArray(),
+                    Quantity = s.InStock,
+                }).OrderBy(p => p.Size).ToArray(),
             })
             .ToArray();
-        return res;
     }
 
     public void AddProducts(NewProductDto newProduct)
