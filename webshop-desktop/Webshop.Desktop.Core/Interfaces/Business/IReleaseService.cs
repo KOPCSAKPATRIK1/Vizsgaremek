@@ -1,8 +1,9 @@
-﻿using Webshop.Desktop.Core.Models.Business.Dtos;
-using Webshop.Desktop.Core.Models.Domain;
+﻿using Webshop.Desktop.Core.Models.Business;
+using Webshop.Desktop.Core.Models.Business.Dtos;
 
 namespace Webshop.Desktop.Core.Interfaces.Business;
 public interface IReleaseService
 {
     void AddRelease(NewReleaseDto release);
+    ReleaseVmList[] GetReleases();
 }

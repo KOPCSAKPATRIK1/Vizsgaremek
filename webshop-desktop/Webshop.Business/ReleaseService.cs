@@ -1,5 +1,6 @@
 ﻿using Webshop.Desktop.Core.Interfaces.Business;
 using Webshop.Desktop.Core.Interfaces.Repository;
+using Webshop.Desktop.Core.Models.Business;
 using Webshop.Desktop.Core.Models.Business.Dtos;
 using Webshop.Desktop.Core.Models.Domain;
 
@@ -9,7 +10,6 @@ public class ReleaseService : IReleaseService
     #region Private members
 
     private readonly IRepository<Release> _releaseRepository;
-
 
     #endregion
 
@@ -33,5 +33,26 @@ public class ReleaseService : IReleaseService
             ImageUrl4 = release.ImageUrl4,
             ReleaseDate = release.ReleaseDate,
         });
+    }
+
+    public ReleaseVmList[] GetReleases()
+    {
+        return _releaseRepository.GetAll()
+            .Select(r => new ReleaseVmList
+            {
+                Name = r.Name,
+                ReleaseDate = r.ReleaseDate,
+                Info = new ReleaseInfoVmList[]
+                {
+                    new ReleaseInfoVmList
+                    {
+                         Desc = r.Desc,
+                    ImageUrl1 = r.ImageUrl1,
+                    ImageUrl2 = r.ImageUrl2,
+                    ImageUrl3 = r.ImageUrl3,
+                    ImageUrl4 = r.ImageUrl4,
+                    }                   
+                }
+            }).ToArray();
     }
 }
