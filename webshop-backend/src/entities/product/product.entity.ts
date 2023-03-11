@@ -51,6 +51,9 @@ export class Product {
   @OneToMany(() => OrderItem, (orderItem) => orderItem.user)
   orderItems: OrderItem[];
 
+  @OneToMany(() => ShoppingCartItem, (shoppingCartItem) => shoppingCartItem.user)
+  shoppingCartItems: ShoppingCartItem[];
+
   @ManyToMany(() => Size)
   @JoinTable()
   sizes: Size;
