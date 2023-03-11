@@ -6,7 +6,6 @@ using Webshop.Desktop.Contracts.ViewModels;
 using Webshop.Desktop.Core.Interfaces.Business;
 using Webshop.Desktop.Core.Models.Business;
 using Webshop.Desktop.Core.Models.Business.Dtos;
-using Webshop.Desktop.Core.Models.Domain;
 
 namespace Webshop.Desktop.ViewModels;
 
