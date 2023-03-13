@@ -7,8 +7,14 @@
     xmlns:controls="using:CommunityToolkit.WinUI.UI.Controls"
     mc:Ignorable="d">
 
-    <ScrollViewer>
-        <Grid x:Name="ContentArea">
+    <Grid x:Name="ContentArea" VerticalAlignment="Stretch">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <ScrollViewer 
+            Grid.Row="0">
+
             <controls:DataGrid
             AutoGenerateColumns="False"
             GridLinesVisibility="Horizontal"
@@ -17,17 +23,28 @@
             ItemsSource="{x:Bind ViewModel.ProductsWithInfo, Mode=OneWay}">
 
                 <controls:DataGrid.Resources>
-                    <SolidColorBrush x:Key="DataGridColumnHeaderBackgroundColor" Color="Transparent" />
+                    <SolidColorBrush 
+                        x:Key="DataGridColumnHeaderBackgroundColor" 
+                        Color="Transparent" />
                 </controls:DataGrid.Resources>
 
                 <controls:DataGrid.Columns>
-                    <controls:DataGridTextColumn Binding="{Binding Name}" Header="Név"/>
-                    <controls:DataGridTextColumn Binding="{Binding Price}" Header="Ár"/>
-                    <controls:DataGridTextColumn Binding="{Binding CategoryName}" Header="Kategória"/>
+                    <controls:DataGridTextColumn 
+                        Binding="{Binding Name}" 
+                        Header="Név"/>
+                    <controls:DataGridTextColumn 
+                        Binding="{Binding Price}" 
+                        Header="Ár"/>
+                    <controls:DataGridTextColumn 
+                        Binding="{Binding CategoryName}" 
+                        Header="Kategória"/>
                     <controls:DataGridTemplateColumn>
                         <controls:DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <Image Source="{Binding ImageUrl1}" Width="65" Height="65"/>
+                                <Image 
+                                    Source="{Binding ImageUrl1}" 
+                                    Width="65" 
+                                    Height="65"/>
                             </DataTemplate>
                         </controls:DataGridTemplateColumn.CellTemplate>
                     </controls:DataGridTemplateColumn>
@@ -43,8 +60,12 @@
                                 IsReadOnly="True"
                                 ItemsSource="{Binding Info, Mode=OneWay}">
                                 <controls:DataGrid.Columns>
-                                    <controls:DataGridTextColumn Binding="{Binding Size}" Header="Méret"/>
-                                    <controls:DataGridTextColumn Binding="{Binding Quantity}" Header="Raktáron"/>
+                                    <controls:DataGridTextColumn 
+                                        Binding="{Binding Size}" 
+                                        Header="Méret"/>
+                                    <controls:DataGridTextColumn 
+                                        Binding="{Binding Quantity}" 
+                                        Header="Raktáron"/>
 
                                 </controls:DataGrid.Columns>
                             </controls:DataGrid>
@@ -52,7 +73,19 @@
                     </DataTemplate>
                 </controls:DataGrid.RowDetailsTemplate>
             </controls:DataGrid>
+        </ScrollViewer>
 
-        </Grid>
-    </ScrollViewer>
+        <StackPanel 
+            Grid.Row="1">
+            
+            <Button               
+                Content="Új termék" 
+                HorizontalAlignment="Left" 
+                VerticalAlignment="Bottom"
+                Margin="10"
+                Command="{x:Bind ViewModel.ToNewProductPageCommand}"/>
+            
+        </StackPanel>
+
+    </Grid>
 </Page>

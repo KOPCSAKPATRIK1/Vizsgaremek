@@ -36,10 +36,10 @@
                                 IsReadOnly="True"
                                 ItemsSource="{Binding Info, Mode=OneWay}">
                                 <controls:DataGrid.Columns>
-                                    <controls:DataGridTemplateColumn Header="Leírás">
+                                    <controls:DataGridTemplateColumn Header="Leírás" MaxWidth="310">
                                         <controls:DataGridTemplateColumn.CellTemplate>
                                             <DataTemplate>
-                                                <TextBlock Text="{Binding Desc}" MaxWidth="200" TextWrapping="Wrap"/>
+                                                <TextBlock Text="{Binding Desc}" TextWrapping="Wrap"/>
                                             </DataTemplate>
                                         </controls:DataGridTemplateColumn.CellTemplate>
                                     </controls:DataGridTemplateColumn>

@@ -6,69 +6,106 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <ScrollViewer>
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
 
-            <StackPanel Grid.Row="0" Grid.ColumnSpan="2">
-                <StackPanel Orientation="Horizontal">
-                    <TextBox Text="{x:Bind ViewModel.NewProductName, Mode=TwoWay}"                         
-                             Margin="10" Header="Név:" PlaceholderText="Air Force 1"/>
-                    <TextBlock Foreground="Red" Text="A név nem lehet üres!" Visibility="Collapsed"/>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
 
-                    <ComboBox Header="Meglévő termékek" Margin="10"
-                              ItemsSource="{x:Bind ViewModel.ProductNames}" DisplayMemberPath="Name" SelectedValue="{Binding SelectedProduct, Mode=TwoWay}"/>
-                </StackPanel>
-               
+        <TeachingTip 
+                x:Name="TeachingTip_confirm"
+                Title="Változtatások Mentve"
+                Subtitle="Új termék(ek) hozzáadva"
+                PreferredPlacement="Center"
+                PlacementMargin="20"
+                IsLightDismissEnabled="True"
+                CloseButtonContent="OK"/>
 
-                <TextBox Text="{x:Bind ViewModel.ProductDesc, Mode=TwoWay}"                         
-                         Margin="10" Header="Leirás:" PlaceholderText="Ez egy cipo"/>
+        <ScrollViewer 
+            Grid.Row="0" 
+            Grid.ColumnSpan="2">
+            <StackPanel>
 
-                <TextBox Text="{x:Bind ViewModel.ImageUrl1, Mode=TwoWay}"
-                         Margin="10" Header="Link 1:" PlaceholderText="Kép oldalról"/>
+                <TextBox 
+                    Text="{x:Bind ViewModel.NewProductName, Mode=TwoWay}"                         
+                    Margin="10" 
+                    Header="Név:" 
+                    PlaceholderText="Air Force 1"/>
 
-                <TextBox Text="{x:Bind ViewModel.ImageUrl2, Mode=TwoWay}"
-                         Margin="10" Header="Link 2:" PlaceholderText="Kép szemből"/>
+                <TextBox 
+                    Text="{x:Bind ViewModel.ProductDesc, Mode=TwoWay}"                         
+                    Margin="10" 
+                    Header="Leirás:" 
+                    PlaceholderText="Ez egy cipo"/>
 
-                <TextBox Text="{x:Bind ViewModel.ImageUrl3, Mode=TwoWay}"
-                         Margin="10" Header="Link 3:" PlaceholderText="Kép másik oldalról"/>
+                <TextBox 
+                    Text="{x:Bind ViewModel.ImageUrl1, Mode=TwoWay}"
+                    Margin="10" Header="Link 1:" 
+                    PlaceholderText="Első Kép"/>
 
-                <TextBox Text="{x:Bind ViewModel.ImageUrl4, Mode=TwoWay}"
-                         Margin="10" Header="Link 4:" PlaceholderText="Kép hátulról"/>
+                <TextBox 
+                    Text="{x:Bind ViewModel.ImageUrl2, Mode=TwoWay}"
+                    Margin="10" Header="Link 2:" 
+                    PlaceholderText="Második kép"/>
 
-                <ComboBox Header="Méret" Margin="10"
-                          ItemsSource="{x:Bind ViewModel.Sizes}" DisplayMemberPath="Size" SelectedItem="{x:Bind ViewModel.SelectedSize, Mode=TwoWay}"/>
+                <TextBox 
+                    Text="{x:Bind ViewModel.ImageUrl3, Mode=TwoWay}"
+                    Margin="10" Header="Link 3:"
+                    PlaceholderText="Harmadik Kép"/>
 
-                <NumberBox Text="{x:Bind ViewModel.ProductPrice, Mode=TwoWay}"
+                <TextBox 
+                    Text="{x:Bind ViewModel.ImageUrl4, Mode=TwoWay}"
+                    Margin="10" Header="Link 4:" 
+                    PlaceholderText="Negyedik kép"/>
+
+                <ComboBox 
+                    Header="Méret" Margin="10"
+                    ItemsSource="{x:Bind ViewModel.Sizes}" 
+                    DisplayMemberPath="Size" 
+                    SelectedItem="{x:Bind ViewModel.SelectedSize, Mode=TwoWay}"/>
+
+                <NumberBox 
+                    Text="{x:Bind ViewModel.ProductPrice, Mode=TwoWay}"
                     Header="Ár"
                     SpinButtonPlacementMode="Compact" Minimum="1"
                     Margin="10" />
 
-                <NumberBox Text="{x:Bind ViewModel.ProductQuantity, Mode=TwoWay}"
+                <NumberBox 
+                    Text="{x:Bind ViewModel.ProductQuantity, Mode=TwoWay}"
                     Header="Mennyiség"
                     SpinButtonPlacementMode="Compact" Minimum="1"
                     Margin="10" />
 
-                <ComboBox Header="Kategória" Margin="10"
-                          ItemsSource="{x:Bind ViewModel.Categories}" DisplayMemberPath="Name" SelectedItem="{x:Bind ViewModel.SelectedCategory, Mode=TwoWay}"/>
+                <ComboBox 
+                    Header="Kategória" 
+                    Margin="10"
+                    ItemsSource="{x:Bind ViewModel.Categories}" 
+                    DisplayMemberPath="Name" 
+                    SelectedItem="{x:Bind ViewModel.SelectedCategory, Mode=TwoWay}"/>
 
             </StackPanel>
+        </ScrollViewer>
 
-            <Button                
-                Content="Save" 
+        <StackPanel 
+                Orientation="Horizontal"
+                Grid.Row="1">
+
+            <Button
+                Content="Mentés" 
                 Margin="10" 
-                Grid.Row="1" 
-                Grid.ColumnSpan="2" 
-                HorizontalAlignment="Right"
                 Command="{x:Bind ViewModel.SaveProductCommand}"/>
 
-        </Grid>
-    </ScrollViewer>
+            <Button
+                Content="Vissza" 
+                Margin="10" 
+                Command="{x:Bind ViewModel.ClosePageCommand}"/>
+
+        </StackPanel>
+
+    </Grid>
 </Page>

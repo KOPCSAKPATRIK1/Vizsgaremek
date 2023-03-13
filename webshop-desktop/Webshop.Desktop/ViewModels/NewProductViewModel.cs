@@ -2,6 +2,9 @@
 using System.Windows.Input;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Controls;
+using Webshop.Desktop.Contracts.Services;
 using Webshop.Desktop.Contracts.ViewModels;
 using Webshop.Desktop.Core.Interfaces.Business;
 using Webshop.Desktop.Core.Models.Business;
@@ -17,6 +20,8 @@ public class NewProductViewModel : ObservableRecipient, INavigationAware
     private readonly ICategoryService _categoryService;
     private readonly ISizeService _sizeService;
     private readonly IProductService _productService;
+    private readonly INavigationService _navigationService;
+    private bool _isTeachingTipOpen;
     private string? _newProductName;
     private string? _productDesc;
     private string? _imageUrl1;
@@ -27,6 +32,8 @@ public class NewProductViewModel : ObservableRecipient, INavigationAware
     private int _productQuantity;
 
     #endregion
+
+    public TeachingTip TeachingTip;
 
     #region Observables
 
@@ -39,12 +46,13 @@ public class NewProductViewModel : ObservableRecipient, INavigationAware
     public NewProductViewModel(
         ICategoryService categoryService,
         ISizeService sizeService,
-        IProductService productService)
+        IProductService productService,
+        INavigationService navigationService)
     {
         _categoryService = categoryService;
         _sizeService = sizeService;
         _productService = productService;
-        SaveProductCommand = new RelayCommand(SaveProduct);
+        _navigationService = navigationService;
     }
 
     #region Getters, setters
@@ -132,6 +140,12 @@ public class NewProductViewModel : ObservableRecipient, INavigationAware
         set => SetProperty(ref _productQuantity, value);
     }
 
+    public bool IsTeachingTipOpen
+    {
+        get => _isTeachingTipOpen;
+        set => SetProperty(ref _isTeachingTipOpen, value);
+    }
+
     public SizeVmList SelectedSize { get; set; } = null!;
 
     public CategoryVmList SelectedCategory { get; set; } = null!;
@@ -182,11 +196,16 @@ public class NewProductViewModel : ObservableRecipient, INavigationAware
 
     #endregion
 
-    #region Methods, commands
-    public ICommand SaveProductCommand
-    {
-        get;
-    }
+    #region Commands
+
+    public ICommand SaveProductCommand => new RelayCommand(SaveProduct);
+
+    public ICommand ClosePageCommand => new RelayCommand(ClosePage);
+
+    #endregion
+
+    #region Methods
+
 
     public void SaveProduct()
     {
@@ -203,6 +222,15 @@ public class NewProductViewModel : ObservableRecipient, INavigationAware
             SizeId = SelectedSize.Id,
             CategoryId = SelectedCategory.Id
         });
+        TeachingTip.IsOpen = true;       
+    }
+
+    public void ClosePage()
+    {
+        if (_navigationService.CanGoBack)
+        {
+           _navigationService.GoBack();
+        }
     }
 
     #endregion
