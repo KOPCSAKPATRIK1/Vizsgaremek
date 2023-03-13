@@ -2,6 +2,7 @@ import styled from "styled-components";
 import Navbar from '../components/Navbar'
 import Newsletter from "../components/Newsletter";
 import Footer from "../components/Footer";
+import React, { useState } from 'react';
 
 const Container = styled.div`
   width: 100vw;
@@ -66,23 +67,47 @@ const Button = styled.button`
   font-weight: 400;
 `;
 
+
+ 
+
+
 const Register = () => {
+
+  const [email, setEmail] = useState('');
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+
+  const handleRegistration = async (event) => {
+    event.preventDefault();
+    try {
+      const response = await fetch('http://localhost:3000/register', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, username, password })
+      });
+      const data = await response.json();
+      // Registration successful, redirect user to login page
+      window.location.href = '/login';
+    } catch (error) {
+      // Registration failed, display error message
+      console.error(error);
+    }
+  };
+
   return (
     <div>
     <Navbar/>
     <Container>
       <Wrapper>
         <Title>REGISZTRÁCIÓ</Title>
-        <Form>
-          <Input placeholder="Keresztnév" />
-          <Input placeholder="Vezetéknév" />
-          <Input placeholder="E-mail" />
-          <Input placeholder="Jelszó" />
-          <Input placeholder="Jelszó újra" />
+        <Form onSubmit={handleRegistration}>
+          <Input   type="text" placeholder="Felhasználónév" value={username} onChange={(event) => setUsername(event.target.value)} />
+          <Input type="email" placeholder="E-mail" value={email}  onChange={(event) => setEmail(event.target.value)}/> 
+          <Input  type="password"  placeholder="Jelszó"   value={password}  onChange={(event) => setPassword(event.target.value)} />
           <Agreement>
           Fiók létrehozásával hozzájárulok személyes adataim  <b>ADATVÉDELMI SZABÁLYZAT</b> szerinti kezeléséhez 
           </Agreement>
-          <Button>FIÓK LÉTREHOZÁSA</Button>
+          <Button type="submit">FIÓK LÉTREHOZÁSA</Button>
         </Form>
       </Wrapper>
     </Container>
