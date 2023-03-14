@@ -101,9 +101,9 @@ const Register = () => {
       <Wrapper>
         <Title>REGISZTRÁCIÓ</Title>
         <Form onSubmit={handleRegistration}>
-          <Input   type="text" placeholder="Felhasználónév" value={username} onChange={(event) => setUsername(event.target.value)} />
-          <Input type="email" placeholder="E-mail" value={email}  onChange={(event) => setEmail(event.target.value)}/> 
-          <Input  type="password"  placeholder="Jelszó"   value={password}  onChange={(event) => setPassword(event.target.value)} />
+          <Input   type="text" placeholder="Felhasználónév" value={username} onChange={(event) => setUsername(event.target.value)} required/>
+          <Input type="email" placeholder="E-mail" value={email}  onChange={(event) => setEmail(event.target.value)} required/> 
+          <Input  type="password"  placeholder="Jelszó"   value={password}  onChange={(event) => setPassword(event.target.value)} required />
           <Agreement>
           Fiók létrehozásával hozzájárulok személyes adataim  <b>ADATVÉDELMI SZABÁLYZAT</b> szerinti kezeléséhez 
           </Agreement>
