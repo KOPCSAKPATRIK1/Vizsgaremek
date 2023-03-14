@@ -41,7 +41,7 @@ const NewProducts = () => {
           );
         }
         let actualData = await response.json();
-        setData(actualData);
+        setData(actualData.sort((a, b) => b.id - a.id));
         setError(null);
       } catch(err) {
         setError(err.message);
