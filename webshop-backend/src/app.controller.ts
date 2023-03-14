@@ -97,7 +97,10 @@ export class AppController {
   @Get('/shoes')
   async getShoes() {
     const productRepo = this.dataSource.getRepository(Product);
-    return productRepo.find();
+    return productRepo
+      .createQueryBuilder('product')
+      .leftJoinAndSelect('product.category', 'category')
+      .getMany();
   }
 
   @Get('/shoes/:id')
@@ -110,6 +113,17 @@ export class AppController {
   async getShoesByName(@Param('name') name: string) {
     const productRepo = this.dataSource.getRepository(Product);
     return productRepo.findBy({ name: name });
+  }
+
+  @Get('/shoes/category/:id')
+  async getShoeByCategory(@Param('id') id: number) {
+    const productRepo = this.dataSource.getRepository(Product);
+    const products = await productRepo
+      .createQueryBuilder('product')
+      .leftJoinAndSelect('product.category', 'category')
+      .where('category.id = :id', { id })
+      .getMany();
+    return products;
   }
 
   @Get('/users')
