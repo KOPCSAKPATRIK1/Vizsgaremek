@@ -26,7 +26,7 @@ function Categories() {
     <Text>VÁLOGASS A KEDVENCEID KÖZÜL!</Text>
      <Container>
               {categories.map(item=>(
-              <CategoryItem item={item} />
+              <CategoryItem key={item.id} item={item} />
               ))}
       </Container>
     </div>
