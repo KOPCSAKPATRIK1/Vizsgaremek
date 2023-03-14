@@ -9,7 +9,7 @@ export class Release {
   name: string;
 
   @Column()
-  releaseDate: Date;
+  releaseDate: string;
 
   @Column()
   desc: string;

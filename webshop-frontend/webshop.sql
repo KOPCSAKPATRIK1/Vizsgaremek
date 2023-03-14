@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Gép: 127.0.0.1
--- Létrehozás ideje: 2023. Már 14. 14:34
+-- Létrehozás ideje: 2023. Már 14. 15:18
 -- Kiszolgáló verziója: 10.4.24-MariaDB
 -- PHP verzió: 8.1.6
 
@@ -159,13 +159,22 @@ CREATE TABLE `product_sizes_size` (
 CREATE TABLE `release` (
   `id` int(11) NOT NULL,
   `name` varchar(255) NOT NULL,
-  `releaseDate` datetime NOT NULL,
   `desc` varchar(255) NOT NULL,
   `imageUrl1` varchar(255) NOT NULL,
   `imageUrl2` varchar(255) NOT NULL,
   `imageUrl3` varchar(255) NOT NULL,
-  `imageUrl4` varchar(255) NOT NULL
+  `imageUrl4` varchar(255) NOT NULL,
+  `releaseDate` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- A tábla adatainak kiíratása `release`
+--
+
+INSERT INTO `release` (`id`, `name`, `desc`, `imageUrl1`, `imageUrl2`, `imageUrl3`, `imageUrl4`, `releaseDate`) VALUES
+(1, 'JORDAN 1 RETRO HIGH OG SKYLINE', '', 'https://images.footlocker.com/is/image/FLEU/314103602604?wid=800&hei=800&fmt=png-alpha', '', '', '', '2023.03.18'),
+(2, 'AIR JORDAN 1 MID CEMENT GREY', '', 'https://images.footlocker.com/is/image/FLEU/315347098402?wid=800&hei=800&fmt=png-alpha', '', '', '', '2023.13.20'),
+(3, 'AIR JORDAN 1 LOW SUNSET HAZE', '', 'https://images.footlocker.com/is/image/FLEU/315347091902?wid=800&hei=800&fmt=png-alpha', '', '', '', '2023.03.21');
 
 -- --------------------------------------------------------
 
@@ -379,7 +388,7 @@ ALTER TABLE `product`
 -- AUTO_INCREMENT a táblához `release`
 --
 ALTER TABLE `release`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT a táblához `shipping_method`

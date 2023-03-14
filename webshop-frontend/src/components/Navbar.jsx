@@ -139,7 +139,7 @@ const Navbar = () => {
             <Language>HU</Language>
            
         </Left>
-        <Center><Logo>FootFrenzy</Logo><Linkek> <NavbarLink to="/">  FŐOLDAL </NavbarLink> <NavbarLink to="/product"> SNEAKEREK </NavbarLink> <NavbarLink to="/product"> RELEASES </NavbarLink> <NavbarLink to="/product"> INFO </NavbarLink> </Linkek>  </Center>
+        <Center><Logo>FootFrenzy</Logo><Linkek> <NavbarLink to="/">  FŐOLDAL </NavbarLink> <NavbarLink to="/product"> SNEAKEREK </NavbarLink> <NavbarLink to="/releases"> RELEASES </NavbarLink> <NavbarLink to="/product"> INFO </NavbarLink> </Linkek>  </Center>
         <Right>
                 <MenuIcons>
                                

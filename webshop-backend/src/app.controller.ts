@@ -19,6 +19,7 @@ import { User } from './entities/user/user.entity';
 import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
 import { Response, Request } from 'express';
+import { Release } from './entities/product/release.entity';
 
 @Controller()
 export class AppController {
@@ -100,6 +101,13 @@ export class AppController {
       .leftJoinAndSelect('product.category', 'category')
       .getMany();
   }
+
+  @Get('/releases')
+  async getReleases() {
+    const productRepo = this.dataSource.getRepository(Release);
+    return productRepo.createQueryBuilder('release').getMany();
+  }
+
 
   @Get('/shoes/popular')
   async getPopularShoes() {
