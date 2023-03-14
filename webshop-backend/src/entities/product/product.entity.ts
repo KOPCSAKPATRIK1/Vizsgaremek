@@ -39,6 +39,9 @@ export class Product {
   @Column()
   price: number;
 
+  @Column()
+  popular: boolean;
+
   @ManyToOne(() => Category, (category) => category.products)
   category: Category;
 

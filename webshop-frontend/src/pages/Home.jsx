@@ -3,11 +3,12 @@ import React from 'react'
 import Navbar from '../components/Navbar'
 import Slideshow from '../components/Slideshow'
 import Categories from '../components/Categories'
-import Products from "../components/Products";
+import Products from "../components/PopularProducts";
 import Newsletter from '../components/Newsletter';
 import Footer from '../components/Footer';
 import NewProducts from '../components/newProducts';
 import styled from "styled-components";
+import PopularProducts from '../components/PopularProducts';
 const Text = styled.div`
       margin-top: 100px;
       color: white;
@@ -26,7 +27,7 @@ const Home = () => {
       <Text>MOST ÉRKEZETT</Text>
       <NewProducts/>
       <Text>NÉPSZERŰ SNEAKEREK</Text>
-      <Products/>
+      <PopularProducts/>
       <Newsletter/>
       <Footer/>
       

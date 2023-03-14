@@ -101,6 +101,16 @@ export class AppController {
       .getMany();
   }
 
+  @Get('/shoes/popular')
+  async getPopularShoes() {
+    const productRepo = this.dataSource.getRepository(Product);
+    return productRepo
+      .createQueryBuilder('product')
+      .leftJoinAndSelect('product.category', 'category')
+      .where('product.popular = :popular', { popular: true })
+      .getMany();
+  }
+
   @Get('/shoes/:id')
   async getShoe(@Param('id') id: number) {
     const productRepo = this.dataSource.getRepository(Product);

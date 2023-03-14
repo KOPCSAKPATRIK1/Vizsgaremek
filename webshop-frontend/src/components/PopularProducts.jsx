@@ -24,7 +24,7 @@ const Text = styled.div`
       
 `
 
-const NewProducts = () => {
+const PopularProducts = () => {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -33,7 +33,7 @@ const NewProducts = () => {
     const getData = async () => {
       try {
         const response = await fetch(
-          "http://localhost:3000/shoes"
+          "http://localhost:3000/shoes/popular"
         );
         if (!response.ok) {
           throw new Error(
@@ -63,11 +63,11 @@ const NewProducts = () => {
     <Container>          
       {data &&
       data.slice(0, 8).map((item) => (
-        <Product item={item}  />
+        <Product key={item.id} item={item}  />
       ))}
     </Container>
    </div>
   );
 };
 
-export default NewProducts;
+export default PopularProducts;
