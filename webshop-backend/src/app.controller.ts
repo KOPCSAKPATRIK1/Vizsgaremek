@@ -54,11 +54,10 @@ export class AppController {
     @Res({ passthrough: true }) response: Response,
   ) {
     const userRepo = this.dataSource.getRepository(User);
-    let user = await userRepo.findOneBy({ email: loginDto.email });
+    let user = await userRepo.findOneBy({ email: loginDto.identifier });
     if (!user) {
-      throw new BadRequestException('invalid credentials');
+      user = await userRepo.findOneBy({ username: loginDto.identifier });
     }
-    user = await userRepo.findOneBy({ username: loginDto.username });
     if (!user) {
       throw new BadRequestException('invalid credentials');
     }
@@ -74,7 +73,6 @@ export class AppController {
       message: 'success',
     };
   }
-
   @Get('/user')
   async user(@Req() request: Request) {
     try {

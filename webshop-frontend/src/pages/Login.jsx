@@ -69,50 +69,61 @@ const Button = styled.button`
 `;
 
 const Login = () => {
-  const [email, setEmail] = useState('');
-  const [username, setUsername] = useState('');
+  const [usernameOrEmail, setUsernameOrEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
-
   const handleLogin = async (event) => {
     event.preventDefault();
-  try {
-    const response = await fetch('http://localhost:3000/login', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email, username, password })
-    });
-    if (response.ok) {
-      const data = await response.json();
-      // Login successful, store authentication token in local storage
-      localStorage.setItem('sessionToken', data.sessionToken);
-      localStorage.setItem('userId', data.userId);
-      // Redirect user to home page
-      window.location.href = '/';
-    } else {
-      // Login failed, display error message
-      const data = await response.json();
-      setError(data.message);
+    if (!usernameOrEmail) {
+      setError('Please enter your email or username');
+      return;
     }
-  } catch (error) {
-    // Network error, display error message
-    console.error(error);
-    setError('Network error, please try again later');
-  }
-};
+    try {
+      const response = await fetch('http://localhost:3000/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ identifier: usernameOrEmail, password })
+      });
+      if (response.ok) {
+        const data = await response.json();
+        // Login successful, store authentication token in local storage
+        localStorage.setItem('accessToken', data.accessToken);
+        localStorage.setItem('user', JSON.stringify(data.user));
+        // Redirect user to home page
+        window.location.href = '/';
+      } else {
+        // Login failed, display error message
+        const data = await response.json();
+        setError(data.message);
+      }
+    } catch (error) {
+      // Network error, display error message
+      console.error(error);
+      setError('Network error, please try again later');
+    }
+  };
 
   return (
     <div>
-    <Navbar/>
-    <Container>
-      <Wrapper>
-        <Title>BEJELENTKEZÉS</Title>
-        <Form onSubmit={handleLogin}>
-          <Input  type="email" placeholder="E-mail" value={email} onChange={(event) => setEmail(event.target.value)} />
-          <Input  type="text" placeholder="Felhasználónév"   value={username} onChange={(event) => setUsername(event.target.value)} />
-          <Input  type="password" placeholder="Jelszó" value={password} onChange={(event) => setPassword(event.target.value)} />
-          <Button type="submit">BEJELENTKEZÉS</Button>
-           {error && <p>{error}</p>}
+      <Navbar />
+      <Container>
+        <Wrapper>
+          <Title>BEJELENTKEZÉS</Title>
+          <Form onSubmit={handleLogin}>
+            <Input
+              type="text"
+              placeholder="Felhasználónév vagy E-mail"
+              value={usernameOrEmail}
+              onChange={(event) => setUsernameOrEmail(event.target.value)}
+            />
+            <Input
+              type="password"
+              placeholder="Jelszó"
+              value={password}
+              onChange={(event) => setPassword(event.target.value)}
+            />
+            <Button type="submit">BEJELENTKEZÉS</Button>
+            {error && <p>{error}</p>}
           <Links to="/register">ELFELEJTETTED A JELSZAVAD?</Links>
           <Links to="/register">NINCS FIÓKOD? CSINÁLJ EGYET MOST!</Links>
         </Form>
