@@ -105,7 +105,7 @@ color:white;
      
         </Info>
         <Title>{item.name}</Title>
-        <Price>{item.price} Ft </Price>
+        <Price>{item.price.toLocaleString()} Ft </Price>
       </Container>
       
    
