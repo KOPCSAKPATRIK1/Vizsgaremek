@@ -2,7 +2,7 @@ import styled from "styled-components";
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 import Newsletter from "../components/Newsletter";
-
+import React, { useState } from 'react';
 const Container = styled.div`
 
 `;
@@ -125,19 +125,25 @@ const Button = styled.button`
   letter-spacing: 2px;
 `;
 
-const singleProduct = () => {
+const SingleProduct = () => {
+
+  const [mainImage, setMainImage] = useState('https://cdn.shopify.com/s/files/1/2999/5106/products/5661741842_800x.png?v=1677548085');
+  
+  const handlePreviewClick = (imageSrc) => {
+    setMainImage(imageSrc);
+  }
   return (
     <Container>
       <Navbar />
 
       <Wrapper>
         <ImgContainer>
-          <Image src="https://cdn.shopify.com/s/files/1/2999/5106/products/5661741842_800x.png?v=1677548085" />
-          <PreviewImage src="https://cdn.shopify.com/s/files/1/2999/5106/products/3745591167_1024x.png?v=1677548085" />
-          <PreviewImage src="https://cdn.shopify.com/s/files/1/2999/5106/products/3423559116_1024x.png?v=1677548085" />
-          <PreviewImage src="https://cdn.shopify.com/s/files/1/2999/5106/products/5661741842_800x.png?v=1677548085" />
-          <PreviewImage src="https://cdn.shopify.com/s/files/1/2999/5106/products/3181792069_1024x.png?v=1677548085" />
-          <PreviewImage src="https://cdn.shopify.com/s/files/1/2999/5106/products/2510197839_1024x.png?v=1677548085" />
+          <Image  src={mainImage} />
+          <PreviewImage src="https://cdn.shopify.com/s/files/1/2999/5106/products/3745591167_1024x.png?v=1677548085" onClick={() => handlePreviewClick('https://cdn.shopify.com/s/files/1/2999/5106/products/3745591167_1024x.png?v=1677548085')} />
+          <PreviewImage src="https://cdn.shopify.com/s/files/1/2999/5106/products/3423559116_1024x.png?v=1677548085" onClick={() => handlePreviewClick('https://cdn.shopify.com/s/files/1/2999/5106/products/3423559116_1024x.png?v=1677548085')} />
+          <PreviewImage src="https://cdn.shopify.com/s/files/1/2999/5106/products/5661741842_800x.png?v=1677548085" onClick={() => handlePreviewClick('https://cdn.shopify.com/s/files/1/2999/5106/products/5661741842_800x.png?v=1677548085')} />
+          <PreviewImage src="https://cdn.shopify.com/s/files/1/2999/5106/products/3181792069_1024x.png?v=1677548085" onClick={() => handlePreviewClick('https://cdn.shopify.com/s/files/1/2999/5106/products/3181792069_1024x.png?v=1677548085')} />
+          <PreviewImage src="https://cdn.shopify.com/s/files/1/2999/5106/products/2510197839_1024x.png?v=1677548085" onClick={() => handlePreviewClick('https://cdn.shopify.com/s/files/1/2999/5106/products/2510197839_1024x.png?v=1677548085')} />
         </ImgContainer>
         <InfoContainer>
           <Title>NIKE DUNK LOW IRONSTONE</Title>
@@ -174,4 +180,4 @@ const singleProduct = () => {
   );
 };
 
-export default singleProduct;
+export default SingleProduct;
