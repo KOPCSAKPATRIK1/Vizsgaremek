@@ -40,6 +40,9 @@ export class Product {
   price: number;
 
   @Column()
+  inactive: boolean;
+
+  @Column()
   popular: boolean;
 
   @ManyToOne(() => Category, (category) => category.products)
@@ -54,7 +57,10 @@ export class Product {
   @OneToMany(() => OrderItem, (orderItem) => orderItem.user)
   orderItems: OrderItem[];
 
-  @OneToMany(() => ShoppingCartItem, (shoppingCartItem) => shoppingCartItem.user)
+  @OneToMany(
+    () => ShoppingCartItem,
+    (shoppingCartItem) => shoppingCartItem.user,
+  )
   shoppingCartItems: ShoppingCartItem[];
 
   @ManyToMany(() => Size)
