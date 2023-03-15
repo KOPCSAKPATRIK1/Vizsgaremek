@@ -50,4 +50,10 @@ public class Repository<TEntity> : IRepository<TEntity> where TEntity : class
     public void AddRange(IEnumerable<TEntity> entities) => _entities.AddRange(entities);
 
     public void Remove(TEntity entity) => _entities.Remove(entity);
+
+    public void Update(TEntity entity)
+    {
+        _context.Entry(entity).State = EntityState.Modified;
+        _context.SaveChanges();
+    }
 }

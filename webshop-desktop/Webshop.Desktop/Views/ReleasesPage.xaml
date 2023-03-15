@@ -7,12 +7,17 @@
     xmlns:controls="using:CommunityToolkit.WinUI.UI.Controls"
     mc:Ignorable="d">
 
-    <ScrollViewer>
-        <Grid>
+    <Grid VerticalAlignment="Stretch">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <ScrollViewer
+           Grid.Row="0" >
+
             <controls:DataGrid
             AutoGenerateColumns="False"
             GridLinesVisibility="Horizontal"
-            AlternatingRowBackground="LightGray"
             HeadersVisibility="Column"
             IsReadOnly="True"
             ItemsSource="{x:Bind ViewModel.Releases, Mode=OneWay}">
@@ -28,56 +33,78 @@
 
                 <controls:DataGrid.RowDetailsTemplate>
                     <DataTemplate>
-                        <ScrollViewer>
-                            <controls:DataGrid
+                        <controls:DataGrid
                                 Margin="10"
                                 AutoGenerateColumns="False"
                                 GridLinesVisibility="Horizontal"
                                 IsReadOnly="True"
                                 ItemsSource="{Binding Info, Mode=OneWay}">
-                                <controls:DataGrid.Columns>
-                                    <controls:DataGridTemplateColumn Header="Leírás" MaxWidth="310">
-                                        <controls:DataGridTemplateColumn.CellTemplate>
-                                            <DataTemplate>
-                                                <TextBlock Text="{Binding Desc}" TextWrapping="Wrap"/>
-                                            </DataTemplate>
-                                        </controls:DataGridTemplateColumn.CellTemplate>
-                                    </controls:DataGridTemplateColumn>
-                                    <controls:DataGridTemplateColumn Header="Első Kép">
-                                        <controls:DataGridTemplateColumn.CellTemplate>
-                                            <DataTemplate>
-                                                <Image Source="{Binding ImageUrl1}" Width="195" Height="195"/>
-                                            </DataTemplate>
-                                        </controls:DataGridTemplateColumn.CellTemplate>
-                                    </controls:DataGridTemplateColumn>
-                                    <controls:DataGridTemplateColumn Header="Második kép">
-                                        <controls:DataGridTemplateColumn.CellTemplate>
-                                            <DataTemplate>
-                                                <Image Source="{Binding ImageUrl2}" Width="195" Height="195"/>
-                                            </DataTemplate>
-                                        </controls:DataGridTemplateColumn.CellTemplate>
-                                    </controls:DataGridTemplateColumn>
-                                    <controls:DataGridTemplateColumn Header="Harmadik Kép">
-                                        <controls:DataGridTemplateColumn.CellTemplate>
-                                            <DataTemplate>
-                                                <Image Source="{Binding ImageUrl3}" Width="195" Height="195"/>
-                                            </DataTemplate>
-                                        </controls:DataGridTemplateColumn.CellTemplate>
-                                    </controls:DataGridTemplateColumn>
-                                    <controls:DataGridTemplateColumn Header="Negyedik kép">
-                                        <controls:DataGridTemplateColumn.CellTemplate>
-                                            <DataTemplate>
-                                                <Image Source="{Binding ImageUrl4}" Width="195" Height="195"/>
-                                            </DataTemplate>
-                                        </controls:DataGridTemplateColumn.CellTemplate>
-                                    </controls:DataGridTemplateColumn>
-                                </controls:DataGrid.Columns>
-                            </controls:DataGrid>
-                        </ScrollViewer>
+                            
+                            <controls:DataGrid.Resources>
+                                <SolidColorBrush                                                                         
+                                    x:Key="DataGridColumnHeaderBackgroundColor" 
+                                    Color="Transparent" />
+                            </controls:DataGrid.Resources>
+
+                            <controls:DataGrid.Columns>
+                                <controls:DataGridTemplateColumn Header="Leírás" MaxWidth="310">
+                                    <controls:DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding Desc}" TextWrapping="Wrap"/>
+                                        </DataTemplate>
+                                    </controls:DataGridTemplateColumn.CellTemplate>
+                                </controls:DataGridTemplateColumn>
+                                <controls:DataGridTemplateColumn Header="Első Kép">
+                                    <controls:DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Image Source="{Binding ImageUrl1}" Width="195" Height="195"/>
+                                        </DataTemplate>
+                                    </controls:DataGridTemplateColumn.CellTemplate>
+                                </controls:DataGridTemplateColumn>
+                                <controls:DataGridTemplateColumn Header="Második kép">
+                                    <controls:DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Image Source="{Binding ImageUrl2}" Width="195" Height="195"/>
+                                        </DataTemplate>
+                                    </controls:DataGridTemplateColumn.CellTemplate>
+                                </controls:DataGridTemplateColumn>
+                                <controls:DataGridTemplateColumn Header="Harmadik Kép">
+                                    <controls:DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Image Source="{Binding ImageUrl3}" Width="195" Height="195"/>
+                                        </DataTemplate>
+                                    </controls:DataGridTemplateColumn.CellTemplate>
+                                </controls:DataGridTemplateColumn>
+                                <controls:DataGridTemplateColumn Header="Negyedik kép">
+                                    <controls:DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Image Source="{Binding ImageUrl4}" Width="195" Height="195"/>
+                                        </DataTemplate>
+                                    </controls:DataGridTemplateColumn.CellTemplate>
+                                </controls:DataGridTemplateColumn>
+                            </controls:DataGrid.Columns>
+                        </controls:DataGrid>
                     </DataTemplate>
                 </controls:DataGrid.RowDetailsTemplate>
             </controls:DataGrid>
+        </ScrollViewer>
 
-        </Grid>
-    </ScrollViewer>
+        <StackPanel 
+            Orientation="Horizontal"
+            Grid.Row="1">
+
+            <Button               
+                Content="Új Megjelenés" 
+                Margin="10"
+                Command="{x:Bind ViewModel.ToNewReleasePageCommand}"/>
+
+            <Button               
+                Content="Törlés" 
+                Margin="10"/>
+
+        </StackPanel>
+
+
+    </Grid>
+
 </Page>

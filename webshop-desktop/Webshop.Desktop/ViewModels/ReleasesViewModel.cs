@@ -1,16 +1,20 @@
 ﻿using System.Collections.ObjectModel;
 using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
+using Webshop.Desktop.Contracts.Services;
 using Webshop.Desktop.Contracts.ViewModels;
 using Webshop.Desktop.Core.Interfaces.Business;
 using Webshop.Desktop.Core.Models.Business;
+using Webshop.Desktop.Views;
 
 namespace Webshop.Desktop.ViewModels;
 
-public class ReleasesViewModel : ObservableRecipient, INavigationAware
+public partial class ReleasesViewModel : ObservableRecipient, INavigationAware
 {
     #region Private members
 
     private readonly IReleaseService _releaseService;
+    private readonly INavigationService _navigationService;
 
     #endregion
 
@@ -22,9 +26,12 @@ public class ReleasesViewModel : ObservableRecipient, INavigationAware
 
     #region Constructor
 
-    public ReleasesViewModel(IReleaseService releaseService)
+    public ReleasesViewModel(
+        IReleaseService releaseService,
+        INavigationService navigationService)
     {
-      _releaseService = releaseService;
+        _releaseService = releaseService;
+        _navigationService = navigationService;
     }
 
     #endregion
@@ -33,17 +40,42 @@ public class ReleasesViewModel : ObservableRecipient, INavigationAware
 
     public void OnNavigatedTo(object parameter)
     {
+        LoadProducts();
+    }
+
+    public void OnNavigatedFrom()
+    {
+
+    }
+
+    #endregion
+
+    #region Commands
+
+    [RelayCommand] 
+    private void ToNewReleasePage()
+    {
+         _navigationService.Frame?.Navigate(typeof(NewReleasePage));
+    }
+
+    [RelayCommand]
+    private void DeleteRelease()
+    {
+        
+    }
+
+    #endregion
+
+    #region Methods
+
+    private void LoadProducts()
+    {
         Releases.Clear();
         var releases = _releaseService.GetReleases();
         foreach ( var release in releases )
         {
             Releases.Add(release);
         }
-    }
-
-    public void OnNavigatedFrom()
-    {
-
     }
 
     #endregion

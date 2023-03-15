@@ -1,6 +1,7 @@
 ﻿using System.Windows.Input;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Webshop.Desktop.Contracts.Services;
 using Webshop.Desktop.Contracts.ViewModels;
 using Webshop.Desktop.Core.Interfaces.Business;
 using Webshop.Desktop.Core.Models.Business.Dtos;
@@ -12,6 +13,7 @@ public partial class NewReleaseViewModel : ObservableRecipient, INavigationAware
     #region Private members
 
     private readonly IReleaseService _releaseService;
+    private readonly INavigationService _navigationService;
 
     #endregion
 
@@ -23,14 +25,17 @@ public partial class NewReleaseViewModel : ObservableRecipient, INavigationAware
     [ObservableProperty] private string? _imageUrl2;
     [ObservableProperty] private string? _imageUrl3;
     [ObservableProperty] private string? _imageUrl4;
-    [ObservableProperty] private DateTimeOffset _selectedDate;
+    [ObservableProperty] private DateTimeOffset _selectedDate = DateTimeOffset.Now;
 
     #endregion
 
     #region Constructor
-    public NewReleaseViewModel(IReleaseService releaseService)
+    public NewReleaseViewModel(
+        IReleaseService releaseService,
+        INavigationService navigationService)
     {
         _releaseService = releaseService;
+        _navigationService = navigationService;
     }
 
     #endregion
@@ -64,6 +69,15 @@ public partial class NewReleaseViewModel : ObservableRecipient, INavigationAware
             ImageUrl4 = ImageUrl4,
             ReleaseDate = SelectedDate.DateTime.ToString("yyyy-MM-dd"),
         });
+    }
+
+    [RelayCommand]
+    private void ClosePage()
+    {
+        if (_navigationService.CanGoBack)
+        {
+            _navigationService.GoBack();
+        }
     }
 
     #endregion

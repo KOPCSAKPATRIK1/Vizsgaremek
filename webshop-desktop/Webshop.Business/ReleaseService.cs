@@ -35,6 +35,7 @@ public class ReleaseService : IReleaseService
         });
     }
 
+
     public ReleaseVmList[] GetReleases()
     {
         return _releaseRepository.GetAll()
@@ -54,5 +55,12 @@ public class ReleaseService : IReleaseService
                     }                   
                 }
             }).ToArray();
+    }
+
+    
+    public int DeleteRelease(int id)
+    {
+        // return _releaseRepository.Find(r => r.Id == id);
+        return 1;
     }
 }

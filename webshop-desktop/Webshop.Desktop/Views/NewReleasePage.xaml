@@ -6,18 +6,17 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <ScrollViewer>
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
 
-            <StackPanel Grid.Row="0" Grid.ColumnSpan="2">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <ScrollViewer
+            Grid.Row="0">
+            <StackPanel>
+                
                 <TextBox Text="{x:Bind ViewModel.ReleaseName, Mode=TwoWay}"                         
                              Margin="10" Header="Név:" PlaceholderText="Air Force 1"/>
 
@@ -40,15 +39,25 @@
                             SelectedDate="{x:Bind ViewModel.SelectedDate, Mode=TwoWay}"/>
 
             </StackPanel>
+        </ScrollViewer>
+
+        <StackPanel
+            Orientation="Horizontal"
+            Grid.Row="1">
             
             <Button                
-                Content="Save" 
+                Content="Mentés" 
                 Margin="10" 
-                Grid.Row="1" 
-                Grid.ColumnSpan="2" 
-                HorizontalAlignment="Right"
                 Command="{x:Bind ViewModel.SaveReleaseCommand}"/>
 
-        </Grid>
-    </ScrollViewer>
+            <Button
+                Content="Vissza"
+                Margin="10"
+                Command="{x:Bind ViewModel.ClosePageCommand}"/>
+
+        </StackPanel>
+       
+
+    </Grid>
+
 </Page>

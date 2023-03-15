@@ -268,9 +268,15 @@ public partial class WebshopContext : DbContext
             entity.Property(e => e.ImageUrl4)
                 .HasMaxLength(255)
                 .HasColumnName("imageUrl4");
+            entity.Property(e => e.Inactive)
+                .HasColumnType("tinyint(4)")
+                .HasColumnName("inactive");
             entity.Property(e => e.Name)
                 .HasMaxLength(255)
                 .HasColumnName("name");
+            entity.Property(e => e.Popular)
+                .HasColumnType("tinyint(4)")
+                .HasColumnName("popular");
             entity.Property(e => e.Price)
                 .HasColumnType("int(11)")
                 .HasColumnName("price");

@@ -6,4 +6,5 @@ public interface IReleaseService
 {
     void AddRelease(NewReleaseDto release);
     ReleaseVmList[] GetReleases();
+    int DeleteRelease(int id);
 }
