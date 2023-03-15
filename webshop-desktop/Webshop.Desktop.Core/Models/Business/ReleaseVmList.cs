@@ -8,7 +8,7 @@ namespace Webshop.Desktop.Core.Models.Business;
 public class ReleaseVmList
 {
     public string Name { get; set; }
-    public DateTime ReleaseDate { get; set; }
+    public string ReleaseDate { get; set; }
     public ReleaseInfoVmList[] Info { get; set; } = null!;
 }
 

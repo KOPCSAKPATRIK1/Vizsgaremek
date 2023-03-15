@@ -331,7 +331,6 @@ public partial class WebshopContext : DbContext
                 .HasMaxLength(255)
                 .HasColumnName("name");
             entity.Property(e => e.ReleaseDate)
-                .HasColumnType("datetime")
                 .HasColumnName("releaseDate");
         });
 

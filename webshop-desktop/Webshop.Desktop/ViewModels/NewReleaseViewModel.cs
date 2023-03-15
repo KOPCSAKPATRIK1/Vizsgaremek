@@ -141,7 +141,7 @@ public class NewReleaseViewModel : ObservableRecipient, INavigationAware
             ImageUrl2 = ImageUrl2,
             ImageUrl3 = ImageUrl3,
             ImageUrl4 = ImageUrl4,
-            ReleaseDate = SelectedDate.DateTime
+            ReleaseDate = SelectedDate.DateTime.ToString("yyyy-MM-dd"),
         });
     }
 

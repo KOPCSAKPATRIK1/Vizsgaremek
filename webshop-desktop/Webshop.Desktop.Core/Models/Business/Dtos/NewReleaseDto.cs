@@ -2,7 +2,7 @@
 public class NewReleaseDto
 {
     public string Name { get; set; }
-    public DateTime ReleaseDate { get; set; }
+    public string ReleaseDate { get; set; }
     public string Desc { get; set; }
     public string ImageUrl1 { get; set; }
     public string ImageUrl2 { get; set; }
