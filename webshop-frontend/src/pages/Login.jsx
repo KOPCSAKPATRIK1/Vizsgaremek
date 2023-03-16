@@ -4,6 +4,7 @@ import Newsletter from "../components/Newsletter";
 import Footer from "../components/Footer";
 import { BrowserRouter as Router,Routes, Route, Link } from 'react-router-dom';
 import React, { useState } from 'react';
+import LogoutButton from "../components/LogoutButton";
 const Container = styled.div`
   width: 100vw;
   height: 100vh;
@@ -69,6 +70,12 @@ const Button = styled.button`
 `;
 
 const Login = () => {
+  const accessToken = localStorage.getItem('accessToken');
+
+if (accessToken) {
+  // Redirect user to home page or dashboard
+  window.location.href = '/logout';
+}
   const [usernameOrEmail, setUsernameOrEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
@@ -87,8 +94,10 @@ const Login = () => {
       if (response.ok) {
         const data = await response.json();
         // Login successful, store authentication token in local storage
+        console.log(data)
         localStorage.setItem('accessToken', data.accessToken);
         localStorage.setItem('user', JSON.stringify(data.user));
+        document.cookie = `jwt=${data.accessToken}; Path=/; HttpOnly; SameSite=Lax`;
         // Redirect user to home page
         window.location.href = '/';
       } else {
@@ -101,6 +110,7 @@ const Login = () => {
       console.error(error);
       setError('Network error, please try again later');
     }
+   
   };
 
   return (
@@ -122,7 +132,7 @@ const Login = () => {
               value={password}
               onChange={(event) => setPassword(event.target.value)}
             />
-            <Button type="submit">BEJELENTKEZÉS</Button>
+            <Button type="submit">BEJELENTKEZÉS</Button>      
             {error && <p>{error}</p>}
           <Links to="/register">ELFELEJTETTED A JELSZAVAD?</Links>
           <Links to="/register">NINCS FIÓKOD? CSINÁLJ EGYET MOST!</Links>

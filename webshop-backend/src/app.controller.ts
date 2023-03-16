@@ -65,13 +65,19 @@ export class AppController {
     if (!(await bcrypt.compare(loginDto.password, user.password))) {
       throw new BadRequestException('Wrong password');
     }
-
+  
     const jwt = await this.jwtService.signAsync({ id: user.id });
-
+  
     response.cookie('jwt', jwt, { httpOnly: true });
-
+  
     return {
       message: 'success',
+      accessToken: jwt,
+      user: {
+        id: user.id,
+        username: user.username,
+        email: user.email,
+      },
     };
   }
   @Get('/user')

@@ -6,6 +6,7 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import { Routes, Route, Router } from "react-router-dom";
 import ReleasesPage from "./pages/ReleasesPage";
+import Logout from "./pages/Logout";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         <Route exact path="/product" element={<SingleProduct/>}></Route>
         <Route exact path="/*" element={<Home />}></Route>
         <Route exact path="/releases" element={<ReleasesPage/>}></Route>
+        <Route exact path="/logout" element={<Logout/>}></Route>
       </Routes>
      
      
