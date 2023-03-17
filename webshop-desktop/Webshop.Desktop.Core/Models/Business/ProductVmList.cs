@@ -7,6 +7,7 @@ public class ProductVmList
     public string? CategoryName { get; set; }
     public int Price { get; set; }
     public string? ImageUrl1 { get; set; }
+    public string? Inactive { get; set; }
     public ProductInfoVmList[] Info { get; set; } = null!;
 }
 

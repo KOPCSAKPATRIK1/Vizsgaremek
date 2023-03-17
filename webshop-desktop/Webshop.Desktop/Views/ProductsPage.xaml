@@ -16,11 +16,12 @@
             Grid.Row="0">
 
             <controls:DataGrid
-            AutoGenerateColumns="False"
-            GridLinesVisibility="Horizontal"
-            HeadersVisibility="Column"
-            IsReadOnly="True"
-            ItemsSource="{x:Bind ViewModel.ProductsWithInfo, Mode=OneWay}">
+                AutoGenerateColumns="False"
+                GridLinesVisibility="Horizontal"
+                HeadersVisibility="Column"
+                IsReadOnly="True"
+                ItemsSource="{x:Bind ViewModel.ProductsWithInfo, Mode=OneWay}"
+                SelectedItem="{x:Bind ViewModel.SelectedProduct, Mode=TwoWay}">
 
                 <controls:DataGrid.Resources>
                     <SolidColorBrush 
@@ -48,6 +49,9 @@
                             </DataTemplate>
                         </controls:DataGridTemplateColumn.CellTemplate>
                     </controls:DataGridTemplateColumn>
+                    <controls:DataGridTextColumn 
+                        Binding="{Binding Inactive}" 
+                        Foreground="Red"/>
                 </controls:DataGrid.Columns>
 
                 <controls:DataGrid.RowDetailsTemplate>
@@ -76,15 +80,19 @@
         </ScrollViewer>
 
         <StackPanel 
-            Grid.Row="1">
-            
+            Grid.Row="1"
+            Orientation="Horizontal">
+
             <Button               
                 Content="Új termék" 
-                HorizontalAlignment="Left" 
-                VerticalAlignment="Bottom"
                 Margin="10"
                 Command="{x:Bind ViewModel.ToNewProductPageCommand}"/>
-            
+
+            <Button               
+                Content="Inaktív" 
+                Margin="10"
+                Command="{x:Bind ViewModel.ChangeInactiveCommand}"/>
+
         </StackPanel>
 
     </Grid>

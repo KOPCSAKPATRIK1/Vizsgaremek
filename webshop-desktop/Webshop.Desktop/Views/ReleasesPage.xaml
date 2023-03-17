@@ -47,38 +47,38 @@
                             </controls:DataGrid.Resources>
 
                             <controls:DataGrid.Columns>
-                                <controls:DataGridTemplateColumn Header="Leírás" MaxWidth="310">
+                                <controls:DataGridTemplateColumn Header="Leírás" MinWidth="195" Width="195" MaxWidth="500">
                                     <controls:DataGridTemplateColumn.CellTemplate>
                                         <DataTemplate>
-                                            <TextBlock Text="{Binding Desc}" TextWrapping="Wrap"/>
+                                            <TextBlock Text="{Binding Desc}" TextWrapping="Wrap" MinHeight="195"/>
                                         </DataTemplate>
                                     </controls:DataGridTemplateColumn.CellTemplate>
                                 </controls:DataGridTemplateColumn>
-                                <controls:DataGridTemplateColumn Header="Első Kép">
+                                <controls:DataGridTemplateColumn Header="Első Kép" MaxWidth="195">
                                     <controls:DataGridTemplateColumn.CellTemplate>
                                         <DataTemplate>
-                                            <Image Source="{Binding ImageUrl1}" Width="195" Height="195"/>
+                                            <Image Source="{Binding ImageUrl1}"/>
                                         </DataTemplate>
                                     </controls:DataGridTemplateColumn.CellTemplate>
                                 </controls:DataGridTemplateColumn>
-                                <controls:DataGridTemplateColumn Header="Második kép">
+                                <controls:DataGridTemplateColumn Header="Második kép" MaxWidth="195">
                                     <controls:DataGridTemplateColumn.CellTemplate>
                                         <DataTemplate>
-                                            <Image Source="{Binding ImageUrl2}" Width="195" Height="195"/>
+                                            <Image Source="{Binding ImageUrl2}"/>
                                         </DataTemplate>
                                     </controls:DataGridTemplateColumn.CellTemplate>
                                 </controls:DataGridTemplateColumn>
-                                <controls:DataGridTemplateColumn Header="Harmadik Kép">
+                                <controls:DataGridTemplateColumn Header="Harmadik Kép" MaxWidth="195">
                                     <controls:DataGridTemplateColumn.CellTemplate>
                                         <DataTemplate>
-                                            <Image Source="{Binding ImageUrl3}" Width="195" Height="195"/>
+                                            <Image Source="{Binding ImageUrl3}"/>
                                         </DataTemplate>
                                     </controls:DataGridTemplateColumn.CellTemplate>
                                 </controls:DataGridTemplateColumn>
-                                <controls:DataGridTemplateColumn Header="Negyedik kép">
+                                <controls:DataGridTemplateColumn Header="Negyedik kép" MaxWidth="195">
                                     <controls:DataGridTemplateColumn.CellTemplate>
                                         <DataTemplate>
-                                            <Image Source="{Binding ImageUrl4}" Width="195" Height="195"/>
+                                            <Image Source="{Binding ImageUrl4}"/>
                                         </DataTemplate>
                                     </controls:DataGridTemplateColumn.CellTemplate>
                                 </controls:DataGridTemplateColumn>

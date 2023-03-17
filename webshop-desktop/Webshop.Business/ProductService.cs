@@ -36,6 +36,7 @@ public class ProductService : IProductService
                 Price = p.Price,
                 CategoryName = p.Category.Name,
                 ImageUrl1= p.ImageUrl1,
+                Inactive = p.Inactive  != 0 ? "INAKTÍV" : "",
                 Info = p.Stocks.Select(s => new ProductInfoVmList
                 {
                     Size = s.Size.Size1,
@@ -79,5 +80,23 @@ public class ProductService : IProductService
                 Id = p.Id,
                 Name = p.Name,
             }).ToArray();
+    }
+
+    public void ChangeInactive(int id)
+    {
+        var product = _productRepository.Find(p => p.Id == id).FirstOrDefault();
+        if (product != null)
+        {
+            if (product.Inactive == 0)
+            {
+                product.Inactive = 1;
+            }
+            else
+            {
+                product.Inactive = 0;
+            }
+
+        _productRepository.Update(product);
+        }
     }
 }

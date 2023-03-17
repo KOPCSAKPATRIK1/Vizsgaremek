@@ -4,6 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:controls="using:CommunityToolkit.WinUI.UI.Controls"
     mc:Ignorable="d">
 
 
@@ -15,28 +16,54 @@
 
         <ScrollViewer
             Grid.Row="0">
+            
             <StackPanel>
                 
-                <TextBox Text="{x:Bind ViewModel.ReleaseName, Mode=TwoWay}"                         
-                             Margin="10" Header="Név:" PlaceholderText="Air Force 1"/>
+                <TextBox 
+                    Text="{x:Bind ViewModel.ReleaseName, Mode=TwoWay}"                         
+                    Margin="10" 
+                    Header="Név:" 
+                    PlaceholderText="Air Force 1"
+                    TextChanged=""/>
+                <TextBlock
+                    Text="asd"
+                    Foreground="Red"
+                    Visibility="Collapsed"/>
 
-                <TextBox Text="{x:Bind ViewModel.ReleaseDesc, Mode=TwoWay}"                         
-                         Margin="10" Header="Leirás:" PlaceholderText="Ez egy cipo"/>
+                <TextBox 
+                    Text="{x:Bind ViewModel.ReleaseDesc, Mode=TwoWay}"                         
+                    Margin="10" 
+                    Header="Leirás:" 
+                    PlaceholderText="Ez egy cipo"/>
 
-                <TextBox Text="{x:Bind ViewModel.ImageUrl1, Mode=TwoWay}"
-                         Margin="10" Header="Link 1:" PlaceholderText="Első Kép"/>
+                <TextBox 
+                    Text="{x:Bind ViewModel.ImageUrl1, Mode=TwoWay}"
+                    Margin="10" 
+                    Header="Link 1:" 
+                    PlaceholderText="Első Kép"/>
 
-                <TextBox Text="{x:Bind ViewModel.ImageUrl2, Mode=TwoWay}"
-                         Margin="10" Header="Link 2:" PlaceholderText="Második kép"/>
+                <TextBox 
+                    Text="{x:Bind ViewModel.ImageUrl2, Mode=TwoWay}"
+                    Margin="10" 
+                    Header="Link 2:" 
+                    PlaceholderText="Második kép"/>
 
-                <TextBox Text="{x:Bind ViewModel.ImageUrl3, Mode=TwoWay}"
-                         Margin="10" Header="Link 3:" PlaceholderText="Harmadik Kép"/>
+                <TextBox 
+                    Text="{x:Bind ViewModel.ImageUrl3, Mode=TwoWay}"
+                    Margin="10" 
+                    Header="Link 3:"
+                    PlaceholderText="Harmadik Kép"/>
 
-                <TextBox Text="{x:Bind ViewModel.ImageUrl4, Mode=TwoWay}"
-                         Margin="10" Header="Link 4:" PlaceholderText="Negyedik kép"/>
+                <TextBox 
+                    Text="{x:Bind ViewModel.ImageUrl4, Mode=TwoWay}"
+                    Margin="10" 
+                    Header="Link 4:" 
+                    PlaceholderText="Negyedik kép"/>
 
-                <DatePicker Header="Megjelenés dátuma" Margin="10"
-                            SelectedDate="{x:Bind ViewModel.SelectedDate, Mode=TwoWay}"/>
+                <DatePicker 
+                    Header="Megjelenés dátuma" 
+                    Margin="10"
+                    SelectedDate="{x:Bind ViewModel.SelectedDate, Mode=TwoWay}"/>
 
             </StackPanel>
         </ScrollViewer>

@@ -9,13 +9,9 @@
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto" />
-            <ColumnDefinition Width="*" />
-        </Grid.ColumnDefinitions>
 
         <TeachingTip 
                 x:Name="TeachingTip_confirm"
@@ -27,8 +23,7 @@
                 CloseButtonContent="OK"/>
 
         <ScrollViewer 
-            Grid.Row="0" 
-            Grid.ColumnSpan="2">
+            Grid.Row="0">
             <StackPanel>
 
                 <TextBox 

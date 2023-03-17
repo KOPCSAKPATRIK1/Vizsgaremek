@@ -7,4 +7,5 @@ public interface IProductService
     ProductVmList[] GetProductsWithInfo();
     ProductNamesVmList[] GetProductNames();
     void AddProducts(NewProductDto newProduct);
+    void ChangeInactive(int id);
 }

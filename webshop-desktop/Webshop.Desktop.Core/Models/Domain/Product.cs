@@ -29,6 +29,10 @@ public partial class Product
 
     public string ImageUrl4 { get; set; } = null!;
 
+    public sbyte Inactive { get; set; }
+
+    public sbyte Popular { get; set; }
+
     public virtual Category Category { get; set; } = null!;
 
     public virtual ICollection<OrderItem> OrderItems { get; } = new List<OrderItem>();

@@ -11,7 +11,7 @@ using Webshop.Desktop.Views;
 
 namespace Webshop.Desktop.ViewModels;
 
-public class ProductsViewModel : ObservableRecipient, INavigationAware
+public partial class ProductsViewModel : ObservableRecipient, INavigationAware
 {
     #region Private members
 
@@ -23,6 +23,8 @@ public class ProductsViewModel : ObservableRecipient, INavigationAware
     #region Observables
 
     public ObservableCollection<ProductVmList> ProductsWithInfo { get; set; } = new();
+
+    [ObservableProperty] private ProductVmList? _selectedProduct;
 
     #endregion
 
@@ -39,6 +41,7 @@ public class ProductsViewModel : ObservableRecipient, INavigationAware
     #endregion
 
     #region Events
+
     public  void OnNavigatedTo(object parameter)
     {
 
@@ -58,17 +61,48 @@ public class ProductsViewModel : ObservableRecipient, INavigationAware
 
     #region Commands
 
-    public ICommand ToNewProductPageCommand => new RelayCommand(ToNewProductPage);
-
-    #endregion
-
-    #region Methods
-
+    [RelayCommand]
     private void ToNewProductPage()
     {
         _navigationService.Frame?.Navigate(typeof(NewProductPage));
     }
 
+    [RelayCommand(CanExecute = nameof(CanChangeInactive))]
+    private void ChangeInactive()
+    {
+        if (SelectedProduct != null)
+        {
+            _productService.ChangeInactive(SelectedProduct.Id);
+            LoadProducts();
+        }
+
+    }
+
     #endregion
 
+    #region Methods
+
+    private void LoadProducts()
+    {
+        ProductsWithInfo.Clear();
+        var productsWithInfo =  _productService.GetProductsWithInfo();
+        foreach (var product in productsWithInfo)
+        {
+            ProductsWithInfo.Add(product);
+        }
+    }
+
+    private bool CanChangeInactive()
+    {
+        if (SelectedProduct == null)
+        {
+            return  false;
+        }
+        else
+        {
+            return true;
+        }
+    }
+
+    #endregion
 }
