@@ -12,9 +12,8 @@ using Webshop.Desktop.Core.Models.Business.Dtos;
 
 namespace Webshop.Desktop.ViewModels;
 
-public class NewProductViewModel : ObservableRecipient, INavigationAware
+public partial class NewProductViewModel : ObservableRecipient, INavigationAware
 {
-    // TODO: termek valasztas eseten tobbi disabled, validacio
     #region Private members
 
     private readonly ICategoryService _categoryService;
@@ -22,14 +21,6 @@ public class NewProductViewModel : ObservableRecipient, INavigationAware
     private readonly IProductService _productService;
     private readonly INavigationService _navigationService;
     private bool _isTeachingTipOpen;
-    private string? _newProductName;
-    private string? _productDesc;
-    private string? _imageUrl1;
-    private string? _imageUrl2;
-    private string? _imageUrl3;
-    private string? _imageUrl4;
-    private int _productPrice;
-    private int _productQuantity;
 
     #endregion
 
@@ -38,8 +29,28 @@ public class NewProductViewModel : ObservableRecipient, INavigationAware
     #region Observables
 
     public ObservableCollection<CategoryVmList> Categories { get; set; } = new();
-    public ObservableCollection<SizeVmList> Sizes { get; set; } = new();
-    public ObservableCollection<ProductNamesVmList> ProductNames { get; set; } = new();
+
+    [ObservableProperty] private string? _productName;
+    [ObservableProperty] private string? _productDesc;
+    [ObservableProperty] private string? _imageUrl1;
+    [ObservableProperty] private string? _imageUrl2;
+    [ObservableProperty] private string? _imageUrl3;
+    [ObservableProperty] private string? _imageUrl4;
+    [ObservableProperty] private int _productPrice;
+    [ObservableProperty] private Dictionary<string, int> _sizes = new()
+    {
+        {"36", 0},
+        {"37", 0},
+        {"38", 0},
+        {"39", 0},
+        {"40", 0},
+        {"41", 0},
+        {"42", 0},
+        {"43", 0},
+        {"44", 0},
+        {"45", 0},
+        {"46", 0}
+    };
 
     #endregion
 
@@ -56,89 +67,6 @@ public class NewProductViewModel : ObservableRecipient, INavigationAware
     }
 
     #region Getters, setters
-    public string? NewProductName
-    {
-        get => _newProductName;
-        set
-        {
-            if (value != null)
-            {
-                SetProperty(ref _newProductName, value);
-            }
-        }
-    }
-
-    public string? ProductDesc
-    {
-        get => _productDesc;
-        set
-        {
-            if (value != null)
-            {
-                SetProperty(ref _productDesc, value);
-            }
-        }
-    }
-
-    public string? ImageUrl1
-    {
-        get => _imageUrl1 ?? "";
-        set
-        {
-            if (value != null)
-            {
-                SetProperty(ref _imageUrl1, value);
-            }
-        }
-    }
-
-    public string? ImageUrl2
-    {
-        get => _imageUrl2 ?? "";
-        set
-        {
-            if (value != null)
-            {
-                SetProperty(ref _imageUrl2, value);
-            }
-        }
-    }
-
-    public string? ImageUrl3
-    {
-        get => _imageUrl3 ?? "";
-        set
-        {
-            if (value != null)
-            {
-                SetProperty(ref _imageUrl3, value);
-            }
-        }
-    }
-
-    public string? ImageUrl4
-    {
-        get => _imageUrl4 ?? "";
-        set
-        {
-            if (value != null)
-            {
-                SetProperty(ref _imageUrl4, value);
-            }
-        }
-    }
-
-    public int ProductPrice
-    {
-        get => _productPrice;
-        set => SetProperty(ref _productPrice, value);
-    }
-
-    public int ProductQuantity
-    {
-        get => _productQuantity;
-        set => SetProperty(ref _productQuantity, value);
-    }
 
     public bool IsTeachingTipOpen
     {
@@ -167,26 +95,6 @@ public class NewProductViewModel : ObservableRecipient, INavigationAware
                 Name = category.Name
             });
         }
-
-        Sizes.Clear();
-        var sizes = _sizeService.GetSizes();
-        foreach (var size in sizes)
-        {
-            Sizes.Add(new SizeVmList {
-               Id = size.Id,
-               Size = size.Size
-            });
-        }
-
-        ProductNames.Clear();
-        var productNames = _productService.GetProductNames();
-        foreach (var name in productNames)
-        {
-            ProductNames.Add(new ProductNamesVmList {
-                Id = name.Id,
-                Name = name.Name
-            });
-        }
     }
 
     public void OnNavigatedFrom()
@@ -211,15 +119,14 @@ public class NewProductViewModel : ObservableRecipient, INavigationAware
     {
         _productService.AddProducts(new NewProductDto
         {
-            Name = NewProductName,
+            Name = ProductName,
             Desc = ProductDesc,
             ImgUrl1 = ImageUrl1,
             ImgUrl2 = ImageUrl2,
             ImgUrl3 = ImageUrl3,
             ImgUrl4 = ImageUrl4,
+            SizesWithQuantity = Sizes,
             Price = ProductPrice,
-            Quantity = ProductQuantity,
-            SizeId = SelectedSize.Id,
             CategoryId = SelectedCategory.Id
         });
         TeachingTip.IsOpen = true;       

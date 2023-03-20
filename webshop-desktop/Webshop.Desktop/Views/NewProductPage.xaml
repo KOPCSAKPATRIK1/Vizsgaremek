@@ -23,13 +23,14 @@
                 CloseButtonContent="OK"/>
 
         <ScrollViewer 
-            Grid.Row="0">
+            Grid.Row="0"
+            HorizontalScrollBarVisibility="Auto">
             <StackPanel>
 
                 <TextBox 
-                    Text="{x:Bind ViewModel.NewProductName, Mode=TwoWay}"                         
+                    Text="{x:Bind ViewModel.ProductName, Mode=TwoWay}"                         
                     Margin="10" 
-                    Header="Név:" 
+                    Header="*Név:" 
                     PlaceholderText="Air Force 1"/>
 
                 <TextBox 
@@ -40,7 +41,7 @@
 
                 <TextBox 
                     Text="{x:Bind ViewModel.ImageUrl1, Mode=TwoWay}"
-                    Margin="10" Header="Link 1:" 
+                    Margin="10" Header="*Link 1:" 
                     PlaceholderText="Első Kép"/>
 
                 <TextBox 
@@ -58,21 +59,60 @@
                     Margin="10" Header="Link 4:" 
                     PlaceholderText="Negyedik kép"/>
 
-                <ComboBox 
-                    Header="Méret" Margin="10"
-                    ItemsSource="{x:Bind ViewModel.Sizes}" 
-                    DisplayMemberPath="Size" 
-                    SelectedItem="{x:Bind ViewModel.SelectedSize, Mode=TwoWay}"/>
+                <StackPanel 
+                    Orientation="Horizontal">
+
+                    <NumberBox
+                        Header="36"
+                        Value="{x:Bind ViewModel.Sizes['36'], Mode=TwoWay}"
+                        Margin="10"/>
+                    <NumberBox
+                        Header="37"
+                        Value="{x:Bind ViewModel.Sizes['37'], Mode=TwoWay}"
+                        Margin="10"/>
+                    <NumberBox
+                        Header="38"
+                        Value="{x:Bind ViewModel.Sizes['38'], Mode=TwoWay}"
+                        Margin="10"/>
+                    <NumberBox
+                        Header="39"
+                        Value="{x:Bind ViewModel.Sizes['39'], Mode=TwoWay}"
+                        Margin="10"/>
+                    <NumberBox
+                        Header="40"
+                        Value="{x:Bind ViewModel.Sizes['40'], Mode=TwoWay}"
+                        Margin="10"/>
+                    <NumberBox
+                        Header="41"
+                        Value="{x:Bind ViewModel.Sizes['41'], Mode=TwoWay}"
+                        Margin="10"/>
+                    <NumberBox
+                        Header="42"
+                        Value="{x:Bind ViewModel.Sizes['42'], Mode=TwoWay}"
+                        Margin="10"/>
+                    <NumberBox
+                        Header="43"
+                        Value="{x:Bind ViewModel.Sizes['43'], Mode=TwoWay}"
+                        Margin="10"/>
+                    <NumberBox
+                        Header="44"
+                        Value="{x:Bind ViewModel.Sizes['44'], Mode=TwoWay}"
+                        Margin="10"/>
+                    <NumberBox
+                        Header="45"
+                        Value="{x:Bind ViewModel.Sizes['45'], Mode=TwoWay}"
+                        Margin="10"/>
+                    <NumberBox
+                        Header="46"
+                        Value="{x:Bind ViewModel.Sizes['46'], Mode=TwoWay}"
+                        Margin="10"/>
+
+
+                </StackPanel>
 
                 <NumberBox 
                     Text="{x:Bind ViewModel.ProductPrice, Mode=TwoWay}"
-                    Header="Ár"
-                    SpinButtonPlacementMode="Compact" Minimum="1"
-                    Margin="10" />
-
-                <NumberBox 
-                    Text="{x:Bind ViewModel.ProductQuantity, Mode=TwoWay}"
-                    Header="Mennyiség"
+                    Header="*Ár"
                     SpinButtonPlacementMode="Compact" Minimum="1"
                     Margin="10" />
 

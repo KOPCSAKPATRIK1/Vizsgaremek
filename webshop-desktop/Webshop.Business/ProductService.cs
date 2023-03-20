@@ -13,16 +13,20 @@ public class ProductService : IProductService
    
     private readonly IRepository<Product> _productRepository;
     private readonly IRepository<Stock> _stockRepository;
+    private readonly IRepository<Size> _sizeRepository;
 
     #endregion
 
     #region Constructor
 
-    public ProductService(IRepository<Product> productRepository,
-        IRepository<Stock> stockRepository)
+    public ProductService(
+        IRepository<Product> productRepository,
+        IRepository<Stock> stockRepository,
+        IRepository<Size> sizeRepository)
     {
         _productRepository = productRepository;
         _stockRepository = stockRepository;
+        _sizeRepository = sizeRepository;
     }
 
     #endregion
@@ -62,14 +66,18 @@ public class ProductService : IProductService
 
         _productRepository.Add(addedProduct);
 
-        var stock = new Stock
+        foreach (var sizesWithQuantity in newProduct.SizesWithQuantity)
         {
-            InStock = newProduct.Quantity,
-            SizeId = newProduct.SizeId,
-            ProductId = addedProduct.Id
-        };
+            var size = _sizeRepository.Find(s => s.Size1 == int.Parse(sizesWithQuantity.Key)).
+                Select(s => s.Id).SingleOrDefault();
+            _stockRepository.Add(new Stock
+            {
+                InStock = sizesWithQuantity.Value,
+                ProductId = addedProduct.Id,
+                SizeId = size
+            });
+        }
 
-        _stockRepository.Add(stock);
     }
 
     public ProductNamesVmList[] GetProductNames()
