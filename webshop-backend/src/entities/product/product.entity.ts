@@ -21,19 +21,19 @@ export class Product {
   @Column()
   name: string;
 
-  @Column()
+  @Column({nullable: true})
   desc: string;
 
   @Column()
   imageUrl1: string;
 
-  @Column()
+  @Column({nullable: true})
   imageUrl2: string;
 
-  @Column()
+  @Column({nullable: true})
   imageUrl3: string;
 
-  @Column()
+  @Column({nullable: true})
   imageUrl4: string;
 
   @Column()
