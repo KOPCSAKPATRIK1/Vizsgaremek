@@ -9,7 +9,7 @@ public partial class Product
 
     public string Name { get; set; } = null!;
 
-    public string Desc { get; set; } = null!;
+    public string? Desc { get; set; } = null!;
 
     public int Price
     {
@@ -23,11 +23,11 @@ public partial class Product
 
     public string ImageUrl1 { get; set; } = null!;
 
-    public string ImageUrl2 { get; set; } = null!;
+    public string? ImageUrl2 { get; set; } = null!;
 
-    public string ImageUrl3 { get; set; } = null!;
+    public string? ImageUrl3 { get; set; } = null!;
 
-    public string ImageUrl4 { get; set; } = null!;
+    public string? ImageUrl4 { get; set; } = null!;
 
     public sbyte Inactive { get; set; }
 

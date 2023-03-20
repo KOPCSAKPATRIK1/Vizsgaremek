@@ -41,12 +41,13 @@ public class ProductService : IProductService
                 CategoryName = p.Category.Name,
                 ImageUrl1= p.ImageUrl1,
                 Inactive = p.Inactive  != 0 ? "INAKTÍV" : "",
-                Info = p.Stocks.Select(s => new ProductInfoVmList
+                Info = p.Stocks.Where(s => s.InStock > 0).Select(s => new ProductInfoVmList
                 {
                     Size = s.Size.Size1,
                     Quantity = s.InStock,
                 }).OrderBy(p => p.Size).ToArray(),
             })
+            .OrderBy(p => p.Name)
             .ToArray();
     }
 
