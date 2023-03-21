@@ -93,6 +93,11 @@
                 Margin="10"
                 Command="{x:Bind ViewModel.ChangeInactiveCommand}"/>
 
+            <Button               
+                Content="Módosítás" 
+                Margin="10"
+                Command="{x:Bind ViewModel.ChangeProductParametersCommand}"/>
+
         </StackPanel>
 
     </Grid>

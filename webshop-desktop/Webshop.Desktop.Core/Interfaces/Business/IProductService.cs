@@ -5,7 +5,8 @@ namespace Webshop.Desktop.Core.Interfaces.Business;
 public interface IProductService
 {
     ProductVmList[] GetProductsWithInfo();
-    ProductNamesVmList[] GetProductNames();
-    void AddProducts(NewProductDto newProduct);
+    void AddProducts(ProductDto newProduct);
     void ChangeInactive(int id);
+    ProductDto GetProductForUpdate(int id);
+    void UpdateProduct(ProductDto product, int id);
 }
