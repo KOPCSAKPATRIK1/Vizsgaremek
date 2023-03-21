@@ -59,6 +59,7 @@ public partial class ProductsViewModel : ObservableRecipient, INavigationAware
     partial void OnSelectedProductChanged(ProductVmList? value)
     {
         ChangeInactiveCommand.NotifyCanExecuteChanged();
+        ChangeProductParametersCommand.NotifyCanExecuteChanged();
     }
 
     #endregion
@@ -71,7 +72,7 @@ public partial class ProductsViewModel : ObservableRecipient, INavigationAware
         _navigationService.Frame?.Navigate(typeof(NewProductPage));
     }
 
-    [RelayCommand(CanExecute = nameof(CanChangeInactive))]
+    [RelayCommand(CanExecute = nameof(CanExecuteCommand))]
     private void ChangeInactive()
     {
         if (SelectedProduct != null)
@@ -80,6 +81,12 @@ public partial class ProductsViewModel : ObservableRecipient, INavigationAware
             LoadProducts();
         }
 
+    }
+
+    [RelayCommand(CanExecute = nameof (CanExecuteCommand))]
+    private void ChangeProductParameters()
+    {
+        _navigationService.Frame?.Navigate(typeof(NewProductPage), SelectedProduct.Id);
     }
 
     #endregion
@@ -96,7 +103,7 @@ public partial class ProductsViewModel : ObservableRecipient, INavigationAware
         }
     }
 
-    private bool CanChangeInactive()
+    private bool CanExecuteCommand()
     {
         if (SelectedProduct == null)
         {

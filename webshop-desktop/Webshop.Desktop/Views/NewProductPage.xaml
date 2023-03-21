@@ -15,8 +15,7 @@
 
         <TeachingTip 
                 x:Name="TeachingTip_confirm"
-                Title="Változtatások Mentve"
-                Subtitle="Új termék(ek) hozzáadva"
+                Title="Foot Frenzy"
                 PreferredPlacement="Center"
                 PlacementMargin="20"
                 IsLightDismissEnabled="True"

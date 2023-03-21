@@ -1,8 +1,6 @@
 ﻿using System.Collections.ObjectModel;
-using System.Windows.Input;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Webshop.Desktop.Contracts.Services;
 using Webshop.Desktop.Contracts.ViewModels;
@@ -17,10 +15,9 @@ public partial class NewProductViewModel : ObservableRecipient, INavigationAware
     #region Private members
 
     private readonly ICategoryService _categoryService;
-    private readonly ISizeService _sizeService;
     private readonly IProductService _productService;
     private readonly INavigationService _navigationService;
-    private bool _isTeachingTipOpen;
+    private int _productId;
 
     #endregion
 
@@ -29,6 +26,7 @@ public partial class NewProductViewModel : ObservableRecipient, INavigationAware
     #region Observables
 
     public ObservableCollection<CategoryVmList> Categories { get; set; } = new();
+    public CategoryVmList SelectedCategory { get; set; } = null!;
 
     [ObservableProperty] private string? _productName;
     [ObservableProperty] private string? _productDesc;
@@ -51,34 +49,22 @@ public partial class NewProductViewModel : ObservableRecipient, INavigationAware
         {"45", 0},
         {"46", 0}
     };
+    [ObservableProperty] private bool _isTeachingTipOpen;
+
 
     #endregion
 
     public NewProductViewModel(
         ICategoryService categoryService,
-        ISizeService sizeService,
         IProductService productService,
         INavigationService navigationService)
     {
         _categoryService = categoryService;
-        _sizeService = sizeService;
         _productService = productService;
         _navigationService = navigationService;
     }
 
     #region Getters, setters
-
-    public bool IsTeachingTipOpen
-    {
-        get => _isTeachingTipOpen;
-        set => SetProperty(ref _isTeachingTipOpen, value);
-    }
-
-    public SizeVmList SelectedSize { get; set; } = null!;
-
-    public CategoryVmList SelectedCategory { get; set; } = null!;
-
-    public ProductNamesVmList SelectedProduct { get; set; } = null!;
 
     #endregion
 
@@ -86,14 +72,27 @@ public partial class NewProductViewModel : ObservableRecipient, INavigationAware
 
     public void OnNavigatedTo(object parameter)
     {
-        Categories.Clear();
-        var categories = _categoryService.GetCategories();
-        foreach (var category in categories)
+        _productId = Convert.ToInt32(parameter);
+        LoadCategories();
+        if (_productId != 0)
         {
-            Categories.Add(new CategoryVmList {
-                Id = category.Id,
-                Name = category.Name
-            });
+            var product = _productService.GetProductForUpdate(_productId);
+            ProductName = product.Name;
+            ProductDesc = product.Desc;
+            ProductPrice = product.Price;
+            ImageUrl1 = product.ImageUrl1;
+            ImageUrl2 = product.ImageUrl2;
+            ImageUrl3 = product.ImageUrl3;
+            ImageUrl4 = product.ImageUrl4;
+            Sizes = product.SizesWithQuantity;
+            foreach (var category in Categories)
+            {
+                if (category.Id == product.CategoryId)
+                {
+                    SelectedCategory = category;
+                    break;
+                }
+            }
         }
     }
 
@@ -106,37 +105,69 @@ public partial class NewProductViewModel : ObservableRecipient, INavigationAware
 
     #region Commands
 
-    public ICommand SaveProductCommand => new RelayCommand(SaveProduct);
+    [RelayCommand]
+    private void SaveProduct()
+    {
+        if (_productId != 0)
+        {
+            _productService.UpdateProduct(new ProductDto
+            {
+                Name = ProductName,
+                Desc = ProductDesc,
+                ImageUrl1 = ImageUrl1,
+                ImageUrl2 = ImageUrl2,
+                ImageUrl3 = ImageUrl3,
+                ImageUrl4 = ImageUrl4,
+                SizesWithQuantity = Sizes,
+                Price = ProductPrice,
+                CategoryId = SelectedCategory.Id,
+            }, _productId);
+            TeachingTip.Subtitle = "Változtatások Elmentve";
+            TeachingTip.IsOpen = true;  
+        }
+        else
+        {
+            _productService.AddProducts(new ProductDto
+            {
+                Name = ProductName,
+                Desc = ProductDesc,
+                ImageUrl1 = ImageUrl1,
+                ImageUrl2 = ImageUrl2,
+                ImageUrl3 = ImageUrl3,
+                ImageUrl4 = ImageUrl4,
+                SizesWithQuantity = Sizes,
+                Price = ProductPrice,
+                CategoryId = SelectedCategory.Id,
+            });
+            TeachingTip.Subtitle = "Új termék(ek) hozzáadva";
+            TeachingTip.IsOpen = true;            
+        }       
+    }
 
-    public ICommand ClosePageCommand => new RelayCommand(ClosePage);
+    [RelayCommand]
+    private void ClosePage()
+    {
+        if (_navigationService.CanGoBack)
+        {
+           _navigationService.GoBack();
+        }
+    }
 
     #endregion
 
     #region Methods
 
-
-    public void SaveProduct()
+    private void LoadCategories()
     {
-        _productService.AddProducts(new NewProductDto
-        {
-            Name = ProductName,
-            Desc = ProductDesc,
-            ImgUrl1 = ImageUrl1,
-            ImgUrl2 = ImageUrl2,
-            ImgUrl3 = ImageUrl3,
-            ImgUrl4 = ImageUrl4,
-            SizesWithQuantity = Sizes,
-            Price = ProductPrice,
-            CategoryId = SelectedCategory.Id
-        });
-        TeachingTip.IsOpen = true;       
-    }
 
-    public void ClosePage()
-    {
-        if (_navigationService.CanGoBack)
+        Categories.Clear();
+        var categories = _categoryService.GetCategories();
+        foreach (var category in categories)
         {
-           _navigationService.GoBack();
+            Categories.Add(new CategoryVmList {
+            Id = category.Id,
+            Name = category.Name
+            });
         }
     }
 

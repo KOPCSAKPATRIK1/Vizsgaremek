@@ -1,9 +1,9 @@
 ﻿namespace Webshop.Desktop.Core.Models.Business;
 public class ProductVmList
 {
+    #nullable enable
     public int Id { get; set; }
     public string Name { get; set; } = null!;
-#nullable enable
     public string? CategoryName { get; set; }
     public int Price { get; set; }
     public string? ImageUrl1 { get; set; }

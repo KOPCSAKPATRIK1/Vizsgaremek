@@ -51,44 +51,33 @@ public class ProductService : IProductService
             .ToArray();
     }
 
-    public void AddProducts(NewProductDto newProduct)
+    public void AddProducts(ProductDto newProduct)
     {
         var addedProduct = new Product
         {
             Name = newProduct.Name,
             Desc = newProduct.Desc,
-            ImageUrl1 = newProduct.ImgUrl1,
-            ImageUrl2 = newProduct.ImgUrl2,
-            ImageUrl3 = newProduct.ImgUrl3,
-            ImageUrl4 = newProduct.ImgUrl4,
+            ImageUrl1 = newProduct.ImageUrl1,
+            ImageUrl2 = newProduct.ImageUrl2,
+            ImageUrl3 = newProduct.ImageUrl3,
+            ImageUrl4 = newProduct.ImageUrl4,
             Price = newProduct.Price,
             CategoryId = newProduct.CategoryId
         };
 
         _productRepository.Add(addedProduct);
 
-        foreach (var sizesWithQuantity in newProduct.SizesWithQuantity)
+        foreach (var sizeWithQuantity in newProduct.SizesWithQuantity)
         {
-            var size = _sizeRepository.Find(s => s.Size1 == int.Parse(sizesWithQuantity.Key)).
+            var size = _sizeRepository.Find(s => s.Size1 == int.Parse(sizeWithQuantity.Key)).
                 Select(s => s.Id).SingleOrDefault();
             _stockRepository.Add(new Stock
             {
-                InStock = sizesWithQuantity.Value,
+                InStock = sizeWithQuantity.Value,
                 ProductId = addedProduct.Id,
                 SizeId = size
             });
         }
-
-    }
-
-    public ProductNamesVmList[] GetProductNames()
-    {
-        return _productRepository.GetAll()
-            .Select(p => new ProductNamesVmList
-            {
-                Id = p.Id,
-                Name = p.Name,
-            }).ToArray();
     }
 
     public void ChangeInactive(int id)
@@ -107,5 +96,63 @@ public class ProductService : IProductService
 
         _productRepository.Update(product);
         }
+    }
+
+    public ProductDto GetProductForUpdate(int id)
+     {
+        var productDto = _productRepository.Find(p =>p.Id == id)
+            .Include(p => p.Stocks)
+            .Select(p => new ProductDto
+            {
+                Name = p.Name,
+                Desc = p.Desc,
+                ImageUrl1 = p.ImageUrl1,
+                ImageUrl2 = p.ImageUrl2,
+                ImageUrl3 = p.ImageUrl3,
+                ImageUrl4 = p.ImageUrl4,
+                Price = p.Price,
+                CategoryId = p.CategoryId,               
+            })
+            .ToArray()
+            .FirstOrDefault();
+
+        var y = _stockRepository.Find(s => s.ProductId == id)
+            .Include(s => s.Size)
+            .ToArray();
+
+        var sizesWithQuantity = new Dictionary<string, int>();
+        foreach (var stock in y)
+        {
+            sizesWithQuantity.Add(stock.Size.Size1.ToString(), stock.InStock);
+        }
+        productDto.SizesWithQuantity = sizesWithQuantity;
+
+        return productDto;
+    }
+
+    public void UpdateProduct(ProductDto product, int id)
+    {
+        var existingProduct = _productRepository.Find(p => p.Id == id).FirstOrDefault();
+        if (existingProduct != null)
+        {
+            existingProduct.Name = product.Name;
+            existingProduct.Desc = product.Desc;
+            existingProduct.Price = product.Price;
+            existingProduct.ImageUrl1 = product.ImageUrl1;
+            existingProduct.ImageUrl2 = product.ImageUrl2;
+            existingProduct.ImageUrl3 = product.ImageUrl3;
+            existingProduct.ImageUrl4 = product.ImageUrl4;
+            existingProduct.CategoryId = product.CategoryId;
+            _productRepository.Update(existingProduct);
+            foreach (var sizeWithQuantity in product.SizesWithQuantity)
+            {
+                var existingStock = _stockRepository.Find(s => s.ProductId == id && s.Size.Size1 == int.Parse(sizeWithQuantity.Key)).FirstOrDefault();
+                if (existingStock != null) 
+                {
+                    existingStock.InStock = sizeWithQuantity.Value;
+                    _stockRepository.Update(existingStock);
+                }
+            }
+        }        
     }
 }
