@@ -1,12 +1,10 @@
-﻿using System.Windows.Input;
-using CommunityToolkit.Mvvm.ComponentModel;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.UI.Xaml.Controls;
 using Webshop.Desktop.Contracts.Services;
 using Webshop.Desktop.Contracts.ViewModels;
 using Webshop.Desktop.Core.Interfaces.Business;
 using Webshop.Desktop.Core.Models.Business.Dtos;
-using WinRT;
 
 namespace Webshop.Desktop.ViewModels;
 
@@ -32,8 +30,17 @@ public partial class NewReleaseViewModel : ObservableRecipient, INavigationAware
     [ObservableProperty] private string? _imageUrl4;
     [ObservableProperty] private DateTimeOffset _selectedDate = DateTimeOffset.Now;
 
-    [ObservableProperty] private string _nameValidation;
+    [ObservableProperty] private string _nameValidationText;
     [ObservableProperty] private bool _nameValidationVisibility;
+
+    [ObservableProperty] private string _descValidationText;
+    [ObservableProperty] private bool _descValidationVisibility;
+
+    [ObservableProperty] private string _img1ValidationText;
+    [ObservableProperty] private bool _img1ValidationVisibility;
+
+    [ObservableProperty] private string _dateValidationText;
+    [ObservableProperty] private bool _dateValidationVisibility;
 
     #endregion
 
@@ -71,53 +78,120 @@ public partial class NewReleaseViewModel : ObservableRecipient, INavigationAware
 
     }
 
-    public void OnNameChanged()
+    #region Validation
+
+    public void NameValidation()
     {
-        if (ReleaseName == null)
+        if (ReleaseName == null || ReleaseName == "")
         {
-            NameValidation = "A Név nem lehet üres";
+            NameValidationText = "A név nem lehet üres";
             NameValidationVisibility = true;
         }
+        else if (ReleaseName.Length < 4)
+        {
+            NameValidationText = "A névnek 3 karakternél hosszabbnak kell lennie";
+            NameValidationVisibility = true;
+        }
+        else
+        {
+            NameValidationVisibility = false;
+        }
+        SaveReleaseCommand.NotifyCanExecuteChanged();
     }
+
+    public void DescValidation()
+    {
+        if (ReleaseDesc == null || ReleaseDesc == "")
+        {
+            DescValidationText = "A leírás nem lehet üres";
+            DescValidationVisibility = true;
+        }
+        else if (ReleaseDesc.Length < 11)
+        {
+            DescValidationText = "A leírásnak 10 karakternél hosszabbnak kell lennie";
+            DescValidationVisibility = true;
+        }
+        else
+        {
+            DescValidationVisibility = false;
+        }
+        SaveReleaseCommand.NotifyCanExecuteChanged();
+    }
+
+    public void Img1Validation()
+    {
+        if (ImageUrl1 == null || ImageUrl1 == "")
+        {
+            Img1ValidationText = "Az első kép nem lehet üres";
+            Img1ValidationVisibility = true;
+        }
+        else
+        {
+            Img1ValidationVisibility = false;
+        }
+        SaveReleaseCommand.NotifyCanExecuteChanged();
+    }
+
+    public void DateValidation()
+    {
+        if (SelectedDate < DateTimeOffset.Now || SelectedDate.Day == DateTimeOffset.Now.Day)
+        {
+            DateValidationText = "Megjelenés nem lehet régebbi a holnapi dátumnál";
+            DateValidationVisibility = true;
+        }
+        else
+        {
+            DateValidationVisibility = false;
+        }
+        SaveReleaseCommand.NotifyCanExecuteChanged();
+    }
+
+    #endregion
 
     #endregion
 
     #region Commands
 
-    [RelayCommand]
+    [RelayCommand(CanExecute = nameof(IsValid))]
     private void SaveRelease()
     {
-        if (_releaseId != 0)
+        NameValidation();
+        DescValidation();
+        Img1Validation();
+        DateValidation();
+        if (IsValid() == true)
         {
-            _releaseService.UpdateRelease(new ReleaseDto
+            if (_releaseId != 0)
             {
-                Name = ReleaseName,
-                Desc = ReleaseDesc,
-                ImageUrl1 = ImageUrl1,
-                ImageUrl2 = ImageUrl2,
-                ImageUrl3 = ImageUrl3,
-                ImageUrl4 = ImageUrl4,
-                ReleaseDate = SelectedDate.DateTime.ToString("yyyy-MM-dd"),
-            }, _releaseId);
-            TeachingTip.Subtitle = "Változtatások elmentve";
-            TeachingTip.IsOpen = true;
-        }
-        else
-        {
-            _releaseService.AddRelease(new ReleaseDto
+                _releaseService.UpdateRelease(new ReleaseDto
+                {
+                    Name = ReleaseName,
+                    Desc = ReleaseDesc,
+                    ImageUrl1 = ImageUrl1,
+                    ImageUrl2 = ImageUrl2,
+                    ImageUrl3 = ImageUrl3,
+                    ImageUrl4 = ImageUrl4,
+                    ReleaseDate = SelectedDate.DateTime.ToString("yyyy-MM-dd"),
+                }, _releaseId);
+                TeachingTip.Subtitle = "Változtatások elmentve";
+                TeachingTip.IsOpen = true;
+            }
+            else
             {
-                Name = ReleaseName,
-                Desc = ReleaseDesc,
-                ImageUrl1 = ImageUrl1,
-                ImageUrl2 = ImageUrl2,
-                ImageUrl3 = ImageUrl3,
-                ImageUrl4 = ImageUrl4,
-                ReleaseDate = SelectedDate.DateTime.ToString("yyyy-MM-dd"),
-            });
-            TeachingTip.Subtitle = "Megjelenés hozzáadva";
-            TeachingTip.IsOpen = true;
+                _releaseService.AddRelease(new ReleaseDto
+                {
+                    Name = ReleaseName,
+                    Desc = ReleaseDesc,
+                    ImageUrl1 = ImageUrl1,
+                    ImageUrl2 = ImageUrl2,
+                    ImageUrl3 = ImageUrl3,
+                    ImageUrl4 = ImageUrl4,
+                    ReleaseDate = SelectedDate.DateTime.ToString("yyyy-MM-dd"),
+                });
+                TeachingTip.Subtitle = "Megjelenés hozzáadva";
+                TeachingTip.IsOpen = true;
+            }
         }
-
     }
 
     [RelayCommand]
@@ -126,6 +200,22 @@ public partial class NewReleaseViewModel : ObservableRecipient, INavigationAware
         if (_navigationService.CanGoBack)
         {
             _navigationService.GoBack();
+        }
+    }
+
+    #endregion
+
+    #region Methods
+
+    private bool IsValid()
+    {
+        if (NameValidationVisibility == false)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
         }
     }
 

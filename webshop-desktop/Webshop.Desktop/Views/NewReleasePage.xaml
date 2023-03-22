@@ -20,34 +20,44 @@
             PlacementMargin="20"
             IsLightDismissEnabled="True"
             CloseButtonContent="OK"/>
-        
+
         <ScrollViewer
             Grid.Row="0">
-            
+
             <StackPanel>
-                
+
                 <TextBox 
-                    Text="{x:Bind ViewModel.ReleaseName, Mode=TwoWay}"                         
+                    Text="{x:Bind ViewModel.ReleaseName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"                         
                     Margin="10" 
-                    Header="Név:" 
+                    Header="*Név:" 
                     PlaceholderText="Air Force 1"
-                    LostFocus="{x:Bind ViewModel.OnNameChanged}"/>
+                    LostFocus="{x:Bind ViewModel.NameValidation}"/>
                 <TextBlock
-                    Text="{x:Bind ViewModel.NameValidation, Mode=TwoWay}"
+                    Text="{x:Bind ViewModel.NameValidationText, Mode=TwoWay}"
                     Foreground="Red"
                     Visibility="{x:Bind ViewModel.NameValidationVisibility,Mode=OneWay}"/>
 
                 <TextBox 
-                    Text="{x:Bind ViewModel.ReleaseDesc, Mode=TwoWay}"                         
+                    Text="{x:Bind ViewModel.ReleaseDesc, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"                         
                     Margin="10" 
-                    Header="Leírás:" 
-                    PlaceholderText="Ez egy cipő"/>
+                    Header="*Leírás:" 
+                    PlaceholderText="Ez egy cipő"
+                    LostFocus="{x:Bind ViewModel.DescValidation}"/>
+                <TextBlock
+                    Text="{x:Bind ViewModel.DescValidationText, Mode=TwoWay}"
+                    Foreground="Red"
+                    Visibility="{x:Bind ViewModel.DescValidationVisibility,Mode=OneWay}"/>
 
                 <TextBox 
-                    Text="{x:Bind ViewModel.ImageUrl1, Mode=TwoWay}"
+                    Text="{x:Bind ViewModel.ImageUrl1, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                     Margin="10" 
-                    Header="Link 1:" 
-                    PlaceholderText="Első Kép"/>
+                    Header="*Link 1:" 
+                    PlaceholderText="Első Kép"
+                    LostFocus="{x:Bind ViewModel.Img1Validation}"/>
+                <TextBlock
+                    Text="{x:Bind ViewModel.Img1ValidationText, Mode=TwoWay}"
+                    Foreground="Red"
+                    Visibility="{x:Bind ViewModel.Img1ValidationVisibility,Mode=OneWay}"/>
 
                 <TextBox 
                     Text="{x:Bind ViewModel.ImageUrl2, Mode=TwoWay}"
@@ -68,9 +78,14 @@
                     PlaceholderText="Negyedik kép"/>
 
                 <DatePicker 
-                    Header="Megjelenés dátuma" 
+                    Header="*Megjelenés dátuma" 
                     Margin="10"
-                    SelectedDate="{x:Bind ViewModel.SelectedDate, Mode=TwoWay}"/>
+                    SelectedDate="{x:Bind ViewModel.SelectedDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                    LostFocus="{x:Bind ViewModel.DateValidation}"/>
+                <TextBlock
+                    Text="{x:Bind ViewModel.DateValidationText, Mode=TwoWay}"
+                    Foreground="Red"
+                    Visibility="{x:Bind ViewModel.DateValidationVisibility,Mode=OneWay}"/>
 
             </StackPanel>
         </ScrollViewer>
@@ -78,7 +93,7 @@
         <StackPanel
             Orientation="Horizontal"
             Grid.Row="1">
-            
+
             <Button                
                 Content="Mentés" 
                 Margin="10" 
@@ -90,8 +105,6 @@
                 Command="{x:Bind ViewModel.ClosePageCommand}"/>
 
         </StackPanel>
-       
 
     </Grid>
-
 </Page>

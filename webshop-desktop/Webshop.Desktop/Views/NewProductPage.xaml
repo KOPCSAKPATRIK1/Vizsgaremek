@@ -39,7 +39,7 @@
                 <TextBox 
                     Text="{x:Bind ViewModel.ProductDesc, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"                         
                     Margin="10" 
-                    Header="Leírás:" 
+                    Header="*Leírás:" 
                     PlaceholderText="Ez egy cipő"
                     LostFocus="{x:Bind ViewModel.DescValidation}"/>
                 <TextBlock
