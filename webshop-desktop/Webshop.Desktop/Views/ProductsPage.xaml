@@ -12,6 +12,7 @@
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
+
         <ScrollViewer 
             Grid.Row="0">
 
@@ -84,19 +85,46 @@
             Orientation="Horizontal">
 
             <Button               
-                Content="Új termék" 
                 Margin="10"
-                Command="{x:Bind ViewModel.ToNewProductPageCommand}"/>
+                Command="{x:Bind ViewModel.ToNewProductPageCommand}">
+                <StackPanel Orientation="Horizontal">
+                    <FontIcon 
+                        FontFamily="{StaticResource SymbolThemeFontFamily}" 
+                        Glyph="&#xe710;" 
+                        FontSize="13" 
+                        Margin="0,0,5,0"/>
+                    <TextBlock 
+                        Text="Új termék"/>
+                </StackPanel>
+            </Button>
+           
+            <Button                
+                Margin="10"
+                Command="{x:Bind ViewModel.ChangeProductParametersCommand}">
+                <StackPanel Orientation="Horizontal">
+                    <FontIcon 
+                            FontFamily="{StaticResource SymbolThemeFontFamily}" 
+                            Glyph="&#xe70f;" 
+                            FontSize="15" 
+                            Margin="0,0,5,0"/>
+                    <TextBlock 
+                            Text="Módosítás"/>
+                </StackPanel>
+            </Button>
 
             <Button               
-                Content="Inaktív" 
                 Margin="10"
-                Command="{x:Bind ViewModel.ChangeInactiveCommand}"/>
-
-            <Button               
-                Content="Módosítás" 
-                Margin="10"
-                Command="{x:Bind ViewModel.ChangeProductParametersCommand}"/>
+                Command="{x:Bind ViewModel.ChangeInactiveCommand}">
+                <StackPanel Orientation="Horizontal">
+                    <FontIcon 
+                        FontFamily="{StaticResource SymbolThemeFontFamily}" 
+                        Glyph="&#xe7ba;" 
+                        FontSize="16" 
+                        Margin="0,0,5,0"/>
+                    <TextBlock 
+                        Text="Inaktív"/>
+                </StackPanel>
+            </Button>
 
         </StackPanel>
 

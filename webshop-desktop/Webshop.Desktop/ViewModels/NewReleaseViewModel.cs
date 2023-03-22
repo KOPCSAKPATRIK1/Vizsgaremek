@@ -136,7 +136,7 @@ public partial class NewReleaseViewModel : ObservableRecipient, INavigationAware
     {
         if (SelectedDate < DateTimeOffset.Now || SelectedDate.Day == DateTimeOffset.Now.Day)
         {
-            DateValidationText = "Megjelenés nem lehet régebbi a holnapi dátumnál";
+            DateValidationText = "Megjelenés leghamarabb holnapi dátummal lehetséges";
             DateValidationVisibility = true;
         }
         else
@@ -209,7 +209,10 @@ public partial class NewReleaseViewModel : ObservableRecipient, INavigationAware
 
     private bool IsValid()
     {
-        if (NameValidationVisibility == false)
+        if (NameValidationVisibility == false &&
+            DescValidationVisibility == false &&
+            Img1ValidationVisibility == false &&
+            DateValidationVisibility == false)
         {
             return true;
         }

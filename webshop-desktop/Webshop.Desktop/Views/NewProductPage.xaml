@@ -159,14 +159,32 @@
                 Grid.Row="1">
 
             <Button
-                Content="Mentés" 
                 Margin="10" 
-                Command="{x:Bind ViewModel.SaveProductCommand}"/>
+                Command="{x:Bind ViewModel.SaveProductCommand}">
+                <StackPanel Orientation="Horizontal">
+                    <FontIcon 
+                            FontFamily="{StaticResource SymbolThemeFontFamily}" 
+                            Glyph="&#xe74e;" 
+                            FontSize="16" 
+                            Margin="0,0,5,0"/>
+                    <TextBlock 
+                            Text="Mentés"/>
+                </StackPanel>
+            </Button>
 
             <Button
-                Content="Vissza" 
                 Margin="10" 
-                Command="{x:Bind ViewModel.ClosePageCommand}"/>
+                Command="{x:Bind ViewModel.ClosePageCommand}">
+                <StackPanel Orientation="Horizontal">
+                    <FontIcon 
+                            FontFamily="{StaticResource SymbolThemeFontFamily}" 
+                            Glyph="&#xe72b;" 
+                            FontSize="13" 
+                            Margin="0,0,5,0"/>
+                    <TextBlock 
+                            Text="Vissza"/>
+                </StackPanel>
+            </Button>
 
         </StackPanel>
 

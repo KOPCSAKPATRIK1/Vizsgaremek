@@ -120,19 +120,46 @@
             Grid.Row="1">
 
             <Button               
-                Content="Új Megjelenés" 
                 Margin="10"
-                Command="{x:Bind ViewModel.ToNewReleasePageCommand}"/>
+                Command="{x:Bind ViewModel.ToNewReleasePageCommand}">
+                <StackPanel Orientation="Horizontal">
+                    <FontIcon 
+                        FontFamily="{StaticResource SymbolThemeFontFamily}" 
+                        Glyph="&#xe710;" 
+                        FontSize="13" 
+                        Margin="0,0,5,0"/>
+                    <TextBlock 
+                        Text="Új Megjelenés"/>
+                </StackPanel>
+            </Button>
 
             <Button               
-                Content="Módosítás" 
                 Margin="10"
-                Command="{x:Bind ViewModel.ChangeReleaseParametersCommand}"/>
+                Command="{x:Bind ViewModel.ChangeReleaseParametersCommand}">
+                <StackPanel Orientation="Horizontal">
+                    <FontIcon 
+                            FontFamily="{StaticResource SymbolThemeFontFamily}" 
+                            Glyph="&#xe70f;" 
+                            FontSize="15" 
+                            Margin="0,0,5,0"/>
+                    <TextBlock 
+                            Text="Módosítás"/>
+                </StackPanel>
+            </Button>
 
             <Button               
-                Content="Törlés" 
                 Margin="10"
-                Command="{x:Bind ViewModel.DeleteReleaseCommand}"/>
+                Command="{x:Bind ViewModel.DeleteReleaseCommand}">
+                <StackPanel Orientation="Horizontal">
+                    <FontIcon 
+                            FontFamily="{StaticResource SymbolThemeFontFamily}" 
+                            Glyph="&#xe74d;" 
+                            FontSize="15" 
+                            Margin="0,0,5,0"/>
+                    <TextBlock 
+                            Text="Törlés"/>
+                </StackPanel>
+            </Button>
 
         </StackPanel>
 
