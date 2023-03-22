@@ -63,15 +63,12 @@ public partial class App : Application
             services.AddTransient<IRepository<Size>, Repository<Size>>();
             services.AddTransient<IRepository<Release>, Repository<Release>>();
 
-
             //Business services
             services.AddTransient<IProductService, ProductService>();
             services.AddTransient<IOrderService, OrderService>();
             services.AddTransient<ICategoryService, CategoryService>();
             services.AddTransient<ISizeService, SizeService>();
             services.AddTransient<IReleaseService, ReleaseService>();
-
-
 
             // Views and ViewModels
             services.AddTransient<SettingsViewModel>();
@@ -100,8 +97,6 @@ public partial class App : Application
         })
         .Build();
 
-
-
     public static WindowEx MainWindow { get; } = new MainWindow();
 
     public App()
@@ -113,9 +108,7 @@ public partial class App : Application
     public static T GetService<T>() where T : class
     {
         HostService.AppHost ??= AppHost; ;
-#pragma warning disable CS8603 // Possible null reference return.
         return AppHost.Services.GetService(typeof(T)) as T;
-#pragma warning restore CS8603 // Possible null reference return.
     }
 
     private void App_UnhandledException(object sender, Microsoft.UI.Xaml.UnhandledExceptionEventArgs e)
