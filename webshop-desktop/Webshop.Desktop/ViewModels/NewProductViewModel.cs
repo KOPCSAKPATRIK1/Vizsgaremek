@@ -25,8 +25,8 @@ public partial class NewProductViewModel : ObservableRecipient, INavigationAware
 
     #region Observables
 
+    [ObservableProperty] private CategoryVmList _selectedCategory;
     public ObservableCollection<CategoryVmList> Categories { get; set; } = new();
-    public CategoryVmList SelectedCategory { get; set; } = null!;
 
     [ObservableProperty] private string? _productName;
     [ObservableProperty] private string? _productDesc;
@@ -35,7 +35,8 @@ public partial class NewProductViewModel : ObservableRecipient, INavigationAware
     [ObservableProperty] private string? _imageUrl3;
     [ObservableProperty] private string? _imageUrl4;
     [ObservableProperty] private int _productPrice;
-    [ObservableProperty] private Dictionary<string, int> _sizes = new()
+    [ObservableProperty]
+    private Dictionary<string, int> _sizes = new()
     {
         {"36", 0},
         {"37", 0},
@@ -49,8 +50,20 @@ public partial class NewProductViewModel : ObservableRecipient, INavigationAware
         {"45", 0},
         {"46", 0}
     };
+
     [ObservableProperty] private bool _isTeachingTipOpen;
 
+    [ObservableProperty] private string _nameValidationText;
+    [ObservableProperty] private bool _nameValidationVisibility;
+
+    [ObservableProperty] private string _descValidationText;
+    [ObservableProperty] private bool _descValidationVisibility;
+
+    [ObservableProperty] private string _img1ValidationText;
+    [ObservableProperty] private bool _img1ValidationVisibility;
+
+    [ObservableProperty] private string _categoryValidationText;
+    [ObservableProperty] private bool _categoryValidationVisibility;
 
     #endregion
 
@@ -63,10 +76,6 @@ public partial class NewProductViewModel : ObservableRecipient, INavigationAware
         _productService = productService;
         _navigationService = navigationService;
     }
-
-    #region Getters, setters
-
-    #endregion
 
     #region Events
 
@@ -101,47 +110,124 @@ public partial class NewProductViewModel : ObservableRecipient, INavigationAware
 
     }
 
+    #region Validation
+
+    public void NameValidation()
+    {
+        if (ProductName == null || ProductName == "")
+        {
+            NameValidationText = "A név nem lehet üres";
+            NameValidationVisibility = true;
+        }
+        else if (ProductName.Length < 3)
+        {
+            NameValidationText = "A névnek 3 karakternél hosszabbnak kell lennie";
+            NameValidationVisibility = true;
+        }
+        else
+        {
+            NameValidationVisibility = false;
+        }
+        SaveProductCommand.NotifyCanExecuteChanged();
+    }
+
+    public void DescValidation()
+    {
+        if (ProductDesc == null || ProductDesc == "")
+        {
+            DescValidationText = "A leírás nem lehet üres";
+            DescValidationVisibility = true;
+        }
+        else if (ProductDesc.Length < 10)
+        {
+            DescValidationText = "A leírásnak 10 karakternél hosszabbnak kell lennie";
+            DescValidationVisibility = true;
+        }
+        else
+        {
+            DescValidationVisibility = false;
+        }
+        SaveProductCommand.NotifyCanExecuteChanged();
+    }
+
+    public void Img1Validation()
+    {
+        if (ImageUrl1 == null || ImageUrl1 == "")
+        {
+            Img1ValidationText = "Az első kép nem lehet üres";
+            Img1ValidationVisibility = true;
+        }
+        else
+        {
+            Img1ValidationVisibility = false;
+        }
+        SaveProductCommand.NotifyCanExecuteChanged();
+    }
+
+    public void CategoryValidation()
+    {
+        if (SelectedCategory == null)
+        {
+            CategoryValidationText = "Válassz kategóriát";
+            CategoryValidationVisibility = true;
+        }
+        else
+        {
+            CategoryValidationVisibility = false;
+        }
+        SaveProductCommand.NotifyCanExecuteChanged();
+    }
+
+    #endregion
+
     #endregion
 
     #region Commands
 
-    [RelayCommand]
+    [RelayCommand(CanExecute = nameof(IsValid))]
     private void SaveProduct()
     {
-        if (_productId != 0)
+        NameValidation();
+        DescValidation();
+        Img1Validation();
+        CategoryValidation();
+        if (IsValid() == true)
         {
-            _productService.UpdateProduct(new ProductDto
+            if (_productId != 0)
             {
-                Name = ProductName,
-                Desc = ProductDesc,
-                ImageUrl1 = ImageUrl1,
-                ImageUrl2 = ImageUrl2,
-                ImageUrl3 = ImageUrl3,
-                ImageUrl4 = ImageUrl4,
-                SizesWithQuantity = Sizes,
-                Price = ProductPrice,
-                CategoryId = SelectedCategory.Id,
-            }, _productId);
-            TeachingTip.Subtitle = "Változtatások Elmentve";
-            TeachingTip.IsOpen = true;  
+                _productService.UpdateProduct(new ProductDto
+                {
+                    Name = ProductName,
+                    Desc = ProductDesc,
+                    ImageUrl1 = ImageUrl1,
+                    ImageUrl2 = ImageUrl2,
+                    ImageUrl3 = ImageUrl3,
+                    ImageUrl4 = ImageUrl4,
+                    SizesWithQuantity = Sizes,
+                    Price = ProductPrice,
+                    CategoryId = SelectedCategory.Id,
+                }, _productId);
+                TeachingTip.Subtitle = "Változtatások Elmentve";
+                TeachingTip.IsOpen = true;
+            }
+            else
+            {
+                _productService.AddProducts(new ProductDto
+                {
+                    Name = ProductName,
+                    Desc = ProductDesc,
+                    ImageUrl1 = ImageUrl1,
+                    ImageUrl2 = ImageUrl2,
+                    ImageUrl3 = ImageUrl3,
+                    ImageUrl4 = ImageUrl4,
+                    SizesWithQuantity = Sizes,
+                    Price = ProductPrice,
+                    CategoryId = SelectedCategory.Id,
+                });
+                TeachingTip.Subtitle = "Új termék(ek) hozzáadva";
+                TeachingTip.IsOpen = true;
+            }
         }
-        else
-        {
-            _productService.AddProducts(new ProductDto
-            {
-                Name = ProductName,
-                Desc = ProductDesc,
-                ImageUrl1 = ImageUrl1,
-                ImageUrl2 = ImageUrl2,
-                ImageUrl3 = ImageUrl3,
-                ImageUrl4 = ImageUrl4,
-                SizesWithQuantity = Sizes,
-                Price = ProductPrice,
-                CategoryId = SelectedCategory.Id,
-            });
-            TeachingTip.Subtitle = "Új termék(ek) hozzáadva";
-            TeachingTip.IsOpen = true;            
-        }       
     }
 
     [RelayCommand]
@@ -149,7 +235,7 @@ public partial class NewProductViewModel : ObservableRecipient, INavigationAware
     {
         if (_navigationService.CanGoBack)
         {
-           _navigationService.GoBack();
+            _navigationService.GoBack();
         }
     }
 
@@ -164,10 +250,25 @@ public partial class NewProductViewModel : ObservableRecipient, INavigationAware
         var categories = _categoryService.GetCategories();
         foreach (var category in categories)
         {
-            Categories.Add(new CategoryVmList {
-            Id = category.Id,
-            Name = category.Name
+            Categories.Add(new CategoryVmList
+            {
+                Id = category.Id,
+                Name = category.Name
             });
+        }
+    }
+
+    private bool IsValid()
+    {
+        if (DescValidationVisibility == false &&
+            NameValidationVisibility == false &&
+            Img1ValidationVisibility == false)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
         }
     }
 

@@ -1,5 +1,4 @@
 ﻿using System.Collections.ObjectModel;
-using System.Windows.Input;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Webshop.Desktop.Contracts.Services;
@@ -80,7 +79,6 @@ public partial class ProductsViewModel : ObservableRecipient, INavigationAware
             _productService.ChangeInactive(SelectedProduct.Id);
             LoadProducts();
         }
-
     }
 
     [RelayCommand(CanExecute = nameof (CanExecuteCommand))]
