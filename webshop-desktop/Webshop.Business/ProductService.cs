@@ -69,14 +69,33 @@ public class ProductService : IProductService
 
         foreach (var sizeWithQuantity in newProduct.SizesWithQuantity)
         {
-            var size = _sizeRepository.Find(s => s.Size1 == int.Parse(sizeWithQuantity.Key)).
+            var keyInt = int.Parse(sizeWithQuantity.Key);
+            var sizeId = _sizeRepository.Find(s => s.Size1 == keyInt).
                 Select(s => s.Id).SingleOrDefault();
-            _stockRepository.Add(new Stock
+            if (sizeId == 0)
             {
-                InStock = sizeWithQuantity.Value,
-                ProductId = addedProduct.Id,
-                SizeId = size
-            });
+                _sizeRepository.Add(new Size
+                {
+                    Size1 = keyInt
+                });
+                var newSizeId = _sizeRepository.Find(s => s.Size1 == keyInt)
+                    .Select(s => s.Id).SingleOrDefault();
+                _stockRepository.Add(new Stock
+                {
+                    InStock = sizeWithQuantity.Value,
+                    ProductId = addedProduct.Id,
+                    SizeId = newSizeId
+                });
+            }
+            else
+            {
+                _stockRepository.Add(new Stock
+                {
+                    InStock = sizeWithQuantity.Value,
+                    ProductId = addedProduct.Id,
+                    SizeId = sizeId
+                });
+            }
         }
     }
 
