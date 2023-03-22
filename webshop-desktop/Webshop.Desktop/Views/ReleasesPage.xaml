@@ -12,6 +12,15 @@
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
+
+        <TeachingTip
+            x:Name="TeachingTip_confirm"
+            Title="Foot Frenzy"
+            PreferredPlacement="Center"
+            PlacementMargin="20"
+            IsLightDismissEnabled="True"
+            CloseButtonContent="OK"/>
+
         <ScrollViewer
            Grid.Row="0" >
 
@@ -20,7 +29,8 @@
             GridLinesVisibility="Horizontal"
             HeadersVisibility="Column"
             IsReadOnly="True"
-            ItemsSource="{x:Bind ViewModel.Releases, Mode=OneWay}">
+            ItemsSource="{x:Bind ViewModel.Releases, Mode=OneWay}"
+            SelectedItem="{x:Bind ViewModel.SelectedRelease, Mode=TwoWay}">
 
                 <controls:DataGrid.Resources>
                     <SolidColorBrush x:Key="DataGridColumnHeaderBackgroundColor" Color="Transparent" />
@@ -99,8 +109,14 @@
                 Command="{x:Bind ViewModel.ToNewReleasePageCommand}"/>
 
             <Button               
+                Content="Módosítás" 
+                Margin="10"
+                Command="{x:Bind ViewModel.ChangeReleaseParametersCommand}"/>
+
+            <Button               
                 Content="Törlés" 
-                Margin="10"/>
+                Margin="10"
+                Command="{x:Bind ViewModel.DeleteReleaseCommand}"/>
 
         </StackPanel>
 

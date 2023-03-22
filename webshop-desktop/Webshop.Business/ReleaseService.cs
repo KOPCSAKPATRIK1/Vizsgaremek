@@ -35,12 +35,12 @@ public class ReleaseService : IReleaseService
         });
     }
 
-
     public ReleaseVmList[] GetReleases()
     {
         return _releaseRepository.GetAll()
             .Select(r => new ReleaseVmList
             {
+                Id = r.Id,
                 Name = r.Name,
                 ReleaseDate = r.ReleaseDate,
                 Info = new ReleaseInfoVmList[]
@@ -58,9 +58,12 @@ public class ReleaseService : IReleaseService
     }
 
     
-    public int DeleteRelease(int id)
+    public void DeleteRelease(int id)
     {
-        // return _releaseRepository.Find(r => r.Id == id);
-        return 1;
+        var release = _releaseRepository.Find(r => r.Id == id).SingleOrDefault();
+        if (release != null)
+        {
+            _releaseRepository.Remove(release);
+        }
     }
 }
