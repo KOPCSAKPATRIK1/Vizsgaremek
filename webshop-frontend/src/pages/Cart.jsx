@@ -2,20 +2,23 @@ import { Add, Remove } from "@mui/icons-material";
 import styled from "styled-components";
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
-
+import { BrowserRouter as Router,Routes, Route, Link } from 'react-router-dom';
 const Container = styled.div`
  color:white;
-  
-  `;
-
+  text-shadow: 0px 0px 10px black;
+`
 const Wrapper = styled.div`
-  padding: 20px;
+  padding: 50px;
+  padding-left: 100px;
+  padding-right: 100px;
+  
   border-bottom: 1px solid #ffa1ff;
 `;
 
 const Title = styled.h1`
-  font-weight: 300;
+  font-weight: bold;
   text-align: center;
+  letter-spacing: 4px;
 `;
 
 const Top = styled.div`
@@ -23,17 +26,26 @@ const Top = styled.div`
   align-items: center;
   justify-content: space-between;
   padding: 20px;
+  
 `;
 
 const TopButton = styled.button`
   padding: 10px;
-  font-weight: 600;
+  height: 30px;
+  text-align: center;
+  display: inline-flex;
+  align-items: center; 
+  margin-right: 20px;
+  border: 2px solid #ffa1ff;
+  border-radius: 20px;
+  background-color: #4a4a4a;
   cursor: pointer;
-  border: ${(props) => props.type === "filled" && "none"};
-  background-color: ${(props) =>
-    props.type === "filled" ? "black" : "transparent"};
-  color: ${(props) => props.type === "filled" && "white"};
-  border-radius:25px;
+  &:hover{
+      background-color: #2d2d2d;
+  }
+  color: white;
+  font-size: 15px;
+  box-shadow: 0px 0px 5px black;
 `;
 
 const TopTexts = styled.div`
@@ -123,10 +135,12 @@ const Summary = styled.div`
   border-radius: 10px;
   padding: 20px;
   height: 50vh;
+  background-color: #2d2d2d;
 `;
 
 const SummaryTitle = styled.h1`
   font-weight: 200;
+  text-align: center;
 `;
 
 const SummaryItem = styled.div`
@@ -144,10 +158,20 @@ const SummaryItemPrice = styled.span``;
 const Button = styled.button`
   width: 100%;
   padding: 10px;
-  background-color: black;
+  margin-right: 20px;
+  border: 2px solid #ffa1ff;
+  border-radius: 20px;
+  background-color: #2d2d2d;
+  cursor: pointer;
+  font-weight: 500;
+  &:hover{
+      background-color: #181818;
+  }
   color: white;
-  font-weight: 600;
-  border-radius:25px;
+  font-size: 18px;
+  font-weight: bold;
+  letter-spacing: 6px;
+  box-shadow: 0px 0px 10px black;
 `;
 
 const Cart = () => {
@@ -155,13 +179,13 @@ const Cart = () => {
     <Container>
       <Navbar />
       <Wrapper>
-        <Title>YOUR BAG</Title>
+        <Title>KOSÁR</Title>
         <Top>
-          <TopButton>CONTINUE SHOPPING</TopButton>
+          <Link to="/products" ><TopButton>Tovább vásárlok</TopButton></Link>
           <TopTexts>
-            <TopText>Shopping Bag(2)</TopText>
+            <TopText>Termékek(2)</TopText>
           </TopTexts>
-          <TopButton type="filled">CHECKOUT NOW</TopButton>
+          
         </Top>
         <Bottom>
           <Info>
@@ -230,7 +254,7 @@ const Cart = () => {
               <SummaryItemText>Összesen</SummaryItemText>
               <SummaryItemPrice>212 000 Ft</SummaryItemPrice>
             </SummaryItem>
-            <Button>CHECKOUT NOW</Button>
+            <Button>FIZETÉS</Button>
           </Summary>
         </Bottom>
       </Wrapper>

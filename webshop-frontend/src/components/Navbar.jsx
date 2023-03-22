@@ -147,7 +147,7 @@ const Navbar = () => {
                 <IconLink to="/login"><AccountCircle style={{fontSize:"40px", marginLeft:"10px", marginRight:"10px"}}></AccountCircle></IconLink>
                 <IconLink to="/login"><Search style={{fontSize:"40px", marginLeft:"10px", marginRight:"10px"}}></Search></IconLink>
                 <StyledBadge badgeContent={4} color="default">
-                <IconLink to="/login"><LocalMall style={{fontSize:"40px", marginLeft:"10px", marginRight:"10px"}} color="inherit"></LocalMall> </IconLink>
+                <IconLink to="/cart"><LocalMall style={{fontSize:"40px", marginLeft:"10px", marginRight:"10px"}} color="inherit"></LocalMall> </IconLink>
                 </StyledBadge>  
                 </MenuIcons>   
         </Right>
