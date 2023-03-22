@@ -1,10 +1,9 @@
 ﻿<Page
     x:Class="Webshop.Desktop.Views.NewReleasePage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:controls="using:CommunityToolkit.WinUI.UI.Controls"
     mc:Ignorable="d">
 
 
@@ -14,6 +13,14 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
+        <TeachingTip
+            x:Name="TeachingTip_confirm"
+            Title="Foot Frenzy"
+            PreferredPlacement="Center"
+            PlacementMargin="20"
+            IsLightDismissEnabled="True"
+            CloseButtonContent="OK"/>
+        
         <ScrollViewer
             Grid.Row="0">
             
@@ -24,17 +31,17 @@
                     Margin="10" 
                     Header="Név:" 
                     PlaceholderText="Air Force 1"
-                    TextChanged=""/>
+                    LostFocus="{x:Bind ViewModel.OnNameChanged}"/>
                 <TextBlock
-                    Text="asd"
+                    Text="{x:Bind ViewModel.NameValidation, Mode=TwoWay}"
                     Foreground="Red"
-                    Visibility="Collapsed"/>
+                    Visibility="{x:Bind ViewModel.NameValidationVisibility,Mode=OneWay}"/>
 
                 <TextBox 
                     Text="{x:Bind ViewModel.ReleaseDesc, Mode=TwoWay}"                         
                     Margin="10" 
-                    Header="Leirás:" 
-                    PlaceholderText="Ez egy cipo"/>
+                    Header="Leírás:" 
+                    PlaceholderText="Ez egy cipő"/>
 
                 <TextBox 
                     Text="{x:Bind ViewModel.ImageUrl1, Mode=TwoWay}"

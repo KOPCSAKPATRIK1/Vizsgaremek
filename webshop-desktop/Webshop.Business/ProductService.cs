@@ -10,7 +10,7 @@ namespace Webshop.Business;
 public class ProductService : IProductService
 {
     #region Private members
-   
+
     private readonly IRepository<Product> _productRepository;
     private readonly IRepository<Stock> _stockRepository;
     private readonly IRepository<Size> _sizeRepository;
@@ -39,8 +39,8 @@ public class ProductService : IProductService
                 Name = p.Name,
                 Price = p.Price,
                 CategoryName = p.Category.Name,
-                ImageUrl1= p.ImageUrl1,
-                Inactive = p.Inactive  != 0 ? "INAKTÍV" : "",
+                ImageUrl1 = p.ImageUrl1,
+                Inactive = p.Inactive != 0 ? "INAKTÍV" : "",
                 Info = p.Stocks.Where(s => s.InStock > 0).Select(s => new ProductInfoVmList
                 {
                     Size = s.Size.Size1,
@@ -94,13 +94,13 @@ public class ProductService : IProductService
                 product.Inactive = 0;
             }
 
-        _productRepository.Update(product);
+            _productRepository.Update(product);
         }
     }
 
     public ProductDto GetProductForUpdate(int id)
-     {
-        var productDto = _productRepository.Find(p =>p.Id == id)
+    {
+        var productDto = _productRepository.Find(p => p.Id == id)
             .Include(p => p.Stocks)
             .Select(p => new ProductDto
             {
@@ -111,17 +111,17 @@ public class ProductService : IProductService
                 ImageUrl3 = p.ImageUrl3,
                 ImageUrl4 = p.ImageUrl4,
                 Price = p.Price,
-                CategoryId = p.CategoryId,               
+                CategoryId = p.CategoryId,
             })
             .ToArray()
             .FirstOrDefault();
 
-        var y = _stockRepository.Find(s => s.ProductId == id)
+        var stocks = _stockRepository.Find(s => s.ProductId == id)
             .Include(s => s.Size)
             .ToArray();
 
         var sizesWithQuantity = new Dictionary<string, int>();
-        foreach (var stock in y)
+        foreach (var stock in stocks)
         {
             sizesWithQuantity.Add(stock.Size.Size1.ToString(), stock.InStock);
         }
@@ -147,12 +147,12 @@ public class ProductService : IProductService
             foreach (var sizeWithQuantity in product.SizesWithQuantity)
             {
                 var existingStock = _stockRepository.Find(s => s.ProductId == id && s.Size.Size1 == int.Parse(sizeWithQuantity.Key)).FirstOrDefault();
-                if (existingStock != null) 
+                if (existingStock != null)
                 {
                     existingStock.InStock = sizeWithQuantity.Value;
                     _stockRepository.Update(existingStock);
                 }
             }
-        }        
+        }
     }
 }

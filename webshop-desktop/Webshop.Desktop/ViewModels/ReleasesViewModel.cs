@@ -81,7 +81,7 @@ public partial class ReleasesViewModel : ObservableRecipient, INavigationAware
     [RelayCommand(CanExecute = nameof(CanExecuteCommand))]
     private void ChangeReleaseParameters()
     {
-        
+        _navigationService.Frame?.Navigate(typeof(NewReleasePage), SelectedRelease.Id);
     }
 
     #endregion

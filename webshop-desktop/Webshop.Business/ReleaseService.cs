@@ -14,14 +14,14 @@ public class ReleaseService : IReleaseService
     #endregion
 
     #region Constructor
-    public ReleaseService(IRepository<Release>  releaseRepository)
+    public ReleaseService(IRepository<Release> releaseRepository)
     {
         _releaseRepository = releaseRepository;
     }
 
     #endregion
 
-    public void AddRelease(NewReleaseDto release)
+    public void AddRelease(ReleaseDto release)
     {
         _releaseRepository.Add(new Release
         {
@@ -52,18 +52,49 @@ public class ReleaseService : IReleaseService
                     ImageUrl2 = r.ImageUrl2,
                     ImageUrl3 = r.ImageUrl3,
                     ImageUrl4 = r.ImageUrl4,
-                    }                   
+                    }
                 }
             }).ToArray();
     }
 
-    
     public void DeleteRelease(int id)
     {
         var release = _releaseRepository.Find(r => r.Id == id).SingleOrDefault();
         if (release != null)
         {
             _releaseRepository.Remove(release);
+        }
+    }
+
+    public ReleaseDto? GetReleaseForUpdate(int id)
+    {
+        return _releaseRepository.Find(r => r.Id == id)
+        .Select(r => new ReleaseDto
+        {
+            Name = r.Name,
+            Desc = r.Desc,
+            ReleaseDate = r.ReleaseDate,
+            ImageUrl1 = r.ImageUrl1,
+            ImageUrl2 = r.ImageUrl2,
+            ImageUrl3 = r.ImageUrl3,
+            ImageUrl4 = r.ImageUrl4,
+        })
+        .FirstOrDefault();
+    }
+
+    public void UpdateRelease(ReleaseDto release, int id)
+    {
+        var existingRelease = _releaseRepository.Find(r => r.Id == id).FirstOrDefault();
+        if (existingRelease != null)
+        {
+            existingRelease.Name = release.Name;
+            existingRelease.Desc = release.Desc;
+            existingRelease.ReleaseDate = release.ReleaseDate;
+            existingRelease.ImageUrl1 = release.ImageUrl1;
+            existingRelease.ImageUrl2 = release.ImageUrl2;
+            existingRelease.ImageUrl3 = release.ImageUrl3;
+            existingRelease.ImageUrl4 = release.ImageUrl4;
+            _releaseRepository.Update(existingRelease);
         }
     }
 }

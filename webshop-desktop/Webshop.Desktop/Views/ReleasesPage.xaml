@@ -24,16 +24,18 @@
         <ScrollViewer
            Grid.Row="0" >
 
-            <controls:DataGrid
-            AutoGenerateColumns="False"
-            GridLinesVisibility="Horizontal"
-            HeadersVisibility="Column"
-            IsReadOnly="True"
-            ItemsSource="{x:Bind ViewModel.Releases, Mode=OneWay}"
-            SelectedItem="{x:Bind ViewModel.SelectedRelease, Mode=TwoWay}">
+            <controls:DataGrid                
+                AutoGenerateColumns="False"
+                GridLinesVisibility="Horizontal"
+                HeadersVisibility="Column"
+                IsReadOnly="True"
+                ItemsSource="{x:Bind ViewModel.Releases, Mode=OneWay}"
+                SelectedItem="{x:Bind ViewModel.SelectedRelease, Mode=TwoWay}">
 
                 <controls:DataGrid.Resources>
-                    <SolidColorBrush x:Key="DataGridColumnHeaderBackgroundColor" Color="Transparent" />
+                    <SolidColorBrush 
+                        x:Key="DataGridColumnHeaderBackgroundColor" 
+                        Color="Transparent" />
                 </controls:DataGrid.Resources>
 
                 <controls:DataGrid.Columns>
@@ -43,55 +45,69 @@
 
                 <controls:DataGrid.RowDetailsTemplate>
                     <DataTemplate>
-                        <controls:DataGrid
-                                Margin="10"
-                                AutoGenerateColumns="False"
-                                GridLinesVisibility="Horizontal"
-                                IsReadOnly="True"
-                                ItemsSource="{Binding Info, Mode=OneWay}">
-                            
-                            <controls:DataGrid.Resources>
-                                <SolidColorBrush                                                                         
-                                    x:Key="DataGridColumnHeaderBackgroundColor" 
-                                    Color="Transparent" />
-                            </controls:DataGrid.Resources>
+                        <controls:DataGrid                              
+                            Margin="10"
+                            AutoGenerateColumns="False"
+                            GridLinesVisibility="Horizontal"
+                            IsReadOnly="True"
+                            ItemsSource="{Binding Info, Mode=OneWay}"
+                            Background="Transparent">
 
                             <controls:DataGrid.Columns>
-                                <controls:DataGridTemplateColumn Header="Leírás" MinWidth="195" Width="195" MaxWidth="500">
+                                <controls:DataGridTemplateColumn 
+                                    Header="Leírás" 
+                                    MinWidth="195" 
+                                    Width="195" 
+                                    MaxWidth="500">
                                     <controls:DataGridTemplateColumn.CellTemplate>
                                         <DataTemplate>
-                                            <TextBlock Text="{Binding Desc}" TextWrapping="Wrap" MinHeight="195"/>
+                                            <TextBlock 
+                                                Text="{Binding Desc}" 
+                                                TextWrapping="Wrap"/>
                                         </DataTemplate>
                                     </controls:DataGridTemplateColumn.CellTemplate>
                                 </controls:DataGridTemplateColumn>
-                                <controls:DataGridTemplateColumn Header="Első Kép" MaxWidth="195">
+                                
+                                <controls:DataGridTemplateColumn 
+                                    Header="Első Kép"
+                                    MaxWidth="195">
                                     <controls:DataGridTemplateColumn.CellTemplate>
                                         <DataTemplate>
                                             <Image Source="{Binding ImageUrl1}"/>
                                         </DataTemplate>
                                     </controls:DataGridTemplateColumn.CellTemplate>
                                 </controls:DataGridTemplateColumn>
-                                <controls:DataGridTemplateColumn Header="Második kép" MaxWidth="195">
+                                
+                                <controls:DataGridTemplateColumn 
+                                    Header="Második kép" 
+                                    MaxWidth="195">
                                     <controls:DataGridTemplateColumn.CellTemplate>
                                         <DataTemplate>
                                             <Image Source="{Binding ImageUrl2}"/>
                                         </DataTemplate>
                                     </controls:DataGridTemplateColumn.CellTemplate>
                                 </controls:DataGridTemplateColumn>
-                                <controls:DataGridTemplateColumn Header="Harmadik Kép" MaxWidth="195">
+                                
+                                <controls:DataGridTemplateColumn 
+                                    Header="Harmadik Kép" 
+                                    MaxWidth="195">
                                     <controls:DataGridTemplateColumn.CellTemplate>
                                         <DataTemplate>
                                             <Image Source="{Binding ImageUrl3}"/>
                                         </DataTemplate>
                                     </controls:DataGridTemplateColumn.CellTemplate>
                                 </controls:DataGridTemplateColumn>
-                                <controls:DataGridTemplateColumn Header="Negyedik kép" MaxWidth="195">
+                                
+                                <controls:DataGridTemplateColumn 
+                                    Header="Negyedik kép" 
+                                    MaxWidth="195">
                                     <controls:DataGridTemplateColumn.CellTemplate>
                                         <DataTemplate>
                                             <Image Source="{Binding ImageUrl4}"/>
                                         </DataTemplate>
                                     </controls:DataGridTemplateColumn.CellTemplate>
                                 </controls:DataGridTemplateColumn>
+                                
                             </controls:DataGrid.Columns>
                         </controls:DataGrid>
                     </DataTemplate>

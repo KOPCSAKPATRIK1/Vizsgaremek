@@ -119,7 +119,7 @@ public partial class NewProductViewModel : ObservableRecipient, INavigationAware
             NameValidationText = "A név nem lehet üres";
             NameValidationVisibility = true;
         }
-        else if (ProductName.Length < 3)
+        else if (ProductName.Length < 4)
         {
             NameValidationText = "A névnek 3 karakternél hosszabbnak kell lennie";
             NameValidationVisibility = true;
@@ -138,7 +138,7 @@ public partial class NewProductViewModel : ObservableRecipient, INavigationAware
             DescValidationText = "A leírás nem lehet üres";
             DescValidationVisibility = true;
         }
-        else if (ProductDesc.Length < 10)
+        else if (ProductDesc.Length < 11)
         {
             DescValidationText = "A leírásnak 10 karakternél hosszabbnak kell lennie";
             DescValidationVisibility = true;

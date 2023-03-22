@@ -1,5 +1,5 @@
 ﻿namespace Webshop.Desktop.Core.Models.Business.Dtos;
-public class NewReleaseDto
+public class ReleaseDto
 {
     public string Name { get; set; }
     public string ReleaseDate { get; set; }
