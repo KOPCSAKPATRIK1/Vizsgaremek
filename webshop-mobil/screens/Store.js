@@ -6,12 +6,16 @@ import carousel from '../assets/carousel';
 import Navbar from '../components/Navbar';
 import ReleaseCarouselItem from '../components/ReleaseCarouselItem';
 import SneakerScrollItem from '../components/SneakerScrollItem';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import SneakerScroll from '../components/SneakerScroll';
+import SneakerScrollHeadear from '../components/SneakerScrollHeadear';
+const poster = require('../assets/poster.webp')
 
 
 const Store = () => {
 
   const navigation = useNavigation();
-
+  const [user, setUser] = useState({});
 
     useLayoutEffect(()=> {
         navigation.setOptions({
@@ -20,6 +24,11 @@ const Store = () => {
         getReleases();
         getPopularshoes();
         getNewShoes();
+        getShoes();
+        AsyncStorage.getItem('user').then((res) => setUser(res));
+        //AsyncStorage.getItem('user').then((res) => console.log(res))
+        console.log(user);
+        
     }, [])
 
     const scrollx = useRef(new Animated.Value(0)).current;
@@ -67,7 +76,19 @@ const Store = () => {
         })
       let json = await response.json();
       setNewShoes(json.sort((a, b) => b.id - a.id));
-      console.log(newShoes);
+    }
+
+    const [shoes, setShoes] = useState([]);
+    const getShoes = async () => {
+      const response = await fetch('http://192.168.0.184:3000/shoes'
+        ,{
+        headers : { 
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+        }
+        })
+      let json = await response.json();
+      setShoes(json);
     }
 
 
@@ -78,7 +99,6 @@ const Store = () => {
       
       <ScrollView className="flex">
         <FlatList 
-        className="border-solid border-[#ff6efa] border-b-2"
         data={releaseData.slice(0,5)} 
         renderItem={({item}) => <ReleaseCarouselItem item={item} />}
         horizontal 
@@ -91,17 +111,9 @@ const Store = () => {
         })}
         />
 
-        <View className="flex flex-row items-center my-3">
-          <Text className="text-white text-[22px] mx-3">Popular Sneakers</Text>
-          <TouchableOpacity className="flex-1 justify-center items-end mx-3">
-            <Text className="text-[#ff6efa] text-[20px] justify-end">See all</Text>
-          </TouchableOpacity>
-        </View>
-        <ScrollView horizontal className="h-[185px] w-full">
-          {popularShoes.slice(0,15).map((item) => (
-            <SneakerScrollItem key={item.id} item={item} />
-          ))}
-        </ScrollView>
+        
+        <SneakerScrollHeadear text={"Popular Sneakers"} message={"Popular"} />
+        <SneakerScroll data={popularShoes} />
         
         <Text className="text-white text-[22px] m-3">Search by Brands</Text>
         <ScrollView horizontal className="h-[150px] w-full">
@@ -110,20 +122,18 @@ const Store = () => {
           ))}
         </ScrollView>
 
-        <View className="flex flex-row items-center my-3">
-          <Text className="text-white text-[22px] mx-3">Newest Sneakers</Text>
-          <TouchableOpacity className="flex-1 justify-center items-end mx-3">
-            <Text className="text-[#ff6efa] text-[20px] justify-end">See all</Text>
-          </TouchableOpacity>
+        <SneakerScrollHeadear text={"Newest Sneakers"} message={"Newest"}/>
+        <SneakerScroll data={newShoes} />
+
+        <View className="border-solid border-2 border-t-[#ff6efa] border-b-[#ff6efa] my-5">
+          <Image source={poster} className="w-full h-[275px]" />
         </View>
-        <ScrollView horizontal className="h-[185px] w-full">
-          {newShoes.slice(0,15).map((item) => (
-            <SneakerScrollItem key={item.id} item={item} />
-          ))}
-        </ScrollView>
+
+        <SneakerScrollHeadear text={"All Sneakers"} message={"All"} />
+        <SneakerScroll data={shoes} />
 
 
-        
+        <View className="h-20"></View>
       </ScrollView>
       
         <View className="absolute bottom-0 left-0 border-t-[1px] border-t-[#383838] bg-[#212121]" >

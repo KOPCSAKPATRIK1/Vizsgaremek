@@ -124,7 +124,7 @@ const Register = () => {
                 })
                 console.log(username, email, password);
                 ToastAndroid.show('Registration succesful!', ToastAndroid.SHORT);
-                navigation.navigate("Store")
+                navigation.navigate("SignIn")
         }
     }
 
