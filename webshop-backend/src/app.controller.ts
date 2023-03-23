@@ -134,9 +134,12 @@ export class AppController {
   @Get('/shoes/name/:name')
   async getShoesByName(@Param('name') name: string) {
     const productRepo = this.dataSource.getRepository(Product);
-    return productRepo.findBy({ name: name });
+    const shoes = await productRepo
+      .createQueryBuilder('product')
+      .where('product.name LIKE :name', { name: `%${name}%` })
+      .getMany();
+    return shoes;
   }
-
   @Get('/shoes/category/:id')
   async getShoeByCategory(@Param('id') id: number) {
     const productRepo = this.dataSource.getRepository(Product);
