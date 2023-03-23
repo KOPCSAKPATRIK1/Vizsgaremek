@@ -10,6 +10,7 @@ import SearchScreen from './screens/SearchScreen';
 import Liked from './screens/Liked';
 import CartScreen from './screens/CartScreen';
 import AccountScreen from './screens/AccountScreen';
+import Product from './screens/Product';
 
 export default function App() {
 
@@ -26,6 +27,7 @@ export default function App() {
         <Stack.Screen name="Liked" component={Liked} />
         <Stack.Screen name="Cart" component={CartScreen} />
         <Stack.Screen name="Account" component={AccountScreen} />
+        <Stack.Screen name="Product" component={Product} />
       </Stack.Navigator>
     </NavigationContainer>
   );

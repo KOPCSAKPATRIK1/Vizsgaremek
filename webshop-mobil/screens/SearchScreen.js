@@ -8,7 +8,7 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 const SearchScreen = ({route}) => {
     
     const navigation = useNavigation();
-    const message = route.params.message;
+    const [message, setMessage] = useState(route.params.message)
     console.log(message);
     const { width } = useWindowDimensions();
     const [search, setSearch] = useState("");
@@ -33,6 +33,18 @@ const SearchScreen = ({route}) => {
         let json = await response.json();
         //console.log(json);
         return json;
+    }
+
+    const getNewShoes = async () => {
+        const response = await fetch('http://192.168.0.184:3000/shoes'
+          ,{
+          headers : { 
+              'Content-Type': 'application/json',
+              'Accept': 'application/json'
+          }
+          })
+        let json = await response.json();
+        return(json.sort((a, b) => b.id - a.id));
     }
 
     const brands = ["DUNK", "AIR FORCE", "JORDAN", "YEEZY"];
@@ -62,8 +74,25 @@ const SearchScreen = ({route}) => {
       else if(message == "Popular"){
         setData(getPopularshoes());
         console.log(getPopularshoes());
+      }else if(message == "Newest"){
+        setData(getNewShoes());
+        console.log(setData);
       }
         
+    }
+
+    const searchByName = async (search) => {
+        setSearch(search);
+        setMessage("");
+        const response = await fetch('http://192.168.0.184:3000/shoes/name/' + search
+        ,{
+        headers : { 
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+        }
+        })
+        let json = await response.json();
+        setData(json);
     }
     
     
@@ -77,7 +106,7 @@ const SearchScreen = ({route}) => {
                     placeholder="Search..."
                     placeholderTextColor="#fff"
                     value={search}
-                    onChangeText={setSearch}
+                    onChangeText={searchByName}
                 />
             </View>
 

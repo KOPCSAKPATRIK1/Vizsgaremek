@@ -137,7 +137,7 @@ export class AppController {
     const shoes = await productRepo
       .createQueryBuilder('product')
       .where('product.name LIKE :name', { name: `%${name}%` })
-      .getMany();
+      .getMany(); 
     return shoes;
   }
   @Get('/shoes/category/:id')
