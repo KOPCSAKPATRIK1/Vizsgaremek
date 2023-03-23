@@ -22,7 +22,7 @@
                 </controls:DataGrid.Resources>
 
                 <controls:DataGrid.Columns>
-                    <controls:DataGridTextColumn Binding="{Binding OrderId}" Header="Rendelés azonositó"/>
+                    <controls:DataGridTextColumn Binding="{Binding OrderId}" Header="Rendelés azonosító"/>
                     <controls:DataGridTextColumn Binding="{Binding Email}" Header="E-mail"/>
                     <controls:DataGridTextColumn Binding="{Binding OrderDate}" Header="Rendelés ideje"/>
                 </controls:DataGrid.Columns>

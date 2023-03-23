@@ -1,6 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Microsoft.UI.Xaml.Controls;
 using Webshop.Desktop.Contracts.Services;
 using Webshop.Desktop.Contracts.ViewModels;
 using Webshop.Desktop.Core.Interfaces.Business;
@@ -18,9 +19,13 @@ public partial class ReleasesViewModel : ObservableRecipient, INavigationAware
 
     #endregion
 
+    public TeachingTip TeachingTip;
+
     #region Observables
 
     public ObservableCollection<ReleaseVmList> Releases { get; set; } = new();
+
+    [ObservableProperty] private ReleaseVmList? _selectedRelease;
 
     #endregion
 
@@ -48,6 +53,12 @@ public partial class ReleasesViewModel : ObservableRecipient, INavigationAware
 
     }
 
+    partial void OnSelectedReleaseChanged(ReleaseVmList? value)
+    {
+        DeleteReleaseCommand.NotifyCanExecuteChanged();
+        ChangeReleaseParametersCommand.NotifyCanExecuteChanged();
+    }
+
     #endregion
 
     #region Commands
@@ -58,10 +69,19 @@ public partial class ReleasesViewModel : ObservableRecipient, INavigationAware
          _navigationService.Frame?.Navigate(typeof(NewReleasePage));
     }
 
-    [RelayCommand]
+    [RelayCommand(CanExecute = nameof(CanExecuteCommand))]
     private void DeleteRelease()
     {
-        
+        _releaseService.DeleteRelease(SelectedRelease.Id);
+        TeachingTip.Subtitle = "Megjelenés sikeresen törölve";
+        TeachingTip.IsOpen = true;
+        LoadProducts();
+    }
+
+    [RelayCommand(CanExecute = nameof(CanExecuteCommand))]
+    private void ChangeReleaseParameters()
+    {
+        _navigationService.Frame?.Navigate(typeof(NewReleasePage), SelectedRelease.Id);
     }
 
     #endregion
@@ -75,6 +95,18 @@ public partial class ReleasesViewModel : ObservableRecipient, INavigationAware
         foreach ( var release in releases )
         {
             Releases.Add(release);
+        }
+    }
+
+    private bool CanExecuteCommand()
+    {
+        if (SelectedRelease == null)
+        {
+            return false;
+        }
+        else
+        {
+            return true;
         }
     }
 

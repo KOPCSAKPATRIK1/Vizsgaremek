@@ -15,5 +15,9 @@ public sealed partial class ReleasesPage : Page
     {
         ViewModel = App.GetService<ReleasesViewModel>();
         InitializeComponent();
+        Loaded += (sender, args) =>
+        {
+            ViewModel.TeachingTip = TeachingTip_confirm;
+        };
     }
 }

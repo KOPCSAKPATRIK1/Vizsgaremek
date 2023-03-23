@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 namespace Webshop.Desktop.Core.Models.Business;
 public class ReleaseVmList
 {
+    public int Id { get; set; }
     public string Name { get; set; }
     public string ReleaseDate { get; set; }
     public ReleaseInfoVmList[] Info { get; set; } = null!;
