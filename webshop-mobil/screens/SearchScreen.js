@@ -110,7 +110,7 @@ const SearchScreen = ({route}) => {
                 />
             </View>
 
-            <Text className="text-white text-[30px] m-10">{message}{search}</Text>
+            <Text className="text-white text-[20px] mx-3 mb-5">{message}{search}</Text>
 
             <FlatList 
                 className="w-full"
