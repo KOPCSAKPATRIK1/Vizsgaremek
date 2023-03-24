@@ -73,6 +73,26 @@ Nest is an MIT-licensed open source project. It can grow thanks to the sponsors 
 Nest is [MIT licensed](LICENSE).
 
 
-npm install typeorm --save
+// Get all likes for a particular product
+@GET('/likes/product/:productId', async (req, res) => {
+  const { productId } = req.params;
 
-npm i
+  const likeRepository = getRepository(Like);
+  const productRepository = getRepository(Product);
+
+  const product = await productRepository.findOne(productId);
+  const likes = await likeRepository.find({ where: { product: { id: productId } } });
+
+  res.send({ product, numLikes: product.numLikes, likes });
+});
+
+// Get all likes for a particular user
+@GET('/likes/user/:userId', async (req, res) => {
+  const { userId } = req.params;
+
+  const likeRepository = getRepository(Like);
+
+  const likes = await likeRepository.find({ where: { user: { id: userId } } });
+
+  res.send({ numLikes: likes.length, likes });
+});
