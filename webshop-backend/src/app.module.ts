@@ -15,6 +15,7 @@ import { ShippingMethod } from './entities/order/shippingMethod.entity';
 import { OrderItem } from './entities/order/orderItem.entity';
 import { Release } from './entities/product/release.entity';
 import { JwtModule } from '@nestjs/jwt';
+import { Like } from './entities/user/like.entity';
 
 @Module({
   imports: [
@@ -37,6 +38,7 @@ import { JwtModule } from '@nestjs/jwt';
         ShippingMethod,
         OrderItem,
         Release,
+        Like,
       ],
       synchronize: true,
     }),
