@@ -16,13 +16,7 @@ const Product = ({route}) => {
 
     useLayoutEffect(()=> {
         getData();
-        navigation.setOptions({
-            title: data.name,
-            headerTintColor: "white",
-            headerStyle: {
-                backgroundColor: "#212121"
-              },
-        });
+        
         
 
     }, [])
@@ -38,7 +32,14 @@ const Product = ({route}) => {
             })
         let json = await response.json();
         setData(json);
-        setImageUrl(data.imageUrl1);
+        setImageUrl(json.imageUrl1);
+        navigation.setOptions({
+            title: json.name,
+            headerTintColor: "white",
+            headerStyle: {
+                backgroundColor: "#212121"
+              },
+        });
     }
 
     const setImage = (num) => {
@@ -112,10 +113,10 @@ const Product = ({route}) => {
             </View>
             <Text className="text-white text-[16px] mx-2 my-4">{data.desc}</Text>
             <View className="flex-1 items-center">
-                <View className="w-[180px] h-[50px] border-solid border-2 border-[#ffa1ff] rounded-[10px] items-center flex-row justify-around">
+                <TouchableOpacity className="w-[180px] h-[50px] border-solid border-2 border-[#ffa1ff] rounded-[10px] items-center flex-row justify-around">
                     <Text className="text-white text-[20px]">Add to Cart</Text>
                     <IonIcons name="md-add-circle-outline" size={30} color="#ff6efa"/>
-                </View>
+                </TouchableOpacity>
             </View>
             <View className="h-20"></View>
         </ScrollView>

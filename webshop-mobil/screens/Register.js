@@ -102,12 +102,12 @@ const Register = () => {
         return (rePasswordErrorMessage == "");
       }
       
-    const register = async (username, email, password) => {
+    const register = async (username, email, password,rePassword) => {
         validateEmail(email);
         validateUsername(username);
         validatePassword(password);
         validateRePassword(rePassword);
-        if(validateEmail && validateUsername && validatePassword && validateRePassword){
+        if(emailErrorMessage != "" && usernameErrorMessage != "" && passwordErrorMessage != "" && rePasswordErrorMessage != ""){
             await fetch('http://192.168.0.184:3000/register', {
                 method: 'POST', 
                 headers: {
@@ -192,7 +192,7 @@ const Register = () => {
             <View>
             <TouchableOpacity 
             className="items-center justify-center mt-[5vh]"
-            onPress={() => register(username, email, password)}>
+            onPress={() => register(username, email, password, rePassword)}>
                 <View className="bg-[#ffa1ff] w-[70vw] h-[6vh] rounded-[20px] items-center justify-center">
                     <Text className="text-[20px] text-white tracking-wider">Register</Text>
                 </View>

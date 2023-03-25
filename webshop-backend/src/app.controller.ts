@@ -20,6 +20,8 @@ import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
 import { Response, Request } from 'express';
 import { Release } from './entities/product/release.entity';
+import CartDto from './dto/cart.dto';
+import { ShoppingCartItem } from './entities/cart/shoppingCartItem.entity';
 
 @Controller()
 export class AppController {
@@ -48,6 +50,7 @@ export class AppController {
 
     return user;
   }
+
 
   @Post('/login')
   async login(
@@ -174,4 +177,28 @@ export class AppController {
     const productRepo = this.dataSource.getRepository(User);
     return productRepo.findOneBy({ email: email });
   }
+
+  @Post('/cart')
+  @HttpCode(200)
+  async addToCart(@Body() cartDto: CartDto) {
+    const cartRepo = this.dataSource.getRepository(ShoppingCartItem);
+    const cart = new ShoppingCartItem();
+    cart.product = cartDto.productId;
+    cart.quantity = cartDto.quantity;
+    cart.size = cartDto.sizeId;
+    cart.user = cartDto.userId;
+    await cartRepo.save(cart)
+
+    return cart;
+  }
+
+  @Get('/cart/:id')
+  async getCartById(@Param('id') id: number) {
+    const cartRepo = this.dataSource.getRepository(ShoppingCartItem);
+
+    return cartRepo.findOneBy({ id: id });
+    
+
+  }
+
 }

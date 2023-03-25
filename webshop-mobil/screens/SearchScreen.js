@@ -19,7 +19,6 @@ const SearchScreen = ({route}) => {
             });
 
         getData(message);
-        console.log(message);
     }, [])
 
     const getPopularshoes = async () => {
@@ -31,8 +30,7 @@ const SearchScreen = ({route}) => {
         }
         })
         let json = await response.json();
-        //console.log(json);
-        return json;
+        setData(json);
     }
 
     const getNewShoes = async () => {
@@ -44,7 +42,7 @@ const SearchScreen = ({route}) => {
           }
           })
         let json = await response.json();
-        return(json.sort((a, b) => b.id - a.id));
+        setData(json.sort((a, b) => b.id - a.id));
     }
 
     const brands = ["DUNK", "AIR FORCE", "JORDAN", "YEEZY"];
@@ -72,11 +70,9 @@ const SearchScreen = ({route}) => {
         setData(helper);
       }
       else if(message == "Popular"){
-        setData(getPopularshoes());
-        console.log(getPopularshoes());
+        getPopularshoes();
       }else if(message == "Newest"){
-        setData(getNewShoes());
-        console.log(setData);
+        getNewShoes();
       }
         
     }

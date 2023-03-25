@@ -79,8 +79,10 @@ const SignIn = () => {
                 <Text className="text-[20px] text-white tracking-wider">SIGN IN</Text>
             </View>
         </TouchableOpacity>
-        {error && <Text>{error}</Text>}
-        <TouchableOpacity className="mt-[5vh] w-[100%] px-[10vw]">
+        <View className="flex justify-center items-center mt-5">
+          <Text className="text-red-600 text-[]">{error}</Text>
+        </View>
+        <TouchableOpacity className="mt-[2vh] w-[100%] px-[10vw]">
             <Text className="text-white underline">Forgot password</Text>
         </TouchableOpacity>
         <View className="absolute w-[200%] h-[100vh] top-[80vh] left-[-50vw] z-[-10] bg-[#ffa1ff] mt-[2vh]  rounded-full">
