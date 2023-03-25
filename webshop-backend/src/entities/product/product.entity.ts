@@ -9,6 +9,7 @@ import {
 } from 'typeorm';
 import { ShoppingCartItem } from '../cart/shoppingCartItem.entity';
 import { OrderItem } from '../order/orderItem.entity';
+import { Like } from '../user/like.entity';
 import { Category } from './category.entity';
 import { Size } from './size.entity';
 import { Stock } from './stock.entity';
@@ -21,7 +22,7 @@ export class Product {
   @Column()
   name: string;
 
-  @Column({nullable: true})
+  @Column()
   desc: string;
 
   @Column()
@@ -63,7 +64,16 @@ export class Product {
   )
   shoppingCartItems: ShoppingCartItem[];
 
+  @OneToMany(() => Like, (like) => like.product)
+  likes: Like[];
+
   @ManyToMany(() => Size)
   @JoinTable()
   sizes: Size;
+
+  //Methods
+
+  get numLikes(): number {
+    return this.likes.length;
+  }
 }
