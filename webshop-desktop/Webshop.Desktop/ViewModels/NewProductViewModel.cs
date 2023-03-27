@@ -1,12 +1,14 @@
 ﻿using System.Collections.ObjectModel;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Webshop.Desktop.Contracts.Services;
 using Webshop.Desktop.Contracts.ViewModels;
 using Webshop.Desktop.Core.Interfaces.Business;
 using Webshop.Desktop.Core.Models.Business;
 using Webshop.Desktop.Core.Models.Business.Dtos;
+using Webshop.Desktop.Views.Dialogs;
 
 namespace Webshop.Desktop.ViewModels;
 
@@ -22,6 +24,7 @@ public partial class NewProductViewModel : ObservableRecipient, INavigationAware
     #endregion
 
     public TeachingTip TeachingTip;
+    public XamlRoot XamlRoot;
 
     #region Observables
 
@@ -191,7 +194,7 @@ public partial class NewProductViewModel : ObservableRecipient, INavigationAware
         DescValidation();
         Img1Validation();
         CategoryValidation();
-        if (IsValid() == true)
+        if (IsValid())
         {
             if (_productId != 0)
             {
@@ -228,6 +231,43 @@ public partial class NewProductViewModel : ObservableRecipient, INavigationAware
                 TeachingTip.IsOpen = true;
             }
         }
+    }
+
+    [RelayCommand]
+    private async void NewCategory()
+    {
+        var dialogContent = new NewCategoryPage();
+        var dialog = new ContentDialog
+        {
+            XamlRoot = XamlRoot,
+            PrimaryButtonText = "Felvétel",
+            CloseButtonText = "Mégse",
+            DefaultButton = ContentDialogButton.Secondary,
+            Content = dialogContent,
+            RequestedTheme = ElementTheme.Dark
+        };
+        //dialog.PrimaryButtonClick += DialogPrimaryButtonClick;
+
+        var result = await dialog.ShowAsync();
+        if (result != ContentDialogResult.Primary)
+        {
+            return;
+        }
+
+
+            _categoryService.AddCategory(dialogContent.ViewModel.CategoryName);
+            TeachingTip.Subtitle = "Kategória felvéve";
+            TeachingTip.IsOpen = true;
+            LoadCategories();
+
+                
+    }
+
+    
+    [RelayCommand]
+    private void DeleteCategory()
+    {
+
     }
 
     [RelayCommand]

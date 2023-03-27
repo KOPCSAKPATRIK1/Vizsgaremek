@@ -18,6 +18,7 @@ public sealed partial class NewProductPage : Page
         Loaded += (sender, args) =>
         {
             ViewModel.TeachingTip = TeachingTip_confirm;
+            ViewModel.XamlRoot = XamlRoot;
         };
     }
 }

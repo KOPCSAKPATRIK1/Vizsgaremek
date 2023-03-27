@@ -13,7 +13,9 @@ using Webshop.Desktop.Core.Services;
 using Webshop.Desktop.Models;
 using Webshop.Desktop.Services;
 using Webshop.Desktop.ViewModels;
+using Webshop.Desktop.ViewModels.Dialogs;
 using Webshop.Desktop.Views;
+using Webshop.Desktop.Views.Dialogs;
 using Webshop.Repository;
 using Webshop.Repositrory.Repository;
 
@@ -94,6 +96,10 @@ public partial class App : Application
 
             services.AddTransient<ShellPage>();
             services.AddTransient<ShellViewModel>();
+
+            //Dialogs
+            services.AddTransient<NewCategoryPage>();
+            services.AddTransient<NewCategoryViewModel>();
         })
         .Build();
 

@@ -16,15 +16,13 @@ public class OrderService : IOrderService
     #region Constructor
 
     public OrderService(
-        IRepository<Order> orderRepository,
-        IRepository<OrderItem> orderItemRepository,
-        IRepository<User> userRepository,
-        IRepository<Product> productRepository)
+        IRepository<Order> orderRepository)
     {
         _orderRepository = orderRepository;
     }
 
     #endregion
+
     public OrderVmList[] GetOrdersWithInfo()
     {
         return _orderRepository.GetAllIncluding(o => o.User, o => o.OrderItems)

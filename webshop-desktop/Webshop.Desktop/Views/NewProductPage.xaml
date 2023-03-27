@@ -139,13 +139,42 @@
                     SpinButtonPlacementMode="Compact" Minimum="1000"
                     Margin="10" />
 
-                <ComboBox 
-                    Header="*Kategória" 
+                <ComboBox                         
+                    Header="*Kategória"
+                    MinWidth="140"
                     Margin="10"
                     ItemsSource="{x:Bind ViewModel.Categories}" 
                     DisplayMemberPath="Name" 
                     SelectedItem="{x:Bind ViewModel.SelectedCategory, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                     LostFocus="{x:Bind ViewModel.CategoryValidation}"/>
+
+                <StackPanel                    
+                    Orientation="Horizontal"
+                    Margin="10,0,0,0">
+                    <Button
+                        Margin="0,0,10,0"
+                        Command="{x:Bind ViewModel.NewCategoryCommand}">
+                        <FontIcon
+                            FontFamily="{StaticResource SymbolThemeFontFamily}" 
+                            Glyph="&#xe710;" 
+                            FontSize="16"/>
+                    </Button>
+                    <Button
+                        Margin="0,0,10,0">
+                        <FontIcon
+                            FontFamily="{StaticResource SymbolThemeFontFamily}" 
+                            Glyph="&#xe70f;" 
+                            FontSize="16"/>
+                    </Button>
+                    <Button                        
+                        Command="{x:Bind ViewModel.DeleteCategoryCommand}">
+                        <FontIcon                             
+                            FontFamily="{StaticResource SymbolThemeFontFamily}" 
+                            Glyph="&#xe74d;" 
+                            FontSize="16"/>
+                    </Button>
+                </StackPanel>
+
                 <TextBlock
                     Text="{x:Bind ViewModel.CategoryValidationText, Mode=TwoWay}"
                     Foreground="Red"

@@ -1,6 +1,7 @@
 ﻿using Webshop.Desktop.Core.Interfaces.Business;
 using Webshop.Desktop.Core.Interfaces.Repository;
 using Webshop.Desktop.Core.Models.Business;
+using Webshop.Desktop.Core.Models.Business.Dtos;
 using Webshop.Desktop.Core.Models.Domain;
 
 namespace Webshop.Business;
@@ -17,7 +18,7 @@ public class CategoryService : ICategoryService
     public CategoryService(IRepository<Category> categoryService)
     {
         _categoryService= categoryService;
-    }
+    }    
 
     #endregion
 
@@ -28,5 +29,13 @@ public class CategoryService : ICategoryService
                 Id= c.Id,
                 Name = c.Name,
             }).ToArray();
+    }
+
+    public void AddCategory(string categoryName)
+    {
+        _categoryService.Add(new Category
+        {
+            Name = categoryName,
+        });
     }
 }

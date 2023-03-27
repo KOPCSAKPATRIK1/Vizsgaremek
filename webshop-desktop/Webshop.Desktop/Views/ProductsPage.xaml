@@ -32,14 +32,14 @@
 
                 <controls:DataGrid.Columns>
                     <controls:DataGridTextColumn 
+                        Binding="{Binding CategoryName}" 
+                        Header="Kategória"/>
+                    <controls:DataGridTextColumn 
                         Binding="{Binding Name}" 
                         Header="Név"/>
                     <controls:DataGridTextColumn 
                         Binding="{Binding Price}" 
                         Header="Ár"/>
-                    <controls:DataGridTextColumn 
-                        Binding="{Binding CategoryName}" 
-                        Header="Kategória"/>
                     <controls:DataGridTemplateColumn>
                         <controls:DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>

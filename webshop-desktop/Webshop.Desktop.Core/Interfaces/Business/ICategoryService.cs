@@ -4,4 +4,5 @@ namespace Webshop.Desktop.Core.Interfaces.Business;
 public interface ICategoryService
 {
     CategoryVmList[] GetCategories();
+    void AddCategory(string category);
 }

@@ -13,7 +13,7 @@ namespace Webshop.Desktop.ViewModels;
 public class WebshopViewModel : ObservableRecipient, INavigationAware
 {
     // TODO: Set the default URL to display.
-    private Uri _source = new("https://docs.microsoft.com/windows/apps/");
+    private Uri _source = new("http://localhost:3001/");
     private bool _isLoading = true;
     private bool _hasFailures;
 
