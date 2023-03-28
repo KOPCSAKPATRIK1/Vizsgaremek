@@ -2,7 +2,8 @@ import styled from "styled-components";
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 import Newsletter from "../components/Newsletter";
-import React, { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 const Container = styled.div`
 
 `;
@@ -19,7 +20,7 @@ const ImgContainer = styled.div`
 
   margin-left: 10vw;
   margin-top: 30px;
-  max-height: 60vh;
+  height: 64vh;
   vertical-align: middle;
   background-color: #e0e0e0;
   border-radius: 10px;
@@ -28,7 +29,7 @@ const ImgContainer = styled.div`
 
 const Image = styled.img`
   width: 100%;
-  height: 40vh;
+  height: 45vh;
   object-fit: cover;
   vertical-align: middle;
   background: #e0e0e0;
@@ -44,8 +45,9 @@ const PreviewImage = styled.img`
   vertical-align: middle;
   background: white;
   text-align: center;
-  margin-left: 30px;
+  margin-left: 55px;
   margin-top: 60px;
+
   border: 1px solid grey;
   cursor: pointer;
   border-radius: 10px;
@@ -97,6 +99,7 @@ const FilterSize = styled.select`
   margin-left: 10px;
   padding: 5px;
   border-radius: 10px;
+  
 `;
 
 const FilterSizeOption = styled.option``;
@@ -126,9 +129,27 @@ const Button = styled.button`
 `;
 
 const SingleProduct = () => {
-
-  const [mainImage, setMainImage] = useState('https://cdn.shopify.com/s/files/1/2999/5106/products/5661741842_800x.png?v=1677548085');
+  const { id } = useParams();
+  console.log(id);
   
+  const [product, setProduct] = useState(null);
+  
+  const [mainImage, setMainImage] = useState(null);
+
+  useEffect(() => {
+    fetch(`http://localhost:3000/shoes/${id}`)
+      .then(response => response.json())
+      .then(data => {
+        console.log(data); // log the data variable
+        setProduct(data);
+        setMainImage(product.imageUrl1);
+      });
+  }, [id]);
+
+  if (!product) {
+    return <div>Loading...</div>;
+  }
+
   const handlePreviewClick = (imageSrc) => {
     setMainImage(imageSrc);
   }
@@ -139,16 +160,15 @@ const SingleProduct = () => {
       <Wrapper>
         <ImgContainer>
           <Image  src={mainImage} />
-          <PreviewImage src="https://cdn.shopify.com/s/files/1/2999/5106/products/3745591167_1024x.png?v=1677548085" onClick={() => handlePreviewClick('https://cdn.shopify.com/s/files/1/2999/5106/products/3745591167_1024x.png?v=1677548085')} />
-          <PreviewImage src="https://cdn.shopify.com/s/files/1/2999/5106/products/3423559116_1024x.png?v=1677548085" onClick={() => handlePreviewClick('https://cdn.shopify.com/s/files/1/2999/5106/products/3423559116_1024x.png?v=1677548085')} />
-          <PreviewImage src="https://cdn.shopify.com/s/files/1/2999/5106/products/5661741842_800x.png?v=1677548085" onClick={() => handlePreviewClick('https://cdn.shopify.com/s/files/1/2999/5106/products/5661741842_800x.png?v=1677548085')} />
-          <PreviewImage src="https://cdn.shopify.com/s/files/1/2999/5106/products/3181792069_1024x.png?v=1677548085" onClick={() => handlePreviewClick('https://cdn.shopify.com/s/files/1/2999/5106/products/3181792069_1024x.png?v=1677548085')} />
-          <PreviewImage src="https://cdn.shopify.com/s/files/1/2999/5106/products/2510197839_1024x.png?v=1677548085" onClick={() => handlePreviewClick('https://cdn.shopify.com/s/files/1/2999/5106/products/2510197839_1024x.png?v=1677548085')} />
+          <PreviewImage src={product.imageUrl1} onClick={() => handlePreviewClick(product.imageUrl1)} />
+          <PreviewImage src={product.imageUrl2}  onClick={() => handlePreviewClick(product.imageUrl2)} />
+          <PreviewImage src={product.imageUrl3}  onClick={() => handlePreviewClick(product.imageUrl3)} />
+          <PreviewImage src={product.imageUrl4} onClick={() => handlePreviewClick(product.imageUrl4)} />
         </ImgContainer>
         <InfoContainer>
-          <Title>NIKE DUNK LOW IRONSTONE</Title>
+          <Title>{product.name}</Title>
      
-          <Price>89 900 Ft</Price>
+          <Price>{product.price.toLocaleString()} Ft</Price>
           <FilterContainer>
             <Filter>
               <FilterTitle>Méret</FilterTitle>
@@ -165,12 +185,7 @@ const SingleProduct = () => {
             <Button>MEGVESZEM</Button>
           </AddContainer>
           <Desc>    
-            A ‘Banned’ Jordan 1-es cipő sikere után a Nike tervezőcsapata még jobban rákoncentrált a kosárcipőkre: 
-            1985-ben mutatták be a Dunk modellt. Az AJ1-hez hasonló színállás mellett nagyon sok változatban jelent még meg, 
-            többek között a ‘Be True To Your School’ sorozatban nagy múltú amerikai egyetemek színeiben. Bár a Nike Dunk a kosárpályákon
-             és utcán is népszerű cipő maradt, az igazi reneszánszot a deszkások hozták el a kétezres évek elején. A gördeszkázásra is
-              teljesen alkalmas, strapabíró Dunk SB számos kollaboráció részese is volt: érdekes, sőt extrém változatok jelentek meg, és
-               ez a trend 2020-ban pörgött fel igazán!
+          {product.desc}
           </Desc>
         </InfoContainer>
       </Wrapper>
