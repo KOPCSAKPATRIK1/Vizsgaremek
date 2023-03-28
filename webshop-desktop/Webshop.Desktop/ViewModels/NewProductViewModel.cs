@@ -70,6 +70,8 @@ public partial class NewProductViewModel : ObservableRecipient, INavigationAware
 
     #endregion
 
+    #region Constructor
+
     public NewProductViewModel(
         ICategoryService categoryService,
         IProductService productService,
@@ -79,6 +81,8 @@ public partial class NewProductViewModel : ObservableRecipient, INavigationAware
         _productService = productService;
         _navigationService = navigationService;
     }
+
+    #endregion
 
     #region Events
 
@@ -112,8 +116,6 @@ public partial class NewProductViewModel : ObservableRecipient, INavigationAware
     {
 
     }
-
-    #region Validation
 
     public void NameValidation()
     {
@@ -181,7 +183,10 @@ public partial class NewProductViewModel : ObservableRecipient, INavigationAware
         SaveProductCommand.NotifyCanExecuteChanged();
     }
 
-    #endregion
+    partial void OnSelectedCategoryChanged(CategoryVmList value)
+    {
+        DeleteCategoryCommand.NotifyCanExecuteChanged();
+    }
 
     #endregion
 
@@ -246,28 +251,35 @@ public partial class NewProductViewModel : ObservableRecipient, INavigationAware
             Content = dialogContent,
             RequestedTheme = ElementTheme.Dark
         };
-        //dialog.PrimaryButtonClick += DialogPrimaryButtonClick;
 
         var result = await dialog.ShowAsync();
         if (result != ContentDialogResult.Primary)
         {
             return;
-        }
+        }       
 
-
-            _categoryService.AddCategory(dialogContent.ViewModel.CategoryName);
-            TeachingTip.Subtitle = "Kategória felvéve";
-            TeachingTip.IsOpen = true;
-            LoadCategories();
-
-                
+        _categoryService.AddCategory(dialogContent.ViewModel.CategoryName);
+        TeachingTip.Subtitle = "Kategória felvéve";
+        TeachingTip.IsOpen = true;
+        LoadCategories();
     }
 
-    
-    [RelayCommand]
+
+    [RelayCommand(CanExecute = nameof(IsCategorySelected))]
     private void DeleteCategory()
     {
-
+        if (_categoryService.DeleteCategory(SelectedCategory.Id) == false)
+        {
+            TeachingTip.Subtitle = "A kategóriához tartozik termék";
+            TeachingTip.IsOpen = true;
+        }
+        else
+        {
+            _categoryService.DeleteCategory(SelectedCategory.Id);
+            TeachingTip.Subtitle = "Kategória sikeresen törölve";
+            TeachingTip.IsOpen = true;
+            LoadCategories();
+        }
     }
 
     [RelayCommand]
@@ -303,6 +315,18 @@ public partial class NewProductViewModel : ObservableRecipient, INavigationAware
         if (DescValidationVisibility == false &&
             NameValidationVisibility == false &&
             Img1ValidationVisibility == false)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    private bool IsCategorySelected()
+    {
+        if (SelectedCategory != null)
         {
             return true;
         }

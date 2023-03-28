@@ -9,12 +9,14 @@
 
     <StackPanel 
         Orientation="Vertical">
-        <TextBlock
-            Text="Új kategória"/>
         <TextBox
             Height="auto"
-            Header="Kategória neve"
+            Header="Új kategória neve"
             Text="{x:Bind ViewModel.CategoryName, Mode=TwoWay}"/>
-    </StackPanel>  
+        <TextBlock
+            Text="{x:Bind ViewModel.CategoryValidationText, Mode=TwoWay}"
+            Foreground="Red"
+            Visibility="{x:Bind ViewModel.CategoryValidationVisibility, Mode=OneWay}"/>
+    </StackPanel>
 
 </Page>
