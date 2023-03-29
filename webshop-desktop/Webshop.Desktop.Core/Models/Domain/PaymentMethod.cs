@@ -1,10 +1,7 @@
 ﻿namespace Webshop.Desktop.Core.Models.Domain;
 public partial class PaymentMethod
 {
-    public int Id
-    {
-        get; set;
-    }
+    public int Id { get; set; }
 
     public string Name { get; set; } = null!;
 

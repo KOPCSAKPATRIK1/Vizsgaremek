@@ -81,8 +81,6 @@ public partial class WebshopContext : DbContext
 
             entity.ToTable("address");
 
-            entity.HasIndex(e => e.UserId, "FK_d25f1ea79e282cc8a42bd616aa3");
-
             entity.Property(e => e.Id)
                 .HasColumnType("int(11)")
                 .HasColumnName("id");
@@ -98,14 +96,6 @@ public partial class WebshopContext : DbContext
             entity.Property(e => e.StreetAddress)
                 .HasMaxLength(255)
                 .HasColumnName("streetAddress");
-            entity.Property(e => e.UserId)
-                .HasDefaultValueSql("'NULL'")
-                .HasColumnType("int(11)")
-                .HasColumnName("userId");
-
-            entity.HasOne(d => d.User).WithMany(p => p.Addresses)
-                .HasForeignKey(d => d.UserId)
-                .HasConstraintName("FK_d25f1ea79e282cc8a42bd616aa3");
         });
 
         modelBuilder.Entity<Category>(entity =>
@@ -120,6 +110,37 @@ public partial class WebshopContext : DbContext
             entity.Property(e => e.Name)
                 .HasMaxLength(255)
                 .HasColumnName("name");
+        });
+
+        modelBuilder.Entity<Like>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("PRIMARY");
+
+            entity.ToTable("like");
+
+            entity.HasIndex(e => e.ProductId, "FK_3aeba0763d97c702fff1c66ebb6");
+
+            entity.HasIndex(e => e.UserId, "FK_e8fb739f08d47955a39850fac23");
+
+            entity.Property(e => e.Id)
+                .HasColumnType("int(11)")
+                .HasColumnName("id");
+            entity.Property(e => e.ProductId)
+                .HasDefaultValueSql("'NULL'")
+                .HasColumnType("int(11)")
+                .HasColumnName("productId");
+            entity.Property(e => e.UserId)
+                .HasDefaultValueSql("'NULL'")
+                .HasColumnType("int(11)")
+                .HasColumnName("userId");
+
+            entity.HasOne(d => d.Product).WithMany(p => p.Likes)
+                .HasForeignKey(d => d.ProductId)
+                .HasConstraintName("FK_3aeba0763d97c702fff1c66ebb6");
+
+            entity.HasOne(d => d.User).WithMany(p => p.Likes)
+                .HasForeignKey(d => d.UserId)
+                .HasConstraintName("FK_e8fb739f08d47955a39850fac23");
         });
 
         modelBuilder.Entity<Order>(entity =>
@@ -188,6 +209,8 @@ public partial class WebshopContext : DbContext
 
             entity.HasIndex(e => e.ProductId, "FK_904370c093ceea4369659a3c810");
 
+            entity.HasIndex(e => e.SizeId, "FK_b92d3a6017b15d811d4b0c7b789");
+
             entity.Property(e => e.Id)
                 .HasColumnType("int(11)")
                 .HasColumnName("id");
@@ -202,6 +225,10 @@ public partial class WebshopContext : DbContext
             entity.Property(e => e.Quantity)
                 .HasColumnType("int(11)")
                 .HasColumnName("quantity");
+            entity.Property(e => e.SizeId)
+                .HasDefaultValueSql("'NULL'")
+                .HasColumnType("int(11)")
+                .HasColumnName("sizeId");
             entity.Property(e => e.UserId)
                 .HasDefaultValueSql("'NULL'")
                 .HasColumnType("int(11)")
@@ -216,8 +243,8 @@ public partial class WebshopContext : DbContext
                 .HasConstraintName("FK_904370c093ceea4369659a3c810");
 
             entity.HasOne(d => d.Size).WithMany(p => p.OrderItems)
-               .HasForeignKey(d => d.SizeId)
-               .HasConstraintName("FK_b92d3a6017b15d811d4b0c7b789");
+                .HasForeignKey(d => d.SizeId)
+                .HasConstraintName("FK_b92d3a6017b15d811d4b0c7b789");
 
             entity.HasOne(d => d.User).WithMany(p => p.OrderItems)
                 .HasForeignKey(d => d.UserId)
@@ -261,12 +288,15 @@ public partial class WebshopContext : DbContext
                 .HasColumnName("imageUrl1");
             entity.Property(e => e.ImageUrl2)
                 .HasMaxLength(255)
+                .HasDefaultValueSql("'NULL'")
                 .HasColumnName("imageUrl2");
             entity.Property(e => e.ImageUrl3)
                 .HasMaxLength(255)
+                .HasDefaultValueSql("'NULL'")
                 .HasColumnName("imageUrl3");
             entity.Property(e => e.ImageUrl4)
                 .HasMaxLength(255)
+                .HasDefaultValueSql("'NULL'")
                 .HasColumnName("imageUrl4");
             entity.Property(e => e.Inactive)
                 .HasColumnType("tinyint(4)")
@@ -326,17 +356,21 @@ public partial class WebshopContext : DbContext
                 .HasColumnName("imageUrl1");
             entity.Property(e => e.ImageUrl2)
                 .HasMaxLength(255)
+                .HasDefaultValueSql("'NULL'")
                 .HasColumnName("imageUrl2");
             entity.Property(e => e.ImageUrl3)
                 .HasMaxLength(255)
+                .HasDefaultValueSql("'NULL'")
                 .HasColumnName("imageUrl3");
             entity.Property(e => e.ImageUrl4)
                 .HasMaxLength(255)
+                .HasDefaultValueSql("'NULL'")
                 .HasColumnName("imageUrl4");
             entity.Property(e => e.Name)
                 .HasMaxLength(255)
                 .HasColumnName("name");
             entity.Property(e => e.ReleaseDate)
+                .HasMaxLength(255)
                 .HasColumnName("releaseDate");
         });
 
@@ -362,6 +396,8 @@ public partial class WebshopContext : DbContext
 
             entity.HasIndex(e => e.ProductId, "FK_54ae5bb4222e2d64ace88dc1416");
 
+            entity.HasIndex(e => e.SizeId, "FK_7ed53be42af947cfdd52153f6f1");
+
             entity.HasIndex(e => e.UserId, "FK_8c4ae7c19a3927c2fb1feefda2b");
 
             entity.Property(e => e.Id)
@@ -374,6 +410,10 @@ public partial class WebshopContext : DbContext
             entity.Property(e => e.Quantity)
                 .HasColumnType("int(11)")
                 .HasColumnName("quantity");
+            entity.Property(e => e.SizeId)
+                .HasDefaultValueSql("'NULL'")
+                .HasColumnType("int(11)")
+                .HasColumnName("sizeId");
             entity.Property(e => e.UserId)
                 .HasDefaultValueSql("'NULL'")
                 .HasColumnType("int(11)")
@@ -382,6 +422,10 @@ public partial class WebshopContext : DbContext
             entity.HasOne(d => d.Product).WithMany(p => p.ShoppingCartItems)
                 .HasForeignKey(d => d.ProductId)
                 .HasConstraintName("FK_54ae5bb4222e2d64ace88dc1416");
+
+            entity.HasOne(d => d.Size).WithMany(p => p.ShoppingCartItems)
+                .HasForeignKey(d => d.SizeId)
+                .HasConstraintName("FK_7ed53be42af947cfdd52153f6f1");
 
             entity.HasOne(d => d.User).WithMany(p => p.ShoppingCartItems)
                 .HasForeignKey(d => d.UserId)
@@ -451,6 +495,9 @@ public partial class WebshopContext : DbContext
             entity.Property(e => e.Password)
                 .HasMaxLength(255)
                 .HasColumnName("password");
+            entity.Property(e => e.Username)
+                .HasMaxLength(255)
+                .HasColumnName("username");
         });
 
         OnModelCreatingPartial(modelBuilder);
