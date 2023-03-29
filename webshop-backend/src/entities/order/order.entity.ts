@@ -1,10 +1,12 @@
 import {
   Column,
   Entity,
+  JoinColumn,
   ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
+import { Address } from '../user/address.entity';
 import { User } from '../user/user.entity';
 import { OrderItem } from './orderItem.entity';
 import { PaymentMethod } from './paymentMethod.entity';
@@ -18,9 +20,6 @@ export class Order {
   @Column()
   orderDate: Date;
 
-  @Column()
-  address: string;
-
   @ManyToOne(() => User, (user) => user.orders)
   user: User;
 
@@ -32,4 +31,8 @@ export class Order {
 
   @OneToMany(() => OrderItem, (orderItem) => orderItem.order)
   orderItems: OrderItem[];
+
+  @ManyToOne(() => Address)
+  @JoinColumn({ name: 'addressId' })
+  address: Address;
 }
