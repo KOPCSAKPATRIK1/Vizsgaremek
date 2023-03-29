@@ -1,11 +1,4 @@
-import {
-  Column,
-  Entity,
-  ManyToOne,
-  OneToMany,
-  PrimaryGeneratedColumn,
-} from 'typeorm';
-import { Order } from '../order/order.entity';
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { User } from './user.entity';
 
 @Entity()
@@ -27,7 +20,4 @@ export class Address {
 
   @ManyToOne(() => User, (user) => user.addresses)
   user: User;
-
-  @OneToMany(() => Order, (order) => order.user)
-  orders: Order[];
 }
