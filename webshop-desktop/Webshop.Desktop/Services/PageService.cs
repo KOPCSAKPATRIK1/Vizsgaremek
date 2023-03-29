@@ -20,7 +20,6 @@ public class PageService : IPageService
         Configure<NewProductViewModel, NewProductPage>();
         Configure<NewReleaseViewModel, NewReleasePage>();
         Configure<WebshopViewModel, WebshopPage>();
-        Configure<SettingsViewModel, SettingsPage>();
     }
 
     public Type GetPageType(string key)

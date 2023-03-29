@@ -43,12 +43,7 @@ public partial class ProductsViewModel : ObservableRecipient, INavigationAware
 
     public  void OnNavigatedTo(object parameter)
     {
-        ProductsWithInfo.Clear();
-        var productsWithInfo =  _productService.GetProductsWithInfo();
-        foreach (var product in productsWithInfo)
-        {
-            ProductsWithInfo.Add(product);
-        }
+        LoadProducts();
     }
     public void OnNavigatedFrom()
     {

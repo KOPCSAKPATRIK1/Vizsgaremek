@@ -2,6 +2,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.UI.Xaml;
+
 using Webshop.Business;
 using Webshop.Desktop.Activation;
 using Webshop.Desktop.Contracts.Services;
@@ -51,7 +52,6 @@ public partial class App : Application
 
             // Services
             services.AddSingleton<ILocalSettingsService, LocalSettingsService>();
-            services.AddSingleton<IThemeSelectorService, ThemeSelectorService>();
             services.AddTransient<IWebViewService, WebViewService>();
             services.AddTransient<INavigationViewService, NavigationViewService>();
             services.AddSingleton<IActivationService, ActivationService>();
@@ -73,8 +73,6 @@ public partial class App : Application
             services.AddTransient<IReleaseService, ReleaseService>();
 
             // Views and ViewModels
-            services.AddTransient<SettingsViewModel>();
-            services.AddTransient<SettingsPage>();
 
             services.AddTransient<WebshopViewModel>();
             services.AddTransient<WebshopPage>();

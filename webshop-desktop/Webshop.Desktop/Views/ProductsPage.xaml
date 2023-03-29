@@ -7,7 +7,9 @@
     xmlns:controls="using:CommunityToolkit.WinUI.UI.Controls"
     mc:Ignorable="d">
 
-    <Grid x:Name="ContentArea" VerticalAlignment="Stretch">
+    <Grid 
+        x:Name="ContentArea" 
+        VerticalAlignment="Stretch">
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
@@ -51,8 +53,7 @@
                         </controls:DataGridTemplateColumn.CellTemplate>
                     </controls:DataGridTemplateColumn>
                     <controls:DataGridTextColumn 
-                        Binding="{Binding Inactive}" 
-                        Foreground="Red"/>
+                        Binding="{Binding Inactive}"/>
                 </controls:DataGrid.Columns>
 
                 <controls:DataGrid.RowDetailsTemplate>
