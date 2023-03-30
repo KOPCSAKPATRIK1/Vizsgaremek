@@ -236,7 +236,7 @@ public partial class WebshopContext : DbContext
 
             entity.HasOne(d => d.Order).WithMany(p => p.OrderItems)
                 .HasForeignKey(d => d.OrderId)
-                .HasConstraintName("FK_646bf9ece6f45dbe41c203e06e0");
+                .HasConstraintName("FK_646bf9ece6f45dbe41c203e06e0");                
 
             entity.HasOne(d => d.Product).WithMany(p => p.OrderItems)
                 .HasForeignKey(d => d.ProductId)

@@ -158,6 +158,17 @@ export class AppController {
     return products;
   }
 
+  @Get('/shoes/category/:name')
+  async getShoeByCategoryName(@Param('name') name: string) {
+    const productRepo = this.dataSource.getRepository(Product);
+    const products = await productRepo
+      .createQueryBuilder('product')
+      .leftJoinAndSelect('product.category', 'category')
+      .where('category.name LIKE :name', { name: `%${name}%` })
+      .getMany();
+    return products;
+  }
+
   @Get('/users')
   async getUsers() {
     const productRepo = this.dataSource.getRepository(User);

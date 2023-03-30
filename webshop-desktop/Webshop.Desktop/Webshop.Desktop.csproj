@@ -21,6 +21,7 @@
 	  <GenerateTemporaryStoreCertificate>True</GenerateTemporaryStoreCertificate>
   </PropertyGroup>
   <ItemGroup>
+    <None Remove="Views\Dialogs\ChangeAddressPage.xaml" />
     <None Remove="Views\Dialogs\NewCategoryPage.xaml" />
   </ItemGroup>
 
@@ -46,6 +47,9 @@
     <None Update="appsettings.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <Page Update="Views\Dialogs\ChangeAddressPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Update="Views\Dialogs\NewCategoryPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
