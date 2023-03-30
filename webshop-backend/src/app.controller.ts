@@ -26,6 +26,9 @@ import { ShoppingCartItem } from './entities/cart/shoppingCartItem.entity';
 import { Size } from './entities/product/size.entity';
 import LikeDto from './dto/like.dto';
 import { Like } from './entities/user/like.entity';
+import OrderItemDto from './dto/orderItem.dto';
+import { Order } from './entities/order/order.entity';
+import { OrderItem } from './entities/order/orderItem.entity';
 
 @Controller()
 export class AppController {
@@ -228,5 +231,31 @@ export class AppController {
     like.user = await this.dataSource.getRepository(User).findOneBy({id: LikeDto.userId});
     await likeRepo.save(like);
     return like;
+  }
+
+  @Get('/like/product/:id')
+  async getLikesByProductId(@Param('id') id: number){
+    const likeRepo = this.dataSource.getRepository(Like);
+    return likeRepo.findBy({ productId: id});
+  }
+
+  @Get('/like/user/:id')
+  async getLikesByUserId(@Param('id') id: number){
+    const likeRepo = this.dataSource.getRepository(Like);
+    return likeRepo.findBy({ userId: id});
+  }
+
+  @Post('orderitem')
+  @HttpCode(200)
+  async addOrderitem(@Body() OrderItemDto: OrderItemDto){
+    const orderItemRepo = this.dataSource.getRepository(OrderItem);
+    const orderItem = new OrderItem();
+    orderItem.product = await this.dataSource.getRepository(Product).findOneBy({ id: OrderItemDto.productId });
+    orderItem.quantity = OrderItemDto.quantity;
+    orderItem.size = await this.dataSource.getRepository(Size).findOneBy({ id: OrderItemDto.sizeId });
+    orderItem.user = await this.dataSource.getRepository(User).findOneBy({ id: OrderItemDto.userId });
+    await orderItemRepo.save(orderItem);
+    return orderItem;
+
   }
 }
