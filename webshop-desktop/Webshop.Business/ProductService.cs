@@ -41,6 +41,7 @@ public class ProductService : IProductService
                 CategoryName = p.Category.Name,
                 ImageUrl1 = p.ImageUrl1,
                 Inactive = p.Inactive != 0 ? "INAKTÍV" : "",
+                Likes = p.Likes.Count(),
                 Info = p.Stocks.Where(s => s.InStock > 0).Select(s => new ProductInfoVmList
                 {
                     Size = s.Size.Size1,
