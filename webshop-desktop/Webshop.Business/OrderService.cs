@@ -40,6 +40,7 @@ public class OrderService : IOrderService
                  OrderId = o.Id,
                  Email = o.User.Email,
                  OrderDate = o.OrderDate,
+                 AddressId = o.AddressId,
                  StreetAddress = o.Address.StreetAddress,
                  City = o.Address.City,
                  State = o.Address.State,

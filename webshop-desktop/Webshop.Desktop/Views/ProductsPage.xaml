@@ -42,6 +42,9 @@
                     <controls:DataGridTextColumn 
                         Binding="{Binding Price}" 
                         Header="Ár"/>
+                    <controls:DataGridTextColumn 
+                        Binding="{Binding Likes}" 
+                        Header="Kedvelések"/>
                     <controls:DataGridTemplateColumn>
                         <controls:DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
