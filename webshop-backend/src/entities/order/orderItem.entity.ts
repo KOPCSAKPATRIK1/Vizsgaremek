@@ -15,12 +15,24 @@ export class OrderItem {
   @ManyToOne(() => Product, (product) => product.orderItems)
   product: Product;
 
+  @Column()
+  productId: number;
+
   @ManyToOne(() => User, (user) => user.orderItems)
   user: User;
+
+  @Column()
+  userId: number;
 
   @ManyToOne(() => Order, (order) => order.orderItems)
   order: Order;
 
+  @Column()
+  orderId: number;
+
   @ManyToOne(() => Size, (size) => size.stocks)
   size: Size;
+
+  @Column()
+  sizeId: number;
 }

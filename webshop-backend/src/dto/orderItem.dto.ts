@@ -3,4 +3,5 @@ export default class OrderItemDto {
   productId: number;
   userId: number;
   sizeId: number;
+  orderId: number;
 }

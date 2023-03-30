@@ -9,6 +9,9 @@ export class ShippingMethod {
   @Column()
   name: string;
 
+  @Column()
+  price: number;
+
   @OneToMany(() => Order, (order) => order.user)
   orders: Order[];
 }

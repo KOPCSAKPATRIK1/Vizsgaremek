@@ -29,6 +29,11 @@ import { Like } from './entities/user/like.entity';
 import OrderItemDto from './dto/orderItem.dto';
 import { Order } from './entities/order/order.entity';
 import { OrderItem } from './entities/order/orderItem.entity';
+import { ShippingMethod } from './entities/order/shippingMethod.entity';
+import { PaymentMethod } from './entities/order/paymentMethod.entity';
+import AddressDto from './dto/address.dto';
+import { Address } from './entities/user/address.entity';
+import OrderDto from './dto/order.dto';
 
 @Controller()
 export class AppController {
@@ -247,15 +252,80 @@ export class AppController {
 
   @Post('orderitem')
   @HttpCode(200)
-  async addOrderitem(@Body() OrderItemDto: OrderItemDto){
+  async addOrderItem(@Body() OrderItemDto: OrderItemDto){
     const orderItemRepo = this.dataSource.getRepository(OrderItem);
     const orderItem = new OrderItem();
     orderItem.product = await this.dataSource.getRepository(Product).findOneBy({ id: OrderItemDto.productId });
     orderItem.quantity = OrderItemDto.quantity;
     orderItem.size = await this.dataSource.getRepository(Size).findOneBy({ id: OrderItemDto.sizeId });
     orderItem.user = await this.dataSource.getRepository(User).findOneBy({ id: OrderItemDto.userId });
+    orderItem.order = await this.dataSource.getRepository(Order).findOneBy({ id: OrderItemDto.orderId })
     await orderItemRepo.save(orderItem);
     return orderItem;
-
   }
+
+  @Get('orderitem/:id')
+  getOrderItemsById(@Param('id') id: number) {
+    const orderItemRepo = this.dataSource.getRepository(OrderItem);
+    return orderItemRepo.findBy({ orderId: id });
+  }
+
+  @Get('shippingmethod')
+  getShippingMethods(){
+    const shippingRepository = this.dataSource.getRepository(ShippingMethod);
+    return shippingRepository.find();
+  }
+  
+  @Get('shippingmethod/:id')
+  getShippingMethodById(@Param('id') id: number){
+    const shippingRepository = this.dataSource.getRepository(ShippingMethod);
+    return shippingRepository.findOneBy({ id: id });
+  }
+
+  @Get('paymentmethod')
+  getPaymentMethods(){
+    const paymentRepository = this.dataSource.getRepository(PaymentMethod);
+    return paymentRepository.find();
+  }
+
+  @Get('paymentmethod/:id')
+  getPaymentMethodById(@Param('id') id: number){
+    const paymentRepository = this.dataSource.getRepository(PaymentMethod);
+    return paymentRepository.findOneBy({ id: id });
+  }
+
+  @Post('address')
+  @HttpCode(200)
+  async addAddress(@Body() AddressDto: AddressDto){
+    const addressRepo = this.dataSource.getRepository(Address);
+    const address = new Address();
+    address.city = AddressDto.city;
+    address.postalCode = AddressDto.postalCode;
+    address.state = AddressDto.state;
+    address.streetAddress = AddressDto.streetAddress;
+    addressRepo.save(address);
+    return address;
+  }
+
+  @Get('address/:id')
+  getAddressById(@Param('id') id: number){
+    const addressRepo = this.dataSource.getRepository(Address);
+    return addressRepo.findOneBy({ id: id });
+  }
+
+  @Post('order')
+  @HttpCode(200)
+  async addOrder(@Body() OrderDto: OrderDto){
+    const orderRepo = this.dataSource.getRepository(Order);
+    const order = new Order();
+    order.address = await this.dataSource.getRepository(Address).findOneBy({ id: OrderDto.addressId });
+    order.paymentMethod = await this.dataSource.getRepository(PaymentMethod).findOneBy({ id: OrderDto.paymentMethod });
+    order.shippingMethod = await this.dataSource.getRepository(ShippingMethod).findOneBy({ id: OrderDto.shippingMethod });
+    order.user = await this.dataSource.getRepository(User).findOneBy({ id: OrderDto.userId });
+    order.orderDate = new Date();
+    orderRepo.save(order);
+    return order;
+  }
+  
+  
 }
