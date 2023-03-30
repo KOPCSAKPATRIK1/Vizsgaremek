@@ -9,14 +9,23 @@ export class ShoppingCartItem {
   id: number;
 
   @ManyToOne(() => User, (user) => user.cartItems)
-  user: User["id"];
+  user: User;
+
+  @Column()
+  userId: number;
 
   @Column()
   quantity: number;
 
   @ManyToOne(() => Product, (product) => product.cartItems)
-  product: Product["id"];
+  product: Product;
 
-  @ManyToOne(() => Size, (size) => size.stocks)
-  size: Size["id"];
+  @Column()
+  productId: number;
+
+  @ManyToOne(() => Size)
+  size: Size;
+
+  @Column()
+  sizeId: number;
 }
