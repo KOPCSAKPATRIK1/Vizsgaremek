@@ -4,4 +4,5 @@ namespace Webshop.Desktop.Core.Interfaces.Business;
 public interface IOrderService
 {
     OrderVmList[] GetOrdersWithInfo();
+    void DeleteOrder(int id);
 }

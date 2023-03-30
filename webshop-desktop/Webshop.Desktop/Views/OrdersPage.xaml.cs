@@ -14,5 +14,10 @@ public sealed partial class OrdersPage : Page
     {
         ViewModel = App.GetService<OrdersViewModel>();
         InitializeComponent();
+        Loaded += (sender, args) =>
+        {
+            ViewModel.TeachingTip = TeachingTip_confirm;
+            ViewModel.XamlRoot = XamlRoot;
+        };
     }
 }
