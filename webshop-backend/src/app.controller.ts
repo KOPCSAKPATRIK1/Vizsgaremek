@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import {
   BadRequestException,
   Body,
@@ -22,6 +23,9 @@ import { Response, Request } from 'express';
 import { Release } from './entities/product/release.entity';
 import CartDto from './dto/cart.dto';
 import { ShoppingCartItem } from './entities/cart/shoppingCartItem.entity';
+import { Size } from './entities/product/size.entity';
+import LikeDto from './dto/like.dto';
+import { Like } from './entities/user/like.entity';
 
 @Controller()
 export class AppController {
@@ -198,11 +202,11 @@ export class AppController {
   async addToCart(@Body() cartDto: CartDto) {
     const cartRepo = this.dataSource.getRepository(ShoppingCartItem);
     const cart = new ShoppingCartItem();
-    cart.product = cartDto.productId;
+    cart.product = await this.dataSource.getRepository(Product).findOneBy({ id: cartDto.productId });
     cart.quantity = cartDto.quantity;
-    cart.size = cartDto.sizeId;
-    cart.user = cartDto.userId;
-    await cartRepo.save(cart)
+    cart.size = await this.dataSource.getRepository(Size).findOneBy({ id: cartDto.sizeId });
+    cart.user = await this.dataSource.getRepository(User).findOneBy({ id: cartDto.userId });
+    await cartRepo.save(cart);
 
     return cart;
   }
@@ -213,7 +217,16 @@ export class AppController {
 
     return cartRepo.findOneBy({ id: id });
     
-
   }
 
+  @Post('/like')
+  @HttpCode(200)
+  async addToLike(@Body() LikeDto: LikeDto){
+    const likeRepo = this.dataSource.getRepository(Like);
+    const like = new Like();
+    like.product = await this.dataSource.getRepository(Product).findOneBy({id: LikeDto.productId});
+    like.user = await this.dataSource.getRepository(User).findOneBy({id: LikeDto.userId});
+    await likeRepo.save(like);
+    return like;
+  }
 }
