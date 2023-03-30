@@ -1,6 +1,7 @@
 import {
     ShoppingCartOutlined,
   } from "@mui/icons-material";
+import { useNavigate } from "react-router-dom";
   import styled from "styled-components";
   
   const Info = styled.div`
@@ -96,20 +97,21 @@ color:white;
 
   
 `;
-  const Product = ({ item }) => {
-    return (
-     
-      <Container>
-        <Image src={item.imageUrl1} />
-        <Info>
-     
-        </Info>
-        <Title>{item.name}</Title>
-        <Price>{item.price.toLocaleString()} Ft </Price>
-      </Container>
-      
-   
-    );
+const Product = ({ item }) => {
+  const navigate = useNavigate();
+
+  const handleImageClick = () => {
+    navigate(`/product/${item.id}`);
   };
+
+  return (
+    <Container onClick={handleImageClick}>
+      <Image src={item.imageUrl1}  />
+      <Info></Info>
+      <Title>{item.name}</Title>
+      <Price>{item.price.toLocaleString()} Ft </Price>
+    </Container>
+  );
+};
   
   export default Product;
