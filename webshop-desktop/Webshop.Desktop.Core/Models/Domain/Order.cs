@@ -15,7 +15,7 @@ public partial class Order
 
     public int? AddressId { get; set; }
 
-    public virtual Address? Address { get; set; }
+    public virtual Address Address { get; set; } = null!;
 
     public virtual ICollection<OrderItem> OrderItems { get; } = new List<OrderItem>();
 

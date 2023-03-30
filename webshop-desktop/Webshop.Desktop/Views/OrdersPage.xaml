@@ -7,24 +7,59 @@
     xmlns:controls="using:CommunityToolkit.WinUI.UI.Controls"
     mc:Ignorable="d">
 
-    <ScrollViewer>
-        <Grid x:Name="ContentArea">
-            <controls:DataGrid
-            AutoGenerateColumns="False"
-            GridLinesVisibility="Horizontal"
-            AlternatingRowBackground="LightGray"
-            HeadersVisibility="Column"
-            IsReadOnly="True"
-            ItemsSource="{x:Bind ViewModel.OrdersWithInfo, Mode=OneWay}">
+    <Grid VerticalAlignment="Stretch">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <TeachingTip
+            x:Name="TeachingTip_confirm"
+            Title="Foot Frenzy"
+            PreferredPlacement="Center"
+            PlacementMargin="20"
+            IsLightDismissEnabled="True"
+            CloseButtonContent="OK"/>
+        
+        <ScrollViewer
+            Grid.Row="0">
+            
+            <controls:DataGrid                
+                AutoGenerateColumns="False"
+                GridLinesVisibility="Horizontal"
+                HeadersVisibility="Column"
+                IsReadOnly="True"
+                ItemsSource="{x:Bind ViewModel.OrdersWithInfo, Mode=OneWay}"
+                SelectedItem="{x:Bind ViewModel.SelectedOrder, Mode=TwoWay}">
 
                 <controls:DataGrid.Resources>
-                    <SolidColorBrush x:Key="DataGridColumnHeaderBackgroundColor" Color="Transparent" />
+                    <SolidColorBrush 
+                        x:Key="DataGridColumnHeaderBackgroundColor" 
+                        Color="Transparent" />
                 </controls:DataGrid.Resources>
 
                 <controls:DataGrid.Columns>
-                    <controls:DataGridTextColumn Binding="{Binding OrderId}" Header="Rendelés azonosító"/>
-                    <controls:DataGridTextColumn Binding="{Binding Email}" Header="E-mail"/>
-                    <controls:DataGridTextColumn Binding="{Binding OrderDate}" Header="Rendelés ideje"/>
+                    <controls:DataGridTextColumn 
+                        Binding="{Binding OrderId}" 
+                        Header="Rendelés azonosító"/>
+                    <controls:DataGridTextColumn 
+                        Binding="{Binding Email}" 
+                        Header="E-mail"/>
+                    <controls:DataGridTextColumn 
+                        Binding="{Binding OrderDate}" 
+                        Header="Rendelés ideje"/>
+                    <controls:DataGridTextColumn 
+                        Binding="{Binding StreetAddress}" 
+                        Header="Utca"/>
+                    <controls:DataGridTextColumn 
+                        Binding="{Binding City}" 
+                        Header="Város"/>
+                    <controls:DataGridTextColumn 
+                        Binding="{Binding State}" 
+                        Header="Megye"/>
+                    <controls:DataGridTextColumn 
+                        Binding="{Binding PostalCode}" 
+                        Header="Irányítószám"/>
                 </controls:DataGrid.Columns>
 
                 <controls:DataGrid.RowDetailsTemplate>
@@ -37,16 +72,58 @@
                                 IsReadOnly="True"
                                 ItemsSource="{Binding Info, Mode=OneWay}">
                                 <controls:DataGrid.Columns>
-                                    <controls:DataGridTextColumn Binding="{Binding ProductName}" Header="Termék"/>
-                                    <controls:DataGridTextColumn Binding="{Binding Size}" Header="Méret"/>
-                                    <controls:DataGridTextColumn Binding="{Binding Quantity}" Header="Mennyiség"/>
+                                    <controls:DataGridTextColumn 
+                                        Binding="{Binding CategoryName}" 
+                                        Header="Kategória"/>
+                                    <controls:DataGridTextColumn 
+                                        Binding="{Binding ProductName}" 
+                                        Header="Termék"/>
+                                    <controls:DataGridTextColumn 
+                                        Binding="{Binding Size}" 
+                                        Header="Méret"/>
+                                    <controls:DataGridTextColumn 
+                                        Binding="{Binding Quantity}" 
+                                        Header="Mennyiség"/>
                                 </controls:DataGrid.Columns>
                             </controls:DataGrid>
                         </ScrollViewer>
                     </DataTemplate>
                 </controls:DataGrid.RowDetailsTemplate>
             </controls:DataGrid>
+        </ScrollViewer>
+        
 
-        </Grid>
-    </ScrollViewer>
+        <StackPanel 
+            Orientation="Horizontal"
+            Grid.Row="1">
+            <Button               
+                Margin="10"
+                Command="{x:Bind ViewModel.ChangeOrderAddressCommand}">
+                <StackPanel Orientation="Horizontal">
+                    <FontIcon 
+                            FontFamily="{StaticResource SymbolThemeFontFamily}" 
+                            Glyph="&#xe70f;" 
+                            FontSize="15" 
+                            Margin="0,0,5,0"/>
+                    <TextBlock 
+                            Text="Módosítás"/>
+                </StackPanel>
+            </Button>
+
+            <Button               
+                Margin="10"
+                Command="{x:Bind ViewModel.DeleteOrderCommand}">
+                <StackPanel 
+                    Orientation="Horizontal">
+                    <FontIcon                        
+                        FontFamily="{StaticResource SymbolThemeFontFamily}" 
+                        Glyph="&#xe74d;" 
+                        FontSize="16" 
+                        Margin="0,0,5,0"/>
+                    <TextBlock 
+                        Text="Törlés"/>
+                </StackPanel>
+            </Button>
+        </StackPanel>
+    </Grid>
 </Page>

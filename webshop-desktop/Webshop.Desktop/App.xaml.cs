@@ -60,10 +60,12 @@ public partial class App : Application
 
             //Repositories
             services.AddTransient<IRepository<Product>, Repository<Product>>();
+            services.AddTransient<IRepository<Order>, Repository<Order>>();
             services.AddTransient<IRepository<OrderItem>, Repository<OrderItem>>();
             services.AddTransient<IRepository<Category>, Repository<Category>>();
             services.AddTransient<IRepository<Size>, Repository<Size>>();
             services.AddTransient<IRepository<Release>, Repository<Release>>();
+            services.AddTransient<IRepository<Address>, Repository<Address>>();
 
             //Business services
             services.AddTransient<IProductService, ProductService>();
