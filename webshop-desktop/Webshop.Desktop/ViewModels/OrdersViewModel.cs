@@ -9,6 +9,8 @@ using Webshop.Desktop.Core.Contracts.Services;
 using Webshop.Desktop.Core.Interfaces.Business;
 using Webshop.Desktop.Core.Models;
 using Webshop.Desktop.Core.Models.Business;
+using Webshop.Desktop.Core.Models.Business.Dtos;
+using Webshop.Desktop.Views.Dialogs;
 
 namespace Webshop.Desktop.ViewModels;
 
@@ -17,6 +19,7 @@ public partial class OrdersViewModel : ObservableRecipient, INavigationAware
     #region Private members
 
     private readonly IOrderService _orderService;
+    private readonly IAddressService _addressService;
 
     #endregion
 
@@ -33,9 +36,12 @@ public partial class OrdersViewModel : ObservableRecipient, INavigationAware
 
     #region Constructor
 
-    public OrdersViewModel(IOrderService orderService)
+    public OrdersViewModel(
+        IOrderService orderService,
+        IAddressService addressService)
     {
         _orderService = orderService;
+        _addressService = addressService;
     }
 
     #endregion
@@ -62,9 +68,39 @@ public partial class OrdersViewModel : ObservableRecipient, INavigationAware
     #region Commands
 
     [RelayCommand(CanExecute = nameof(IsOrderSelected))]
-    private void ChangeOrderAddress()
+    private async void ChangeOrderAddress()
     {
-         
+        var dialogContent = new ChangeAddressPage();
+        var dialog = new ContentDialog
+        {
+            XamlRoot = XamlRoot,
+            PrimaryButtonText = "Mentés",
+            CloseButtonText = "Mégse",
+            Content = dialogContent,            
+        };
+
+        dialogContent.ViewModel.StreetAddress = SelectedOrder.StreetAddress;
+        dialogContent.ViewModel.City = SelectedOrder.City;
+        dialogContent.ViewModel.State = SelectedOrder.State;
+        dialogContent.ViewModel.PostalCode = SelectedOrder.PostalCode;
+
+        var result = await dialog.ShowAsync();
+        if (result != ContentDialogResult.Primary)
+        {
+            return;
+        }
+
+        _addressService.ChangeAddress(new AddressDto
+        {
+            StreetAddress = dialogContent.ViewModel.StreetAddress,
+            City = dialogContent.ViewModel.City,
+            State = dialogContent.ViewModel.State,
+            PostalCode = dialogContent.ViewModel.PostalCode
+        }, SelectedOrder.AddressId);
+
+        TeachingTip.Subtitle = "Változtatások Elmentve";
+        TeachingTip.IsOpen = true;
+        LoadOrders();
     }
 
     [RelayCommand(CanExecute = nameof(IsOrderSelected))]

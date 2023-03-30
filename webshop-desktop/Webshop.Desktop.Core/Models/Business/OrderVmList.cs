@@ -5,6 +5,7 @@ public class OrderVmList
     public int OrderId { get; set; }
     public string Email { get; set; }
     public DateTime OrderDate { get; set; }
+    public int AddressId { get; set; }
     public string StreetAddress { get; set; }
     public string City { get; set; }
     public string State { get; set; }

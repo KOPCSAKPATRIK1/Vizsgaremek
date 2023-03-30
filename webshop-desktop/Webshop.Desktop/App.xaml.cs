@@ -73,6 +73,7 @@ public partial class App : Application
             services.AddTransient<ICategoryService, CategoryService>();
             services.AddTransient<ISizeService, SizeService>();
             services.AddTransient<IReleaseService, ReleaseService>();
+            services.AddTransient<IAddressService, AddressService>();
 
             // Views and ViewModels
 
@@ -94,12 +95,15 @@ public partial class App : Application
             services.AddTransient<ProductsViewModel>();
             services.AddTransient<ProductsPage>();
 
-            services.AddTransient<ShellPage>();
             services.AddTransient<ShellViewModel>();
+            services.AddTransient<ShellPage>();
 
             //Dialogs
-            services.AddTransient<NewCategoryPage>();
             services.AddTransient<NewCategoryViewModel>();
+            services.AddTransient<NewCategoryPage>();
+
+            services.AddTransient<ChangeAddressViewModel>();
+            services.AddTransient<ChangeAddressPage>();
         })
         .Build();
 

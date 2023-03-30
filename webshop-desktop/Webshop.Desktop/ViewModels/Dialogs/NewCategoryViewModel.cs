@@ -6,6 +6,4 @@ public partial class NewCategoryViewModel : ObservableRecipient
     [ObservableProperty] private string _categoryName;
     [ObservableProperty] private string _categoryValidationText;
     [ObservableProperty] private bool _categoryValidationVisibility;
-
-
 }

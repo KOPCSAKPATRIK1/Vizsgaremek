@@ -13,7 +13,7 @@ public partial class Order
 
     public int? PaymentMethodId { get; set; }
 
-    public int? AddressId { get; set; }
+    public int AddressId { get; set; }
 
     public virtual Address Address { get; set; } = null!;
 

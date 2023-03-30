@@ -247,9 +247,7 @@ public partial class NewProductViewModel : ObservableRecipient, INavigationAware
             XamlRoot = XamlRoot,
             PrimaryButtonText = "Felvétel",
             CloseButtonText = "Mégse",
-            DefaultButton = ContentDialogButton.Secondary,
-            Content = dialogContent,
-            RequestedTheme = ElementTheme.Dark
+            Content = dialogContent
         };
 
         var result = await dialog.ShowAsync();
