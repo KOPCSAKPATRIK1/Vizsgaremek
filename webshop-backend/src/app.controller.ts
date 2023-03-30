@@ -131,7 +131,11 @@ export class AppController {
   @Get('/shoes/:id')
   async getShoe(@Param('id') id: number) {
     const productRepo = this.dataSource.getRepository(Product);
-    return productRepo.findOneBy({ id: id });
+    const product = await productRepo.findOne({
+      where: { id: id },
+      relations: ['category'],
+    });
+    return product;
   }
 
   @Get('/shoes/name/:name')
