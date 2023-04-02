@@ -6,7 +6,6 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
@@ -42,7 +41,9 @@
                     Margin="10" 
                     Header="*Leírás:" 
                     PlaceholderText="Ez egy cipő"
-                    LostFocus="{x:Bind ViewModel.DescValidation}"/>
+                    LostFocus="{x:Bind ViewModel.DescValidation}"
+                    TextWrapping="Wrap"
+                    AcceptsReturn="True"/>
                 <TextBlock
                     Text="{x:Bind ViewModel.DescValidationText, Mode=TwoWay}"
                     Foreground="Red"
@@ -53,7 +54,9 @@
                     Margin="10" 
                     Header="*Link 1:" 
                     PlaceholderText="Első Kép"
-                    LostFocus="{x:Bind ViewModel.Img1Validation}"/>
+                    LostFocus="{x:Bind ViewModel.Img1Validation}"
+                    TextWrapping="Wrap"
+                    AcceptsReturn="True"/>
                 <TextBlock
                     Text="{x:Bind ViewModel.Img1ValidationText, Mode=TwoWay}"
                     Foreground="Red"
@@ -63,19 +66,25 @@
                     Text="{x:Bind ViewModel.ImageUrl2, Mode=TwoWay}"
                     Margin="10" 
                     Header="Link 2:" 
-                    PlaceholderText="Második kép"/>
+                    PlaceholderText="Második kép"
+                    TextWrapping="Wrap"
+                    AcceptsReturn="True"/>
 
                 <TextBox 
                     Text="{x:Bind ViewModel.ImageUrl3, Mode=TwoWay}"
                     Margin="10" 
                     Header="Link 3:"
-                    PlaceholderText="Harmadik Kép"/>
+                    PlaceholderText="Harmadik Kép"
+                    TextWrapping="Wrap"
+                    AcceptsReturn="True"/>
 
                 <TextBox 
                     Text="{x:Bind ViewModel.ImageUrl4, Mode=TwoWay}"
                     Margin="10" 
                     Header="Link 4:" 
-                    PlaceholderText="Negyedik kép"/>
+                    PlaceholderText="Negyedik kép"
+                    TextWrapping="Wrap"
+                    AcceptsReturn="True"/>
 
                 <DatePicker 
                     Header="*Megjelenés dátuma" 

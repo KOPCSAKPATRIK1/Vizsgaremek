@@ -78,8 +78,6 @@ public partial class NewReleaseViewModel : ObservableRecipient, INavigationAware
 
     }
 
-    #region Validation
-
     public void NameValidation()
     {
         if (ReleaseName == null || ReleaseName == "")
@@ -134,7 +132,7 @@ public partial class NewReleaseViewModel : ObservableRecipient, INavigationAware
 
     public void DateValidation()
     {
-        if (SelectedDate < DateTimeOffset.Now || SelectedDate.Day == DateTimeOffset.Now.Day)
+        if (SelectedDate < DateTimeOffset.Now || SelectedDate == DateTimeOffset.Now)
         {
             DateValidationText = "Megjelenés leghamarabb holnapi dátummal lehetséges";
             DateValidationVisibility = true;
@@ -145,8 +143,6 @@ public partial class NewReleaseViewModel : ObservableRecipient, INavigationAware
         }
         SaveReleaseCommand.NotifyCanExecuteChanged();
     }
-
-    #endregion
 
     #endregion
 

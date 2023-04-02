@@ -47,9 +47,7 @@ public class ProductService : IProductService
                     Size = s.Size.Size1,
                     Quantity = s.InStock,
                 }).OrderBy(p => p.Size).ToArray(),
-            })
-            .OrderBy(p => p.Name)
-            .ToArray();
+            }).ToArray();
     }
 
     public void AddProducts(ProductDto newProduct)
