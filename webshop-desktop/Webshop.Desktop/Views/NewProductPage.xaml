@@ -170,7 +170,8 @@
                             FontSize="15"/>
                     </Button>
                     <Button
-                        Margin="0,0,10,0">
+                        Margin="0,0,10,0"
+                        Command="{x:Bind ViewModel.UpdateCategoryNameCommand}">
                         <FontIcon
                             FontFamily="{StaticResource SymbolThemeFontFamily}" 
                             Glyph="&#xe70f;" 

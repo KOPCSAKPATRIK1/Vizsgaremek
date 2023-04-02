@@ -186,6 +186,7 @@ public partial class NewProductViewModel : ObservableRecipient, INavigationAware
     partial void OnSelectedCategoryChanged(CategoryVmList value)
     {
         DeleteCategoryCommand.NotifyCanExecuteChanged();
+        UpdateCategoryNameCommand.NotifyCanExecuteChanged();
     }
 
     #endregion
@@ -254,7 +255,7 @@ public partial class NewProductViewModel : ObservableRecipient, INavigationAware
         if (result != ContentDialogResult.Primary)
         {
             return;
-        }       
+        }
 
         _categoryService.AddCategory(dialogContent.ViewModel.CategoryName);
         TeachingTip.Subtitle = "Kategória felvéve";
@@ -262,6 +263,31 @@ public partial class NewProductViewModel : ObservableRecipient, INavigationAware
         LoadCategories();
     }
 
+    [RelayCommand(CanExecute = nameof(IsCategorySelected))]
+    private async void UpdateCategoryName()
+    {
+        var dialogContent = new NewCategoryPage();
+        var dialog = new ContentDialog
+        {
+            XamlRoot = XamlRoot,
+            PrimaryButtonText = "Mentés",
+            CloseButtonText = "Mégse",
+            Content = dialogContent
+        };
+
+        dialogContent.ViewModel.CategoryName = SelectedCategory.Name;
+
+        var result = await dialog.ShowAsync();
+        if (result != ContentDialogResult.Primary)
+        {
+            return;
+        }
+
+        _categoryService.UpdateCategoryName(SelectedCategory.Id, dialogContent.ViewModel.CategoryName);
+        TeachingTip.Subtitle = "Változtatások elmentve";
+        TeachingTip.IsOpen = true;
+        LoadCategories();
+    }
 
     [RelayCommand(CanExecute = nameof(IsCategorySelected))]
     private void DeleteCategory()
