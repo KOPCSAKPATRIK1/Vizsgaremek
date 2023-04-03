@@ -257,10 +257,21 @@ public partial class NewProductViewModel : ObservableRecipient, INavigationAware
             return;
         }
 
-        _categoryService.AddCategory(dialogContent.ViewModel.CategoryName);
-        TeachingTip.Subtitle = "Kategória felvéve";
-        TeachingTip.IsOpen = true;
-        LoadCategories();
+        if (dialogContent.ViewModel.CategoryName == null ||
+            dialogContent.ViewModel.CategoryName == "" ||
+            dialogContent.ViewModel.CategoryName == " ")
+        {
+            TeachingTip.Subtitle = "Kategória neve nem lehet üres";
+            TeachingTip.IsOpen = true;
+            NewCategory();
+        }
+        else
+        {
+            _categoryService.AddCategory(dialogContent.ViewModel.CategoryName);
+            TeachingTip.Subtitle = "Kategória felvéve";
+            TeachingTip.IsOpen = true;
+            LoadCategories();
+        }
     }
 
     [RelayCommand(CanExecute = nameof(IsCategorySelected))]
@@ -283,10 +294,21 @@ public partial class NewProductViewModel : ObservableRecipient, INavigationAware
             return;
         }
 
-        _categoryService.UpdateCategoryName(SelectedCategory.Id, dialogContent.ViewModel.CategoryName);
-        TeachingTip.Subtitle = "Változtatások elmentve";
-        TeachingTip.IsOpen = true;
-        LoadCategories();
+        if (dialogContent.ViewModel.CategoryName == null ||
+            dialogContent.ViewModel.CategoryName == "" ||
+            dialogContent.ViewModel.CategoryName == " ")
+        {
+            TeachingTip.Subtitle = "Kategória neve nem lehet üres";
+            TeachingTip.IsOpen = true;
+            UpdateCategoryName();
+        }
+        else
+        {
+            _categoryService.UpdateCategoryName(SelectedCategory.Id, dialogContent.ViewModel.CategoryName);
+            TeachingTip.Subtitle = "Változtatások elmentve";
+            TeachingTip.IsOpen = true;
+            LoadCategories();
+        }
     }
 
     [RelayCommand(CanExecute = nameof(IsCategorySelected))]
