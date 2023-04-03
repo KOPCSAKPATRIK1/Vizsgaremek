@@ -16,14 +16,16 @@ public partial class ProductsViewModel : ObservableRecipient, INavigationAware
 
     private readonly IProductService _productService;
     private readonly INavigationService _navigationService;
+    private ProductVmList[] _products;
 
     #endregion
 
     #region Observables
 
-    public ObservableCollection<ProductVmList> ProductsWithInfo { get; set; } = new();
+    public ObservableCollection<ProductVmList> Products { get; set; } = new();
 
     [ObservableProperty] private ProductVmList? _selectedProduct;
+    [ObservableProperty] private string _filterText;
 
     #endregion
 
@@ -54,6 +56,16 @@ public partial class ProductsViewModel : ObservableRecipient, INavigationAware
     {
         ChangeInactiveCommand.NotifyCanExecuteChanged();
         ChangeProductParametersCommand.NotifyCanExecuteChanged();
+    }
+
+    partial void OnFilterTextChanging(string value)
+    {
+        var filteredProducts = _products.Where(p => p.Name.Contains(value.ToUpper()));
+        Products.Clear();
+        foreach (var product in filteredProducts)
+        {
+            Products.Add(product);
+        }        
     }
 
     #endregion
@@ -88,11 +100,11 @@ public partial class ProductsViewModel : ObservableRecipient, INavigationAware
 
     private void LoadProducts()
     {
-        ProductsWithInfo.Clear();
-        var productsWithInfo =  _productService.GetProductsWithInfo();
-        foreach (var product in productsWithInfo)
+        Products.Clear();
+        _products =  _productService.GetProductsWithInfo();
+        foreach (var product in _products)
         {
-            ProductsWithInfo.Add(product);
+            Products.Add(product);
         }
     }
 

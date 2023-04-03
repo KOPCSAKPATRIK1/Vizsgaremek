@@ -11,19 +11,39 @@
         x:Name="ContentArea" 
         VerticalAlignment="Stretch">
         <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <ScrollViewer 
-            Grid.Row="0">
+        <StackPanel
+            Grid.Row="0"
+            Orientation="Horizontal"
+            HorizontalAlignment="Left"
+            Margin="10">
 
+
+            <FontIcon 
+                FontFamily="{StaticResource SymbolThemeFontFamily}" 
+                Glyph="&#xe721;" 
+                FontSize="17" 
+                Margin="0,0,10,0"/>
+            <TextBox
+                Width="150"
+                Text="{x:Bind ViewModel.FilterText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+            
+
+        </StackPanel>
+
+        <ScrollViewer 
+            Grid.Row="1">
+            
             <controls:DataGrid
                 AutoGenerateColumns="False"
                 GridLinesVisibility="Horizontal"
                 HeadersVisibility="Column"
                 IsReadOnly="True"
-                ItemsSource="{x:Bind ViewModel.ProductsWithInfo, Mode=OneWay}"
+                ItemsSource="{x:Bind ViewModel.Products, Mode=OneWay}"
                 SelectedItem="{x:Bind ViewModel.SelectedProduct, Mode=TwoWay}">
 
                 <controls:DataGrid.Resources>
@@ -86,7 +106,7 @@
         </ScrollViewer>
 
         <StackPanel 
-            Grid.Row="1"
+            Grid.Row="2"
             Orientation="Horizontal">
 
             <Button               
