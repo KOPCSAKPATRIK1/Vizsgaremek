@@ -80,7 +80,7 @@ public partial class NewReleaseViewModel : ObservableRecipient, INavigationAware
 
     public void NameValidation()
     {
-        if (ReleaseName == null || ReleaseName == "")
+        if (string.IsNullOrWhiteSpace(ReleaseName))
         {
             NameValidationText = "A név nem lehet üres";
             NameValidationVisibility = true;
@@ -99,7 +99,7 @@ public partial class NewReleaseViewModel : ObservableRecipient, INavigationAware
 
     public void DescValidation()
     {
-        if (ReleaseDesc == null || ReleaseDesc == "")
+        if (string.IsNullOrWhiteSpace(ReleaseDesc))
         {
             DescValidationText = "A leírás nem lehet üres";
             DescValidationVisibility = true;
@@ -118,7 +118,7 @@ public partial class NewReleaseViewModel : ObservableRecipient, INavigationAware
 
     public void Img1Validation()
     {
-        if (ImageUrl1 == null || ImageUrl1 == "")
+        if (string.IsNullOrWhiteSpace(ImageUrl1))
         {
             Img1ValidationText = "Az első kép nem lehet üres";
             Img1ValidationVisibility = true;

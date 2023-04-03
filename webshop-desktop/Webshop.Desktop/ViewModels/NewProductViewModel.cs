@@ -119,7 +119,7 @@ public partial class NewProductViewModel : ObservableRecipient, INavigationAware
 
     public void NameValidation()
     {
-        if (ProductName == null || ProductName == "")
+        if (string.IsNullOrWhiteSpace(ProductName))
         {
             NameValidationText = "A név nem lehet üres";
             NameValidationVisibility = true;
@@ -138,7 +138,7 @@ public partial class NewProductViewModel : ObservableRecipient, INavigationAware
 
     public void DescValidation()
     {
-        if (ProductDesc == null || ProductDesc == "")
+        if (string.IsNullOrWhiteSpace(ProductDesc))
         {
             DescValidationText = "A leírás nem lehet üres";
             DescValidationVisibility = true;
@@ -157,7 +157,7 @@ public partial class NewProductViewModel : ObservableRecipient, INavigationAware
 
     public void Img1Validation()
     {
-        if (ImageUrl1 == null || ImageUrl1 == "")
+        if (string.IsNullOrWhiteSpace(ImageUrl1))
         {
             Img1ValidationText = "Az első kép nem lehet üres";
             Img1ValidationVisibility = true;
@@ -257,9 +257,7 @@ public partial class NewProductViewModel : ObservableRecipient, INavigationAware
             return;
         }
 
-        if (dialogContent.ViewModel.CategoryName == null ||
-            dialogContent.ViewModel.CategoryName == "" ||
-            dialogContent.ViewModel.CategoryName == " ")
+        if (string.IsNullOrWhiteSpace(dialogContent.ViewModel.CategoryName))
         {
             TeachingTip.Subtitle = "Kategória neve nem lehet üres";
             TeachingTip.IsOpen = true;
@@ -294,9 +292,7 @@ public partial class NewProductViewModel : ObservableRecipient, INavigationAware
             return;
         }
 
-        if (dialogContent.ViewModel.CategoryName == null ||
-            dialogContent.ViewModel.CategoryName == "" ||
-            dialogContent.ViewModel.CategoryName == " ")
+        if (string.IsNullOrWhiteSpace(dialogContent.ViewModel.CategoryName))
         {
             TeachingTip.Subtitle = "Kategória neve nem lehet üres";
             TeachingTip.IsOpen = true;

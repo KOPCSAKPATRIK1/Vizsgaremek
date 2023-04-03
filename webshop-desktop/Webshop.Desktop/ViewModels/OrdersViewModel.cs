@@ -76,7 +76,7 @@ public partial class OrdersViewModel : ObservableRecipient, INavigationAware
             XamlRoot = XamlRoot,
             PrimaryButtonText = "Mentés",
             CloseButtonText = "Mégse",
-            Content = dialogContent,            
+            Content = dialogContent,
         };
 
         dialogContent.ViewModel.StreetAddress = SelectedOrder.StreetAddress;
@@ -90,17 +90,28 @@ public partial class OrdersViewModel : ObservableRecipient, INavigationAware
             return;
         }
 
-        _addressService.ChangeAddress(new AddressDto
+        if (string.IsNullOrWhiteSpace(dialogContent.ViewModel.StreetAddress) ||
+            string.IsNullOrWhiteSpace(dialogContent.ViewModel.City) ||
+            string.IsNullOrWhiteSpace(dialogContent.ViewModel.State))
         {
-            StreetAddress = dialogContent.ViewModel.StreetAddress,
-            City = dialogContent.ViewModel.City,
-            State = dialogContent.ViewModel.State,
-            PostalCode = dialogContent.ViewModel.PostalCode
-        }, SelectedOrder.AddressId);
+            TeachingTip.Subtitle = "Mezők nem lehetnek üresek";
+            TeachingTip.IsOpen = true;
+            ChangeOrderAddress();
+        }
+        else
+        {
+            _addressService.ChangeAddress(new AddressDto
+            {
+                StreetAddress = dialogContent.ViewModel.StreetAddress,
+                City = dialogContent.ViewModel.City,
+                State = dialogContent.ViewModel.State,
+                PostalCode = dialogContent.ViewModel.PostalCode
+            }, SelectedOrder.AddressId);
 
-        TeachingTip.Subtitle = "Változtatások Elmentve";
-        TeachingTip.IsOpen = true;
-        LoadOrders();
+            TeachingTip.Subtitle = "Változtatások Elmentve";
+            TeachingTip.IsOpen = true;
+            LoadOrders();
+        }
     }
 
     [RelayCommand(CanExecute = nameof(IsOrderSelected))]
