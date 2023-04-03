@@ -27,37 +27,35 @@ public class OrderService : IOrderService
         _addressRepository = addressRepository;
     }
 
-
-
     #endregion
 
     public OrderVmList[] GetOrdersWithInfo()
     {
         return _orderRepository.GetAllIncluding(o => o.User, o => o.OrderItems)
-             .Select(o => new OrderVmList
-             {
-                 Id = o.Id,
-                 OrderId = o.Id,
-                 Email = o.User.Email,
-                 OrderDate = o.OrderDate,
-                 AddressId = o.AddressId,
-                 StreetAddress = o.Address.StreetAddress,
-                 City = o.Address.City,
-                 State = o.Address.State,
-                 PostalCode = o.Address.PostalCode,
-                 Info = o.OrderItems.Select(oi => new OrderInfoVmList
-                 {
-                     CategoryName = oi.Product.Category.Name,
-                     ProductName = oi.Product.Name,
-                     Quantity = oi.Quantity,
-                     Size = oi.Size.Size1,
-                 }).ToArray(),
-             }).ToArray();
+            .Select(o => new OrderVmList
+            {
+                Id = o.Id,
+                OrderId = o.Id,
+                Email = o.User.Email,
+                OrderDate = o.OrderDate,
+                AddressId = o.AddressId,
+                StreetAddress = o.Address.StreetAddress,
+                City = o.Address.City,
+                State = o.Address.State,
+                PostalCode = o.Address.PostalCode,
+                Info = o.OrderItems.Select(oi => new OrderInfoVmList
+                {
+                    CategoryName = oi.Product.Category.Name,
+                    ProductName = oi.Product.Name,
+                    Quantity = oi.Quantity,
+                    Size = oi.Size.Size1,
+                }).ToArray(),
+            }).ToArray();
     }
 
     public void DeleteOrder(int id)
     {
-        var order = _orderRepository.Find(o => o.Id ==  id).Include(o => o.OrderItems).FirstOrDefault();
+        var order = _orderRepository.Find(o => o.Id == id).Include(o => o.OrderItems).FirstOrDefault();
         if (order != null)
         {
             var orderItems = order.OrderItems.ToArray();

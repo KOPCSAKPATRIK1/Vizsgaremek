@@ -22,9 +22,7 @@
 
         <ScrollViewer 
             Grid.Row="0">
-            
             <StackPanel>
-
                 <TextBox 
                     Text="{x:Bind ViewModel.ProductName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"                         
                     Margin="10" 
@@ -84,7 +82,6 @@
 
                 <StackPanel 
                     Orientation="Horizontal">
-
                     <NumberBox
                         Header="36"
                         Value="{x:Bind ViewModel.Sizes['36'], Mode=TwoWay}"
@@ -140,7 +137,6 @@
                         Value="{x:Bind ViewModel.Sizes['46'], Mode=TwoWay}"
                         Margin="10"
                         Minimum="0"/>
-
                 </StackPanel>
 
                 <NumberBox 
@@ -169,6 +165,7 @@
                             Glyph="&#xe710;" 
                             FontSize="15"/>
                     </Button>
+                    
                     <Button
                         Margin="0,0,10,0"
                         Command="{x:Bind ViewModel.UpdateCategoryNameCommand}">
@@ -177,6 +174,7 @@
                             Glyph="&#xe70f;" 
                             FontSize="16"/>
                     </Button>
+                    
                     <Button                        
                         Command="{x:Bind ViewModel.DeleteCategoryCommand}">
                         <FontIcon                             
@@ -197,7 +195,6 @@
         <StackPanel 
                 Orientation="Horizontal"
                 Grid.Row="1">
-
             <Button
                 Margin="10" 
                 Command="{x:Bind ViewModel.SaveProductCommand}">
@@ -225,8 +222,6 @@
                             Text="Vissza"/>
                 </StackPanel>
             </Button>
-
         </StackPanel>
-
     </Grid>
 </Page>

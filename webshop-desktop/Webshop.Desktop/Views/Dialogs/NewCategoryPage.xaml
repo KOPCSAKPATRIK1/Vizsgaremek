@@ -7,12 +7,10 @@
     mc:Ignorable="d"
     RequestedTheme="Dark">
 
-
     <StackPanel 
         Orientation="Vertical">
         <TextBox
             Header="Új kategória neve"
             Text="{x:Bind ViewModel.CategoryName, Mode=TwoWay}"/>
     </StackPanel>
-
 </Page>

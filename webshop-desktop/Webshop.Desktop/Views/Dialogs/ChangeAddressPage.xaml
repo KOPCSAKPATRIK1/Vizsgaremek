@@ -1,6 +1,3 @@
-<!-- Copyright (c) Microsoft Corporation and Contributors. -->
-<!-- Licensed under the MIT License. -->
-
 <Page
     x:Class="Webshop.Desktop.Views.Dialogs.ChangeAddressPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -32,6 +29,5 @@
             Header="Irányítószám"
             Minimum="0"
             Text="{x:Bind ViewModel.PostalCode, Mode=TwoWay}"/>
-
     </StackPanel>
 </Page>

@@ -1,13 +1,10 @@
 ﻿using System.Collections.ObjectModel;
-
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Webshop.Desktop.Contracts.ViewModels;
-using Webshop.Desktop.Core.Contracts.Services;
 using Webshop.Desktop.Core.Interfaces.Business;
-using Webshop.Desktop.Core.Models;
 using Webshop.Desktop.Core.Models.Business;
 using Webshop.Desktop.Core.Models.Business.Dtos;
 using Webshop.Desktop.Views.Dialogs;

@@ -67,6 +67,7 @@ public partial class ProductsViewModel : ObservableRecipient, INavigationAware
         }
         SelectedCategory = Categories.First();
     }
+
     public void OnNavigatedFrom()
     {
 
@@ -132,7 +133,6 @@ public partial class ProductsViewModel : ObservableRecipient, INavigationAware
         {
             OnFilterTextChanging(FilterText);
         }
-
     }
 
     [RelayCommand(CanExecute = nameof(CanExecuteCommand))]
