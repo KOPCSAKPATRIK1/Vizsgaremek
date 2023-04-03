@@ -11,7 +11,7 @@
         x:Name="ContentArea" 
         VerticalAlignment="Stretch">
         <Grid.RowDefinitions>
-            <RowDefinition Height="auto"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
@@ -21,8 +21,6 @@
             Orientation="Horizontal"
             HorizontalAlignment="Left"
             Margin="10">
-
-
             <FontIcon 
                 FontFamily="{StaticResource SymbolThemeFontFamily}" 
                 Glyph="&#xe721;" 
@@ -30,14 +28,21 @@
                 Margin="0,0,10,0"/>
             <TextBox
                 Width="150"
-                Text="{x:Bind ViewModel.FilterText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-            
-
+                Text="{x:Bind ViewModel.FilterText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                Margin="0,0,10,0"
+                Height="33"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"/>
+            <ComboBox                         
+                MinWidth="140"
+                ItemsSource="{x:Bind ViewModel.Categories}" 
+                DisplayMemberPath="Name" 
+                SelectedItem="{x:Bind ViewModel.SelectedCategory, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                Height="35"/>
         </StackPanel>
 
         <ScrollViewer 
             Grid.Row="1">
-            
             <controls:DataGrid
                 AutoGenerateColumns="False"
                 GridLinesVisibility="Horizontal"
@@ -108,7 +113,6 @@
         <StackPanel 
             Grid.Row="2"
             Orientation="Horizontal">
-
             <Button               
                 Margin="10"
                 Command="{x:Bind ViewModel.ToNewProductPageCommand}">
@@ -122,7 +126,6 @@
                         Text="Új termék"/>
                 </StackPanel>
             </Button>
-           
             <Button                
                 Margin="10"
                 Command="{x:Bind ViewModel.ChangeProductParametersCommand}">
@@ -136,7 +139,6 @@
                             Text="Módosítás"/>
                 </StackPanel>
             </Button>
-
             <Button               
                 Margin="10"
                 Command="{x:Bind ViewModel.ChangeInactiveCommand}">
@@ -150,8 +152,6 @@
                         Text="Inaktív"/>
                 </StackPanel>
             </Button>
-
         </StackPanel>
-
     </Grid>
 </Page>
