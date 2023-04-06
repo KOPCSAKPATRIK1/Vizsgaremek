@@ -23,7 +23,9 @@ const Text = styled.div`
       
 `
 
-const Products = () => {
+const Products = ({cat,filters,sort }) => {
+  
+  const [filteredData, setFilteredData] = useState(null);
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -32,7 +34,7 @@ const Products = () => {
     const getData = async () => {
       try {
         const response = await fetch(
-          "http://localhost:3000/shoes"
+          cat ? `http://localhost:3000/shoes/category/${cat}` :  "http://localhost:3000/shoes"
         );
         if (!response.ok) {
           throw new Error(
@@ -50,7 +52,7 @@ const Products = () => {
       }  
     }
     getData()
-  }, [])
+  }, [cat])
 
   return (
    <div> 

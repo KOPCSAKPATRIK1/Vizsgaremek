@@ -31,21 +31,25 @@ export const sliderItems = [
       id: 1,
       img: "https://cdn.shopify.com/s/files/1/0515/4272/0676/files/52727427-56E3-44C2-86E8-CB8078715D38_900x.jpg?v=1646989706",
       title: "AIR FORCE",
+      cat: "1",
     },
     {
       id: 2,
       img: "https://cdn.shopify.com/s/files/1/0515/4272/0676/files/F24EBB73-86BF-4D93-BDCC-1DC1EB192E5C_900x.jpg?v=1646989809",
       title: "DUNK",
+      cat: "2",
     },
     {
       id: 3,
       img: "https://cdn.shopify.com/s/files/1/0515/4272/0676/files/23010648-561D-48BC-9DB1-EC8CF859F4FD_900x.jpg?v=1646990033",
       title: "JORDAN",
+      cat: "3",
     },
     {
       id: 4,
       img: "https://cdn.shopify.com/s/files/1/0515/4272/0676/files/85A578A7-63D3-41B8-B229-A88C977A7655_900x.jpg?v=1650738630",
       title: "YEEZY",
+      cat: "4",
     },
   ];
 

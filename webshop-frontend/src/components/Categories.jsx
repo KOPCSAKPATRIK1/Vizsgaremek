@@ -4,8 +4,8 @@ import CategoryItem from "./CategoryItem";
 
 const Container = styled.div`
     display: flex;
-    padding-left: 10vw;
-    padding-right: 10vw;
+    padding-left: 16vw;
+    padding-right: 16vw;
     padding-bottom: 6vw;
     justify-content: space-between;
     border-bottom: 1px solid #ffa1ff;

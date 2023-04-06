@@ -1,5 +1,5 @@
 import styled from "styled-components";
-
+import { Link } from "react-router-dom";
 const Info = styled.div`
   position: absolute;
   top: 0;
@@ -18,8 +18,9 @@ const Info = styled.div`
 
 const Container = styled.div`
   flex: 1;
-  margin: 2.5%;
-  height: 30vh;
+  margin-top: 50px;
+  height: 250px;
+  width: 250px;
   position: relative;
   cursor: pointer;
   &:hover ${Info}{
@@ -49,6 +50,7 @@ const Title = styled.h1`
 
 const CategoryItem = ({ item }) => {
     return (
+      <Link to={`/products/${item.cat}`} >
       <Container>
         <Image src={item.img} />
             <Info>
@@ -56,6 +58,7 @@ const CategoryItem = ({ item }) => {
                 
             </Info>
       </Container>
+      </Link>
     );
   };
   
