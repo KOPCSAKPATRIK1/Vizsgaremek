@@ -133,17 +133,19 @@ const SingleProduct = () => {
   console.log(id);
   
   const [product, setProduct] = useState(null);
-  
+  const fetchData = async () => {
+    await fetch(`http://localhost:3000/shoes/${id}`)
+    .then(response => response.json())
+    .then(data => {
+      console.log(data); // log the data variable
+      setProduct(data);
+      setMainImage(data.imageUrl1);
+    });
+  }
   const [mainImage, setMainImage] = useState(null);
 
   useEffect(() => {
-    fetch(`http://localhost:3000/shoes/${id}`)
-      .then(response => response.json())
-      .then(data => {
-        console.log(data); // log the data variable
-        setProduct(data);
-        setMainImage(product.imageUrl1);
-      });
+   fetchData()
   }, [id]);
 
   if (!product) {
