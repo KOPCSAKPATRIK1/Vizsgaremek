@@ -120,8 +120,10 @@ export class AppController {
     return productRepo
       .createQueryBuilder('product')
       .leftJoinAndSelect('product.category', 'category')
+      .leftJoinAndSelect('product.sizes', 'size')
       .getMany();
   }
+  
 
   @Get('/releases')
   async getReleases() {
@@ -145,7 +147,7 @@ export class AppController {
     const productRepo = this.dataSource.getRepository(Product);
     const product = await productRepo.findOne({
       where: { id: id },
-      relations: ['category'],
+      relations: ['category', 'sizes'],
     });
     return product;
   }

@@ -28,13 +28,13 @@ export class Product {
   @Column()
   imageUrl1: string;
 
-  @Column({nullable: true})
+  @Column({ nullable:true})
   imageUrl2: string;
 
-  @Column({nullable: true})
+  @Column({ nullable: true })
   imageUrl3: string;
 
-  @Column({nullable: true})
+  @Column({ nullable: true })
   imageUrl4: string;
 
   @Column()
@@ -68,8 +68,12 @@ export class Product {
   likes: Like[];
 
   @ManyToMany(() => Size)
-  @JoinTable()
-  sizes: Size;
+  @JoinTable({
+    name: 'product_sizes_size',
+    joinColumn: { name: 'productId', referencedColumnName: 'id' },
+    inverseJoinColumn: { name: 'sizeId', referencedColumnName: 'id' },
+  })
+  sizes: Size[];
 
   //Methods
 
