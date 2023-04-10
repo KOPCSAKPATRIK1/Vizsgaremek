@@ -44,14 +44,26 @@ const ProductList = () => {
   const cat = location.pathname.split("/")[2];
   const [filters,setFilters] = useState({});
   const [sort, setSort] = useState("newest");
-  const handleFilters = (e) =>{
-    const value = e.target.value;
-    setFilters({
-      ...filters,
-      [e.target.name]: value,
-    })
+  const handleFilters = (e) => {
+    const { name, value } = e.target;
+    
+    if (value !== "Minden") {
+      setFilters({
+        ...filters,
+        [name]: value,
+      });
+    } else {
+      // If "Minden" is selected, remove the filter for that category
+      if (filters[name]) {
+        const { [name]: removed, ...rest } = filters;
+        setFilters(rest);
+      }
+    }
   }
+
+
   console.log(filters);
+  console.log(sort);
   return (
     <Container>
       <Navbar />
@@ -60,16 +72,19 @@ const ProductList = () => {
       <FilterContainer>
         <Filter>
           
-          <Select name='cat' onChange={handleFilters}>
-            <Option disabled>
+          <Select name='category.id' onChange={handleFilters}>
+          <Option disabled>
               Kategória
+            </Option>
+            <Option>
+              Minden
             </Option>
             <Option value={1}>Air Force</Option>
             <Option value={2}>Dunk</Option>
             <Option value={3}>Jordan</Option>
             <Option value={4}>Yeezy</Option>
           </Select>
-          <Select name='size' onChange={handleFilters}>
+          <Select name='sizes.size' onChange={handleFilters}>
             <Option disabled>
               Méret
             </Option>
@@ -81,13 +96,16 @@ const ProductList = () => {
             <Option>41</Option>
             <Option>42</Option>
             <Option>43</Option>
-
+            <Option>44</Option>
+            <Option>45</Option>
+            <Option>46</Option>
+            <Option>47</Option>
           </Select>
         </Filter>
         <Filter>
           
           <Select onChange={(e)=>setSort(e.target.value)}>
-            <Option value="newest">Megjelenési sorrend</Option>
+            <Option value="newest">Legújabb elöl</Option>
             <Option value="asc">Ár (növekvő)</Option>
             <Option value="desc">Ár (csökkenő)</Option>
           </Select>
