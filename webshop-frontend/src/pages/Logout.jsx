@@ -81,7 +81,7 @@ const Logout = () => {
       <Navbar />
       <Container>
         <Wrapper>   
-             <p>Welcome, {username}!</p>
+             <p>Üdv, {username}!</p>
             <LogoutButton></LogoutButton>   
       </Wrapper>
     </Container>

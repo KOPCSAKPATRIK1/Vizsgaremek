@@ -125,12 +125,14 @@ if (accessToken) {
               placeholder="Felhasználónév vagy E-mail"
               value={usernameOrEmail}
               onChange={(event) => setUsernameOrEmail(event.target.value)}
+              required
             />
             <Input
               type="password"
               placeholder="Jelszó"
               value={password}
               onChange={(event) => setPassword(event.target.value)}
+              required
             />
             <Button type="submit">BEJELENTKEZÉS</Button>      
             {error && <p>{error}</p>}
