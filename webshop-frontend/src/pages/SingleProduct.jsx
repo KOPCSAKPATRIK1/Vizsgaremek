@@ -175,11 +175,9 @@ const SingleProduct = () => {
             <Filter>
               <FilterTitle>Méret</FilterTitle>
               <FilterSize>
-                <FilterSizeOption>EU40</FilterSizeOption>
-                <FilterSizeOption>EU41</FilterSizeOption>
-                <FilterSizeOption>EU42</FilterSizeOption>
-                <FilterSizeOption>EU43</FilterSizeOption>
-                <FilterSizeOption>EU44</FilterSizeOption>
+              {product.sizes.map((s) => (
+           <FilterSizeOption key={s.id}>{s.size}</FilterSizeOption>
+                ))}       
               </FilterSize>
             </Filter>
           </FilterContainer>
