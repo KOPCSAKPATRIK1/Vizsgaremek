@@ -7,6 +7,7 @@ import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import Login from "../pages/Login";
 import Register from "../pages/Register";
 import Home from "../pages/Home";
+import { useSelector } from "react-redux";
 
 const Wrapper = styled.div`
   padding: 10px 20px;
@@ -119,6 +120,8 @@ const user = JSON.parse(localStorage.getItem("user"));
 const username = user?.username;
 
 const Navbar = () => {
+    const quantity= useSelector(state => state.cart.quantity)
+   
   return (
     <Wrapper>
       <Left>
@@ -159,7 +162,7 @@ const Navbar = () => {
               }}
             ></Search>
           </IconLink>
-          <StyledBadge badgeContent={4} color="default">
+          <StyledBadge badgeContent={quantity} color="default">
             <IconLink to="/cart">
               <LocalMall
                 style={{
