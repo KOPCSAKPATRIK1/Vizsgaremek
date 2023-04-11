@@ -115,6 +115,7 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
 const Username = styled.h1`
   font-size: 20px;
   word-spacing: 2px;
+  text-transform: uppercase;
 `;
 const user = JSON.parse(localStorage.getItem("user"));
 const username = user?.username;
