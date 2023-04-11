@@ -3,6 +3,7 @@ import styled from "styled-components";
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 import { BrowserRouter as Router,Routes, Route, Link } from 'react-router-dom';
+import { useSelector } from "react-redux";
 const Container = styled.div`
  color:white;
   text-shadow: 0px 0px 10px black;
@@ -175,6 +176,8 @@ const Button = styled.button`
 `;
 
 const Cart = () => {
+  const cart = useSelector(state => state.cart);
+  const shipping = 1200
   return (
     <Container>
       <Navbar />
@@ -183,68 +186,53 @@ const Cart = () => {
         <Top>
           <Link to="/products" ><TopButton>Tovább vásárlok</TopButton></Link>
           <TopTexts>
-            <TopText>Termékek(2)</TopText>
+            <TopText>Termékek({cart.quantity})</TopText>
           </TopTexts>
           
         </Top>
         <Bottom>
           <Info>
+            {cart.products.map(product=>( 
+            <>
             <Product>
               <ProductDetail>
-                <Image src="https://cdn.shopify.com/s/files/1/2999/5106/products/TruetoSole-AirJordan4RetroMilitaryBlack-DH6927-111-01_600x.png?v=1652364461" />
+                <Image src={product.imageUrl1} />
                 <Details>
                   <ProductName>
-                    <b>Product:</b> JORDAN 4
+                    <b>Termék:</b> {product.name}
                   </ProductName>
+               
+                  <ProductSize>
+                    <b>Méret:</b> {product.selectedSize}
+                  </ProductSize>
                   <ProductId>
-                    <b>ID:</b> 93813718293
+                    <b>Termék azonosító:</b> {product.id}
                   </ProductId>
                  
-                  <ProductSize>
-                    <b>Size:</b> 37.5
-                  </ProductSize>
                 </Details>
               </ProductDetail>
               <PriceDetail>
                 <ProductAmountContainer>
                   <Add />
-                  <ProductAmount>2</ProductAmount>
+                  <ProductAmount>{product.quantity}</ProductAmount>
                   <Remove />
+                 
                 </ProductAmountContainer>
-                <ProductPrice>119 000 Ft</ProductPrice>
+            
+                <ProductPrice>{product.price.toLocaleString()} Ft</ProductPrice>
               </PriceDetail>
             </Product>
-            <Hr />
-            <Product>
-              <ProductDetail>
-                <Image src="https://cdn.shopify.com/s/files/1/2999/5106/products/True-to-Sole-Nike-Dunk-Low-Retro-Black-White-01_42371a5e-7e8a-48c3-8854-a3bbdeef87b6_600x.png?v=1653054125" />
-                <Details>
-                  <ProductName>
-                    <b>Product:</b> DUNK LOW
-                  </ProductName>
-                  <ProductId>
-                    <b>ID:</b> 93813718293
-                  </ProductId>
-                  <ProductSize>
-                    <b>Size:</b> 42
-                  </ProductSize>
-                </Details>
-              </ProductDetail>
-              <PriceDetail>
-                <ProductAmountContainer>
-                  <Add />
-                  <ProductAmount>1</ProductAmount>
-                  <Remove />
-                </ProductAmountContainer>
-                <ProductPrice>89 000 Ft</ProductPrice>
-              </PriceDetail>
-            </Product>
+              
+              </>
+              ))}
+          
+            
           </Info>
           <Summary>
             <SummaryTitle>RENDELÉS ÁTTEKINTÉSE</SummaryTitle>
             <SummaryItem>
               <SummaryItemText>Részösszeg</SummaryItemText>
-              <SummaryItemPrice>209 000 Ft</SummaryItemPrice>
+              <SummaryItemPrice>{cart.total.toLocaleString()} Ft</SummaryItemPrice>
             </SummaryItem>
             <SummaryItem>
               <SummaryItemText>Szállítás</SummaryItemText>
@@ -252,7 +240,7 @@ const Cart = () => {
             </SummaryItem>
             <SummaryItem type="total">
               <SummaryItemText>Összesen</SummaryItemText>
-              <SummaryItemPrice>212 000 Ft</SummaryItemPrice>
+              <SummaryItemPrice>{(cart.total+shipping).toLocaleString()} Ft</SummaryItemPrice>
             </SummaryItem>
             <Button>FIZETÉS</Button>
           </Summary>
