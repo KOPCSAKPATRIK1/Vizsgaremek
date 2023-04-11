@@ -1,9 +1,10 @@
-import { Add, Remove } from "@mui/icons-material";
+import { Add, Remove, Delete} from "@mui/icons-material";
 import styled from "styled-components";
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 import { BrowserRouter as Router,Routes, Route, Link } from 'react-router-dom';
 import { useSelector } from "react-redux";
+
 const Container = styled.div`
  color:white;
   text-shadow: 0px 0px 10px black;
@@ -194,7 +195,7 @@ const Cart = () => {
           <Info>
             {cart.products.map(product=>( 
             <>
-            <Product>
+            <Product key={product.id}>
               <ProductDetail>
                 <Image src={product.imageUrl1} />
                 <Details>
@@ -213,10 +214,10 @@ const Cart = () => {
               </ProductDetail>
               <PriceDetail>
                 <ProductAmountContainer>
-                  <Add />
+                  <Add/>
                   <ProductAmount>{product.quantity}</ProductAmount>
                   <Remove />
-                 
+                  <Delete/>
                 </ProductAmountContainer>
             
                 <ProductPrice>{product.price.toLocaleString()} Ft</ProductPrice>
