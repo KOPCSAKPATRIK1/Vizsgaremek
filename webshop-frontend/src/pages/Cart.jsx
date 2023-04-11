@@ -4,7 +4,8 @@ import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 import { BrowserRouter as Router,Routes, Route, Link } from 'react-router-dom';
 import { useSelector } from "react-redux";
-
+import { useDispatch } from 'react-redux';
+import { removeProduct } from '../redux/cartRedux';
 const Container = styled.div`
  color:white;
   text-shadow: 0px 0px 10px black;
@@ -178,7 +179,11 @@ const Button = styled.button`
 
 const Cart = () => {
   const cart = useSelector(state => state.cart);
-  const shipping = 1200
+  const dispatch = useDispatch();
+  const handleRemoveProduct = (productId) => {
+    dispatch(removeProduct({ productId }));
+  };
+  const shipping = 1200;
   return (
     <Container>
       <Navbar />
@@ -214,10 +219,8 @@ const Cart = () => {
               </ProductDetail>
               <PriceDetail>
                 <ProductAmountContainer>
-                  <Add/>
-                  <ProductAmount>{product.quantity}</ProductAmount>
-                  <Remove />
-                  <Delete/>
+                
+                <Delete onClick={() => handleRemoveProduct(product.id)} />
                 </ProductAmountContainer>
             
                 <ProductPrice>{product.price.toLocaleString()} Ft</ProductPrice>
