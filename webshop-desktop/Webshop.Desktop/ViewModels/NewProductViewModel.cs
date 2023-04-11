@@ -261,7 +261,10 @@ public partial class NewProductViewModel : ObservableRecipient, INavigationAware
         {
             TeachingTip.Subtitle = "Kategória neve nem lehet üres";
             TeachingTip.IsOpen = true;
-            NewCategory();
+            TeachingTip.Closed += (sender, args) =>
+            {
+                NewCategory();
+            };            
         }
         else
         {

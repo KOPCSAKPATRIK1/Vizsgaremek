@@ -92,8 +92,12 @@ public partial class OrdersViewModel : ObservableRecipient, INavigationAware
             string.IsNullOrWhiteSpace(dialogContent.ViewModel.State))
         {
             TeachingTip.Subtitle = "Mezők nem lehetnek üresek";
+
             TeachingTip.IsOpen = true;
-            ChangeOrderAddress();
+            TeachingTip.Closed += (sender, args) =>
+            {
+                ChangeOrderAddress();
+            };
         }
         else
         {
