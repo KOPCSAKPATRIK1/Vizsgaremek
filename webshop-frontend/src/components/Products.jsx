@@ -77,9 +77,12 @@ const Products = ({ cat, filters, sort }) => {
       } else if (sort === "desc") {
         sortedData.sort((a, b) => b.price - a.price);
       }
-      setFilteredData(sortedData);
+      if (JSON.stringify(filteredData) !== JSON.stringify(sortedData)) {
+        setFilteredData(sortedData);
+      }
     }
   }, [sort, filteredData]);
+  
 
   return (
     <div>
