@@ -8,6 +8,7 @@ public class ProductVmList
     public string ImageUrl1 { get; set; } = null!;
     public int Likes { get; set; }
     public string Inactive { get; set; } = null!;
+    public string Popular { get; set; } = null!;
     public ProductInfoVmList[] Info { get; set; } = null!;
 }
 

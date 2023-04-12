@@ -39,7 +39,7 @@ public partial class NewProductViewModel : ObservableRecipient, INavigationAware
     [ObservableProperty] private string? _imageUrl4;
     [ObservableProperty] private int _productPrice;
     [ObservableProperty]
-    private Dictionary<string, int> _sizes = new()
+    private Dictionary<string, int> _sizesWithQuantity = new()
     {
         {"36", 0},
         {"37", 0},
@@ -100,7 +100,7 @@ public partial class NewProductViewModel : ObservableRecipient, INavigationAware
             ImageUrl2 = product.ImageUrl2;
             ImageUrl3 = product.ImageUrl3;
             ImageUrl4 = product.ImageUrl4;
-            Sizes = product.SizesWithQuantity;
+            SizesWithQuantity = product.SizesWithQuantity;
             foreach (var category in Categories)
             {
                 if (category.Id == product.CategoryId)
@@ -200,6 +200,15 @@ public partial class NewProductViewModel : ObservableRecipient, INavigationAware
         DescValidation();
         Img1Validation();
         CategoryValidation();
+
+        foreach (var sizeWithQuantity in SizesWithQuantity)
+        {
+            if (sizeWithQuantity.Value < 0)
+            {
+                SizesWithQuantity[sizeWithQuantity.Key] = 0;
+            }
+        }
+
         if (IsValid())
         {
             if (_productId != 0)
@@ -212,7 +221,7 @@ public partial class NewProductViewModel : ObservableRecipient, INavigationAware
                     ImageUrl2 = ImageUrl2,
                     ImageUrl3 = ImageUrl3,
                     ImageUrl4 = ImageUrl4,
-                    SizesWithQuantity = Sizes,
+                    SizesWithQuantity = SizesWithQuantity,
                     Price = ProductPrice,
                     CategoryId = SelectedCategory.Id,
                 }, _productId);
@@ -229,7 +238,7 @@ public partial class NewProductViewModel : ObservableRecipient, INavigationAware
                     ImageUrl2 = ImageUrl2,
                     ImageUrl3 = ImageUrl3,
                     ImageUrl4 = ImageUrl4,
-                    SizesWithQuantity = Sizes,
+                    SizesWithQuantity = SizesWithQuantity,
                     Price = ProductPrice,
                     CategoryId = SelectedCategory.Id,
                 });

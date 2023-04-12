@@ -76,6 +76,7 @@ public partial class ProductsViewModel : ObservableRecipient, INavigationAware
     partial void OnSelectedProductChanged(ProductVmList? value)
     {
         ChangeInactiveCommand.NotifyCanExecuteChanged();
+        ChangePopularCommand.NotifyCanExecuteChanged();
         ChangeProductParametersCommand.NotifyCanExecuteChanged();
     }
 
@@ -126,6 +127,21 @@ public partial class ProductsViewModel : ObservableRecipient, INavigationAware
         if (SelectedProduct != null)
         {
             _productService.ChangeInactive(SelectedProduct.Id);
+            LoadProducts();
+        }
+        OnSelectedCategoryChanged(SelectedCategory);
+        if (FilterText != null)
+        {
+            OnFilterTextChanging(FilterText);
+        }
+    }
+
+    [RelayCommand(CanExecute = nameof(CanExecuteCommand))]
+    private void ChangePopular()
+    {
+        if (SelectedProduct != null)
+        {
+            _productService.ChangePopular(SelectedProduct.Id);
             LoadProducts();
         }
         OnSelectedCategoryChanged(SelectedCategory);

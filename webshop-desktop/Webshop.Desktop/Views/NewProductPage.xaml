@@ -84,57 +84,57 @@
                     Orientation="Horizontal">
                     <NumberBox
                         Header="36"
-                        Value="{x:Bind ViewModel.Sizes['36'], Mode=TwoWay}"
+                        Value="{x:Bind ViewModel.SizesWithQuantity['36'], Mode=TwoWay}"
                         Margin="10"
                         Minimum="0"/>
                     <NumberBox
                         Header="37"
-                        Value="{x:Bind ViewModel.Sizes['37'], Mode=TwoWay}"
+                        Value="{x:Bind ViewModel.SizesWithQuantity['37'], Mode=TwoWay}"
                         Margin="10"
                         Minimum="0"/>
                     <NumberBox
                         Header="38"
-                        Value="{x:Bind ViewModel.Sizes['38'], Mode=TwoWay}"
+                        Value="{x:Bind ViewModel.SizesWithQuantity['38'], Mode=TwoWay}"
                         Margin="10"
                         Minimum="0"/>
                     <NumberBox
                         Header="39"
-                        Value="{x:Bind ViewModel.Sizes['39'], Mode=TwoWay}"
+                        Value="{x:Bind ViewModel.SizesWithQuantity['39'], Mode=TwoWay}"
                         Margin="10"
                         Minimum="0"/>
                     <NumberBox
                         Header="40"
-                        Value="{x:Bind ViewModel.Sizes['40'], Mode=TwoWay}"
+                        Value="{x:Bind ViewModel.SizesWithQuantity['40'], Mode=TwoWay}"
                         Margin="10"
                         Minimum="0"/>
                     <NumberBox
                         Header="41"
-                        Value="{x:Bind ViewModel.Sizes['41'], Mode=TwoWay}"
+                        Value="{x:Bind ViewModel.SizesWithQuantity['41'], Mode=TwoWay}"
                         Margin="10"
                         Minimum="0"/>
                     <NumberBox
                         Header="42"
-                        Value="{x:Bind ViewModel.Sizes['42'], Mode=TwoWay}"
+                        Value="{x:Bind ViewModel.SizesWithQuantity['42'], Mode=TwoWay}"
                         Margin="10"
                         Minimum="0"/>
                     <NumberBox
                         Header="43"
-                        Value="{x:Bind ViewModel.Sizes['43'], Mode=TwoWay}"
+                        Value="{x:Bind ViewModel.SizesWithQuantity['43'], Mode=TwoWay}"
                         Margin="10"
                         Minimum="0"/>
                     <NumberBox
                         Header="44"
-                        Value="{x:Bind ViewModel.Sizes['44'], Mode=TwoWay}"
+                        Value="{x:Bind ViewModel.SizesWithQuantity['44'], Mode=TwoWay}"
                         Margin="10"
                         Minimum="0"/>
                     <NumberBox
                         Header="45"
-                        Value="{x:Bind ViewModel.Sizes['45'], Mode=TwoWay}"
+                        Value="{x:Bind ViewModel.SizesWithQuantity['45'], Mode=TwoWay}"
                         Margin="10"
                         Minimum="0"/>
                     <NumberBox
                         Header="46"
-                        Value="{x:Bind ViewModel.Sizes['46'], Mode=TwoWay}"
+                        Value="{x:Bind ViewModel.SizesWithQuantity['46'], Mode=TwoWay}"
                         Margin="10"
                         Minimum="0"/>
                 </StackPanel>
