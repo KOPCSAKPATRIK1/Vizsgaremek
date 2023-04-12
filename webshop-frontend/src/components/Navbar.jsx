@@ -117,7 +117,17 @@ const Username = styled.h1`
   word-spacing: 2px;
   text-transform: uppercase;
 `;
-const user = JSON.parse(localStorage.getItem("user"));
+const userString = localStorage.getItem("user"); // get the value of "user" from localStorage
+let user = null; // initialize user variable as null
+
+if (userString) { // check if userString is not null or undefined
+  try {
+    user = JSON.parse(userString); // attempt to parse userString as JSON
+  } catch (error) {
+    console.error("Error parsing user data from localStorage:", error); // handle parse error
+  }
+}
+
 const username = user?.username;
 
 const Navbar = () => {

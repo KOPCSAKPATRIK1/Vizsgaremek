@@ -72,10 +72,10 @@ const Button = styled.button`
 const Login = () => {
   const accessToken = localStorage.getItem('accessToken');
 
-if (accessToken) {
-  // Redirect user to home page or dashboard
-  window.location.href = '/logout';
-}
+  if (accessToken && accessToken !== 'undefined') { // Check if accessToken is present and not 'undefined'
+    // Redirect user to home page or dashboard
+    window.location.href = '/logout';
+  }
   const [usernameOrEmail, setUsernameOrEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
