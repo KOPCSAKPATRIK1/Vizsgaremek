@@ -11,6 +11,7 @@ import {
   Res,
   Req,
   UnauthorizedException,
+  Delete,
 } from '@nestjs/common';
 import { DataSource } from 'typeorm';
 import { AppService } from './app.service';
@@ -219,11 +220,11 @@ export class AppController {
     return cart;
   }
 
-  @Get('/cart/:id')
-  async getCartById(@Param('id') id: number) {
+  @Get('/cart/:userId')
+  async getCartItemsByUserId(@Param('userId') userId: number) {
     const cartRepo = this.dataSource.getRepository(ShoppingCartItem);
 
-    return cartRepo.findOneBy({ id: id });
+    return cartRepo.findBy({ userId: userId });
     
   }
 
@@ -236,6 +237,15 @@ export class AppController {
     like.user = await this.dataSource.getRepository(User).findOneBy({id: LikeDto.userId});
     await likeRepo.save(like);
     return like;
+  }
+
+  @Delete('/like/:productId/:userId')
+  async deleteLikeByProductId(@Param('productid') productId: number, @Param('userId') userId: number){
+    const likeRepo = this.dataSource.getRepository(Like);
+    const like = await likeRepo.findOne({
+      where: { productId, userId },
+    });
+    return likeRepo.delete(like);
   }
 
   @Get('/like/product/:id')

@@ -14,10 +14,13 @@ const AccountScreen = () => {
         navigation.setOptions({
             headerShown: false,
             });
-        AsyncStorage.getItem('user').then((res) => setUser(res));
-        console.log(user);
+        getUserData();
     }, [])
 
+    const getUserData = async () => {
+        const res = await AsyncStorage.getItem('user');
+        setUser(JSON.parse(res));
+    } 
 
     const logOut = () => {
         AsyncStorage.clear();
