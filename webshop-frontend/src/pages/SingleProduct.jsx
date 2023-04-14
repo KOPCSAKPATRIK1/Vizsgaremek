@@ -4,6 +4,8 @@ import Navbar from "../components/Navbar";
 import Newsletter from "../components/Newsletter";
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { addProduct } from "../redux/cartRedux";
+import { useDispatch } from "react-redux";
 const Container = styled.div`
 
 `;
@@ -133,26 +135,39 @@ const SingleProduct = () => {
   console.log(id);
   
   const [product, setProduct] = useState(null);
-  
+  const [quantity, setQuantity] = useState(1);
+  const [selectedSize, setSelectedSize] = useState("");
+  const dispatch = useDispatch();
+  const fetchData = async () => {
+    await fetch(`http://localhost:3000/shoes/${id}`)
+    .then(response => response.json())
+    .then(data => {
+      console.log(data); // log the data variable
+      setProduct(data);
+      setMainImage(data.imageUrl1);
+    });
+  }
   const [mainImage, setMainImage] = useState(null);
 
   useEffect(() => {
-    fetch(`http://localhost:3000/shoes/${id}`)
-      .then(response => response.json())
-      .then(data => {
-        console.log(data); // log the data variable
-        setProduct(data);
-        setMainImage(product.imageUrl1);
-      });
+   fetchData()
   }, [id]);
 
   if (!product) {
     return <div>Loading...</div>;
-  }
+  };
 
   const handlePreviewClick = (imageSrc) => {
     setMainImage(imageSrc);
-  }
+  };
+  
+
+  const handleClick = () => {
+    dispatch(  
+      addProduct({...product, quantity, selectedSize }));
+    };
+
+ 
   return (
     <Container>
       <Navbar />
@@ -172,17 +187,15 @@ const SingleProduct = () => {
           <FilterContainer>
             <Filter>
               <FilterTitle>Méret</FilterTitle>
-              <FilterSize>
-                <FilterSizeOption>EU40</FilterSizeOption>
-                <FilterSizeOption>EU41</FilterSizeOption>
-                <FilterSizeOption>EU42</FilterSizeOption>
-                <FilterSizeOption>EU43</FilterSizeOption>
-                <FilterSizeOption>EU44</FilterSizeOption>
+              <FilterSize onChange={(e) => setSelectedSize(e.target.value)}>
+              {product.sizes.map((s) => (
+           <FilterSizeOption key={s.id}>{s.size}</FilterSizeOption>
+                ))}       
               </FilterSize>
             </Filter>
           </FilterContainer>
           <AddContainer>
-            <Button>MEGVESZEM</Button>
+            <Button onClick={handleClick}>MEGVESZEM</Button>
           </AddContainer>
           <Desc>    
           {product.desc}

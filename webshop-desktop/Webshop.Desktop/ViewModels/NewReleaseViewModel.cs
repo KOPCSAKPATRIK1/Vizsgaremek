@@ -78,11 +78,9 @@ public partial class NewReleaseViewModel : ObservableRecipient, INavigationAware
 
     }
 
-    #region Validation
-
     public void NameValidation()
     {
-        if (ReleaseName == null || ReleaseName == "")
+        if (string.IsNullOrWhiteSpace(ReleaseName))
         {
             NameValidationText = "A név nem lehet üres";
             NameValidationVisibility = true;
@@ -101,7 +99,7 @@ public partial class NewReleaseViewModel : ObservableRecipient, INavigationAware
 
     public void DescValidation()
     {
-        if (ReleaseDesc == null || ReleaseDesc == "")
+        if (string.IsNullOrWhiteSpace(ReleaseDesc))
         {
             DescValidationText = "A leírás nem lehet üres";
             DescValidationVisibility = true;
@@ -120,7 +118,7 @@ public partial class NewReleaseViewModel : ObservableRecipient, INavigationAware
 
     public void Img1Validation()
     {
-        if (ImageUrl1 == null || ImageUrl1 == "")
+        if (string.IsNullOrWhiteSpace(ImageUrl1))
         {
             Img1ValidationText = "Az első kép nem lehet üres";
             Img1ValidationVisibility = true;
@@ -134,7 +132,7 @@ public partial class NewReleaseViewModel : ObservableRecipient, INavigationAware
 
     public void DateValidation()
     {
-        if (SelectedDate < DateTimeOffset.Now || SelectedDate.Day == DateTimeOffset.Now.Day)
+        if (SelectedDate < DateTimeOffset.Now || SelectedDate == DateTimeOffset.Now)
         {
             DateValidationText = "Megjelenés leghamarabb holnapi dátummal lehetséges";
             DateValidationVisibility = true;
@@ -145,8 +143,6 @@ public partial class NewReleaseViewModel : ObservableRecipient, INavigationAware
         }
         SaveReleaseCommand.NotifyCanExecuteChanged();
     }
-
-    #endregion
 
     #endregion
 

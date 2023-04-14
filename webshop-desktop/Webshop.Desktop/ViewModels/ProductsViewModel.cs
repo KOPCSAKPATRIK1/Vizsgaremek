@@ -15,15 +15,20 @@ public partial class ProductsViewModel : ObservableRecipient, INavigationAware
     #region Private members
 
     private readonly IProductService _productService;
+    private readonly ICategoryService _categoryService;
     private readonly INavigationService _navigationService;
+    private ProductVmList[] _products;
 
     #endregion
 
     #region Observables
 
-    public ObservableCollection<ProductVmList> ProductsWithInfo { get; set; } = new();
+    public ObservableCollection<ProductVmList> Products { get; set; } = new();
+    public ObservableCollection<CategoryVmList> Categories { get; set; } = new();
 
     [ObservableProperty] private ProductVmList? _selectedProduct;
+    [ObservableProperty] private CategoryVmList _selectedCategory;
+    [ObservableProperty] private string _filterText;
 
     #endregion
 
@@ -31,20 +36,38 @@ public partial class ProductsViewModel : ObservableRecipient, INavigationAware
 
     public ProductsViewModel(
         IProductService productService,
-        INavigationService navigationService)
+        INavigationService navigationService,
+        ICategoryService categoryService)
     {
         _productService = productService;
         _navigationService = navigationService;
+        _categoryService = categoryService;
     }
 
     #endregion
 
     #region Events
 
-    public  void OnNavigatedTo(object parameter)
+    public void OnNavigatedTo(object parameter)
     {
-        LoadProducts();
+        LoadProducts();        
+        Categories.Clear();
+        var categories = _categoryService.GetCategories();
+        Categories.Add(new CategoryVmList
+        {
+            Name = "Összes"
+        });
+        foreach (var category in categories)
+        {
+            Categories.Add(new CategoryVmList
+            {
+                Id = category.Id,
+                Name = category.Name
+            });
+        }
+        SelectedCategory = Categories.First();
     }
+
     public void OnNavigatedFrom()
     {
 
@@ -53,7 +76,39 @@ public partial class ProductsViewModel : ObservableRecipient, INavigationAware
     partial void OnSelectedProductChanged(ProductVmList? value)
     {
         ChangeInactiveCommand.NotifyCanExecuteChanged();
+        ChangePopularCommand.NotifyCanExecuteChanged();
         ChangeProductParametersCommand.NotifyCanExecuteChanged();
+    }
+
+    partial void OnFilterTextChanging(string value)
+    {
+        var filteredProducts = _products.Where(p => p.Name.Contains(value.ToUpper()));
+        Products.Clear();
+        foreach (var product in filteredProducts)
+        {
+            Products.Add(product);
+        }
+    }
+
+    partial void OnSelectedCategoryChanged(CategoryVmList value)
+    {
+        if (value.Name == "Összes")
+        {
+            Products.Clear();
+            foreach (var product in _products)
+            {
+                Products.Add(product);
+            }
+        }
+        else
+        {
+            var filteredProducts = _products.Where(p => p.CategoryName == value.Name);
+            Products.Clear();
+            foreach (var product in filteredProducts)
+            {
+                Products.Add(product);
+            }
+        }
     }
 
     #endregion
@@ -74,9 +129,29 @@ public partial class ProductsViewModel : ObservableRecipient, INavigationAware
             _productService.ChangeInactive(SelectedProduct.Id);
             LoadProducts();
         }
+        OnSelectedCategoryChanged(SelectedCategory);
+        if (FilterText != null)
+        {
+            OnFilterTextChanging(FilterText);
+        }
     }
 
-    [RelayCommand(CanExecute = nameof (CanExecuteCommand))]
+    [RelayCommand(CanExecute = nameof(CanExecuteCommand))]
+    private void ChangePopular()
+    {
+        if (SelectedProduct != null)
+        {
+            _productService.ChangePopular(SelectedProduct.Id);
+            LoadProducts();
+        }
+        OnSelectedCategoryChanged(SelectedCategory);
+        if (FilterText != null)
+        {
+            OnFilterTextChanging(FilterText);
+        }
+    }
+
+    [RelayCommand(CanExecute = nameof(CanExecuteCommand))]
     private void ChangeProductParameters()
     {
         _navigationService.Frame?.Navigate(typeof(NewProductPage), SelectedProduct.Id);
@@ -88,11 +163,11 @@ public partial class ProductsViewModel : ObservableRecipient, INavigationAware
 
     private void LoadProducts()
     {
-        ProductsWithInfo.Clear();
-        var productsWithInfo =  _productService.GetProductsWithInfo();
-        foreach (var product in productsWithInfo)
+        Products.Clear();
+        _products = _productService.GetProductsWithInfo();
+        foreach (var product in _products)
         {
-            ProductsWithInfo.Add(product);
+            Products.Add(product);
         }
     }
 
@@ -100,7 +175,7 @@ public partial class ProductsViewModel : ObservableRecipient, INavigationAware
     {
         if (SelectedProduct == null)
         {
-            return  false;
+            return false;
         }
         else
         {

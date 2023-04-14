@@ -1,9 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
-
 using Microsoft.UI.Xaml.Navigation;
-
 using Webshop.Desktop.Contracts.Services;
-using Webshop.Desktop.Views;
 
 namespace Webshop.Desktop.ViewModels;
 

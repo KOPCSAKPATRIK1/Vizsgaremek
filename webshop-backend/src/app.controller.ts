@@ -35,6 +35,7 @@ import { PaymentMethod } from './entities/order/paymentMethod.entity';
 import AddressDto from './dto/address.dto';
 import { Address } from './entities/user/address.entity';
 import OrderDto from './dto/order.dto';
+import { Stock } from './entities/product/stock.entity';
 
 @Controller()
 export class AppController {
@@ -121,8 +122,11 @@ export class AppController {
     return productRepo
       .createQueryBuilder('product')
       .leftJoinAndSelect('product.category', 'category')
+      .leftJoinAndSelect('product.sizes', 'size')
+      .where('product.inactive = :inactive', { inactive: 0 })
       .getMany();
   }
+  
 
   @Get('/releases')
   async getReleases() {
@@ -133,20 +137,20 @@ export class AppController {
 
   @Get('/shoes/popular')
   async getPopularShoes() {
-    const productRepo = this.dataSource.getRepository(Product);
-    return productRepo
-      .createQueryBuilder('product')
-      .leftJoinAndSelect('product.category', 'category')
-      .where('product.popular = :popular', { popular: true })
-      .getMany();
-  }
+  const productRepo = this.dataSource.getRepository(Product);
+  return productRepo
+    .createQueryBuilder('product')
+    .leftJoinAndSelect('product.category', 'category')
+    .where('product.popular = :popular and product.inactive = :inactive', { popular: true, inactive: 0 })
+    .getMany();
+}
 
   @Get('/shoes/:id')
   async getShoe(@Param('id') id: number) {
     const productRepo = this.dataSource.getRepository(Product);
     const product = await productRepo.findOne({
       where: { id: id },
-      relations: ['category'],
+      relations: ['category', 'sizes'],
     });
     return product;
   }
@@ -156,7 +160,7 @@ export class AppController {
     const productRepo = this.dataSource.getRepository(Product);
     const shoes = await productRepo
       .createQueryBuilder('product')
-      .where('product.name LIKE :name', { name: `%${name}%` })
+      .where('product.name LIKE :name and product.inactive = :inactive', { name: `%${name}%`, inactive: 0 })
       .getMany(); 
     return shoes;
   }
@@ -337,5 +341,10 @@ export class AppController {
     return order;
   }
   
+  @Get('stock/:productId')
+  getStocks(@Param('productId') productId : number){
+    const stockRepo = this.dataSource.getRepository(Stock);
+    return stockRepo.findBy({ productId : productId});
+  }
   
 }

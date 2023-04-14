@@ -41,15 +41,14 @@ public class ProductService : IProductService
                 CategoryName = p.Category.Name,
                 ImageUrl1 = p.ImageUrl1,
                 Inactive = p.Inactive != 0 ? "INAKTÍV" : "",
+                Popular = p.Popular != 0 ? "POPULÁRIS" : "",
                 Likes = p.Likes.Count(),
                 Info = p.Stocks.Where(s => s.InStock > 0).Select(s => new ProductInfoVmList
                 {
                     Size = s.Size.Size1,
                     Quantity = s.InStock,
                 }).OrderBy(p => p.Size).ToArray(),
-            })
-            .OrderBy(p => p.Name)
-            .ToArray();
+            }).ToArray();
     }
 
     public void AddProducts(ProductDto newProduct)
@@ -112,6 +111,24 @@ public class ProductService : IProductService
             else
             {
                 product.Inactive = 0;
+            }
+
+            _productRepository.Update(product);
+        }
+    }
+
+    public void ChangePopular(int id)
+    {
+        var product = _productRepository.Find(p => p.Id == id).FirstOrDefault();
+        if (product != null)
+        {
+            if (product.Popular == 0)
+            {
+                product.Popular = 1;
+            }
+            else
+            {
+                product.Popular = 0;
             }
 
             _productRepository.Update(product);

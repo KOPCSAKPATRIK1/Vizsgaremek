@@ -1,7 +1,6 @@
 ﻿using Webshop.Desktop.Core.Interfaces.Business;
 using Webshop.Desktop.Core.Interfaces.Repository;
 using Webshop.Desktop.Core.Models.Business;
-using Webshop.Desktop.Core.Models.Business.Dtos;
 using Webshop.Desktop.Core.Models.Domain;
 
 namespace Webshop.Business;
@@ -20,17 +19,18 @@ public class CategoryService : ICategoryService
         IRepository<Category> categoryService,
         IRepository<Product> productService)
     {
-        _categoryService= categoryService;
-        _productService= productService;
-    }    
+        _categoryService = categoryService;
+        _productService = productService;
+    }
 
     #endregion
 
     public CategoryVmList[] GetCategories()
     {
         return _categoryService.GetAll()
-            .Select(c => new CategoryVmList{
-                Id= c.Id,
+            .Select(c => new CategoryVmList
+            {
+                Id = c.Id,
                 Name = c.Name,
             }).ToArray();
     }
@@ -57,8 +57,21 @@ public class CategoryService : ICategoryService
             {
                 _categoryService.Remove(category);
                 return true;
-            }            
+            }
         }
-        else { return false; }
+        else
+        {
+            return false;
+        }
+    }
+
+    public void UpdateCategoryName(int id, string name)
+    {
+        var category = _categoryService.Find(c => c.Id == id).FirstOrDefault();
+        if (category != null)
+        {
+            category.Name = name;
+            _categoryService.Update(category);
+        }
     }
 }

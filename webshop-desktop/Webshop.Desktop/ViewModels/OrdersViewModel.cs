@@ -1,13 +1,10 @@
 ﻿using System.Collections.ObjectModel;
-
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Webshop.Desktop.Contracts.ViewModels;
-using Webshop.Desktop.Core.Contracts.Services;
 using Webshop.Desktop.Core.Interfaces.Business;
-using Webshop.Desktop.Core.Models;
 using Webshop.Desktop.Core.Models.Business;
 using Webshop.Desktop.Core.Models.Business.Dtos;
 using Webshop.Desktop.Views.Dialogs;
@@ -76,7 +73,7 @@ public partial class OrdersViewModel : ObservableRecipient, INavigationAware
             XamlRoot = XamlRoot,
             PrimaryButtonText = "Mentés",
             CloseButtonText = "Mégse",
-            Content = dialogContent,            
+            Content = dialogContent,
         };
 
         dialogContent.ViewModel.StreetAddress = SelectedOrder.StreetAddress;
@@ -90,17 +87,32 @@ public partial class OrdersViewModel : ObservableRecipient, INavigationAware
             return;
         }
 
-        _addressService.ChangeAddress(new AddressDto
+        if (string.IsNullOrWhiteSpace(dialogContent.ViewModel.StreetAddress) ||
+            string.IsNullOrWhiteSpace(dialogContent.ViewModel.City) ||
+            string.IsNullOrWhiteSpace(dialogContent.ViewModel.State))
         {
-            StreetAddress = dialogContent.ViewModel.StreetAddress,
-            City = dialogContent.ViewModel.City,
-            State = dialogContent.ViewModel.State,
-            PostalCode = dialogContent.ViewModel.PostalCode
-        }, SelectedOrder.AddressId);
+            TeachingTip.Subtitle = "Mezők nem lehetnek üresek";
 
-        TeachingTip.Subtitle = "Változtatások Elmentve";
-        TeachingTip.IsOpen = true;
-        LoadOrders();
+            TeachingTip.IsOpen = true;
+            TeachingTip.Closed += (sender, args) =>
+            {
+                ChangeOrderAddress();
+            };
+        }
+        else
+        {
+            _addressService.ChangeAddress(new AddressDto
+            {
+                StreetAddress = dialogContent.ViewModel.StreetAddress,
+                City = dialogContent.ViewModel.City,
+                State = dialogContent.ViewModel.State,
+                PostalCode = dialogContent.ViewModel.PostalCode
+            }, SelectedOrder.AddressId);
+
+            TeachingTip.Subtitle = "Változtatások Elmentve";
+            TeachingTip.IsOpen = true;
+            LoadOrders();
+        }
     }
 
     [RelayCommand(CanExecute = nameof(IsOrderSelected))]

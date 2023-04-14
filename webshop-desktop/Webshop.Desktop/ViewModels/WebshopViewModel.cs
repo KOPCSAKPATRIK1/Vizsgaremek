@@ -1,10 +1,7 @@
 ﻿using System.Windows.Input;
-
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-
 using Microsoft.Web.WebView2.Core;
-
 using Webshop.Desktop.Contracts.Services;
 using Webshop.Desktop.Contracts.ViewModels;
 
@@ -12,7 +9,6 @@ namespace Webshop.Desktop.ViewModels;
 
 public class WebshopViewModel : ObservableRecipient, INavigationAware
 {
-    // TODO: Set the default URL to display.
     private Uri _source = new("http://localhost:3001/");
     private bool _isLoading = true;
     private bool _hasFailures;

@@ -39,7 +39,7 @@ public partial class NewProductViewModel : ObservableRecipient, INavigationAware
     [ObservableProperty] private string? _imageUrl4;
     [ObservableProperty] private int _productPrice;
     [ObservableProperty]
-    private Dictionary<string, int> _sizes = new()
+    private Dictionary<string, int> _sizesWithQuantity = new()
     {
         {"36", 0},
         {"37", 0},
@@ -100,7 +100,7 @@ public partial class NewProductViewModel : ObservableRecipient, INavigationAware
             ImageUrl2 = product.ImageUrl2;
             ImageUrl3 = product.ImageUrl3;
             ImageUrl4 = product.ImageUrl4;
-            Sizes = product.SizesWithQuantity;
+            SizesWithQuantity = product.SizesWithQuantity;
             foreach (var category in Categories)
             {
                 if (category.Id == product.CategoryId)
@@ -119,7 +119,7 @@ public partial class NewProductViewModel : ObservableRecipient, INavigationAware
 
     public void NameValidation()
     {
-        if (ProductName == null || ProductName == "")
+        if (string.IsNullOrWhiteSpace(ProductName))
         {
             NameValidationText = "A név nem lehet üres";
             NameValidationVisibility = true;
@@ -138,7 +138,7 @@ public partial class NewProductViewModel : ObservableRecipient, INavigationAware
 
     public void DescValidation()
     {
-        if (ProductDesc == null || ProductDesc == "")
+        if (string.IsNullOrWhiteSpace(ProductDesc))
         {
             DescValidationText = "A leírás nem lehet üres";
             DescValidationVisibility = true;
@@ -157,7 +157,7 @@ public partial class NewProductViewModel : ObservableRecipient, INavigationAware
 
     public void Img1Validation()
     {
-        if (ImageUrl1 == null || ImageUrl1 == "")
+        if (string.IsNullOrWhiteSpace(ImageUrl1))
         {
             Img1ValidationText = "Az első kép nem lehet üres";
             Img1ValidationVisibility = true;
@@ -186,6 +186,7 @@ public partial class NewProductViewModel : ObservableRecipient, INavigationAware
     partial void OnSelectedCategoryChanged(CategoryVmList value)
     {
         DeleteCategoryCommand.NotifyCanExecuteChanged();
+        UpdateCategoryNameCommand.NotifyCanExecuteChanged();
     }
 
     #endregion
@@ -199,6 +200,15 @@ public partial class NewProductViewModel : ObservableRecipient, INavigationAware
         DescValidation();
         Img1Validation();
         CategoryValidation();
+
+        foreach (var sizeWithQuantity in SizesWithQuantity)
+        {
+            if (sizeWithQuantity.Value < 0)
+            {
+                SizesWithQuantity[sizeWithQuantity.Key] = 0;
+            }
+        }
+
         if (IsValid())
         {
             if (_productId != 0)
@@ -211,7 +221,7 @@ public partial class NewProductViewModel : ObservableRecipient, INavigationAware
                     ImageUrl2 = ImageUrl2,
                     ImageUrl3 = ImageUrl3,
                     ImageUrl4 = ImageUrl4,
-                    SizesWithQuantity = Sizes,
+                    SizesWithQuantity = SizesWithQuantity,
                     Price = ProductPrice,
                     CategoryId = SelectedCategory.Id,
                 }, _productId);
@@ -228,7 +238,7 @@ public partial class NewProductViewModel : ObservableRecipient, INavigationAware
                     ImageUrl2 = ImageUrl2,
                     ImageUrl3 = ImageUrl3,
                     ImageUrl4 = ImageUrl4,
-                    SizesWithQuantity = Sizes,
+                    SizesWithQuantity = SizesWithQuantity,
                     Price = ProductPrice,
                     CategoryId = SelectedCategory.Id,
                 });
@@ -254,14 +264,60 @@ public partial class NewProductViewModel : ObservableRecipient, INavigationAware
         if (result != ContentDialogResult.Primary)
         {
             return;
-        }       
+        }
 
-        _categoryService.AddCategory(dialogContent.ViewModel.CategoryName);
-        TeachingTip.Subtitle = "Kategória felvéve";
-        TeachingTip.IsOpen = true;
-        LoadCategories();
+        if (string.IsNullOrWhiteSpace(dialogContent.ViewModel.CategoryName))
+        {
+            TeachingTip.Subtitle = "Kategória neve nem lehet üres";
+            TeachingTip.IsOpen = true;
+            TeachingTip.Closed += (sender, args) =>
+            {
+                NewCategory();
+            };            
+        }
+        else
+        {
+            _categoryService.AddCategory(dialogContent.ViewModel.CategoryName);
+            TeachingTip.Subtitle = "Kategória felvéve";
+            TeachingTip.IsOpen = true;
+            LoadCategories();
+        }
     }
 
+    [RelayCommand(CanExecute = nameof(IsCategorySelected))]
+    private async void UpdateCategoryName()
+    {
+        var dialogContent = new NewCategoryPage();
+        var dialog = new ContentDialog
+        {
+            XamlRoot = XamlRoot,
+            PrimaryButtonText = "Mentés",
+            CloseButtonText = "Mégse",
+            Content = dialogContent
+        };
+
+        dialogContent.ViewModel.CategoryName = SelectedCategory.Name;
+
+        var result = await dialog.ShowAsync();
+        if (result != ContentDialogResult.Primary)
+        {
+            return;
+        }
+
+        if (string.IsNullOrWhiteSpace(dialogContent.ViewModel.CategoryName))
+        {
+            TeachingTip.Subtitle = "Kategória neve nem lehet üres";
+            TeachingTip.IsOpen = true;
+            UpdateCategoryName();
+        }
+        else
+        {
+            _categoryService.UpdateCategoryName(SelectedCategory.Id, dialogContent.ViewModel.CategoryName);
+            TeachingTip.Subtitle = "Változtatások elmentve";
+            TeachingTip.IsOpen = true;
+            LoadCategories();
+        }
+    }
 
     [RelayCommand(CanExecute = nameof(IsCategorySelected))]
     private void DeleteCategory()

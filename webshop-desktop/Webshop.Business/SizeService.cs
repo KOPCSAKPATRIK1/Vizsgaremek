@@ -15,8 +15,8 @@ public class SizeService : ISizeService
     #region Constructor
 
     public SizeService(IRepository<Size> sizeRepository)
-    {    
-        _sizeRepository = sizeRepository; 
+    {
+        _sizeRepository = sizeRepository;
     }
 
     #endregion

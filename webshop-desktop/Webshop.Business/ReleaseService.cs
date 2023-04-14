@@ -14,6 +14,7 @@ public class ReleaseService : IReleaseService
     #endregion
 
     #region Constructor
+
     public ReleaseService(IRepository<Release> releaseRepository)
     {
         _releaseRepository = releaseRepository;

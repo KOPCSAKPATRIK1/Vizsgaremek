@@ -6,4 +6,5 @@ public interface ICategoryService
     CategoryVmList[] GetCategories();
     void AddCategory(string category);
     bool DeleteCategory(int id);
+    void UpdateCategoryName(int id, string name);
 }

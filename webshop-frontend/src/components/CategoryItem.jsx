@@ -1,5 +1,5 @@
 import styled from "styled-components";
-
+import { Link } from "react-router-dom";
 const Info = styled.div`
   position: absolute;
   top: 0;
@@ -13,19 +13,18 @@ const Info = styled.div`
   text-shadow: 0px 0px 15px black;
   background-color: rgba(0, 0, 0, 0.2);
   border-radius: 20px;
-  
 `;
 
 const Container = styled.div`
   flex: 1;
-  margin: 2.5%;
-  height: 30vh;
+  margin-top: 50px;
+  height: 250px;
+  width: 250px;
   position: relative;
   cursor: pointer;
-  &:hover ${Info}{
-      opacity: 1;
-    }
-    
+  &:hover ${Info} {
+    opacity: 1;
+  }
 `;
 
 const Image = styled.img`
@@ -35,29 +34,24 @@ const Image = styled.img`
   border: 3px solid #ffa1ff;
   border-radius: 20px;
   color: #ffa1ff;
-
-  
 `;
-
-
 
 const Title = styled.h1`
-    color:white;
-    margin-bottom: 20px;
+  color: white;
+  margin-bottom: 20px;
 `;
 
-
 const CategoryItem = ({ item }) => {
-    return (
+  return (
+    <Link to={`/products/${item.cat}`}>
       <Container>
         <Image src={item.img} />
-            <Info>
-                 <Title>{item.title}</Title>
-                
-            </Info>
+        <Info>
+          <Title>{item.title}</Title>
+        </Info>
       </Container>
-    );
-  };
-  
-  export default CategoryItem;
-  
+    </Link>
+  );
+};
+
+export default CategoryItem;

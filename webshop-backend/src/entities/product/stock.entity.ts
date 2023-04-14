@@ -13,6 +13,12 @@ export class Stock {
   @ManyToOne(() => Size, (size) => size.stocks)
   size: Size;
 
+  @Column()
+  sizeId: number;
+
   @ManyToOne(() => Product, (product) => product.stocks)
   product: Product;
+
+  @Column()
+  productId: number;
 }
