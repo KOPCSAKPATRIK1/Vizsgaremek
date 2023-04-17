@@ -12,6 +12,7 @@ import {
   Req,
   UnauthorizedException,
   Delete,
+  Patch,
 } from '@nestjs/common';
 import { DataSource } from 'typeorm';
 import { AppService } from './app.service';
@@ -229,7 +230,27 @@ export class AppController {
     const cartRepo = this.dataSource.getRepository(ShoppingCartItem);
 
     return cartRepo.findBy({ userId: userId });
-    
+  }
+
+  @Get('cart/total/:userId')
+  async getTotalPriceByUserId(@Param('userId') userId: number) {
+    const cartRepo = this.dataSource.getRepository(ShoppingCartItem);
+    const carts = await cartRepo.find({
+      where: { userId: userId },
+      relations: ['product'],
+    });
+    let sum = 0;
+    carts.forEach(item => {
+      sum += item.product.price * item.quantity;
+    });
+    return sum;
+  }
+
+  @Delete('cart/delete/:id')
+  async deleteCartItem(@Param('id') id: number) {
+    const cartRepo = this.dataSource.getRepository(ShoppingCartItem);
+    const cart = await cartRepo.findOneBy({ id: id });
+    return cartRepo.delete(cart);
   }
 
   @Post('/like')

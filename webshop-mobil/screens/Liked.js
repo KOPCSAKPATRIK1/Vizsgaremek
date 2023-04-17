@@ -25,9 +25,7 @@ const Liked = () => {
     
     useLayoutEffect(()=>{
         console.log(data);
-        if (data.length > 0) {
             setIsLoading(false);
-        }
     }, [data])
 
     const getUserData = async () => {

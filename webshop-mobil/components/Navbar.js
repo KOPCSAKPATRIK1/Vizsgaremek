@@ -11,7 +11,7 @@ const Navbar = () => {
     const message = "All"
 
   return (
-    <View className="flex-row justify-between px-6 py-3" style={{width, resizeMode: 'contain'}}>
+    <View className="flex-row justify-between px-6 py-3 h-[60px]" style={{width, resizeMode: 'contain'}}>
         <TouchableOpacity onPress={()=> navigation.navigate("Store")}><AntDesign name="home" size={30} color="#ff6efa"/></TouchableOpacity>
         <TouchableOpacity onPress={()=> navigation.navigate("Search", {message})}><AntDesign name="search1" size={30} color="#ff6efa"/></TouchableOpacity>
         <TouchableOpacity onPress={()=> navigation.navigate("Liked")}><AntDesign name="hearto" size={30} color="#ff6efa"/></TouchableOpacity>

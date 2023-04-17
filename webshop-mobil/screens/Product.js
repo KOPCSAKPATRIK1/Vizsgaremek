@@ -5,34 +5,35 @@ import Navbar from '../components/Navbar';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import IonIcons from 'react-native-vector-icons/Ionicons';
 import SelectList from 'react-native-select-dropdown';
-import AsyncStorage from '@react-native-async-storage/async-storage';   
+import AsyncStorage from '@react-native-async-storage/async-storage'; 
+import {Picker} from '@react-native-picker/picker';  
 
 const Product = ({route}) => {
 
     const navigation = useNavigation();
     const id = route.params.id;
-    const[selected, setSelected] = useState(0);
-    const sizes = [36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46];
+    const[size, setSize] = useState(null);
     const [imageUrl, setImageUrl] = useState("");
     const [user, setUser] = useState({}); 
     const [amount, setAmount] = useState(1);
-
+    
     useLayoutEffect(()=> {
         getUserData()
         getData();
+        getSizes();
         getLikes();
-
+        
     }, [])
 
     const getUserData = async () => {
         const res = await AsyncStorage.getItem('user');
         setUser(JSON.parse(res));
     } 
-
+    
     const [data, setData] = useState({});
     const getData = async () => {
         const response = await fetch('http://192.168.0.184:3000/shoes/' + id
-            ,{
+        ,{
             headers : { 
                 'Content-Type': 'application/json',
                 'Accept': 'application/json'
@@ -46,8 +47,27 @@ const Product = ({route}) => {
             headerTintColor: "white",
             headerStyle: {
                 backgroundColor: "#212121"
-              },
+            },
         });
+    }
+    
+    const [stocks, setStocks] = useState([])
+    let sizes = [36,37,38,39,40,41,42,43,44,45,46];
+    const getSizes = async () => {
+        const response = await fetch('http://192.168.0.184:3000/stock/' + id
+            ,{
+            headers : { 
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            }
+        })
+        let json = await response.json();
+        json.forEach(item => {
+            //sizes.push(item.sizeId);
+            stocks.push(item.inStock);
+        });
+        console.log(sizes);
+        console.log(stocks);
     }
 
     const[likes, setLikes] = useState([]);
@@ -125,6 +145,16 @@ const Product = ({route}) => {
         }
     }
 
+    const amountIncrease = () => {
+        const index = sizes.indexOf(size);
+        if(amount + 1 < stocks[index]){
+            setAmount(amount + 1);
+        }
+    }
+    const amountFix = () => {
+        setAmount(0);
+    }
+
     const addToCart = async () => {
         await fetch('http://192.168.0.184:3000/cart', {
             method: 'POST', 
@@ -137,13 +167,14 @@ const Product = ({route}) => {
                     "quantity": amount,
                     "productId": id,
                     "userId": user.id,
-                    "sizeId": selected
+                    "sizeId": size
                 }
             )
         })
 
-        console.log(amount, id, user.id, selected);
+        console.log(amount, id, user.id, size);
     }
+
 
 
   return (
@@ -191,13 +222,18 @@ const Product = ({route}) => {
             <Text className="text-white text-[24px] mx-2 mt-4 mb-2">{data.name}</Text>
             <Text className="text-white text-[22px] mx-2 mb-4">{data.price} Ft</Text>
             <View className="flex-row ">
-                
+                <View className="mx-2">
+                    
+                </View>
                 <View className="mx-2">
                     <SelectList 
                         data={sizes}
-                        setSelected={setSelected}
+                        onSelect={(selectedItem) => {
+                            console.log(selectedItem)
+                            setSize(selectedItem);
+                            amountFix();
+                        }}
                         defaultButtonText="Size"
-                        buttonTextAfterSelection={selected}
                         buttonStyle={{width: 90, height: 40, borderColor: "#ffa1ff", borderStyle: "solid", borderWidth: 2, borderRadius: 5, backgroundColor: "#212121"}}
                         buttonTextStyle={{color: 'white', fontSize: 20}}
                         dropdownStyle={{borderRadius: 5}}
@@ -208,7 +244,7 @@ const Product = ({route}) => {
                     <View className="flex-row border-solid border-2 border-[#ffa1ff] rounded-[5px]">
                         <TouchableOpacity 
                             className="flex h-[32px] w-[32px] border-solid border-2 border-[#ffa1ff] m-[2px] rounded-full items-center justify-center"
-                            onPress={() => setAmount(amount + 1)}
+                            onPress={() => amountIncrease()}
                         >
                             <Text className="text-[25px] text-white ">+</Text>
                         </TouchableOpacity>

@@ -11,6 +11,7 @@ import Liked from './screens/Liked';
 import CartScreen from './screens/CartScreen';
 import AccountScreen from './screens/AccountScreen';
 import Product from './screens/Product';
+import Checkout from './screens/Checkout';
 
 export default function App() {
 
@@ -28,6 +29,7 @@ export default function App() {
         <Stack.Screen name="Cart" component={CartScreen} />
         <Stack.Screen name="Account" component={AccountScreen} />
         <Stack.Screen name="Product" component={Product} />
+        <Stack.Screen name="Checkout" component={Checkout} />
       </Stack.Navigator>
     </NavigationContainer>
   );
