@@ -17,8 +17,7 @@ const CartItem = ({item}) => {
             'Accept': 'application/json'
         }
         })
-        let json = await response.json();
-        setProduct(json);
+        setProduct(await response.json());
     }
 
     const deleteCartItem = (id) => {

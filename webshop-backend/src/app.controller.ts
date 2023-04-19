@@ -253,6 +253,12 @@ export class AppController {
     return cartRepo.delete(cart);
   }
 
+  @Delete('cart/delete/user/:userId')
+  async deleteCartItemsByUser(@Param('userId') userId: number){
+    const cartRepo = this.dataSource.getRepository(ShoppingCartItem);
+    await cartRepo.delete({ userId: userId });
+  }
+
   @Post('/like')
   @HttpCode(200)
   async addToLike(@Body() LikeDto: LikeDto){
@@ -339,7 +345,8 @@ export class AppController {
     address.state = AddressDto.state;
     address.streetAddress = AddressDto.streetAddress;
     addressRepo.save(address);
-    return address;
+    const savedAddress = await addressRepo.save(address);
+    return { ...savedAddress, id: savedAddress.id };
   }
 
   @Get('address/:id')
@@ -358,8 +365,8 @@ export class AppController {
     order.shippingMethod = await this.dataSource.getRepository(ShippingMethod).findOneBy({ id: OrderDto.shippingMethod });
     order.user = await this.dataSource.getRepository(User).findOneBy({ id: OrderDto.userId });
     order.orderDate = new Date();
-    orderRepo.save(order);
-    return order;
+    const savedOrder = await orderRepo.save(order);
+    return { ...savedOrder, id: savedOrder.id };
   }
   
   @Get('stock/:productId')

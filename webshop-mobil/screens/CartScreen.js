@@ -27,8 +27,7 @@ const CartScreen = () => {
     }, [data])
 
     const getUserData = async () => {
-        const res = await AsyncStorage.getItem('user');
-        setUser(JSON.parse(res));
+        setUser(JSON.parse(await AsyncStorage.getItem('user')));
     }
 
     const getData = async () => {
@@ -39,9 +38,7 @@ const CartScreen = () => {
             'Accept': 'application/json'
         }
         })
-        let json = await response.json();
-        console.log(json);
-        setData(json);
+        setData(await response.json());
     }
 
     const getTotalPrice = async () => {
@@ -52,8 +49,7 @@ const CartScreen = () => {
             'Accept': 'application/json'
         }
         })
-        let json = await response.json();
-        setPrice(json);
+        setPrice(await response.json());
     }
 
     return (
