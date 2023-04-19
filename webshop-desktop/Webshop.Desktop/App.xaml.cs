@@ -71,7 +71,6 @@ public partial class App : Application
             services.AddTransient<IProductService, ProductService>();
             services.AddTransient<IOrderService, OrderService>();
             services.AddTransient<ICategoryService, CategoryService>();
-            services.AddTransient<ISizeService, SizeService>();
             services.AddTransient<IReleaseService, ReleaseService>();
             services.AddTransient<IAddressService, AddressService>();
 
