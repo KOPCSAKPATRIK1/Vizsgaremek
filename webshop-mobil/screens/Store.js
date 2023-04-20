@@ -9,7 +9,8 @@ import SneakerScrollItem from '../components/SneakerScrollItem';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import SneakerScroll from '../components/SneakerScroll';
 import SneakerScrollHeadear from '../components/SneakerScrollHeadear';
-const poster = require('../assets/poster.webp')
+const poster = require('../assets/poster.webp');
+const ip = require('../assets/ipAddress.js').ipAddress;
 
 
 const Store = () => {
@@ -41,7 +42,7 @@ const Store = () => {
 
     const [releaseData, setReleaseData] = useState([]);
     const getReleases = async () => {
-      const response = await fetch('http://192.168.0.184:3000/releases'
+      const response = await fetch('http://' + ip + ':3000/releases'
         ,{
         headers : { 
             'Content-Type': 'application/json',
@@ -54,7 +55,7 @@ const Store = () => {
 
     const [popularShoes, setPopularShoes] = useState([]);
     const getPopularshoes = async () => {
-      const response = await fetch('http://192.168.0.184:3000/shoes/popular'
+      const response = await fetch('http://' + ip + ':3000/shoes/popular'
         ,{
         headers : { 
             'Content-Type': 'application/json',
@@ -67,7 +68,7 @@ const Store = () => {
 
     const [newShoes, setNewShoes] = useState([]);
     const getNewShoes = async () => {
-      const response = await fetch('http://192.168.0.184:3000/shoes'
+      const response = await fetch('http://' + ip + ':3000/shoes'
         ,{
         headers : { 
             'Content-Type': 'application/json',
@@ -80,7 +81,7 @@ const Store = () => {
 
     const [shoes, setShoes] = useState([]);
     const getShoes = async () => {
-      const response = await fetch('http://192.168.0.184:3000/shoes'
+      const response = await fetch('http://' + ip + ':3000/shoes'
         ,{
         headers : { 
             'Content-Type': 'application/json',

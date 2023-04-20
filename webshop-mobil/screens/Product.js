@@ -7,6 +7,7 @@ import IonIcons from 'react-native-vector-icons/Ionicons';
 import SelectList from 'react-native-select-dropdown';
 import AsyncStorage from '@react-native-async-storage/async-storage'; 
 import {Picker} from '@react-native-picker/picker';  
+const ip = require('../assets/ipAddress.js').ipAddress;
 
 const Product = ({route}) => {
 
@@ -32,7 +33,7 @@ const Product = ({route}) => {
     
     const [data, setData] = useState({});
     const getData = async () => {
-        const response = await fetch('http://192.168.0.184:3000/shoes/' + id
+        const response = await fetch('http://' + ip + ':3000/shoes/' + id
         ,{
             headers : { 
                 'Content-Type': 'application/json',
@@ -54,7 +55,7 @@ const Product = ({route}) => {
     const [stocks, setStocks] = useState([])
     let sizes = [36,37,38,39,40,41,42,43,44,45,46];
     const getSizes = async () => {
-        const response = await fetch('http://192.168.0.184:3000/stock/' + id
+        const response = await fetch('http://' + ip + ':3000/stock/' + id
             ,{
             headers : { 
                 'Content-Type': 'application/json',
@@ -72,7 +73,7 @@ const Product = ({route}) => {
 
     const[likes, setLikes] = useState([]);
     const getLikes = async () => {
-        const response = await fetch('http://192.168.0.184:3000/like/product/' + id
+        const response = await fetch('http://' + ip + ':3000/like/product/' + id
             ,{
             headers : { 
                 'Content-Type': 'application/json',
@@ -101,7 +102,7 @@ const Product = ({route}) => {
 
     const addLike = async () => {
 
-        const response = await fetch('http://192.168.0.184:3000/like/user/' + user.id
+        const response = await fetch('http://' + ip + ':3000/like/user/' + user.id
         ,{
             headers : { 
                 'Content-Type': 'application/json',
@@ -116,7 +117,7 @@ const Product = ({route}) => {
             }
         });
         if(liked == false){
-            await fetch('http://192.168.0.184:3000/like', {
+            await fetch('http://' + ip + ':3000/like', {
                 method: 'POST', 
                 headers: {
                     'Content-Type': 'application/json',
@@ -131,7 +132,7 @@ const Product = ({route}) => {
             })
         }
         else{
-            await fetch('http://192.168.0.184:3000/like/' + id + "/" + user.id, {
+            await fetch('http://' + ip + ':3000/like/' + id + "/" + user.id, {
                 method: 'DELETE',
             })
         }
@@ -156,7 +157,7 @@ const Product = ({route}) => {
     }
 
     const addToCart = async () => {
-        await fetch('http://192.168.0.184:3000/cart', {
+        await fetch('http://' + ip + ':3000/cart', {
             method: 'POST', 
             headers: {
                 'Content-Type': 'application/json',

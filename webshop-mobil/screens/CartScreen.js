@@ -4,6 +4,7 @@ import { useNavigation } from '@react-navigation/native'
 import Navbar from '../components/Navbar';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import CartItem from '../components/CartItem';
+const ip = require('../assets/ipAddress.js').ipAddress;
 
 const CartScreen = () => {
  
@@ -16,22 +17,14 @@ const CartScreen = () => {
         navigation.setOptions({
             headerShown: false,
         });
-        getUserData();
         console.log(user);
         getData();
         getTotalPrice();
     }, [])
 
-    useLayoutEffect(()=> {
-        this.forceUpdate
-    }, [data])
-
-    const getUserData = async () => {
-        setUser(JSON.parse(await AsyncStorage.getItem('user')));
-    }
-
     const getData = async () => {
-        const response = await fetch('http://192.168.0.184:3000/cart/' + user.id
+        const user = JSON.parse(await AsyncStorage.getItem('user'))
+        const response = await fetch('http://' + ip + ':3000/cart/' + user.id
         ,{
         headers : { 
             'Content-Type': 'application/json',
@@ -42,7 +35,8 @@ const CartScreen = () => {
     }
 
     const getTotalPrice = async () => {
-        const response = await fetch('http://192.168.0.184:3000/cart/total/' + user.id
+        const user = JSON.parse(await AsyncStorage.getItem('user'))
+        const response = await fetch('http://' + ip + ':3000/cart/total/' + user.id
         ,{
         headers : { 
             'Content-Type': 'application/json',
@@ -52,6 +46,16 @@ const CartScreen = () => {
         setPrice(await response.json());
     }
 
+    const deleteCartItem = (id) => {
+        fetch('http://'+ ip + ':3000/cart/delete/' + id
+        ,{
+            method: 'DELETE'
+        })
+        setData({});
+        getData();
+        getTotalPrice();
+    }
+
     return (
         <View className="flex-1 bg-[#212121]">
         <ScrollView className="mt-10">
@@ -59,7 +63,7 @@ const CartScreen = () => {
                 className="w-full"
                 //contentContainerStyle={{alignItems: 'center', justifyContent: 'center'}}
                 data={data}
-                renderItem={({item}) => <CartItem item={item} />}
+                renderItem={({item}) => <CartItem item={item} deleteCartItem={deleteCartItem} />}
                 keyExtractor={(item) => item.id.toString()}
             />
             <View className="h-[25vh]"></View>

@@ -5,6 +5,7 @@ import Navbar from '../components/Navbar';
 import Products from '../components/Products';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
+const ip = require('../assets/ipAddress.js').ipAddress;
 
 const SearchScreen = ({route}) => {
     
@@ -48,7 +49,7 @@ const SearchScreen = ({route}) => {
     }, [selected])
 
     const getPopularshoes = async () => {
-        const response = await fetch('http://192.168.0.184:3000/shoes/popular'
+        const response = await fetch('http://' + ip + ':3000/shoes/popular'
         ,{
         headers : { 
             'Content-Type': 'application/json',
@@ -60,7 +61,7 @@ const SearchScreen = ({route}) => {
     }
 
     const getNewShoes = async () => {
-        const response = await fetch('http://192.168.0.184:3000/shoes'
+        const response = await fetch('http://' + ip + ':3000/shoes'
           ,{
           headers : { 
               'Content-Type': 'application/json',
@@ -73,7 +74,7 @@ const SearchScreen = ({route}) => {
 
     const brands = ["DUNK", "AIR FORCE", "JORDAN", "YEEZY"];
     const getData = async (message) => {
-        const response = await fetch('http://192.168.0.184:3000/shoes'
+        const response = await fetch('http://' + ip + ':3000/shoes'
         ,{
         headers : { 
             'Content-Type': 'application/json',
@@ -105,7 +106,7 @@ const SearchScreen = ({route}) => {
     const searchByName = async (search) => {
         setSearch(search);
         setMessage("");
-        const response = await fetch('http://192.168.0.184:3000/shoes/name/' + search
+        const response = await fetch('http://' + ip + ':3000/shoes/name/' + search
         ,{
         headers : { 
             'Content-Type': 'application/json',

@@ -1,5 +1,6 @@
 import { View, Text, Image } from 'react-native'
 import React, { useLayoutEffect, useState } from 'react'
+const ip = require('../assets/ipAddress.js').ipAddress;
 
 const CheckoutItem = ({item}) => {
     
@@ -9,7 +10,7 @@ const CheckoutItem = ({item}) => {
 
     const [product, setProduct] = useState({});
     const getProduct = async () => {
-        const response = await fetch('http://192.168.0.184:3000/shoes/' + item.productId
+        const response = await fetch('http://'+ ip + ':3000/shoes/' + item.productId
         ,{
         headers : { 
             'Content-Type': 'application/json',

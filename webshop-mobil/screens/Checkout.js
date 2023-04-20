@@ -11,6 +11,7 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 const creditCard = require('../assets/creditcard.jpg');
 const paypal = require('../assets/paypal.png');
 const postPayment = require('../assets/postpayment.jpg');
+const ip = require('../assets/ipAddress.js').ipAddress;
 
 const Checkout = () => {
 
@@ -144,20 +145,26 @@ const Checkout = () => {
         let formattedInput = text.replace(/\s/g, '').replace(/(\d{4})/g, '$1 ');
         formattedInput = formattedInput.trim();
         setCardNumber(formattedInput);
-        //console.log(formattedInput);
-        //console.log(cardNumber);
+        console.log(formattedInput);
+        console.log(cardNumber);
       }
-  
       const validateExpirationDate = ()=> {
-        if(expirationDate.length < 4){
-          setExpirationDateBad(true)
-        } else{ 
-          setExpirationDateBad(false);
+        const currentDate = new Date();
+        if(expirationDate.length == 4){
+            setExpirationDate(expirationDate.slice(0,3) + "0" + expirationDate.slice(-1));
         }
-      }
-  
-      const editExpirationDate = ()=> {
-        
+        if(expirationDate.length < 5 || expirationDate.slice(0,2) < currentDate.getFullYear.slice(-2) || expirationDate.slice(-2) > 12){
+            setExpirationDateBad(true);
+        }else{
+            setExpirationDateBad(false);
+        }
+    }
+    
+      const editExpirationDate = (text)=> {
+        if(text.length == 2){
+            text += "/";
+        }
+        setExpirationDate(text);
       }
   
       const validateSecurityCode = ()=> {
@@ -221,7 +228,7 @@ const Checkout = () => {
       }
 
       const getPaymentMethod = async (id) => {
-        const response = await fetch('http://192.168.0.184:3000/paymentmethod/' + id
+        const response = await fetch('http://' + ip + ':3000/paymentmethod/' + id
         ,{
         headers : { 
             'Content-Type': 'application/json',
@@ -233,7 +240,8 @@ const Checkout = () => {
       }
 
     const getData = async () => {
-        const response = await fetch('http://192.168.0.184:3000/cart/' + user.id
+        const user = JSON.parse(await AsyncStorage.getItem('user'))
+        const response = await fetch('http://' + ip + ':3000/cart/' + user.id
         ,{
         headers : { 
             'Content-Type': 'application/json',
@@ -244,7 +252,7 @@ const Checkout = () => {
     }
 
     const getShippingMethods = async (id)=> {
-        const response = await fetch('http://192.168.0.184:3000/shippingmethod/' + id
+        const response = await fetch('http://' + ip + ':3000/shippingmethod/' + id
         ,{
         headers : { 
             'Content-Type': 'application/json',
@@ -255,7 +263,8 @@ const Checkout = () => {
     }
 
     const getTotal = async () => {
-        const response = await fetch('http://192.168.0.184:3000/cart/total/' + user.id
+        const user = JSON.parse(await AsyncStorage.getItem('user'))
+        const response = await fetch('http://' + ip + ':3000/cart/total/' + user.id
         ,{
         headers : { 
             'Content-Type': 'application/json',
@@ -266,7 +275,7 @@ const Checkout = () => {
     }
 
     const postAddress = async () => {
-        await fetch('http://192.168.0.184:3000/address', {
+        await fetch('http://' + ip + ':3000/address', {
             method: 'POST', 
             headers: {
                 'Content-Type': 'application/json',
@@ -289,7 +298,7 @@ const Checkout = () => {
     }
 
     const postOrder = async () => {
-        await fetch('http://192.168.0.184:3000/order', {
+        await fetch('http://' + ip + ':3000/order', {
             method: 'POST', 
             headers: {
                 'Content-Type': 'application/json',
@@ -312,7 +321,7 @@ const Checkout = () => {
     }
 
     const postOrderItem = async (cartItem) => {
-        await fetch('http://192.168.0.184:3000/orderitem', {
+        await fetch('http://' + ip + ':3000/orderitem', {
             method: 'POST', 
             headers: {
                 'Content-Type': 'application/json',
@@ -331,7 +340,7 @@ const Checkout = () => {
     }
 
     const deleteCart = ()=> {
-        fetch('http://192.168.0.184:3000/cart/delete/user/' + user.id
+        fetch('http://' + ip + ':3000/cart/delete/user/' + user.id
         ,{
             method: 'DELETE'
         })
@@ -563,11 +572,10 @@ const Checkout = () => {
                         textColor="white"
                         placeholder="**** **** **** ****"
                         error={cardNumberBad}
-                        onChangeText={newCardNumber => setCardNumber(newCardNumber)}
                         value={cardNumber}
                         onBlur={()=> validateCardNumber()}
-                        onChange={()=> editCardNumber(cardNumber)}
-                        maxLength={16}
+                        onChangeText={(text)=> editCardNumber(text)}
+                        maxLength={19}
                         keyboardType="numeric"
                     />
                   <View className="flex-row w-full">
@@ -581,11 +589,11 @@ const Checkout = () => {
                             textColor="white"
                             placeholder="MM/YY"
                             error={expirationDateBad}
-                            onChangeText={newExpDate => setExpirationDate(newExpDate)}
+                            //onChangeText={newExpDate => setExpirationDate(newExpDate)}
                             value={expirationDate}
                             onBlur={()=> validateExpirationDate()}
-                            onChange={()=> editExpirationDate(cardNumber)}
-                            maxLength={4}
+                            onChangeText={(text)=> editExpirationDate(text)}
+                            maxLength={5}
                             keyboardType="numeric"
                         />
             
@@ -697,7 +705,7 @@ const Checkout = () => {
                                     <Image source={creditCard} className="w-12 h-7"/>
                                     <Text className="text-white text-[16px] ml-2">**** {cardNumber.slice(-4)}</Text>
                                 </View>
-                                <Text className="text-white text-[16px]">{expirationDate.slice(0,2)}/{expirationDate.slice(-2)}</Text>
+                                <Text className="text-white text-[16px]">{expirationDate}</Text>
                             </View>
                         ): paymentMethod.id === 1 ? (
                             <View className="flex-row justify-between mt-8">
