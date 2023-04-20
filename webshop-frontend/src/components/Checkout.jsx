@@ -117,6 +117,8 @@ const Checkout = ({ isOpen, handleClose }) => {
   const [city, setCity] = useState("");
   const [state, setState] = useState("");
   const [postalCode, setPostalCode] = useState("");
+  const [addressObj, setAddressObj] = useState("");
+  const [orderObj, setOrderObj] = useState("");
   const handleCheckout = async (event) => {
     event.preventDefault();
     try {
@@ -126,9 +128,24 @@ const Checkout = ({ isOpen, handleClose }) => {
         body: JSON.stringify({ streetAddress, city, state, postalCode }),
       });
       const data = await response.json();
+      setAddressObj(data);
     } catch (error) {
       console.error(error);
     }
+
+    try {
+      const userId = JSON.parse(localStorage.getItem("user")).id;
+      const response = await fetch("http://localhost:3000/order", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          userId: userId,
+          addressId: addressObj.id + 2,
+        }),
+      });
+      const data = await response.json();
+      setOrderObj(data);
+    } catch (error) {}
     try {
       const cartItems = JSON.parse(localStorage.getItem("persist:cart"));
       const products = JSON.parse(cartItems.products);
@@ -149,7 +166,7 @@ const Checkout = ({ isOpen, handleClose }) => {
             sizeId: 1,
             quantity: product.quantity,
             userId: userId,
-            orderId: 1, // replace this with the actual order ID
+            orderId: orderObj.id,
           }),
         });
         const data = await response.json();
