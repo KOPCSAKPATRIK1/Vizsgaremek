@@ -1,16 +1,17 @@
 import { View, Text, Image, TouchableOpacity } from 'react-native'
 import React, { useLayoutEffect, useState } from 'react'
 import AntDesign from 'react-native-vector-icons/AntDesign';
+const ip = require('../assets/ipAddress.js').ipAddress;
 
-const CartItem = ({item}) => {
+const CartItem = ({item, deleteCartItem}) => {
 
     useLayoutEffect(() => {
         getProduct();
-    }, [product])
+    }, [])
 
     const [product, setProduct] = useState({});
     const getProduct = async () => {
-        const response = await fetch('http://192.168.0.184:3000/shoes/' + item.productId
+        const response = await fetch('http://'+ ip + ':3000/shoes/' + item.productId
         ,{
         headers : { 
             'Content-Type': 'application/json',
@@ -20,12 +21,7 @@ const CartItem = ({item}) => {
         setProduct(await response.json());
     }
 
-    const deleteCartItem = (id) => {
-        fetch('http://192.168.0.184:3000/cart/delete/' + id
-        ,{
-            method: 'DELETE'
-        })
-    }
+
 
   return (
     <View className="w-full my-1 border-2 border-solid border-[#ffa1ff] rounded-[10px]">
