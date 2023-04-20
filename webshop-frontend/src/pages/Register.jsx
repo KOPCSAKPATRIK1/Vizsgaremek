@@ -1,8 +1,8 @@
 import styled from "styled-components";
-import Navbar from '../components/Navbar'
+import Navbar from "../components/Navbar";
 import Newsletter from "../components/Newsletter";
 import Footer from "../components/Footer";
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
 const Container = styled.div`
   width: 100vw;
@@ -13,11 +13,9 @@ const Container = styled.div`
   align-items: center;
   justify-content: center;
   border-bottom: 1px solid #ffa1ff;
-  
 `;
 
 const Wrapper = styled.div`
- 
   border: 2px solid #ffa1ff;
   width: 20%;
   padding: 20px;
@@ -25,8 +23,7 @@ const Wrapper = styled.div`
   text-align: center;
   box-shadow: 0px 0px 20px #1f1f1f;
   background: #494949;
-  color:white;
- 
+  color: white;
 `;
 
 const Title = styled.h1`
@@ -39,7 +36,6 @@ const Title = styled.h1`
 const Form = styled.form`
   display: flex;
   flex-wrap: wrap;
-  
 `;
 
 const Input = styled.input`
@@ -67,27 +63,27 @@ const Button = styled.button`
   font-weight: 400;
 `;
 
-
- 
-
-
 const Register = () => {
+  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
 
-  const [email, setEmail] = useState('');
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+  const [registrationSuccess, setRegistrationSuccess] = useState(false);
 
   const handleRegistration = async (event) => {
     event.preventDefault();
     try {
-      const response = await fetch('http://localhost:3000/register', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, username, password })
+      const response = await fetch("http://localhost:3000/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, username, password }),
       });
       const data = await response.json();
-      // Registration successful, redirect user to login page
-      window.location.href = '/login';
+      // Registration successful, display message and redirect user to login page
+      setRegistrationSuccess(true);
+      setTimeout(() => {
+        window.location.href = "/login";
+      }, 6000);
     } catch (error) {
       // Registration failed, display error message
       console.error(error);
@@ -96,23 +92,47 @@ const Register = () => {
 
   return (
     <div>
-    <Navbar/>
-    <Container>
-      <Wrapper>
-        <Title>REGISZTRÁCIÓ</Title>
-        <Form onSubmit={handleRegistration}>
-          <Input   type="text" placeholder="Felhasználónév" value={username} onChange={(event) => setUsername(event.target.value)} required/>
-          <Input type="email" placeholder="E-mail" value={email}  onChange={(event) => setEmail(event.target.value)} required/> 
-          <Input  type="password"  placeholder="Jelszó"   value={password}  onChange={(event) => setPassword(event.target.value)} required />
-          <Agreement>
-          Fiók létrehozásával hozzájárulok személyes adataim  <b>ADATVÉDELMI SZABÁLYZAT</b> szerinti kezeléséhez 
-          </Agreement>
-          <Button type="submit">FIÓK LÉTREHOZÁSA</Button>
-        </Form>
-      </Wrapper>
-    </Container>
-    <Newsletter/>
-    <Footer/>
+      <Navbar />
+      <Container>
+        <Wrapper>
+          <Title>REGISZTRÁCIÓ</Title>
+          <Form onSubmit={handleRegistration}>
+            <Input
+              type="text"
+              placeholder="Felhasználónév"
+              value={username}
+              onChange={(event) => setUsername(event.target.value)}
+              required
+            />
+            <Input
+              type="email"
+              placeholder="E-mail"
+              value={email}
+              onChange={(event) => setEmail(event.target.value)}
+              required
+            />
+            <Input
+              type="password"
+              placeholder="Jelszó"
+              value={password}
+              onChange={(event) => setPassword(event.target.value)}
+              required
+            />
+            <Agreement>
+              Fiók létrehozásával hozzájárulok személyes adataim{" "}
+              <b>ADATVÉDELMI SZABÁLYZAT</b> szerinti kezeléséhez
+            </Agreement>
+            <Button type="submit">FIÓK LÉTREHOZÁSA</Button>
+            {registrationSuccess && (
+              <p>
+                Sikeres regisztráció! Átirányítás a bejelentkezés oldalra...
+              </p>
+            )}
+          </Form>
+        </Wrapper>
+      </Container>
+      <Newsletter />
+      <Footer />
     </div>
   );
 };

@@ -5,6 +5,7 @@ import Navbar from '../components/Navbar';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Products from '../components/Products';
 import Loading from '../components/Loading';
+const ip = require('../assets/ipAddress.js').ipAddress;
 
 const Liked = () => {
 
@@ -18,7 +19,6 @@ const Liked = () => {
         navigation.setOptions({
             headerShown: false,
         });
-        getUserData();
         getLikedItemIds()
         
     }, [])
@@ -28,13 +28,9 @@ const Liked = () => {
             setIsLoading(false);
     }, [data])
 
-    const getUserData = async () => {
-        const res = await AsyncStorage.getItem('user');
-        setUser(JSON.parse(res));
-    } 
-
     const getLikedItemIds = async () => {
-        const response = await fetch('http://192.168.0.184:3000/like/user/' + user.id
+        const user = JSON.parse(await AsyncStorage.getItem('user'))
+        const response = await fetch('http://' + ip + ':3000/like/user/' + user.id
             ,{
             headers : { 
                 'Content-Type': 'application/json',
@@ -48,7 +44,7 @@ const Liked = () => {
     }
 
     const getLikedItems = async (productId) => {
-        const response = await fetch('http://192.168.0.184:3000/shoes/' + productId
+        const response = await fetch('http://' + ip + ':3000/shoes/' + productId
             ,{
             headers : { 
                 'Content-Type': 'application/json',

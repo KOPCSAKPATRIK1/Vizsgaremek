@@ -6,6 +6,8 @@ import { BrowserRouter as Router,Routes, Route, Link } from 'react-router-dom';
 import { useSelector } from "react-redux";
 import { useDispatch } from 'react-redux';
 import { removeProduct } from '../redux/cartRedux';
+import Checkout from "../components/Checkout";
+import React, { useState } from 'react';
 const Container = styled.div`
  color:white;
   text-shadow: 0px 0px 10px black;
@@ -178,6 +180,14 @@ const Button = styled.button`
 `;
 
 const Cart = () => {
+  const [isCheckoutOpen, setIsCheckoutOpen] = useState(false);
+  
+  const handleCheckoutClick = () => {
+    setIsCheckoutOpen(true);
+  }
+  const handleClose = () => {
+    setIsCheckoutOpen(false);
+  };
   const cart = useSelector(state => state.cart);
   const dispatch = useDispatch();
   const handleRemoveProduct = (productId) => {
@@ -186,7 +196,9 @@ const Cart = () => {
   const shipping = 1200;
   return (
     <Container>
+      
       <Navbar />
+      {isCheckoutOpen && <Checkout handleClose={handleClose} />}
       <Wrapper>
         <Title>KOSÁR</Title>
         <Top>
@@ -246,12 +258,15 @@ const Cart = () => {
               <SummaryItemText>Összesen</SummaryItemText>
               <SummaryItemPrice>{(cart.total+shipping).toLocaleString()} Ft</SummaryItemPrice>
             </SummaryItem>
-            <Button>FIZETÉS</Button>
+            <Button onClick={handleCheckoutClick}>FIZETÉS</Button>
+           
           </Summary>
         </Bottom>
       </Wrapper>
       <Footer />
+       
     </Container>
+    
   );
 };
 
