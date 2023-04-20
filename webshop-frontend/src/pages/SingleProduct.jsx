@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { addProduct } from "../redux/cartRedux";
 import { useDispatch } from "react-redux";
+import Popup from "../components/Popup";
 const Container = styled.div`
 
 `;
@@ -137,6 +138,7 @@ const SingleProduct = () => {
   const [product, setProduct] = useState(null);
   const [quantity, setQuantity] = useState(1);
   const [selectedSize, setSelectedSize] = useState("");
+  const [showPopup, setShowPopup] = useState(false); // new state variable
   const dispatch = useDispatch();
   const fetchData = async () => {
     await fetch(`http://localhost:3000/shoes/${id}`)
@@ -161,11 +163,14 @@ const SingleProduct = () => {
     setMainImage(imageSrc);
   };
   
-
   const handleClick = () => {
-    dispatch(  
-      addProduct({...product, quantity, selectedSize }));
-    };
+    dispatch(addProduct({...product, quantity, selectedSize }));
+    setShowPopup(true);
+  };
+  
+  const handleClosePopup = () => {
+    setShowPopup(false);
+  };
 
  
   return (
@@ -196,6 +201,7 @@ const SingleProduct = () => {
           </FilterContainer>
           <AddContainer>
             <Button onClick={handleClick}>MEGVESZEM</Button>
+            {showPopup && <Popup message="Hozzáadva a kosárhoz" handleClose={handleClosePopup} />}
           </AddContainer>
           <Desc>    
           {product.desc}
