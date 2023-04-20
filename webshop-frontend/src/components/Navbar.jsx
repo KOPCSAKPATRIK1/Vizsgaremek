@@ -8,7 +8,7 @@ import Login from "../pages/Login";
 import Register from "../pages/Register";
 import Home from "../pages/Home";
 import { useSelector } from "react-redux";
-
+import { Tooltip } from "@mui/material";
 const Wrapper = styled.div`
   padding: 10px 20px;
   display: flex;
@@ -174,17 +174,36 @@ const Navbar = () => {
             ></Search>
           </IconLink>
           <StyledBadge badgeContent={quantity} color="default">
-            <IconLink to="/cart">
-              <LocalMall
-                style={{
-                  fontSize: "40px",
-                  marginLeft: "10px",
-                  marginRight: "10px",
-                }}
-                color="inherit"
-              ></LocalMall>{" "}
-            </IconLink>
-          </StyledBadge>
+  {username ? (
+    <IconLink to="/cart">
+      <LocalMall
+        style={{
+          fontSize: "40px",
+          marginLeft: "10px",
+          marginRight: "10px",
+        }}
+        color="inherit"
+      ></LocalMall>{" "}
+    </IconLink>
+  ) : (
+    <Tooltip title="Jelentkezz be a kosár használatához!">
+      <span>
+      <IconLink to="/login">
+        <LocalMall
+          style={{
+            fontSize: "40px",
+            marginLeft: "10px",
+            marginRight: "10px",
+             color: "#a675a6",
+            cursor: "not-allowed",
+          }}
+        ></LocalMall>{" "}
+         </IconLink>
+      </span>
+    </Tooltip>
+  )}
+</StyledBadge>
+
         </MenuIcons>
       </Right>
     </Wrapper>

@@ -20,7 +20,7 @@ const Wrapper = styled.div`
   width: 30%;
   display: flex;
   justify-content: center;
-  background-color: #595959;
+  background-color: #4b4b4b;
   -webkit-box-shadow: 9px 13px 25px 0px rgba(0, 0, 0, 0.18);
   -moz-box-shadow: 9px 13px 25px 0px rgba(0, 0, 0, 0.18);
   box-shadow: 9px 13px 25px 0px rgba(0, 0, 0, 0.18);
@@ -91,7 +91,7 @@ const Button = styled.button`
   height: 30px;
   width: 40%;
   color: #ffffff;
-  background-color: #2a2a2c;
+  background-color: #363638;
   text-transform: uppercase;
   border: 0;
   border-radius: 0.3rem;
