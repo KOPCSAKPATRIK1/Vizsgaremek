@@ -268,12 +268,9 @@ public partial class NewProductViewModel : ObservableRecipient, INavigationAware
 
         if (string.IsNullOrWhiteSpace(dialogContent.ViewModel.CategoryName))
         {
-            TeachingTip.Subtitle = "Kategória neve nem lehet üres";
+            TeachingTip.Subtitle = "Kategória neve nem lehet üres";            
+            NewCategory(); 
             TeachingTip.IsOpen = true;
-            TeachingTip.Closed += (sender, args) =>
-            {
-                NewCategory();
-            };            
         }
         else
         {
@@ -368,7 +365,8 @@ public partial class NewProductViewModel : ObservableRecipient, INavigationAware
     {
         if (DescValidationVisibility == false &&
             NameValidationVisibility == false &&
-            Img1ValidationVisibility == false)
+            Img1ValidationVisibility == false &&
+            CategoryValidationVisibility == false)
         {
             return true;
         }
