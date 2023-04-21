@@ -1,14 +1,14 @@
-## Követelmények
+## KÃ¶vetelmÃ©nyek
 
-Winui 3 tools lásd -> Required workloads and components(https://learn.microsoft.com/en-us/windows/apps/windows-app-sdk/set-up-your-development-environment?tabs=cs-vs-community%2Ccpp-vs-community%2Cvs-2022-17-1-a%2Cvs-2022-17-1-b)
+Winui 3 tools lÃ¡sd -> [Required workloads and components](https://learn.microsoft.com/en-us/windows/apps/windows-app-sdk/set-up-your-development-environment?tabs=cs-vs-community%2Ccpp-vs-community%2Cvs-2022-17-1-a%2Cvs-2022-17-1-b)
 
-XAMMP telepitése.
+XAMMP telepitÃ©se.
 
-"webshop" adatbázis létrehozása majd a webshop.desktop mappában lévõ webshop.sql beimportálása.
+"webshop" adatbÃ¡zis lÃ©trehozÃ¡sa majd a webshop.desktop mappÃ¡ban lÃ©vÅ‘ webshop.sql beimportÃ¡lÃ¡sa.
 
-Alkalmazás elinditása.
+AlkalmazÃ¡s elinditÃ¡sa.
 
-## Fontosabb interfészek muködése:
+## Fontosabb interfÃ©szek mukÃ¶dÃ©se:
 
 Webshop.Desktop.Core Interfaces Business
 
@@ -16,101 +16,101 @@ Webshop.Desktop.Core Interfaces Business
 
 void ChangeAddress(AddressDto address, int id);
 
-Szállitási cím megváltoztatása.
-param name="address" Szállitási cím
-param name="id" Rendelés azonosító
+SzÃ¡llitÃ¡si cÃ­m megvÃ¡ltoztatÃ¡sa.
+param name="address" SzÃ¡llitÃ¡si cÃ­m
+param name="id" RendelÃ©s azonosÃ­tÃ³
 
 `ICategoryService`
 
 CategoryVmList[] GetCategories();
 
-Új kategória hozzáadása.
-returns Kategóriák megjeleníthetõ formában.
+Ãšj kategÃ³ria hozzÃ¡adÃ¡sa.
+returns KategÃ³riÃ¡k megjelenÃ­thetÅ‘ formÃ¡ban.
 
 bool DeleteCategory(int id);
 
-Kategória törlése.
-param name="id" Kategória azonosítója.
-returns Sikerült e törölni a kategóriát.
+KategÃ³ria tÃ¶rlÃ©se.
+param name="id" KategÃ³ria azonosÃ­tÃ³ja.
+returns SikerÃ¼lt e tÃ¶rÃ¶lni a kategÃ³riÃ¡t.
 
 void UpdateCategoryName(int id, string name);
 
-Kategória nevének megváltoztatása.
-param name="id" Kategória azonosítója.
-param name="name" Kategória neve.
+KategÃ³ria nevÃ©nek megvÃ¡ltoztatÃ¡sa.
+param name="id" KategÃ³ria azonosÃ­tÃ³ja.
+param name="name" KategÃ³ria neve.
 
 `IOrderService`
 
 OrderVmList[] GetOrdersWithInfo();
 
-Rendelések rekérdezése, rendelt termékkel/termékekkel.
-returns Rendelések megjeleníthetõ formában.
+RendelÃ©sek rekÃ©rdezÃ©se, rendelt termÃ©kkel/termÃ©kekkel.
+returns RendelÃ©sek megjelenÃ­thetÅ‘ formÃ¡ban.
 
 void DeleteOrder(int id);
 
-Rendelés törlése.
-param name="id" Rendelés azonosító.
+RendelÃ©s tÃ¶rlÃ©se.
+param name="id" RendelÃ©s azonosÃ­tÃ³.
 
 `IProductService`
 
 ProductVmList[] GetProductsWithInfo();
 
-Termékek lekérdezése mérettel, inaktivitással stb...
-returns Termékek megjeleníthetõ formában.
+TermÃ©kek lekÃ©rdezÃ©se mÃ©rettel, inaktivitÃ¡ssal stb...
+returns TermÃ©kek megjelenÃ­thetÅ‘ formÃ¡ban.
  
 void AddProducts(ProductDto newProduct);
 
-Termék(ek) hozzáadása mérettekkel.
-param name="newProduct" Új termék.
+TermÃ©k(ek) hozzÃ¡adÃ¡sa mÃ©rettekkel.
+param name="newProduct" Ãšj termÃ©k.
 
 void ChangeInactive(int id);
 
-Inaktivitás megváltoztatása.
-param name="id" Termék azonosító.
+InaktivitÃ¡s megvÃ¡ltoztatÃ¡sa.
+param name="id" TermÃ©k azonosÃ­tÃ³.
 
 void ChangePopular(int id); 
 
-Popularitás megváltoztatása.
-param name="id" Termék azonosító.
+PopularitÃ¡s megvÃ¡ltoztatÃ¡sa.
+param name="id" TermÃ©k azonosÃ­tÃ³.
     
 ProductDto GetProductForUpdate(int id);
 
-Termék megkeresése változtatásra.
-param name="id" Termék azonosító.
-returns Termékek megjeleníthetõ formában.
+TermÃ©k megkeresÃ©se vÃ¡ltoztatÃ¡sra.
+param name="id" TermÃ©k azonosÃ­tÃ³.
+returns TermÃ©kek megjelenÃ­thetÅ‘ formÃ¡ban.
    
 void UpdateProduct(ProductDto product, int id);
 
-Termék változtatása.
-param name="product" Termék változtatott adatokkal.
-param name="id" Termék azonosító.
+TermÃ©k vÃ¡ltoztatÃ¡sa.
+param name="product" TermÃ©k vÃ¡ltoztatott adatokkal.
+param name="id" TermÃ©k azonosÃ­tÃ³.
     
 `IReleaseService`
 
 void AddRelease(ReleaseDto release);
 
-Megjelenés hozzáadása.
-param name="release" Megjelnés.
+MegjelenÃ©s hozzÃ¡adÃ¡sa.
+param name="release" MegjelnÃ©s.
  
 ReleaseVmList[] GetReleases();
 
-Megjelenések lekérdezése.
-returns Megjelenés megjeleníithetõ formában.
+MegjelenÃ©sek lekÃ©rdezÃ©se.
+returns MegjelenÃ©s megjelenÃ­ithetÅ‘ formÃ¡ban.
    
 void DeleteRelease(int id);
 
-Megjelenés törlése.
-param name="id" Megjelenés azonosító.
+MegjelenÃ©s tÃ¶rlÃ©se.
+param name="id" MegjelenÃ©s azonosÃ­tÃ³.
   
 ReleaseDto GetReleaseForUpdate(int id);
 
-Megjelenés megkerése változtatásra.
-param name="id" Megjelenés azonosító.
-returns Megjelenés megjeleníithetõ formában.
+MegjelenÃ©s megkerÃ©se vÃ¡ltoztatÃ¡sra.
+param name="id" MegjelenÃ©s azonosÃ­tÃ³.
+returns MegjelenÃ©s megjelenÃ­ithetÅ‘ formÃ¡ban.
     
 void UpdateRelease(ReleaseDto release, int id);
 
-Megjelenés változtatása.
-param name="release" Megjelenés megváltoztatott adatokkal.
-param name="id" Megjelenés azonosító.
+MegjelenÃ©s vÃ¡ltoztatÃ¡sa.
+param name="release" MegjelenÃ©s megvÃ¡ltoztatott adatokkal.
+param name="id" MegjelenÃ©s azonosÃ­tÃ³.
     
