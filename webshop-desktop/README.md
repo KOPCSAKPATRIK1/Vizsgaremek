@@ -1,3 +1,16 @@
+## Alkalmazás funkciói
+
+- Termékek felvétele, módosítása, törlése (flag-el megjelölés)
+- Termék kategóriák felvétele, módosítása, törlése
+- Rendelések megjelenítése és szállítási cím megváltoztatása
+- Megjelenések felvétele, módosítása, törlése
+
+`Plusz funkciók`
+
+- Like rendszer
+- Popularitás változtatás
+- Webshop megjelenítése az alkalmazásban (WebView 2)
+
 ## Követelmények
 
 Visual Studio 2022
@@ -8,131 +21,29 @@ Winui 3 tools lásd -> [Required workloads and components](https://learn.microso
 
 XAMMP
 
-## Elindítása
+## Elindítás
 
 XAMPP elindítása.
 
-"webshop" adatbázis létrehozása majd a webshop.desktop mappában lévő webshop.sql beimportálása.
+egy új adatbázis létrehozása "webshop" néven, majd a "webshop-desktop" mappában lévő webshop.sql beimportálása.
 
-WebView 2 használatának követelményei
+`WebView 2 használatának követelményei` (A program a funkció használata nélkül is fut)
 
-Az alkalmazásban levő Webshop megjelenítő funkció megfelelő működéséhez el kell indítani a frontend/backend alkalmazasokat a társam dokumentációja alapján.
+Az alkalmazásban lévő Webshop megjelenítő funkció megfelelő működéséhez el kell indítani a frontend/backend alkalmazásokat a társam dokumentációja alapján.
 
 Ha ez hiányos lenne kövesd a következő lépéseket:
 
 Visual Stúdió Code elindítása.
 
-A "webshop-backend" mappában indítsunk egy új terminált majd futassuk le az "npm i" parancsot, ha a letöltés befejeződött azután futassuk le az "npm rum start:dev" parancsot.
+A "webshop-backend" mappában indítsunk egy új terminált majd futassuk le az "npm i" parancsot, ha a letöltés befejeződött futassuk le az "npm rum start:dev" parancsot.
 
-Amennyiben a backend alkalmazás fut, indítsunk el ismét egy új terminált a "webshop-frontend" mappában majd futassuk le az "npm i" parancsot, ha a letöltés befejeződött azután futassuk le az "npm start" parancsot.
+Amennyiben a backend alkalmazás fut, indítsunk el ismét egy új terminált a "webshop-frontend" mappában, majd futassuk le az "npm i" parancsot, ha a letöltés befejeződött futassuk le az "npm start" parancsot.
 
 "Would you like to run the app on another port instead? › (Y/n)" üzenet felugrásakor válaszoljunk igennel.
 
-Alkalmazás elinditása. <br />
+Alkalmazás elindítása. <br />
 (startup project a Webshop.Desktop legyen)
 
 ## Fontosabb interfészek muködése:
 
-Webshop.Desktop.Core -> Interfaces -> Business
-
-IAddressService
-
-void ChangeAddress(AddressDto address, int id);
-
-Szállitási cím megváltoztatása. <br />
-param: name="address" (Szállítási cím) <br />
-param: name="id" (Rendelés azonosító)
-
-ICategoryService
-
-CategoryVmList[] GetCategories();
-
-Új kategória hozzáadása. <br />
-returns: Kategóriák megjeleníthető formában.
-
-bool DeleteCategory(int id);
-
-Kategória törlése. <br />
-param: name="id" (Kategória azonosítója) <br />
-returns: Sikerült e törölni a kategóriát.
-
-void UpdateCategoryName(int id, string name);
-
-Kategória nevének megváltoztatása. <br />
-param: name="id" (Kategória azonosítója) <br />
-param: name="name" (Kategória neve)
-
-IOrderService
-
-OrderVmList[] GetOrdersWithInfo();
-
-Rendelések lekérdezése, rendelt termékkel/termékekkel. <br />
-returns: Rendelések megjeleníthető formában.
-
-void DeleteOrder(int id);
-
-Rendelés törlése. <br />
-param: name="id" (Rendelés azonosító)
-
-IProductService
-
-ProductVmList[] GetProductsWithInfo();
-
-Termékek lekérdezése mérettel, inaktivitással stb... <br />
-returns: Termékek megjeleníthető formában.
- 
-void AddProducts(ProductDto newProduct);
-
-Termék(ek) hozzáadása mérettekkel. <br />
-param: name="newProduct" (Új termék)
-
-void ChangeInactive(int id);
-
-Inaktivitás megváltoztatása. <br />
-param: name="id" (Termék azonosító)
-
-void ChangePopular(int id); 
-
-Popularitás megváltoztatása. <br />
-param: name="id" (Termék azonosító)
-    
-ProductDto GetProductForUpdate(int id);
-
-Termék megkeresése változtatásra. <br />
-param: name="id" (Termék azonosító) <br />
-returns: Termékek megjeleníthető formában.
-   
-void UpdateProduct(ProductDto product, int id);
-
-Termék változtatása. <br />
-param: name="product" (Termék változtatott adatokkal) <br />
-param: name="id" (Termék azonosító)
-    
-IReleaseService
-
-void AddRelease(ReleaseDto release);
-
-Megjelenés hozzáadása. <br />
-param: name="release" (Megjelnés)
- 
-ReleaseVmList[] GetReleases();
-
-Megjelenések lekérdezése. <br />
-returns: Megjelenés megjeleníthető formában.
-   
-void DeleteRelease(int id);
-
-Megjelenés törlése. <br />
-param: name="id" (Megjelenés azonosító)
-  
-ReleaseDto GetReleaseForUpdate(int id);
-
-Megjelenés megkeresése változtatásra. <br />
-param: name="id" (Megjelenés azonosító) <br />
-returns: Megjelenés megjeleníthető formában.
-    
-void UpdateRelease(ReleaseDto release, int id);
-
-Megjelenés változtatása. <br />
-param: name="release" (Megjelenés megváltoztatott adatokkal) <br />
-param: name="id" (Megjelenés azonosító)
+A Webshop.Desktop.Core -> Interfaces -> Business mappában található interfészekben le vannak dokumentálva.
