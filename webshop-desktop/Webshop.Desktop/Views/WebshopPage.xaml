@@ -28,20 +28,6 @@
                 x:Uid="WebView_Loading" />
         </StackPanel>
 
-        <StackPanel
-            HorizontalAlignment="Center"
-            VerticalAlignment="Center"
-            Visibility="{x:Bind ViewModel.HasFailures, Mode=OneWay}">
-            <TextBlock 
-                x:Uid="WebView_FailedMessage" 
-                HorizontalAlignment="Center" 
-                TextWrapping="WrapWholeWords" />
-            <HyperlinkButton 
-                x:Uid="WebView_Reload" 
-                Command="{x:Bind ViewModel.ReloadCommand}" 
-                HorizontalAlignment="Center" />
-        </StackPanel>
-
         <Grid 
             Grid.Row="1">
             <StackPanel 
