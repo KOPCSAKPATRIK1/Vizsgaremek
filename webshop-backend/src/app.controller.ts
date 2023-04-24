@@ -368,6 +368,8 @@ export class AppController {
     const savedOrder = await orderRepo.save(order);
     return { ...savedOrder, id: savedOrder.id };
   }
+
+  
   
   @Get('stock/:productId')
   getStocks(@Param('productId') productId : number){
