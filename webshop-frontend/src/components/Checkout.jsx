@@ -104,6 +104,8 @@ const Button = styled.button`
 
 const Checkout = ({ isOpen, handleClose }) => {
   const [showCheckout, setShowCheckout] = useState(false);
+  const [addressObj, setAddressObj] = useState(null);
+  const [orderObj, setOrderObj] = useState(null);
 
   useEffect(() => {
     setShowCheckout(isOpen);
@@ -113,15 +115,12 @@ const Checkout = ({ isOpen, handleClose }) => {
     setShowCheckout(false);
     handleClose();
   };
-  const [streetAddress, setStreetAddress] = useState("");
-  const [city, setCity] = useState("");
-  const [state, setState] = useState("");
-  const [postalCode, setPostalCode] = useState("");
-  const [addressObj, setAddressObj] = useState("");
-  const [orderObj, setOrderObj] = useState("");
+
   const handleCheckout = async (event) => {
     event.preventDefault();
+  
     try {
+      // create new address
       const response = await fetch("http://localhost:3000/address", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -129,24 +128,21 @@ const Checkout = ({ isOpen, handleClose }) => {
       });
       const data = await response.json();
       setAddressObj(data);
-    } catch (error) {
-      console.error(error);
-    }
-
-    try {
+  
+      // create new order
       const userId = JSON.parse(localStorage.getItem("user")).id;
-      const response = await fetch("http://localhost:3000/order", {
+      const orderResponse = await fetch("http://localhost:3000/order", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           userId: userId,
-          addressId: addressObj.id + 2,
+          addressId: data.id,
         }),
       });
-      const data = await response.json();
-      setOrderObj(data);
-    } catch (error) {}
-    try {
+      const orderData = await orderResponse.json();
+      setOrderObj(orderData);
+  
+      // create new order items
       const cartItems = JSON.parse(localStorage.getItem("persist:cart"));
       const products = JSON.parse(cartItems.products);
       const selectedProducts = products.map((product) => ({
@@ -154,27 +150,50 @@ const Checkout = ({ isOpen, handleClose }) => {
         selectedSize: product.selectedSize,
         quantity: product.quantity,
       }));
-
-      const userId = JSON.parse(localStorage.getItem("user")).id;
-
+  
       selectedProducts.forEach(async (product) => {
-        const response = await fetch("http://localhost:3000/orderitem", {
+        const itemResponse = await fetch("http://localhost:3000/orderitem", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
             productId: product.id,
-            sizeId: 1,
+            sizeId: product.selectedSize,
             quantity: product.quantity,
             userId: userId,
-            orderId: orderObj.id,
+            orderId: orderData.id,
           }),
         });
-        const data = await response.json();
+        const itemData = await itemResponse.json();
       });
+  
     } catch (error) {
       console.error(error);
     }
   };
+  
+  useEffect(() => {
+    if (addressObj !== null) {
+      const userId = JSON.parse(localStorage.getItem("user")).id;
+      const createOrder = async () => {
+        const response = await fetch("http://localhost:3000/order", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            userId: userId,
+            addressId: addressObj.id,
+          }),
+        });
+        const data = await response.json();
+        setOrderObj(data);
+      };
+      createOrder();
+    }
+  }, [addressObj]);
+  const [streetAddress, setStreetAddress] = useState("");
+  const [city, setCity] = useState("");
+  const [state, setState] = useState("");
+  const [postalCode, setPostalCode] = useState("");
+
   useEffect(() => {
     const cartItems = JSON.parse(localStorage.getItem("persist:cart"));
     const products = JSON.parse(cartItems.products);
@@ -186,6 +205,7 @@ const Checkout = ({ isOpen, handleClose }) => {
     const userId = JSON.parse(localStorage.getItem("user")).id;
     console.log(selectedProducts, userId);
   }, []);
+
   return (
     <Wrapper className={showCheckout ? "fade-in" : ""}>
       <Container>
