@@ -152,6 +152,7 @@ const Checkout = ({ isOpen, handleClose }) => {
       }));
   
       selectedProducts.forEach(async (product) => {
+        const userId = JSON.parse(localStorage.getItem("user")).id; // declare userId before using it
         const itemResponse = await fetch("http://localhost:3000/orderitem", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -171,24 +172,6 @@ const Checkout = ({ isOpen, handleClose }) => {
     }
   };
   
-  useEffect(() => {
-    if (addressObj !== null) {
-      const userId = JSON.parse(localStorage.getItem("user")).id;
-      const createOrder = async () => {
-        const response = await fetch("http://localhost:3000/order", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            userId: userId,
-            addressId: addressObj.id,
-          }),
-        });
-        const data = await response.json();
-        setOrderObj(data);
-      };
-      createOrder();
-    }
-  }, [addressObj]);
   const [streetAddress, setStreetAddress] = useState("");
   const [city, setCity] = useState("");
   const [state, setState] = useState("");
