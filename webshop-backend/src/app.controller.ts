@@ -337,18 +337,16 @@ export class AppController {
 
   @Post('address')
   @HttpCode(200)
-  async addAddress(@Body() AddressDto: AddressDto){
+  async addAddress(@Body() AddressDto: AddressDto) {
     const addressRepo = this.dataSource.getRepository(Address);
     const address = new Address();
     address.city = AddressDto.city;
     address.postalCode = AddressDto.postalCode;
     address.state = AddressDto.state;
     address.streetAddress = AddressDto.streetAddress;
-    addressRepo.save(address);
     const savedAddress = await addressRepo.save(address);
     return { ...savedAddress, id: savedAddress.id };
   }
-
   @Get('address/:id')
   getAddressById(@Param('id') id: number){
     const addressRepo = this.dataSource.getRepository(Address);
