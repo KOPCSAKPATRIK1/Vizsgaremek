@@ -3,6 +3,7 @@ import Navbar from "../components/Navbar";
 import Newsletter from "../components/Newsletter";
 import Footer from "../components/Footer";
 import React, { useState } from "react";
+import {mobile} from "../responsive"
 
 const Container = styled.div`
   width: 100vw;

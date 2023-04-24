@@ -1,4 +1,4 @@
-import { AccountCircle, LocalMall, Search } from "@mui/icons-material";
+import { AccountCircle, LocalMall, Search, Menu } from "@mui/icons-material";
 import { Badge } from "@mui/material";
 import { red } from "@mui/material/colors";
 import React from "react";
@@ -9,6 +9,7 @@ import Register from "../pages/Register";
 import Home from "../pages/Home";
 import { useSelector } from "react-redux";
 import { Tooltip } from "@mui/material";
+import {mobile} from "../responsive";
 const Wrapper = styled.div`
   padding: 10px 20px;
   display: flex;
@@ -17,6 +18,8 @@ const Wrapper = styled.div`
   color: #ffa1ff;
   height: 80px;
   border-bottom: 2px solid #ffa1ff;
+  ${mobile({height:"40px" })}
+ 
 `;
 const Left = styled.div`
   flex: 0.5;
@@ -37,11 +40,13 @@ const Right = styled.div`
   justify-content: right;
   word-spacing: 20px;
   cursor: pointer;
+  ${mobile({ flex: 3, justifyContent: "center" })}
 `;
 const Language = styled.div`
   font-size: 20px;
   cursor: pointer;
   margin-right: 30px;
+  ${mobile({ display: "none" })}
 `;
 
 const Logo = styled.div`
@@ -50,6 +55,8 @@ const Logo = styled.div`
   align-items: center;
   cursor: pointer;
   font-variant: small-caps;
+  ${mobile({ fontSize: "17px" })}
+  ${mobile({ display: "none" })}
 `;
 const Linkek = styled.div`
   justify-content: right;
@@ -58,6 +65,7 @@ const Linkek = styled.div`
   cursor: pointer;
   align-items: center;
   display: flex;
+  
 `;
 
 const NavbarLink = styled(Link)`
@@ -70,7 +78,7 @@ const NavbarLink = styled(Link)`
   color: #ffa1ff;
   margin: 15px;
   text-decoration: none;
-
+  ${mobile({ fontSize: "10px", marginLeft: "10px"})}
   &:hover,
   &:focus {
   }
@@ -87,7 +95,7 @@ const IconLink = styled(Link)`
   color: #ffa1ff;
   margin: 1px;
   text-decoration: none;
-
+  
   &:hover,
   &:focus {
   }
@@ -99,6 +107,7 @@ const MenuIcons = styled.div`
   align-items: center;
   font-size: 130px;
   display: flex;
+ 
   margin-left: 25px;
 `;
 
@@ -112,11 +121,33 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
   },
 }));
 
+const DropdownButton = styled.button`
+
+`
+
 const Username = styled.h1`
   font-size: 20px;
   word-spacing: 2px;
   text-transform: uppercase;
+  ${mobile({ fontSize: "15px" })}
 `;
+const Select = styled.select`
+  padding: 10px;
+  margin-right: 20px;
+  border: 2px solid #ffa1ff;
+  border-radius: 20px;
+  background-color: #4a4a4a;
+  cursor: pointer;
+  font-weight: 500;
+  &:hover{
+      background-color: #2d2d2d;
+  }
+  color: white;
+  font-size: 15px;
+  letter-spacing: 1px;
+`;
+const Option = styled.option``;
+
 const userString = localStorage.getItem("user"); // get the value of "user" from localStorage
 let user = null; // initialize user variable as null
 
@@ -142,6 +173,9 @@ const Navbar = () => {
         <Logo>FootFrenzy</Logo>
         <Linkek>
           {" "}
+          
+          <Menu></Menu>
+          
           <NavbarLink to="/"> FŐOLDAL </NavbarLink>{" "}
           <NavbarLink to="/products"> SNEAKEREK </NavbarLink>{" "}
           <NavbarLink to="/releases"> MEGJELENÉSEK </NavbarLink>{" "}
@@ -161,18 +195,12 @@ const Navbar = () => {
                 fontSize: "40px",
                 marginLeft: "10px",
                 marginRight: "10px",
-              }}
+                
+              }
+            }
             ></AccountCircle>
           </IconLink>
-          <IconLink to="/login">
-            <Search
-              style={{
-                fontSize: "40px",
-                marginLeft: "10px",
-                marginRight: "10px",
-              }}
-            ></Search>
-          </IconLink>
+       
           <StyledBadge badgeContent={quantity} color="default">
   {username ? (
     <IconLink to="/cart">

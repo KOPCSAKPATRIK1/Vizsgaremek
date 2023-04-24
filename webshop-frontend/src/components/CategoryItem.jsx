@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import { mobile } from "../responsive";
 const Info = styled.div`
   position: absolute;
   top: 0;
@@ -7,7 +8,7 @@ const Info = styled.div`
   width: 101%;
   height: 101%;
   display: flex;
-  flex-direction: column;
+  
   align-items: center;
   justify-content: center;
   text-shadow: 0px 0px 15px black;
@@ -25,6 +26,8 @@ const Container = styled.div`
   &:hover ${Info} {
     opacity: 1;
   }
+  ${mobile({ height: "15vh", marginTop:"30px" })}
+  
 `;
 
 const Image = styled.img`
@@ -34,11 +37,14 @@ const Image = styled.img`
   border: 3px solid #ffa1ff;
   border-radius: 20px;
   color: #ffa1ff;
+  ${mobile({ height: "15vh" })}
 `;
 
 const Title = styled.h1`
   color: white;
   margin-bottom: 20px;
+  
+  ${mobile({ fontSize: "25px", paddingTop: "5px"})}
 `;
 
 const CategoryItem = ({ item }) => {

@@ -5,6 +5,8 @@ import Newsletter from "../components/Newsletter";
 import Footer from "../components/Footer";
 import { useLocation } from "react-router";
 import { useEffect, useState } from 'react';
+import {mobile} from "../responsive"
+
 const Container = styled.div``;
 
 const FilterContainer = styled.div`
@@ -18,6 +20,9 @@ const Filter = styled.div`
   margin-right: 210px;
   margin-top:50px;
 margin-bottom:0px;
+
+${mobile({marginLeft:"20px",marginRight:"60px", })}
+
 `;
 
 
@@ -84,23 +89,7 @@ const ProductList = () => {
             <Option value={3}>Jordan</Option>
             <Option value={4}>Yeezy</Option>
           </Select>
-          <Select name='sizes.size' onChange={handleFilters}>
-            <Option disabled>
-              Méret
-            </Option>
-            <Option>36</Option>
-            <Option>37</Option>
-            <Option>38</Option>
-            <Option>39</Option>
-            <Option>40</Option>
-            <Option>41</Option>
-            <Option>42</Option>
-            <Option>43</Option>
-            <Option>44</Option>
-            <Option>45</Option>
-            <Option>46</Option>
-            <Option>47</Option>
-          </Select>
+          
         </Filter>
         <Filter>
           

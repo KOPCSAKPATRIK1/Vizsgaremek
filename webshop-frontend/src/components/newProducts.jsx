@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { popularProducts } from "../data";
 import Product from "./Product";
 import React, { useState, useEffect } from "react";
+import {mobile} from "../responsive"
 const Container = styled.div`
     margin-top: 20px;
     padding: 20px;
@@ -12,7 +13,7 @@ const Container = styled.div`
     flex-wrap: wrap;
     justify-content: space-between;
     border-bottom: 1px solid #ffa1ff;
-    
+    ${mobile({padding:"10px" })}
 `;
 const Text = styled.div`
       margin-top: 100px;

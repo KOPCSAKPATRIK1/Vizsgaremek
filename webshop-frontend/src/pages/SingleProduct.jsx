@@ -7,6 +7,8 @@ import { useParams } from 'react-router-dom';
 import { addProduct } from "../redux/cartRedux";
 import { useDispatch } from "react-redux";
 import Popup from "../components/Popup";
+import {mobile} from "../responsive"
+
 const Container = styled.div`
 
 `;
@@ -16,6 +18,8 @@ const Wrapper = styled.div`
   display: flex;
   color: white;
   border-bottom: 1px solid #ffa1ff;
+  ${mobile({flexDirection: 'column', padding:"10px"})}
+
 `;
 
 const ImgContainer = styled.div`
@@ -28,6 +32,7 @@ const ImgContainer = styled.div`
   background-color: #e0e0e0;
   border-radius: 10px;
   box-shadow: 0px 0px 20px black;
+  ${mobile({margin: 10})}
 `;
 
 const Image = styled.img`
@@ -37,7 +42,7 @@ const Image = styled.img`
   vertical-align: middle;
   background: #e0e0e0;
   border-radius: 10px;
- 
+  ${mobile({height:"25vh"})}
 `;
 
 const PreviewImage = styled.img`
@@ -55,12 +60,13 @@ const PreviewImage = styled.img`
   cursor: pointer;
   border-radius: 10px;
   box-shadow: 0px 0px 5px black;
+  ${mobile({maxWidth:"21%", marginLeft:"10px", marginTop:"10px",marginBottom:"20px", height:"5vh", })}
 `;
 
 const InfoContainer = styled.div`
   flex: 1;
   padding: 0px 50px;
-  
+  ${mobile({padding:"0px 20px", textAlign:"center"})}
 `;
 
 const Title = styled.h1`
@@ -83,7 +89,7 @@ const FilterContainer = styled.div`
   margin: 30px 0px;
   display: flex;
   justify-content: space-between;
-
+  ${mobile({marginLeft:"100px"})}
 `;
 
 const Filter = styled.div`
@@ -129,6 +135,7 @@ const Button = styled.button`
   color: white;
   font-size: 15px;
   letter-spacing: 2px;
+  ${mobile({marginLeft:"90px"})}
 `;
 
 const SingleProduct = () => {

@@ -3,7 +3,7 @@ import {
   } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
   import styled from "styled-components";
-  
+  import {mobile} from "../responsive"
   const Info = styled.div`
     opacity: 0;
     width: 100%;
@@ -39,7 +39,7 @@ import { useNavigate } from "react-router-dom";
     &:hover ${Info}{
       opacity: 1;
     }
-    
+    ${mobile({ minWidth: "60px", height: "70px", margin: "7px", padding: "30px", paddingBottom: "50px", width: "100%",})}
   `;
   
 
@@ -47,7 +47,7 @@ import { useNavigate } from "react-router-dom";
   const Image = styled.img`
     height: 70%;
     z-index: 2;
-   
+    ${mobile({height: "130%", paddingBottom: "40px"})}
   `;
   
   const Icon = styled.div`
@@ -79,7 +79,7 @@ import { useNavigate } from "react-router-dom";
     justify-content: center;
     text-transform: uppercase;
     text-align: center;
-    
+    ${mobile({fontSize: "13px", height: "125%"})}
 `;
 
 const Price = styled.p`
@@ -94,7 +94,7 @@ color:white;
   align-items: center;
   justify-content: center;
 
-
+  ${mobile({fontSize: "13px", height: "165%"})}
   
 `;
 const Product = ({ item }) => {

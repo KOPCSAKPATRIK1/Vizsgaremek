@@ -7,6 +7,8 @@ import { useSelector } from "react-redux";
 import { useDispatch } from 'react-redux';
 import { removeProduct } from '../redux/cartRedux';
 import Checkout from "../components/Checkout";
+import {mobile} from "../responsive"
+
 import React, { useState } from 'react';
 const Container = styled.div`
  color:white;
@@ -18,6 +20,8 @@ const Wrapper = styled.div`
   padding-right: 100px;
   
   border-bottom: 1px solid #ffa1ff;
+  ${mobile({padding: '50px'})}
+
 `;
 
 const Title = styled.h1`
@@ -51,6 +55,7 @@ const TopButton = styled.button`
   color: white;
   font-size: 15px;
   box-shadow: 0px 0px 5px black;
+  ${mobile({padding:"20px", fontSize:"15px"})}
 `;
 
 const TopTexts = styled.div`
@@ -64,6 +69,8 @@ const TopText = styled.span`
 const Bottom = styled.div`
   display: flex;
   justify-content: space-between;
+  ${mobile({flexDirection: 'column'})}
+
 `;
 
 const Info = styled.div`
@@ -78,6 +85,8 @@ const Product = styled.div`
 const ProductDetail = styled.div`
   flex: 2;
   display: flex;
+  ${mobile({flexDirection: 'column', paddingBottom:"40px",})}
+
 `;
 
 const Image = styled.img`
@@ -89,6 +98,7 @@ const Details = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-around;
+  ${mobile({ width:"200px", padding:"0px",  marginLeft:"20px"})}
 `;
 
 const ProductName = styled.span``;
@@ -110,12 +120,16 @@ const PriceDetail = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  ${mobile({paddingBottom: "70px", textAlign:"center", flexDirection:"row"})}
+
 `;
 
 const ProductAmountContainer = styled.div`
   display: flex;
   align-items: center;
   margin-bottom: 20px;
+  ${mobile({flexDirection: 'column'})}
+
 `;
 
 const ProductAmount = styled.div`
@@ -126,6 +140,7 @@ const ProductAmount = styled.div`
 const ProductPrice = styled.div`
   font-size: 30px;
   font-weight: 200;
+  ${mobile({ fontSize:"20px"})}
 `;
 
 const Hr = styled.hr`
@@ -141,6 +156,7 @@ const Summary = styled.div`
   padding: 20px;
   height: 50vh;
   background-color: #2d2d2d;
+  
 `;
 
 const SummaryTitle = styled.h1`
@@ -154,6 +170,7 @@ const SummaryItem = styled.div`
   justify-content: space-between;
   font-weight: ${(props) => props.type === "total" && "500"};
   font-size: ${(props) => props.type === "total" && "24px"};
+  
 `;
 
 const SummaryItemText = styled.span``;
@@ -177,6 +194,7 @@ const Button = styled.button`
   font-weight: bold;
   letter-spacing: 6px;
   box-shadow: 0px 0px 10px black;
+  
 `;
 
 const Cart = () => {

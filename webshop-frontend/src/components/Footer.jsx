@@ -7,13 +7,15 @@ import {
     Twitter,
   } from "@mui/icons-material";
   import styled from "styled-components";
+  import {mobile} from "../responsive"
 
   
   const Container = styled.div`
     display: flex;
     background-color: #1b1b1b;
     color: white;
-   
+    ${mobile({ flexDirection: "column"})}
+
   `;
   
   const Left = styled.div`
@@ -22,23 +24,27 @@ import {
     flex-direction: column;
     padding: 20px;
     margin-left: 15vw;
+    ${mobile({ marginLeft:"0px", padding:"10px", textAlign:"center" })}
+   
   `;
     
   const Center = styled.div`
     flex: 1;
     padding: 20px;
-
+    ${mobile({ marginLeft:"10px", padding:"10px", textAlign:"center" })}
   `;
   
  const Right = styled.div`
   flex: 0.5;
   padding: 20px;
   margin-right: 15vw;
+  ${mobile({ marginLeft:"40px", padding:"10px", textAlign:"center" })}
 `;
 
   const SocialContainer = styled.div`
     display: flex;
     color: #242424;
+    ${mobile({ marginLeft:"96px" })}
   `;
   
   const SocialIcon = styled.div`
@@ -66,6 +72,7 @@ import {
     list-style: none;
     display: flex;
     flex-wrap: wrap;
+    ${mobile({ marginLeft:"50px", textAlign:"center" })}
   `;
   
   const ListItem = styled.li`
@@ -78,7 +85,7 @@ import {
     margin-bottom: 20px;
     display: flex;
     align-items: center;
-    
+    ${mobile({  textAlign:"center" })}
   `;
   
   const Payment = styled.div`
@@ -92,7 +99,7 @@ import {
       justify-content: space-evenly;
       
      
-      
+      ${mobile({ width:"95%" })}
   `;
   
   const Footer = () => {
@@ -145,10 +152,10 @@ import {
      
       </Container>
       <Payment>
-            <img src="https://static.footshop.com/themes/default-bootstrap/dist/images/services/paypal.png" alt=""/>
-            <img src="https://static.footshop.com/themes/default-bootstrap/dist/images/services/visa.png" alt="" />
-            <img src="https://static.footshop.com/themes/default-bootstrap/dist/images/services/mastercard.png" alt="" />
-            <img src="https://static.footshop.com/themes/default-bootstrap/dist/images/services/maestro.png" alt="" />
+           
+            <img src="https://static.footshop.com/themes/default-bootstrap/dist/images/services/visa.png" alt="" height={30} />
+            <img src="https://static.footshop.com/themes/default-bootstrap/dist/images/services/mastercard.png" alt="" height={30} />
+            <img src="https://static.footshop.com/themes/default-bootstrap/dist/images/services/maestro.png" alt="" height={30}/>
         </Payment>
       </div>
     );

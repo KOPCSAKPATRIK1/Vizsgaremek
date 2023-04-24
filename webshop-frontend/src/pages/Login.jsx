@@ -5,6 +5,8 @@ import Footer from "../components/Footer";
 import { BrowserRouter as Router,Routes, Route, Link } from 'react-router-dom';
 import React, { useState } from 'react';
 import LogoutButton from "../components/LogoutButton";
+import {mobile} from "../responsive"
+
 const Container = styled.div`
   width: 100vw;
   height: 100vh;
@@ -25,6 +27,7 @@ const Wrapper = styled.div`
   color: white;
   text-align: center;
   box-shadow: 0px 0px 20px #1f1f1f;
+  ${mobile({width:"60%" })}
 `;
 
 const Title = styled.h1`

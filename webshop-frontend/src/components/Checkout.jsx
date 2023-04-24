@@ -2,6 +2,7 @@ import styled from "styled-components";
 import React, { useState, useEffect } from "react";
 import { keyframes } from "styled-components";
 import { LocalShipping, CreditCard } from "@mui/icons-material";
+import {mobile} from "../responsive"
 const fadeIn = keyframes`
   from {
     opacity: 0;
@@ -14,6 +15,7 @@ const Icon = styled.div`
   align-items: center;
   font-size: 30px;
   display: flex;
+  ${mobile({ fontSize: "20px", textAlign: "center" })}
 `;
 const Wrapper = styled.div`
   margin-top: 5%;
@@ -33,6 +35,7 @@ const Wrapper = styled.div`
   border-radius: 15px;
   animation: ${fadeIn} 0.5s ease-in-out;
   border: 2px solid #ffa1ff;
+  ${mobile({ width:"75%" })}
 `;
 
 const Container = styled.div`
@@ -63,6 +66,7 @@ const Label = styled.label`
   font-size: 12px;
   letter-spacing: 2px;
   color: white;
+ 
 `;
 const Address = styled.div`
   display: flex;
