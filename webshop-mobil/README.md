@@ -1,4 +1,18 @@
-## Telepítés
+# Áttekintés
+
+Androidos cipő e-commerce applikáció, melynek célja egy letisztult, dinamikus és felhasználóbarát felület megvalósítása modern és világszynvonalu elemekkel.
+
+## Használt technológiák:
+- React Native expo
+- Nativewinds (Tailwinds react nativera)
+- React Native Paper(Material design könyvtár)
+- Használt packagek:
+    - [AsyncStorage](https://reactnative.dev/docs/asyncstorage)
+    - [React navigation](https://reactnative.dev/docs/asyncstorage)
+    - [React Native Select Dropdown](https://www.npmjs.com/package/react-native-select-dropdown)
+    - [React Native Vector Icons](https://www.npmjs.com/package/react-native-vector-icons)
+
+# Telepítés
 
 - Clone-ozd a repo-t Visual studióban
 - Inditsd el a backend alkalmazást a backend dokumentáció alapján
