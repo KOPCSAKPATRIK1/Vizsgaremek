@@ -9,7 +9,8 @@ import Register from "../pages/Register";
 import Home from "../pages/Home";
 import { useSelector } from "react-redux";
 import { Tooltip } from "@mui/material";
-import {mobile} from "../responsive";
+import {mobile, tablet} from "../responsive";
+import DropdownMenu from "./DropdownMenu";
 const Wrapper = styled.div`
   padding: 10px 20px;
   display: flex;
@@ -84,6 +85,8 @@ const NavbarLink = styled(Link)`
   }
   &:active {
   }
+  ${mobile({ display: "none" })};
+  ${tablet({ display: "none" })};
 `;
 const IconLink = styled(Link)`
   justify-content: right;
@@ -129,7 +132,8 @@ const Username = styled.h1`
   font-size: 20px;
   word-spacing: 2px;
   text-transform: uppercase;
-  ${mobile({ fontSize: "15px" })}
+  
+  ${mobile({ fontSize: "15px", width:"150px" })}
 `;
 const Select = styled.select`
   padding: 10px;
@@ -174,8 +178,7 @@ const Navbar = () => {
         <Linkek>
           {" "}
           
-          <Menu></Menu>
-          
+          <DropdownMenu></DropdownMenu>
           <NavbarLink to="/"> FŐOLDAL </NavbarLink>{" "}
           <NavbarLink to="/products"> SNEAKEREK </NavbarLink>{" "}
           <NavbarLink to="/releases"> MEGJELENÉSEK </NavbarLink>{" "}
