@@ -7,7 +7,7 @@ import { useParams } from 'react-router-dom';
 import { addProduct } from "../redux/cartRedux";
 import { useDispatch } from "react-redux";
 import Popup from "../components/Popup";
-import {mobile} from "../responsive"
+import {mobile, tablet} from "../responsive"
 
 const Container = styled.div`
 
@@ -19,7 +19,7 @@ const Wrapper = styled.div`
   color: white;
   border-bottom: 1px solid #ffa1ff;
   ${mobile({flexDirection: 'column', padding:"10px"})}
-
+  ${tablet({flexDirection: 'column', padding:"10px", width:"700px"})}
 `;
 
 const ImgContainer = styled.div`
@@ -33,6 +33,7 @@ const ImgContainer = styled.div`
   border-radius: 10px;
   box-shadow: 0px 0px 20px black;
   ${mobile({margin: 10})}
+ 
 `;
 
 const Image = styled.img`
@@ -61,12 +62,15 @@ const PreviewImage = styled.img`
   border-radius: 10px;
   box-shadow: 0px 0px 5px black;
   ${mobile({maxWidth:"21%", marginLeft:"10px", marginTop:"10px",marginBottom:"20px", height:"5vh", })}
+  ${tablet({maxWidth:"51%", marginLeft:"50px", marginTop:"10px",marginBottom:"20px", height:"5vh", })}
 `;
 
 const InfoContainer = styled.div`
   flex: 1;
   padding: 0px 50px;
+  
   ${mobile({padding:"0px 20px", textAlign:"center"})}
+  
 `;
 
 const Title = styled.h1`

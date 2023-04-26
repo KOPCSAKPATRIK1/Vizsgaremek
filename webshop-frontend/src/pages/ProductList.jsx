@@ -5,7 +5,7 @@ import Newsletter from "../components/Newsletter";
 import Footer from "../components/Footer";
 import { useLocation } from "react-router";
 import { useEffect, useState } from 'react';
-import {mobile} from "../responsive"
+import {mobile, tablet} from "../responsive"
 
 const Container = styled.div``;
 
@@ -22,7 +22,7 @@ const Filter = styled.div`
 margin-bottom:0px;
 
 ${mobile({marginLeft:"20px",marginRight:"60px", })}
-
+${tablet({marginLeft:"20px",marginRight:"60px", })}
 `;
 
 

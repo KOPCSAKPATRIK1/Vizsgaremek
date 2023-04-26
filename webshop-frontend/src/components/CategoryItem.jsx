@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import { mobile } from "../responsive";
+import { mobile, tablet } from "../responsive";
 const Info = styled.div`
   position: absolute;
   top: 0;
@@ -26,8 +26,10 @@ const Container = styled.div`
   &:hover ${Info} {
     opacity: 1;
   }
-  ${mobile({ height: "15vh", marginTop:"30px" })}
-  
+  ${mobile({ height: "15vh", marginTop:"30px" })};
+  ${tablet({ height: "20vh",width: " 15vw" })};
+ margin-left:20px;
+ margin-right:20px;
 `;
 
 const Image = styled.img`

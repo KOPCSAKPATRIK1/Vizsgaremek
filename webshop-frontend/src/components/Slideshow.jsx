@@ -5,7 +5,7 @@ import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
 import { useState } from "react";
 import { sliderItems } from "../data";
-import {mobile} from "../responsive"
+import {mobile, tablet} from "../responsive"
 
 const Container = styled.div`
     width: 100%;
@@ -14,6 +14,7 @@ const Container = styled.div`
     position: relative;
     overflow: hidden;
     ${mobile({ display: "none" })}
+    ${tablet({  height: "60vh" })}
 `
 const Arrow = styled.div`
     width: 30px;
@@ -51,6 +52,7 @@ display: flex;
 align-items: center;
 width: 100vw;
 height: 100vh;
+${tablet({  height: "60vh" })}
 `
 const ImgContainer = styled.div`
 flex: 1;
@@ -74,6 +76,7 @@ position: absolute;
 margin-left: 200px;
 color: white;
 text-shadow: 0px 0px 15px black;
+    
 
 `
 const Title = styled.h1`
