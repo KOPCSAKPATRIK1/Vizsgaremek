@@ -2,7 +2,7 @@
 
 Androidos cipő e-commerce applikáció, melynek célja egy letisztult, dinamikus és felhasználóbarát felület megvalósítása modern és világszynvonalu elemekkel.
 
-## Használt technológiák:
+### Használt technológiák:
 - React Native expo
 - Nativewinds (Tailwinds react nativera)
 - React Native Paper(Material design könyvtár)
