@@ -80,10 +80,10 @@ export class AppController {
       user = await userRepo.findOneBy({ username: loginDto.identifier });
     }
     if (!user) {
-      throw new BadRequestException('invalid credentials');
+      throw new BadRequestException('Nincs ilyen fiók!');
     }
     if (!(await bcrypt.compare(loginDto.password, user.password))) {
-      throw new BadRequestException('Wrong password');
+      throw new BadRequestException('Hibás jelszó!');
     }
   
     const jwt = await this.jwtService.signAsync({ id: user.id });
