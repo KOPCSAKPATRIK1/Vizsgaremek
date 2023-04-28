@@ -9,6 +9,7 @@ import ReleasesPage from "./pages/ReleasesPage";
 import Logout from "./pages/Logout";
 import ProductList from "./pages/ProductList";
 import Cart from "./pages/Cart";
+import Profile from "./pages/Profile";
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
         <Route exact path="/products/:category" element={<ProductList/>}></Route>
         <Route exact path="/products" element={<ProductList/>}></Route>
         <Route exact path="/cart" element={<Cart/>}></Route>
+        <Route exact path="/profile" element={<Profile/>}></Route>
       </Routes>
      
      
