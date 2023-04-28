@@ -6,6 +6,7 @@ import {
   ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
+  JoinColumn,
 } from 'typeorm';
 import { ShoppingCartItem } from '../cart/shoppingCartItem.entity';
 import { OrderItem } from '../order/orderItem.entity';
@@ -54,7 +55,7 @@ export class Product {
 
   @OneToMany(() => ShoppingCartItem, (cartItem) => cartItem.product)
   cartItems: ShoppingCartItem[];
-
+   
   @OneToMany(() => OrderItem, (orderItem) => orderItem.user)
   orderItems: OrderItem[];
 
@@ -63,9 +64,13 @@ export class Product {
     (shoppingCartItem) => shoppingCartItem.user,
   )
   shoppingCartItems: ShoppingCartItem[];
+  @ManyToOne(() => Product, (product) => product.likes)
+  @JoinColumn()
+  product: Product;
 
   @OneToMany(() => Like, (like) => like.product)
   likes: Like[];
+
 
   @ManyToMany(() => Size)
   @JoinTable({
