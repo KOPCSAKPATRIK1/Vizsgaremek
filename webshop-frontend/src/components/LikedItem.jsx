@@ -25,8 +25,9 @@ import {
   const Container = styled.div`
     flex: 1;
     margin: 15px;
-    min-width: 300px;
-    height: 300px;
+    min-width: 200px;
+    
+    height: 200px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -70,7 +71,7 @@ import {
   const Title = styled.p`
   color:white;
     width: 100%;
-    height: 155%;
+    height: 165%;
     position: absolute;
     top: 0;
     left: 0;
@@ -80,6 +81,7 @@ import {
     justify-content: center;
     text-transform: uppercase;
     text-align: center;
+    font-size: 14px;
     ${mobile({fontSize: "13px", height: "125%"})}
 
 `;
@@ -110,9 +112,9 @@ const LikedItem = ({ item }) => {
     return (
       <Container onClick={handleClick}>
         <Image src={item.product.imgUrl1} />
-        <Info>
+       <Info></Info>
           <Title>{item.product.name}</Title>
-        </Info>
+       
       </Container>
     );
   };

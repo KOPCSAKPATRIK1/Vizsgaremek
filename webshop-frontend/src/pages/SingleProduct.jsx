@@ -20,7 +20,7 @@ const Wrapper = styled.div`
   color: white;
   border-bottom: 1px solid #ffa1ff;
   ${mobile({flexDirection: 'column', padding:"10px"})}
-  ${tablet({flexDirection: 'column', padding:"10px", width:"700px"})}
+  ${tablet({flexDirection: 'column', padding:"10px", width:"100%"})}
 `;
 
 const ImgContainer = styled.div`
@@ -34,7 +34,7 @@ const ImgContainer = styled.div`
   border-radius: 10px;
   box-shadow: 0px 0px 20px black;
   ${mobile({margin: 10})}
- 
+  ${tablet({width:"70%"})}
 `;
 
 const Image = styled.img`
@@ -45,6 +45,7 @@ const Image = styled.img`
   background: #e0e0e0;
   border-radius: 10px;
   ${mobile({height:"25vh"})}
+
 `;
 
 const PreviewImage = styled.img`
@@ -71,7 +72,7 @@ const InfoContainer = styled.div`
   padding: 0px 50px;
   
   ${mobile({padding:"0px 20px", textAlign:"center"})}
-  
+  ${tablet({marginLeft: "100px" })}
 `;
 
 const Title = styled.h1`
@@ -123,7 +124,7 @@ const AddContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
- 
+  ${mobile({ marginLeft: "-40px" })}
 `;
 
 

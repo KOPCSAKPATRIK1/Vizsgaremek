@@ -3,17 +3,18 @@ import { useState, useEffect } from "react";
 import Release from "./Release";
 import { mobile } from "../responsive";
 import LikedItem from "./LikedItem";
+import LogoutButton from "./LogoutButton";
 
 const Container = styled.div`
   margin-top: 20px;
   padding: 20px;
   padding-left: 11vw;
   padding-right: 11vw;
-  padding-bottom: 100px;
+  padding-bottom: 30px;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  border-bottom: 1px solid #ffa1ff;
+   max-width: 900px;
   ${mobile({ padding: "10px" })}
 `;
 
@@ -21,7 +22,7 @@ const Text = styled.div`
   margin-top: 100px;
   color: white;
   text-align: center;
-  font-size: 50px;
+  font-size: 40px;
   text-shadow: 0px 0px 10px black;
   font-weight: bold;
 `;
@@ -61,6 +62,8 @@ const Liked = () => {
   console.log(data);
   return (
     <div>
+     
+      <Text>Kedvenc termékeid:</Text>
       {loading && <div>Loading...</div>}
       {error && <div>{error}</div>}
       {data && (
