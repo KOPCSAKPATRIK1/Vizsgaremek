@@ -123,6 +123,8 @@ const Checkout = ({ isOpen, handleClose }) => {
 
   const handleCheckout = async (event) => {
     event.preventDefault();
+  
+    // validate input fields
     if (!validatePostalCode(postalCode)) {
       alert('Hibás irányítószám!');
       return;
@@ -139,6 +141,7 @@ const Checkout = ({ isOpen, handleClose }) => {
       alert('Hibás kártyaszám (16 számjegy)!');
       return;
     }
+  
     try {
       // create new address
       const response = await fetch("http://localhost:3000/address", {
@@ -170,7 +173,6 @@ const Checkout = ({ isOpen, handleClose }) => {
         selectedSize: product.selectedSize,
         quantity: product.quantity,
       }));
-  
       selectedProducts.forEach(async (product) => {
         const userId = JSON.parse(localStorage.getItem("user")).id; // declare userId before using it
         const itemResponse = await fetch("http://localhost:3000/orderitem", {
@@ -186,8 +188,18 @@ const Checkout = ({ isOpen, handleClose }) => {
         });
         const itemData = await itemResponse.json();
       });
+      // update stock for each selected product
+      await Promise.all(selectedProducts.map(async (product) => {
+        const { id, selectedSize } = product;
+        const stockResponse = await fetch(`http://localhost:3000/stock/${id}/${selectedSize}`, {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+        });
+        const stockData = await stockResponse.json();
+      }));
+  
       alert('Sikeres vásárlás!');
-
+  
       // wait 5 seconds and redirect to homepage
       setTimeout(() => {
         window.location.href = '/';
@@ -195,7 +207,6 @@ const Checkout = ({ isOpen, handleClose }) => {
     } catch (error) {
       console.error(error);
     }
- 
   };
   const [expireError, setExpireError] = useState("");
 const [securityError, setSecurityError] = useState("");
