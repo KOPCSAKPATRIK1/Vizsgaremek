@@ -123,12 +123,26 @@ export class AppController {
     return productRepo
       .createQueryBuilder('product')
       .leftJoinAndSelect('product.category', 'category')
-      .leftJoinAndSelect('product.sizes', 'size')
+      .leftJoin('product.stocks', 'stock')
       .where('product.inactive = :inactive', { inactive: 0 })
+      .select([
+        'product.id',
+        'product.name',
+        'product.desc',
+        'product.imageUrl1',
+        'product.imageUrl2',
+        'product.imageUrl3',
+        'product.imageUrl4',
+        'product.price',
+        'product.inactive',
+        'product.popular',
+        'category.id',
+        'category.name',
+        'stock.sizeId',
+        'stock.productId',
+      ])
       .getMany();
   }
-  
-
   @Get('/releases')
   async getReleases() {
     const productRepo = this.dataSource.getRepository(Release);
@@ -146,14 +160,16 @@ export class AppController {
     .getMany();
 }
 
-  @Get('/shoes/:id')
-  async getShoe(@Param('id') id: number) {
-    const productRepo = this.dataSource.getRepository(Product);
-    const product = await productRepo.findOne({
-      where: { id: id },
-      relations: ['category', 'sizes'],
-    });
-    return product;
+@Get('/shoes/:id')
+async getShoe(@Param('id') id: number) {
+  const productRepo = this.dataSource.getRepository(Product);
+  const product = await productRepo
+    .createQueryBuilder('product')
+    .leftJoinAndSelect('product.category', 'category')
+    .leftJoinAndSelect('product.stocks', 'stock')
+    .where('product.id = :id', { id })
+    .getOne();
+  return product;
   }
 
   @Get('/shoes/name/:name')
@@ -286,9 +302,22 @@ export class AppController {
   }
 
   @Get('/like/user/:id')
-  async getLikesByUserId(@Param('id') id: number){
+  async getLikesByUser(@Param('id') id: number) {
     const likeRepo = this.dataSource.getRepository(Like);
-    return likeRepo.findBy({ userId: id});
+    const likes = await likeRepo.createQueryBuilder('like')
+      .leftJoinAndSelect('like.product', 'product')
+      .where('like.userId = :userId', { userId: id })
+      .getMany();
+    return likes.map((like) => ({
+      id: like.id,
+      userId: like.userId,
+      productId: like.productId,
+      product: {
+        id: like.product.id,
+        name: like.product.name,
+        imgUrl1: like.product.imageUrl1,
+      },
+    }));
   }
 
   @Post('orderitem')
