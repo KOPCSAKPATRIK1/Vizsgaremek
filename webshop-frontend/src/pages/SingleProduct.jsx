@@ -195,34 +195,55 @@ const SingleProduct = () => {
 
       <Wrapper>
         <ImgContainer>
-          <Image  src={mainImage} />
-          <PreviewImage src={product.imageUrl1} onClick={() => handlePreviewClick(product.imageUrl1)} />
-          <PreviewImage src={product.imageUrl2}  onClick={() => handlePreviewClick(product.imageUrl2)} />
-          <PreviewImage src={product.imageUrl3}  onClick={() => handlePreviewClick(product.imageUrl3)} />
-          <PreviewImage src={product.imageUrl4} onClick={() => handlePreviewClick(product.imageUrl4)} />
+          <Image src={mainImage} />
+          <PreviewImage
+            src={product.imageUrl1}
+            onClick={() => handlePreviewClick(product.imageUrl1)}
+          />
+          <PreviewImage
+            src={product.imageUrl2}
+            onClick={() => handlePreviewClick(product.imageUrl2)}
+          />
+          <PreviewImage
+            src={product.imageUrl3}
+            onClick={() => handlePreviewClick(product.imageUrl3)}
+          />
+          <PreviewImage
+            src={product.imageUrl4}
+            onClick={() => handlePreviewClick(product.imageUrl4)}
+          />
         </ImgContainer>
         <InfoContainer>
           <Title>{product.name}</Title>
-     
+
           <Price>{product.price.toLocaleString()} Ft</Price>
           <FilterContainer>
             <Filter>
               <FilterTitle>Méret</FilterTitle>
               <FilterSize onChange={(e) => setSelectedSize(e.target.value)}>
-              {product.stocks.map((s) => (
-           <FilterSizeOption key={s.id}>{s.sizeId}</FilterSizeOption>
-                ))}       
+                {product.stocks
+                  .filter((s) => s._inStock > 0)
+                  .map((s) => (
+                    <FilterSizeOption key={s.id}>{s.sizeId}</FilterSizeOption>
+                  ))}
               </FilterSize>
             </Filter>
           </FilterContainer>
           <AddContainer>
-            <Button onClick={handleCartClick}>MEGVESZEM</Button> 
-            <LikeButton onClick={handleLikeClick} userId={userId} productId={product.id}></LikeButton>
-            {showPopup && <Popup message="Hozzáadva a kosárhoz" handleClose={handleClosePopup} />}
+            <Button onClick={handleCartClick}>MEGVESZEM</Button>
+            <LikeButton
+              onClick={handleLikeClick}
+              userId={userId}
+              productId={product.id}
+            ></LikeButton>
+            {showPopup && (
+              <Popup
+                message="Hozzáadva a kosárhoz"
+                handleClose={handleClosePopup}
+              />
+            )}
           </AddContainer>
-          <Desc>    
-          {product.desc}
-          </Desc>
+          <Desc>{product.desc}</Desc>
         </InfoContainer>
       </Wrapper>
       <Newsletter />
