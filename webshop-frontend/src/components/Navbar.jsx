@@ -10,6 +10,7 @@ import Home from "../pages/Home";
 import { useSelector } from "react-redux";
 import { Tooltip } from "@mui/material";
 import {mobile, tablet} from "../responsive";
+import { useMediaQuery } from "@mui/material";
 import DropdownMenu from "./DropdownMenu";
 const Wrapper = styled.div`
   padding: 10px 20px;
@@ -26,6 +27,8 @@ const Left = styled.div`
   flex: 0.5;
   display: flex;
   align-items: center;
+
+  ${mobile({ display: "none" })}
 `;
 const Center = styled.div`
   flex: 1.5;
@@ -33,6 +36,8 @@ const Center = styled.div`
   align-items: center;
   font-weight: bold;
   font-size: 40px;
+  
+  
 `;
 const Right = styled.div`
   flex: 1;
@@ -48,6 +53,7 @@ const Language = styled.div`
   cursor: pointer;
   margin-right: 30px;
   ${mobile({ display: "none" })}
+  
 `;
 
 const Logo = styled.div`
@@ -85,8 +91,7 @@ const NavbarLink = styled(Link)`
   }
   &:active {
   }
-  ${mobile({ display: "none" })};
-  ${tablet({ display: "none" })};
+
 `;
 const IconLink = styled(Link)`
   justify-content: right;
@@ -133,7 +138,7 @@ const Username = styled.h1`
   word-spacing: 2px;
   text-transform: uppercase;
   
-  ${mobile({ fontSize: "15px", width:"150px" })}
+  ${mobile({ fontSize: "15px", width:"150px", textAlign: "right"})}
 `;
 const Select = styled.select`
   padding: 10px;
@@ -167,7 +172,7 @@ const username = user?.username;
 
 const Navbar = () => {
     const quantity= useSelector(state => state.cart.quantity)
-   
+    const isDesktop = useMediaQuery("(min-width:1024px)");
   return (
     <Wrapper>
       <Left>
@@ -178,11 +183,11 @@ const Navbar = () => {
         <Linkek>
           {" "}
           
-          <DropdownMenu></DropdownMenu>
-          <NavbarLink to="/"> FŐOLDAL </NavbarLink>{" "}
-          <NavbarLink to="/products"> SNEAKEREK </NavbarLink>{" "}
-          <NavbarLink to="/releases"> MEGJELENÉSEK </NavbarLink>{" "}
-          <NavbarLink to="/product"> INFÓ </NavbarLink>{" "}
+          {!isDesktop && <DropdownMenu />}
+          {isDesktop &&<NavbarLink to="/"> FŐOLDAL </NavbarLink>}{" "}
+          {isDesktop &&<NavbarLink to="/products"> SNEAKEREK </NavbarLink>}{" "}
+           {isDesktop &&<NavbarLink to="/releases"> MEGJELENÉSEK </NavbarLink>}{" "}
+           {isDesktop &&<NavbarLink to="/product"> INFÓ </NavbarLink>}{" "}
         </Linkek>{" "}
       </Center>
       <Right>
