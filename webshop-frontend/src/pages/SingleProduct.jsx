@@ -8,7 +8,8 @@ import { addProduct } from "../redux/cartRedux";
 import { useDispatch } from "react-redux";
 import Popup from "../components/Popup";
 import {mobile, tablet} from "../responsive"
-
+import Like from '@mui/icons-material/FavoriteBorder';
+import LikeButton from "../components/LikeButton";
 const Container = styled.div`
 
 `;
@@ -118,11 +119,11 @@ const FilterSize = styled.select`
 const FilterSizeOption = styled.option``;
 
 const AddContainer = styled.div`
-  width: 50%;
+  width: 25%;
   display: flex;
   align-items: center;
   justify-content: space-between;
-
+ 
 `;
 
 
@@ -174,16 +175,20 @@ const SingleProduct = () => {
     setMainImage(imageSrc);
   };
   
-  const handleClick = () => {
+  const handleCartClick = () => {
     dispatch(addProduct({...product, quantity, selectedSize }));
     setShowPopup(true);
+  };
+  const handleLikeClick = () => {
+   
+ 
   };
   
   const handleClosePopup = () => {
     setShowPopup(false);
   };
 
- 
+  const userId = JSON.parse(localStorage.getItem("user")).id;
   return (
     <Container>
       <Navbar />
@@ -204,14 +209,15 @@ const SingleProduct = () => {
             <Filter>
               <FilterTitle>Méret</FilterTitle>
               <FilterSize onChange={(e) => setSelectedSize(e.target.value)}>
-              {product.sizes.map((s) => (
-           <FilterSizeOption key={s.id}>{s.size}</FilterSizeOption>
+              {product.stocks.map((s) => (
+           <FilterSizeOption key={s.id}>{s.sizeId}</FilterSizeOption>
                 ))}       
               </FilterSize>
             </Filter>
           </FilterContainer>
           <AddContainer>
-            <Button onClick={handleClick}>MEGVESZEM</Button>
+            <Button onClick={handleCartClick}>MEGVESZEM</Button> 
+            <LikeButton onClick={handleLikeClick} userId={userId} productId={product.id}></LikeButton>
             {showPopup && <Popup message="Hozzáadva a kosárhoz" handleClose={handleClosePopup} />}
           </AddContainer>
           <Desc>    
