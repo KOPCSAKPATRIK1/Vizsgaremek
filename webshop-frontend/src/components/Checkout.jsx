@@ -278,11 +278,11 @@ const [CardNumberError, setCardNumberError] = useState("");
           <Name>
             <div>
               <Label htmlFor="l-name">Vezetéknév</Label>
-              <Input type="text" name="l-name"></Input>
+              <Input type="text" name="l-name"  required></Input>
             </div>
             <div>
               <Label htmlFor="f-name">Keresztnév</Label>
-              <Input type="text" name="f-name"></Input>
+              <Input type="text" name="f-name"  required></Input>
             </div>
           </Name>
           <div>
@@ -347,7 +347,7 @@ const [CardNumberError, setCardNumberError] = useState("");
             <Button type="submit">Vásárlás</Button>
             <Button onClick={handleCloseClick}>Vissza</Button>
           </Buttons>
-          asd
+      
         </form>
       </Container>
     </Wrapper>
