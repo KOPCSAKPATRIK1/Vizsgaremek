@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import { keyframes } from "styled-components";
 import { LocalShipping, CreditCard } from "@mui/icons-material";
 import {mobile} from "../responsive"
+
 const fadeIn = keyframes`
   from {
     opacity: 0;
@@ -122,7 +123,22 @@ const Checkout = ({ isOpen, handleClose }) => {
 
   const handleCheckout = async (event) => {
     event.preventDefault();
-  
+    if (!validatePostalCode(postalCode)) {
+      alert('Hibás irányítószám!');
+      return;
+    }
+    if (!validateExpire(cardExpire)) {
+      alert('Hibás lejárat (MM/YY formátumban adjuk meg)!');
+      return;
+    }
+    if (!validateSecurity(cardSecret)) {
+      alert('Hibás CCV (3 számjegy)!');
+      return;
+    }
+    if (!validateCardNumber(cardNumber)) {
+      alert('Hibás kártyaszám (16 számjegy)!');
+      return;
+    }
     try {
       // create new address
       const response = await fetch("http://localhost:3000/address", {
@@ -170,17 +186,62 @@ const Checkout = ({ isOpen, handleClose }) => {
         });
         const itemData = await itemResponse.json();
       });
-  
+      alert('Sikeres vásárlás!');
+
+      // wait 5 seconds and redirect to homepage
+      setTimeout(() => {
+        window.location.href = '/';
+      }, 3000);
     } catch (error) {
       console.error(error);
     }
+ 
   };
-  
+  const [expireError, setExpireError] = useState("");
+const [securityError, setSecurityError] = useState("");
+const [CardNumberError, setCardNumberError] = useState("");
   const [streetAddress, setStreetAddress] = useState("");
   const [city, setCity] = useState("");
   const [state, setState] = useState("");
   const [postalCode, setPostalCode] = useState("");
-
+  const [cardNumber, setCardNumber] = useState("");
+  const [cardExpire, setCardExpire] = useState("");
+  const [cardSecret, setCardSecret] = useState("");
+  const validatePostalCode = (code) => {
+    const regex = /^[0-9]{4}$/;
+    return regex.test(code);
+  }
+  const validateExpire = (expire) => {
+    const regex = /^(0[1-9]|1[0-2])\/([0-9]{2})$/;
+    if (!regex.test(expire)) {
+      setExpireError("Hibás lejárat (MM/YY formátumban adjuk meg)!");
+      return false;
+    } else {
+      setExpireError("");
+      return true;
+    }
+  };
+  const validateCardNumber = (number) => {
+    const regex = /^[0-9]{16}$/;
+    if (!regex.test(number)) {
+    setCardNumberError("Hibás kártyaszám (16 számjegy)!");
+    return false;
+    } else {
+    setCardNumberError("");
+    return true;
+    }
+    };
+  const validateSecurity = (security) => {
+    const regex = /^[0-9]{3}$/;
+    if (!regex.test(security)) {
+      setSecurityError("Hibás CCV (3 számjegy)!");
+      return false;
+    } else {
+      setSecurityError("");
+      return true;
+    }
+  };
+  
   useEffect(() => {
     const cartItems = JSON.parse(localStorage.getItem("persist:cart"));
     const products = JSON.parse(cartItems.products);
@@ -258,22 +319,24 @@ const Checkout = ({ isOpen, handleClose }) => {
           </h1>
           <div>
             <Label htmlFor="card-num">Kártyaszám</Label>
-            <Input type="text" name="card-num"></Input>
+            <Input required type="text" name="card-num" onChange={(event) => setCardNumber(event.target.value)}></Input>
+            
           </div>
           <CardInfo>
             <div>
               <Label htmlFor="card-num">Lejárat</Label>
-              <Input type="text" name="expire"></Input>
+              <Input required type="text" name="expire" onChange={(event) => setCardExpire(event.target.value)}></Input>
             </div>
             <div>
               <Label htmlFor="card-num">CCV</Label>
-              <Input type="text" name="security"></Input>
+              <Input required type="text" name="security" onChange={(event) => setCardSecret(event.target.value)}></Input>
             </div>
           </CardInfo>
           <Buttons>
             <Button type="submit">Vásárlás</Button>
             <Button onClick={handleCloseClick}>Vissza</Button>
           </Buttons>
+          asd
         </form>
       </Container>
     </Wrapper>
