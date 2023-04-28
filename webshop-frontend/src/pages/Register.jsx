@@ -64,15 +64,43 @@ const Button = styled.button`
   font-weight: 400;
 `;
 
+
 const Register = () => {
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
 
   const [registrationSuccess, setRegistrationSuccess] = useState(false);
 
   const handleRegistration = async (event) => {
     event.preventDefault();
+
+    // Email validation
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailPattern.test(email)) {
+      setError("Hibás email cím");
+      return;
+    }
+
+    // Username validation
+    const usernamePattern = /^[a-zA-Z0-9_-]{3,15}$/;
+    if (!usernamePattern.test(username)) {
+      setError(
+        "A felhasználónévnek 3 és 15 karakter között kell lennie, és csak betűket, számokat, aláhúzást és kötőjeleket tartalmazhat"
+      );
+      return;
+    }
+
+    // Password validation
+    const passwordPattern = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/;
+    if (!passwordPattern.test(password)) {
+      setError(
+        "A jelszónak legalább 8 karakter hosszúnak kell lennie, és tartalmaznia kell legalább egy nagybetűt, egy kisbetűt és egy számot"
+      );
+      return;
+    }
+
     try {
       const response = await fetch("http://localhost:3000/register", {
         method: "POST",
@@ -88,6 +116,7 @@ const Register = () => {
     } catch (error) {
       // Registration failed, display error message
       console.error(error);
+      setError("Registration failed");
     }
   };
 
@@ -124,6 +153,7 @@ const Register = () => {
               <b>ADATVÉDELMI SZABÁLYZAT</b> szerinti kezeléséhez
             </Agreement>
             <Button type="submit">FIÓK LÉTREHOZÁSA</Button>
+            {error && <p>{error}</p>}
             {registrationSuccess && (
               <p>
                 Sikeres regisztráció! Átirányítás a bejelentkezés oldalra...
