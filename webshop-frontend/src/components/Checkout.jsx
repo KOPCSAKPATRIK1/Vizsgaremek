@@ -110,7 +110,6 @@ const Checkout = ({ isOpen, handleClose, selectedShippingMethod }) => {
   const [showCheckout, setShowCheckout] = useState(false);
   const [addressObj, setAddressObj] = useState(null);
   const [orderObj, setOrderObj] = useState(null);
-
   useEffect(() => {
     setShowCheckout(isOpen);
   }, [isOpen]);
@@ -159,8 +158,8 @@ const Checkout = ({ isOpen, handleClose, selectedShippingMethod }) => {
         body: JSON.stringify({
           userId: userId,
           addressId: data.id,
-          shippingMethodId: selectedShippingMethod, // Add selected shipping method ID
-          paymentMethodId: 1, // Add payment method ID
+          shippingMethod: selectedShippingMethod.id, // Add selected shipping method ID
+          paymentMethod: 1, // Add payment method ID
         }),
       });
       const orderData = await orderResponse.json();
@@ -205,7 +204,8 @@ const Checkout = ({ isOpen, handleClose, selectedShippingMethod }) => {
       );
 
       alert("Sikeres vásárlás!");
-
+      // delete cart from localStorage
+      localStorage.removeItem("persist:cart");
       // wait 5 seconds and redirect to homepage
       setTimeout(() => {
         window.location.href = "/";
@@ -214,9 +214,9 @@ const Checkout = ({ isOpen, handleClose, selectedShippingMethod }) => {
       console.error(error);
     }
   };
+  const [CardNumberError, setCardNumberError] = useState("");
   const [expireError, setExpireError] = useState("");
   const [securityError, setSecurityError] = useState("");
-  const [CardNumberError, setCardNumberError] = useState("");
   const [streetAddress, setStreetAddress] = useState("");
   const [city, setCity] = useState("");
   const [state, setState] = useState("");
@@ -228,16 +228,6 @@ const Checkout = ({ isOpen, handleClose, selectedShippingMethod }) => {
     const regex = /^[0-9]{4}$/;
     return regex.test(code);
   };
-  const validateExpire = (expire) => {
-    const regex = /^(0[1-9]|1[0-2])\/([0-9]{2})$/;
-    if (!regex.test(expire)) {
-      setExpireError("Hibás lejárat (MM/YY formátumban adjuk meg)!");
-      return false;
-    } else {
-      setExpireError("");
-      return true;
-    }
-  };
   const validateCardNumber = (number) => {
     const regex = /^[0-9]{16}$/;
     if (!regex.test(number)) {
@@ -245,6 +235,16 @@ const Checkout = ({ isOpen, handleClose, selectedShippingMethod }) => {
       return false;
     } else {
       setCardNumberError("");
+      return true;
+    }
+  };
+  const validateExpire = (expire) => {
+    const regex = /^(0[1-9]|1[0-2])\/([0-9]{2})$/;
+    if (!regex.test(expire)) {
+      setExpireError("Hibás lejárat (MM/YY formátumban adjuk meg)!");
+      return false;
+    } else {
+      setExpireError("");
       return true;
     }
   };
