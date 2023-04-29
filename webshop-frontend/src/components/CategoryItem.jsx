@@ -8,7 +8,7 @@ const Info = styled.div`
   width: 101%;
   height: 101%;
   display: flex;
-  
+
   align-items: center;
   justify-content: center;
   text-shadow: 0px 0px 15px black;
@@ -26,10 +26,10 @@ const Container = styled.div`
   &:hover ${Info} {
     opacity: 1;
   }
-  ${mobile({ height: "15vh", marginTop:"30px" })};
-  ${tablet({ height: "20vh",width: " 15vw" })};
- margin-left:20px;
- margin-right:20px;
+  ${mobile({ height: "15vh", marginTop: "30px" })};
+  ${tablet({ height: "20vh", width: " 15vw" })};
+  margin-left: 20px;
+  margin-right: 20px;
 `;
 
 const Image = styled.img`
@@ -45,8 +45,8 @@ const Image = styled.img`
 const Title = styled.h1`
   color: white;
   margin-bottom: 20px;
-  
-  ${mobile({ fontSize: "25px", paddingTop: "5px"})}
+
+  ${mobile({ fontSize: "25px", paddingTop: "5px" })}
 `;
 
 const CategoryItem = ({ item }) => {

@@ -1,11 +1,11 @@
 import styled from "styled-components";
-import Navbar from '../components/Navbar'
+import Navbar from "../components/Navbar";
 import Newsletter from "../components/Newsletter";
 import Footer from "../components/Footer";
-import { BrowserRouter as Router,Routes, Route, Link } from 'react-router-dom';
-import React, { useState } from 'react';
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import React, { useState } from "react";
 import LogoutButton from "../components/LogoutButton";
-import {mobile} from "../responsive"
+import { mobile } from "../responsive";
 
 const Container = styled.div`
   width: 100vw;
@@ -16,7 +16,6 @@ const Container = styled.div`
   align-items: center;
   justify-content: center;
   border-bottom: 1px solid #ffa1ff;
-  
 `;
 
 const Wrapper = styled.div`
@@ -27,7 +26,7 @@ const Wrapper = styled.div`
   color: white;
   text-align: center;
   box-shadow: 0px 0px 20px #1f1f1f;
-  ${mobile({width:"60%" })}
+  ${mobile({ width: "60%" })}
 `;
 
 const Title = styled.h1`
@@ -63,46 +62,47 @@ const Button = styled.button`
   border: 2px solid #323232;
 `;
 
- const Links = styled(Link)`
+const Links = styled(Link)`
   margin: 5px 0px;
   font-size: 12px;
   text-decoration: underline;
   cursor: pointer;
-   
-   color: white;
+
+  color: white;
 `;
 
 const Login = () => {
-  const accessToken = localStorage.getItem('accessToken');
+  const accessToken = localStorage.getItem("accessToken");
 
-  if (accessToken && accessToken !== 'undefined') { // Check if accessToken is present and not 'undefined'
+  if (accessToken && accessToken !== "undefined") {
+    // Check if accessToken is present and not 'undefined'
     // Redirect user to home page or dashboard
-    window.location.href = '/profile';
+    window.location.href = "/profile";
   }
-  const [usernameOrEmail, setUsernameOrEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
+  const [usernameOrEmail, setUsernameOrEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
   const handleLogin = async (event) => {
     event.preventDefault();
     if (!usernameOrEmail) {
-      setError('Please enter your email or username');
+      setError("Please enter your email or username");
       return;
     }
     try {
-      const response = await fetch('http://localhost:3000/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ identifier: usernameOrEmail, password })
+      const response = await fetch("http://localhost:3000/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ identifier: usernameOrEmail, password }),
       });
       if (response.ok) {
         const data = await response.json();
         // Login successful, store authentication token in local storage
-        console.log(data)
-        localStorage.setItem('accessToken', data.accessToken);
-        localStorage.setItem('user', JSON.stringify(data.user));
+        console.log(data);
+        localStorage.setItem("accessToken", data.accessToken);
+        localStorage.setItem("user", JSON.stringify(data.user));
         document.cookie = `jwt=${data.accessToken}; Path=/; HttpOnly; SameSite=Lax`;
         // Redirect user to home page
-        window.location.href = '/';
+        window.location.href = "/";
       } else {
         // Login failed, display error message
         const data = await response.json();
@@ -111,9 +111,8 @@ const Login = () => {
     } catch (error) {
       // Network error, display error message
       console.error(error);
-      setError('Network error, please try again later');
+      setError("Network error, please try again later");
     }
-   
   };
 
   return (
@@ -137,15 +136,15 @@ const Login = () => {
               onChange={(event) => setPassword(event.target.value)}
               required
             />
-            <Button type="submit">BEJELENTKEZÉS</Button>      
+            <Button type="submit">BEJELENTKEZÉS</Button>
             {error && <p>{error}</p>}
-          <Links to="/register">ELFELEJTETTED A JELSZAVAD?</Links>
-          <Links to="/register">NINCS FIÓKOD? CSINÁLJ EGYET MOST!</Links>
-        </Form>
-      </Wrapper>
-    </Container>
-    <Newsletter/>
-    <Footer/>
+            <Links to="/register">ELFELEJTETTED A JELSZAVAD?</Links>
+            <Links to="/register">NINCS FIÓKOD? CSINÁLJ EGYET MOST!</Links>
+          </Form>
+        </Wrapper>
+      </Container>
+      <Newsletter />
+      <Footer />
     </div>
   );
 };

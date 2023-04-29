@@ -2,7 +2,7 @@ import styled from "styled-components";
 import React, { useState, useEffect } from "react";
 import { keyframes } from "styled-components";
 import { LocalShipping, CreditCard } from "@mui/icons-material";
-import {mobile} from "../responsive"
+import { mobile } from "../responsive";
 
 const fadeIn = keyframes`
   from {
@@ -36,7 +36,7 @@ const Wrapper = styled.div`
   border-radius: 15px;
   animation: ${fadeIn} 0.5s ease-in-out;
   border: 2px solid #ffa1ff;
-  ${mobile({ width:"75%" })}
+  ${mobile({ width: "75%" })}
 `;
 
 const Container = styled.div`
@@ -67,7 +67,6 @@ const Label = styled.label`
   font-size: 12px;
   letter-spacing: 2px;
   color: white;
- 
 `;
 const Address = styled.div`
   display: flex;
@@ -107,7 +106,7 @@ const Button = styled.button`
   }
 `;
 
-const Checkout = ({ isOpen, handleClose, selectedShippingMethod  }) => {
+const Checkout = ({ isOpen, handleClose, selectedShippingMethod }) => {
   const [showCheckout, setShowCheckout] = useState(false);
   const [addressObj, setAddressObj] = useState(null);
   const [orderObj, setOrderObj] = useState(null);
@@ -123,25 +122,25 @@ const Checkout = ({ isOpen, handleClose, selectedShippingMethod  }) => {
 
   const handleCheckout = async (event) => {
     event.preventDefault();
-  
+
     // validate input fields
     if (!validatePostalCode(postalCode)) {
-      alert('Hibás irányítószám!');
+      alert("Hibás irányítószám!");
       return;
     }
     if (!validateExpire(cardExpire)) {
-      alert('Hibás lejárat (MM/YY formátumban adjuk meg)!');
+      alert("Hibás lejárat (MM/YY formátumban adjuk meg)!");
       return;
     }
     if (!validateSecurity(cardSecret)) {
-      alert('Hibás CCV (3 számjegy)!');
+      alert("Hibás CCV (3 számjegy)!");
       return;
     }
     if (!validateCardNumber(cardNumber)) {
-      alert('Hibás kártyaszám (16 számjegy)!');
+      alert("Hibás kártyaszám (16 számjegy)!");
       return;
     }
-  
+
     try {
       // create new address
       const response = await fetch("http://localhost:3000/address", {
@@ -151,7 +150,7 @@ const Checkout = ({ isOpen, handleClose, selectedShippingMethod  }) => {
       });
       const data = await response.json();
       setAddressObj(data);
-  
+
       // create new order
       const userId = JSON.parse(localStorage.getItem("user")).id;
       const orderResponse = await fetch("http://localhost:3000/order", {
@@ -162,12 +161,11 @@ const Checkout = ({ isOpen, handleClose, selectedShippingMethod  }) => {
           addressId: data.id,
           shippingMethodId: selectedShippingMethod, // Add selected shipping method ID
           paymentMethodId: 1, // Add payment method ID
-
         }),
       });
       const orderData = await orderResponse.json();
       setOrderObj(orderData);
-  
+
       // create new order items
       const cartItems = JSON.parse(localStorage.getItem("persist:cart"));
       const products = JSON.parse(cartItems.products);
@@ -187,34 +185,38 @@ const Checkout = ({ isOpen, handleClose, selectedShippingMethod  }) => {
             quantity: product.quantity,
             userId: userId,
             orderId: orderData.id,
-            
           }),
         });
         const itemData = await itemResponse.json();
       });
       // update stock for each selected product
-      await Promise.all(selectedProducts.map(async (product) => {
-        const { id, selectedSize } = product;
-        const stockResponse = await fetch(`http://localhost:3000/stock/${id}/${selectedSize}`, {
-          method: "PUT",
-          headers: { "Content-Type": "application/json" },
-        });
-        const stockData = await stockResponse.json();
-      }));
-  
-      alert('Sikeres vásárlás!');
-  
+      await Promise.all(
+        selectedProducts.map(async (product) => {
+          const { id, selectedSize } = product;
+          const stockResponse = await fetch(
+            `http://localhost:3000/stock/${id}/${selectedSize}`,
+            {
+              method: "PUT",
+              headers: { "Content-Type": "application/json" },
+            }
+          );
+          const stockData = await stockResponse.json();
+        })
+      );
+
+      alert("Sikeres vásárlás!");
+
       // wait 5 seconds and redirect to homepage
       setTimeout(() => {
-        window.location.href = '/';
+        window.location.href = "/";
       }, 3000);
     } catch (error) {
       console.error(error);
     }
   };
   const [expireError, setExpireError] = useState("");
-const [securityError, setSecurityError] = useState("");
-const [CardNumberError, setCardNumberError] = useState("");
+  const [securityError, setSecurityError] = useState("");
+  const [CardNumberError, setCardNumberError] = useState("");
   const [streetAddress, setStreetAddress] = useState("");
   const [city, setCity] = useState("");
   const [state, setState] = useState("");
@@ -225,7 +227,7 @@ const [CardNumberError, setCardNumberError] = useState("");
   const validatePostalCode = (code) => {
     const regex = /^[0-9]{4}$/;
     return regex.test(code);
-  }
+  };
   const validateExpire = (expire) => {
     const regex = /^(0[1-9]|1[0-2])\/([0-9]{2})$/;
     if (!regex.test(expire)) {
@@ -239,13 +241,13 @@ const [CardNumberError, setCardNumberError] = useState("");
   const validateCardNumber = (number) => {
     const regex = /^[0-9]{16}$/;
     if (!regex.test(number)) {
-    setCardNumberError("Hibás kártyaszám (16 számjegy)!");
-    return false;
+      setCardNumberError("Hibás kártyaszám (16 számjegy)!");
+      return false;
     } else {
-    setCardNumberError("");
-    return true;
+      setCardNumberError("");
+      return true;
     }
-    };
+  };
   const validateSecurity = (security) => {
     const regex = /^[0-9]{3}$/;
     if (!regex.test(security)) {
@@ -256,7 +258,7 @@ const [CardNumberError, setCardNumberError] = useState("");
       return true;
     }
   };
-  
+
   useEffect(() => {
     const cartItems = JSON.parse(localStorage.getItem("persist:cart"));
     const products = JSON.parse(cartItems.products);
@@ -282,11 +284,11 @@ const [CardNumberError, setCardNumberError] = useState("");
           <Name>
             <div>
               <Label htmlFor="l-name">Vezetéknév</Label>
-              <Input type="text" name="l-name"  required></Input>
+              <Input type="text" name="l-name" required></Input>
             </div>
             <div>
               <Label htmlFor="f-name">Keresztnév</Label>
-              <Input type="text" name="f-name"  required></Input>
+              <Input type="text" name="f-name" required></Input>
             </div>
           </Name>
           <div>
@@ -334,24 +336,37 @@ const [CardNumberError, setCardNumberError] = useState("");
           </h1>
           <div>
             <Label htmlFor="card-num">Kártyaszám</Label>
-            <Input required type="text" name="card-num" onChange={(event) => setCardNumber(event.target.value)}></Input>
-            
+            <Input
+              required
+              type="text"
+              name="card-num"
+              onChange={(event) => setCardNumber(event.target.value)}
+            ></Input>
           </div>
           <CardInfo>
             <div>
               <Label htmlFor="card-num">Lejárat</Label>
-              <Input required type="text" name="expire" onChange={(event) => setCardExpire(event.target.value)}></Input>
+              <Input
+                required
+                type="text"
+                name="expire"
+                onChange={(event) => setCardExpire(event.target.value)}
+              ></Input>
             </div>
             <div>
               <Label htmlFor="card-num">CCV</Label>
-              <Input required type="text" name="security" onChange={(event) => setCardSecret(event.target.value)}></Input>
+              <Input
+                required
+                type="text"
+                name="security"
+                onChange={(event) => setCardSecret(event.target.value)}
+              ></Input>
             </div>
           </CardInfo>
           <Buttons>
             <Button type="submit">Vásárlás</Button>
             <Button onClick={handleCloseClick}>Vissza</Button>
           </Buttons>
-      
         </form>
       </Container>
     </Wrapper>

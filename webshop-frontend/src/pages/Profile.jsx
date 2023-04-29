@@ -1,11 +1,11 @@
 import styled from "styled-components";
-import Navbar from '../components/Navbar'
+import Navbar from "../components/Navbar";
 import Newsletter from "../components/Newsletter";
 import Footer from "../components/Footer";
-import { BrowserRouter as Router,Routes, Route, Link } from 'react-router-dom';
-import React, { useState } from 'react';
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import React, { useState } from "react";
 import LogoutButton from "../components/LogoutButton";
-import {mobile} from "../responsive"
+import { mobile } from "../responsive";
 import Products from "../components/Products";
 import Liked from "../components/Liked";
 
@@ -17,7 +17,6 @@ const Container = styled.div`
   align-items: center;
   justify-content: center;
   border-bottom: 1px solid #ffa1ff;
-  
 `;
 
 const Wrapper = styled.div`
@@ -25,14 +24,14 @@ const Wrapper = styled.div`
   padding: 20px;
   background-color: #494949;
   border: 2px solid #ffa1ff;
-  
+
   color: white;
   text-align: center;
   box-shadow: 0px 0px 20px #1f1f1f;
-  ${mobile({width:"50%" })}
+  ${mobile({ width: "50%" })}
   margin: auto;
   margin-top: 5%;
-  ${mobile({marginTop:"14%" })}
+  ${mobile({ marginTop: "14%" })}
 `;
 
 const Title = styled.h1`
@@ -68,35 +67,33 @@ const Button = styled.button`
   border: 2px solid #323232;
 `;
 
- const Links = styled(Link)`
+const Links = styled(Link)`
   margin: 5px 0px;
   font-size: 12px;
   text-decoration: underline;
   cursor: pointer;
-   
-   color: white;
+
+  color: white;
 `;
 
 const Profile = () => {
-  const user = JSON.parse(localStorage.getItem('user'));
+  const user = JSON.parse(localStorage.getItem("user"));
   const username = user.username;
-  
+
   console.log(localStorage.getItem("user"));
-  
 
   return (
     <div>
       <Navbar />
-      <Wrapper>   
-             <p>Szia, {username}!</p>
-            <LogoutButton></LogoutButton>   
+      <Wrapper>
+        <p>Szia, {username}!</p>
+        <LogoutButton></LogoutButton>
       </Wrapper>
       <Container>
-   
-      <Liked></Liked>
-    </Container>
-    <Newsletter/>
-    <Footer/>
+        <Liked></Liked>
+      </Container>
+      <Newsletter />
+      <Footer />
     </div>
   );
 };

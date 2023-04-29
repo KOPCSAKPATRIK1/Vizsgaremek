@@ -14,7 +14,7 @@ const Container = styled.div`
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-   max-width: 900px;
+  max-width: 900px;
   ${mobile({ padding: "10px" })}
 `;
 
@@ -41,9 +41,7 @@ const Liked = () => {
           `http://localhost:3000/like/user/${userId}`
         );
         if (!response.ok) {
-          throw new Error(
-            `This is an HTTP error: ${response.status}`
-          );
+          throw new Error(`This is an HTTP error: ${response.status}`);
         }
         const jsonData = await response.json();
         setData(jsonData);
@@ -62,7 +60,6 @@ const Liked = () => {
   console.log(data);
   return (
     <div>
-     
       <Text>Kedvenc termékeid:</Text>
       {loading && <div>Loading...</div>}
       {error && <div>{error}</div>}
@@ -78,4 +75,3 @@ const Liked = () => {
 };
 
 export default Liked;
-

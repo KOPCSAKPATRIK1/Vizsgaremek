@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
-import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
-import FavoriteIcon from '@mui/icons-material/Favorite';
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import FavoriteIcon from "@mui/icons-material/Favorite";
 import styled from "styled-components";
-import {mobile, tablet} from "../responsive"
+import { mobile, tablet } from "../responsive";
 const Button = styled.button`
   padding: 8px;
   border: 2px solid #ffa1ff;
@@ -10,12 +10,12 @@ const Button = styled.button`
   background-color: #4a4a4a;
   cursor: pointer;
   font-weight: 500;
-  &:hover{
-      background-color: #2d2d2d;
+  &:hover {
+    background-color: #2d2d2d;
   }
   color: white;
-  ${mobile({marginLeft:"30px"})}
-  ${tablet({marginLeft:"90px"})}
+  ${mobile({ marginLeft: "30px" })}
+  ${tablet({ marginLeft: "90px" })}
 `;
 
 const LikeButton = ({ userId, productId }) => {

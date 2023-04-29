@@ -2,9 +2,9 @@ import { GoogleMap, LoadScript, Marker } from "@react-google-maps/api";
 import styled from "styled-components";
 
 const Container = styled.div`
-  border: 4px solid  #ffa1ff;
- box-shadow: 0px 0px 10px black;
- margin-bottom: 20px;
+  border: 4px solid #ffa1ff;
+  box-shadow: 0px 0px 10px black;
+  margin-bottom: 20px;
 `;
 
 const MapContainer = () => {
@@ -21,7 +21,11 @@ const MapContainer = () => {
   return (
     <Container>
       <LoadScript googleMapsApiKey="AIzaSyCIpj1Jhq1wy6qd1HQUW1StPYiodf45Xq8">
-        <GoogleMap mapContainerStyle={mapStyles} zoom={15} center={defaultCenter}>
+        <GoogleMap
+          mapContainerStyle={mapStyles}
+          zoom={15}
+          center={defaultCenter}
+        >
           <Marker position={defaultCenter} />
         </GoogleMap>
       </LoadScript>

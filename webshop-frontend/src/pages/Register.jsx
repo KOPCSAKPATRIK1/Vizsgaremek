@@ -3,7 +3,7 @@ import Navbar from "../components/Navbar";
 import Newsletter from "../components/Newsletter";
 import Footer from "../components/Footer";
 import React, { useState } from "react";
-import {mobile} from "../responsive"
+import { mobile } from "../responsive";
 
 const Container = styled.div`
   width: 100vw;
@@ -64,7 +64,6 @@ const Button = styled.button`
   font-weight: 400;
 `;
 
-
 const Register = () => {
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
@@ -93,7 +92,8 @@ const Register = () => {
     }
 
     // Password validation
-    const passwordPattern = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/;
+    const passwordPattern =
+      /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/;
     if (!passwordPattern.test(password)) {
       setError(
         "A jelszónak legalább 8 karakter hosszúnak kell lennie, és tartalmaznia kell legalább egy nagybetűt, egy kisbetűt és egy számot"

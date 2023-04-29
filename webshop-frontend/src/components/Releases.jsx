@@ -3,30 +3,28 @@ import { popularProducts } from "../data";
 import Product from "./Product";
 import React, { useState, useEffect } from "react";
 import Release from "./Release";
-import {mobile} from "../responsive"
+import { mobile } from "../responsive";
 
 const Container = styled.div`
-    margin-top: 20px;
-    padding: 20px;
-    padding-left: 11vw;
-    padding-right: 11vw;
-    padding-bottom: 100px;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    border-bottom: 1px solid #ffa1ff;
-    ${mobile({padding:"10px" })}
-
+  margin-top: 20px;
+  padding: 20px;
+  padding-left: 11vw;
+  padding-right: 11vw;
+  padding-bottom: 100px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  border-bottom: 1px solid #ffa1ff;
+  ${mobile({ padding: "10px" })}
 `;
 const Text = styled.div`
-      margin-top: 100px;
-      color: white;
-      text-align: center;
-      font-size: 50px;
-      text-shadow: 0px 0px 10px black;
-      font-weight: bold;
-      
-`
+  margin-top: 100px;
+  color: white;
+  text-align: center;
+  font-size: 50px;
+  text-shadow: 0px 0px 10px black;
+  font-weight: bold;
+`;
 
 const Releases = () => {
   const [data, setData] = useState(null);
@@ -36,9 +34,7 @@ const Releases = () => {
   useEffect(() => {
     const getData = async () => {
       try {
-        const response = await fetch(
-          "http://localhost:3000/releases"
-        );
+        const response = await fetch("http://localhost:3000/releases");
         if (!response.ok) {
           throw new Error(
             `This is an HTTP error: The status is ${response.status}`
@@ -47,30 +43,28 @@ const Releases = () => {
         let actualData = await response.json();
         setData(actualData);
         setError(null);
-      } catch(err) {
+      } catch (err) {
         setError(err.message);
         setData(null);
       } finally {
         setLoading(false);
-      }  
-    }
-    getData()
-  }, [])
+      }
+    };
+    getData();
+  }, []);
 
   return (
-   <div> 
-     {loading && <div>A moment please...</div>}
-    {error && (
-      <div>{`There is a problem fetching the post data - ${error}`}</div>
-    )}
-    
-    <Container>          
-      {data &&
-      data.slice(0, 8).map((item) => (
-        <Release key={item.id} item={item}  />
-      ))}
-    </Container>
-   </div>
+    <div>
+      {loading && <div>A moment please...</div>}
+      {error && (
+        <div>{`There is a problem fetching the post data - ${error}`}</div>
+      )}
+
+      <Container>
+        {data &&
+          data.slice(0, 8).map((item) => <Release key={item.id} item={item} />)}
+      </Container>
+    </div>
   );
 };
 

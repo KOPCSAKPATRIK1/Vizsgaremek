@@ -9,7 +9,7 @@ import Register from "../pages/Register";
 import Home from "../pages/Home";
 import { useSelector } from "react-redux";
 import { Tooltip } from "@mui/material";
-import {mobile, tablet} from "../responsive";
+import { mobile, tablet } from "../responsive";
 import { useMediaQuery } from "@mui/material";
 import DropdownMenu from "./DropdownMenu";
 const Wrapper = styled.div`
@@ -20,8 +20,7 @@ const Wrapper = styled.div`
   color: #ffa1ff;
   height: 80px;
   border-bottom: 2px solid #ffa1ff;
-  ${mobile({height:"40px" })}
- 
+  ${mobile({ height: "40px" })}
 `;
 const Left = styled.div`
   flex: 0.5;
@@ -36,8 +35,6 @@ const Center = styled.div`
   align-items: center;
   font-weight: bold;
   font-size: 40px;
-  
-  
 `;
 const Right = styled.div`
   flex: 1;
@@ -53,7 +50,6 @@ const Language = styled.div`
   cursor: pointer;
   margin-right: 30px;
   ${mobile({ display: "none" })}
-  
 `;
 
 const Logo = styled.div`
@@ -72,7 +68,6 @@ const Linkek = styled.div`
   cursor: pointer;
   align-items: center;
   display: flex;
-  
 `;
 
 const NavbarLink = styled(Link)`
@@ -85,13 +80,12 @@ const NavbarLink = styled(Link)`
   color: #ffa1ff;
   margin: 15px;
   text-decoration: none;
-  ${mobile({ fontSize: "10px", marginLeft: "10px"})}
+  ${mobile({ fontSize: "10px", marginLeft: "10px" })}
   &:hover,
   &:focus {
   }
   &:active {
   }
-
 `;
 const IconLink = styled(Link)`
   justify-content: right;
@@ -103,7 +97,7 @@ const IconLink = styled(Link)`
   color: #ffa1ff;
   margin: 1px;
   text-decoration: none;
-  
+
   &:hover,
   &:focus {
   }
@@ -115,7 +109,7 @@ const MenuIcons = styled.div`
   align-items: center;
   font-size: 130px;
   display: flex;
- 
+
   margin-left: 25px;
 `;
 
@@ -129,16 +123,14 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
   },
 }));
 
-const DropdownButton = styled.button`
-
-`
+const DropdownButton = styled.button``;
 
 const Username = styled.h1`
   font-size: 20px;
   word-spacing: 2px;
   text-transform: uppercase;
-  
-  ${mobile({ fontSize: "15px", width:"150px", textAlign: "right"})}
+
+  ${mobile({ fontSize: "15px", width: "150px", textAlign: "right" })}
 `;
 const Select = styled.select`
   padding: 10px;
@@ -148,8 +140,8 @@ const Select = styled.select`
   background-color: #4a4a4a;
   cursor: pointer;
   font-weight: 500;
-  &:hover{
-      background-color: #2d2d2d;
+  &:hover {
+    background-color: #2d2d2d;
   }
   color: white;
   font-size: 15px;
@@ -160,7 +152,8 @@ const Option = styled.option``;
 const userString = localStorage.getItem("user"); // get the value of "user" from localStorage
 let user = null; // initialize user variable as null
 
-if (userString) { // check if userString is not null or undefined
+if (userString) {
+  // check if userString is not null or undefined
   try {
     user = JSON.parse(userString); // attempt to parse userString as JSON
   } catch (error) {
@@ -171,8 +164,8 @@ if (userString) { // check if userString is not null or undefined
 const username = user?.username;
 
 const Navbar = () => {
-    const quantity= useSelector(state => state.cart.quantity)
-    const isDesktop = useMediaQuery("(min-width:1024px)");
+  const quantity = useSelector((state) => state.cart.quantity);
+  const isDesktop = useMediaQuery("(min-width:1024px)");
   return (
     <Wrapper>
       <Left>
@@ -182,12 +175,11 @@ const Navbar = () => {
         <Logo>FootFrenzy</Logo>
         <Linkek>
           {" "}
-          
           {!isDesktop && <DropdownMenu />}
-          {isDesktop &&<NavbarLink to="/"> FŐOLDAL </NavbarLink>}{" "}
-          {isDesktop &&<NavbarLink to="/products"> SNEAKEREK </NavbarLink>}{" "}
-           {isDesktop &&<NavbarLink to="/releases"> MEGJELENÉSEK </NavbarLink>}{" "}
-           {isDesktop &&<NavbarLink to="/info"> INFÓ </NavbarLink>}{" "}
+          {isDesktop && <NavbarLink to="/"> FŐOLDAL </NavbarLink>}{" "}
+          {isDesktop && <NavbarLink to="/products"> SNEAKEREK </NavbarLink>}{" "}
+          {isDesktop && <NavbarLink to="/releases"> MEGJELENÉSEK </NavbarLink>}{" "}
+          {isDesktop && <NavbarLink to="/info"> INFÓ </NavbarLink>}{" "}
         </Linkek>{" "}
       </Center>
       <Right>
@@ -203,43 +195,40 @@ const Navbar = () => {
                 fontSize: "40px",
                 marginLeft: "10px",
                 marginRight: "10px",
-                
-              }
-            }
+              }}
             ></AccountCircle>
           </IconLink>
-       
-          <StyledBadge badgeContent={quantity} color="default">
-  {username ? (
-    <IconLink to="/cart">
-      <LocalMall
-        style={{
-          fontSize: "40px",
-          marginLeft: "10px",
-          marginRight: "10px",
-        }}
-        color="inherit"
-      ></LocalMall>{" "}
-    </IconLink>
-  ) : (
-    <Tooltip title="Jelentkezz be a kosár használatához!">
-      <span>
-      <IconLink to="/login">
-        <LocalMall
-          style={{
-            fontSize: "40px",
-            marginLeft: "10px",
-            marginRight: "10px",
-             color: "#a675a6",
-            cursor: "not-allowed",
-          }}
-        ></LocalMall>{" "}
-         </IconLink>
-      </span>
-    </Tooltip>
-  )}
-</StyledBadge>
 
+          <StyledBadge badgeContent={quantity} color="default">
+            {username ? (
+              <IconLink to="/cart">
+                <LocalMall
+                  style={{
+                    fontSize: "40px",
+                    marginLeft: "10px",
+                    marginRight: "10px",
+                  }}
+                  color="inherit"
+                ></LocalMall>{" "}
+              </IconLink>
+            ) : (
+              <Tooltip title="Jelentkezz be a kosár használatához!">
+                <span>
+                  <IconLink to="/login">
+                    <LocalMall
+                      style={{
+                        fontSize: "40px",
+                        marginLeft: "10px",
+                        marginRight: "10px",
+                        color: "#a675a6",
+                        cursor: "not-allowed",
+                      }}
+                    ></LocalMall>{" "}
+                  </IconLink>
+                </span>
+              </Tooltip>
+            )}
+          </StyledBadge>
         </MenuIcons>
       </Right>
     </Wrapper>
