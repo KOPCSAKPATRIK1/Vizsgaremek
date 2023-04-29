@@ -2,7 +2,6 @@ import React from "react";
 import Navbar from "../components/Navbar";
 import Slideshow from "../components/Slideshow";
 import Categories from "../components/Categories";
-import Products from "../components/PopularProducts";
 import Newsletter from "../components/Newsletter";
 import Footer from "../components/Footer";
 import NewProducts from "../components/newProducts";

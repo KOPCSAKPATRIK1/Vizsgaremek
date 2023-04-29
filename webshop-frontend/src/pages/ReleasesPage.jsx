@@ -1,13 +1,8 @@
 import React from "react";
 import Navbar from "../components/Navbar";
-import Slideshow from "../components/Slideshow";
-import Categories from "../components/Categories";
-import Products from "../components/PopularProducts";
 import Newsletter from "../components/Newsletter";
 import Footer from "../components/Footer";
-import NewProducts from "../components/newProducts";
 import styled from "styled-components";
-import PopularProducts from "../components/PopularProducts";
 import Releases from "../components/Releases";
 import { mobile } from "../responsive";
 

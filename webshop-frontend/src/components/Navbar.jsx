@@ -1,15 +1,12 @@
-import { AccountCircle, LocalMall, Search, Menu } from "@mui/icons-material";
+import { AccountCircle, LocalMall } from "@mui/icons-material";
 import { Badge } from "@mui/material";
 import { red } from "@mui/material/colors";
 import React from "react";
 import styled from "styled-components";
-import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
-import Login from "../pages/Login";
-import Register from "../pages/Register";
-import Home from "../pages/Home";
+import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { Tooltip } from "@mui/material";
-import { mobile, tablet } from "../responsive";
+import { mobile} from "../responsive";
 import { useMediaQuery } from "@mui/material";
 import DropdownMenu from "./DropdownMenu";
 const Wrapper = styled.div`
@@ -123,8 +120,6 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
   },
 }));
 
-const DropdownButton = styled.button``;
-
 const Username = styled.h1`
   font-size: 20px;
   word-spacing: 2px;
@@ -132,22 +127,6 @@ const Username = styled.h1`
 
   ${mobile({ fontSize: "15px", width: "150px", textAlign: "right" })}
 `;
-const Select = styled.select`
-  padding: 10px;
-  margin-right: 20px;
-  border: 2px solid #ffa1ff;
-  border-radius: 20px;
-  background-color: #4a4a4a;
-  cursor: pointer;
-  font-weight: 500;
-  &:hover {
-    background-color: #2d2d2d;
-  }
-  color: white;
-  font-size: 15px;
-  letter-spacing: 1px;
-`;
-const Option = styled.option``;
 
 const userString = localStorage.getItem("user"); // get the value of "user" from localStorage
 let user = null; // initialize user variable as null

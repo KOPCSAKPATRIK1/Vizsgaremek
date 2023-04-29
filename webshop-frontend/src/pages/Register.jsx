@@ -3,7 +3,6 @@ import Navbar from "../components/Navbar";
 import Newsletter from "../components/Newsletter";
 import Footer from "../components/Footer";
 import React, { useState } from "react";
-import { mobile } from "../responsive";
 
 const Container = styled.div`
   width: 100vw;
@@ -62,6 +61,12 @@ const Button = styled.button`
   letter-spacing: 3px;
   border: 2px solid #323232;
   font-weight: 400;
+`;
+
+const Error = styled.p`
+  margin-top: 20px;
+  margin-left: auto;
+  margin-right: auto;
 `;
 
 const Register = () => {
@@ -153,7 +158,7 @@ const Register = () => {
               <b>ADATVÉDELMI SZABÁLYZAT</b> szerinti kezeléséhez
             </Agreement>
             <Button type="submit">FIÓK LÉTREHOZÁSA</Button>
-            {error && <p>{error}</p>}
+            {error && <Error>{error}</Error>}
             {registrationSuccess && (
               <p>
                 Sikeres regisztráció! Átirányítás a bejelentkezés oldalra...

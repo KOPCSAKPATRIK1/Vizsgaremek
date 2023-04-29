@@ -2,9 +2,8 @@ import styled from "styled-components";
 import Navbar from "../components/Navbar";
 import Newsletter from "../components/Newsletter";
 import Footer from "../components/Footer";
-import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import React, { useState } from "react";
-import LogoutButton from "../components/LogoutButton";
 import { mobile } from "../responsive";
 
 const Container = styled.div`
@@ -138,7 +137,6 @@ const Login = () => {
             />
             <Button type="submit">BEJELENTKEZÉS</Button>
             {error && <p>{error}</p>}
-            <Links to="/register">ELFELEJTETTED A JELSZAVAD?</Links>
             <Links to="/register">NINCS FIÓKOD? CSINÁLJ EGYET MOST!</Links>
           </Form>
         </Wrapper>

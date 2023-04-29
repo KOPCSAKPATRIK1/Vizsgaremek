@@ -1,9 +1,7 @@
 import styled from "styled-components";
 import { useState, useEffect } from "react";
-import Release from "./Release";
 import { mobile } from "../responsive";
 import LikedItem from "./LikedItem";
-import LogoutButton from "./LogoutButton";
 
 const Container = styled.div`
   margin-top: 20px;
@@ -57,7 +55,6 @@ const Liked = () => {
     fetchData();
   }, [userId]);
 
-  console.log(data);
   return (
     <div>
       <Text>Kedvenc termékeid:</Text>

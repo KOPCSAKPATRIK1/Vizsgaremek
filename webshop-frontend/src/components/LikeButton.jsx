@@ -41,7 +41,6 @@ const LikeButton = ({ userId, productId }) => {
         .then((response) => response.json())
         .then((data) => {
           setIsLiked(false);
-          console.log("Unliked item:", data);
         })
         .catch((error) => console.error("Error unliking item:", error));
     } else {
@@ -58,7 +57,6 @@ const LikeButton = ({ userId, productId }) => {
         .then((response) => response.json())
         .then((data) => {
           setIsLiked(true);
-          console.log("Liked item:", data);
         })
         .catch((error) => console.error("Error liking item:", error));
     }

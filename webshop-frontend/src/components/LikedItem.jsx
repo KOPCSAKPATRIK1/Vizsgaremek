@@ -1,4 +1,3 @@
-import { ShoppingCartOutlined } from "@mui/icons-material";
 import styled from "styled-components";
 import { mobile } from "../responsive";
 import { useNavigate } from "react-router-dom";
@@ -53,22 +52,6 @@ const Image = styled.img`
   ${mobile({ height: "130%", paddingBottom: "40px" })}
 `;
 
-const Icon = styled.div`
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  background-color: #242424;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 10px;
-  color: white;
-  transition: all 0.5s ease;
-  &:hover {
-    transform: scale(1.1);
-  }
-`;
-
 const Title = styled.p`
   color: white;
   width: 100%;
@@ -86,19 +69,6 @@ const Title = styled.p`
   ${mobile({ fontSize: "13px", height: "125%" })}
 `;
 
-const Price = styled.p`
-  color: white;
-  width: 100%;
-  height: 175%;
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 3;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  ${mobile({ fontSize: "13px", height: "165%" })}
-`;
 const LikedItem = ({ item }) => {
   const navigate = useNavigate();
 

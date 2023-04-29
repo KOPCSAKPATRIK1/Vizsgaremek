@@ -1,6 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-import ArrowLeftIcon from "@mui/icons-material/ArrowLeft";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
 import { useState } from "react";
@@ -80,17 +79,6 @@ const Desc = styled.p`
   font-size: 20px;
   font-weight: 500;
   letter-spacing: 3px;
-`;
-const Button = styled.button`
-  padding: 10px;
-  background-color: transparent;
-  font-size: 20px;
-  cursor: pointer;
-  color: white;
-  box-shadow: 0px 0px 15px black;
-  text-shadow: 0px 0px 15px black;
-  border-color: white;
-  border-radius: 10px;
 `;
 
 const Slideshow = () => {

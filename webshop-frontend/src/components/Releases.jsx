@@ -1,6 +1,4 @@
 import styled from "styled-components";
-import { popularProducts } from "../data";
-import Product from "./Product";
 import React, { useState, useEffect } from "react";
 import Release from "./Release";
 import { mobile } from "../responsive";
@@ -16,14 +14,6 @@ const Container = styled.div`
   justify-content: space-between;
   border-bottom: 1px solid #ffa1ff;
   ${mobile({ padding: "10px" })}
-`;
-const Text = styled.div`
-  margin-top: 100px;
-  color: white;
-  text-align: center;
-  font-size: 50px;
-  text-shadow: 0px 0px 10px black;
-  font-weight: bold;
 `;
 
 const Releases = () => {

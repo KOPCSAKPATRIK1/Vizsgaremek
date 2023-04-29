@@ -1,8 +1,8 @@
-import { Add, Remove, Delete } from "@mui/icons-material";
+import { Delete } from "@mui/icons-material";
 import styled from "styled-components";
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
-import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { removeProduct } from "../redux/cartRedux";
@@ -100,13 +100,6 @@ const ProductName = styled.span``;
 
 const ProductId = styled.span``;
 
-const ProductColor = styled.div`
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  background-color: ${(props) => props.color};
-`;
-
 const ProductSize = styled.span``;
 
 const PriceDetail = styled.div`
@@ -129,22 +122,12 @@ const ProductAmountContainer = styled.div`
   ${mobile({ flexDirection: "column" })}
 `;
 
-const ProductAmount = styled.div`
-  font-size: 24px;
-  margin: 5px;
-`;
-
 const ProductPrice = styled.div`
   font-size: 30px;
   font-weight: 200;
   ${mobile({ fontSize: "20px" })}
 `;
 
-const Hr = styled.hr`
-  background-color: #ffa1ff;
-  border: none;
-  height: 1px;
-`;
 
 const Summary = styled.div`
   flex: 1;

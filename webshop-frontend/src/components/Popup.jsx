@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
-import { mobile } from "../responsive";
 
 const PopupContainer = styled.div`
   position: fixed;

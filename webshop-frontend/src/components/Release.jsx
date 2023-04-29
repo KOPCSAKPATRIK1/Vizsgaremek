@@ -1,4 +1,3 @@
-import { ShoppingCartOutlined } from "@mui/icons-material";
 import styled from "styled-components";
 import { mobile } from "../responsive";
 
@@ -50,22 +49,6 @@ const Image = styled.img`
   height: 70%;
   z-index: 2;
   ${mobile({ height: "130%", paddingBottom: "40px" })}
-`;
-
-const Icon = styled.div`
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  background-color: #242424;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 10px;
-  color: white;
-  transition: all 0.5s ease;
-  &:hover {
-    transform: scale(1.1);
-  }
 `;
 
 const Title = styled.p`

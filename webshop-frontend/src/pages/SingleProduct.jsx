@@ -8,7 +8,6 @@ import { addProduct } from "../redux/cartRedux";
 import { useDispatch } from "react-redux";
 import Popup from "../components/Popup";
 import { mobile, tablet } from "../responsive";
-import Like from "@mui/icons-material/FavoriteBorder";
 import LikeButton from "../components/LikeButton";
 const Container = styled.div``;
 
@@ -151,10 +150,8 @@ const Button = styled.button`
 
 const SingleProduct = () => {
   const { id } = useParams();
-  console.log(id);
-
   const [product, setProduct] = useState(null);
-  const [quantity, setQuantity] = useState(1);
+  const [quantity] = useState(1);
   const [selectedSize, setSelectedSize] = useState("");
   const [showPopup, setShowPopup] = useState(false); // new state variable
   const dispatch = useDispatch();
@@ -162,16 +159,17 @@ const SingleProduct = () => {
     await fetch(`http://localhost:3000/shoes/${id}`)
       .then((response) => response.json())
       .then((data) => {
-        console.log(data); // log the data variable
         setProduct(data);
         setMainImage(data.imageUrl1);
-      });
+        setSelectedSize(data.stocks[0].sizeId);
+      })
   };
+
   const [mainImage, setMainImage] = useState(null);
 
   useEffect(() => {
     fetchData();
-  }, [id]);
+  }, []);
 
   if (!product) {
     return <div>Loading...</div>;
@@ -180,7 +178,6 @@ const SingleProduct = () => {
   const handlePreviewClick = (imageSrc) => {
     setMainImage(imageSrc);
   };
-
   const handleCartClick = () => {
     dispatch(addProduct({ ...product, quantity, selectedSize }));
     setShowPopup(true);

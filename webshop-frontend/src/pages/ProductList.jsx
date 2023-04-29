@@ -4,7 +4,7 @@ import Products from "../components/Products";
 import Newsletter from "../components/Newsletter";
 import Footer from "../components/Footer";
 import { useLocation } from "react-router";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { mobile, tablet } from "../responsive";
 
 const Container = styled.div``;
@@ -64,13 +64,12 @@ const ProductList = () => {
     }
   };
 
-  console.log(filters);
-  console.log(sort);
   return (
     <Container>
       <Navbar />
-
+     
       <FilterContainer>
+      {!cat && (
         <Filter>
           <Select name="category.id" onChange={handleFilters}>
             <Option disabled>Kategória</Option>
@@ -81,6 +80,7 @@ const ProductList = () => {
             <Option value={4}>Yeezy</Option>
           </Select>
         </Filter>
+          )}
         <Filter>
           <Select onChange={(e) => setSort(e.target.value)}>
             <Option value="newest">Legújabb elöl</Option>
@@ -89,6 +89,7 @@ const ProductList = () => {
           </Select>
         </Filter>
       </FilterContainer>
+    
       <Products cat={cat} filters={filters} sort={sort} />
       <Newsletter />
       <Footer />
