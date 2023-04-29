@@ -7,7 +7,7 @@ import { useSelector } from "react-redux";
 import { useDispatch } from 'react-redux';
 import { removeProduct } from '../redux/cartRedux';
 import Checkout from "../components/Checkout";
-import {mobile} from "../responsive"
+import {mobile, tablet} from "../responsive"
 
 import React, { useState } from 'react';
 const Container = styled.div`
@@ -169,11 +169,13 @@ const SummaryItem = styled.div`
   display: flex;
   justify-content: space-between;
   font-weight: ${(props) => props.type === "total" && "500"};
-  font-size: ${(props) => props.type === "total" && "24px"};
-  
+  font-size: ${(props) => props.type === "total" && "22px"};
+  align-items:center;
 `;
 
-const SummaryItemText = styled.span``;
+const SummaryItemText = styled.span`
+
+`;
 
 const SummaryItemPrice = styled.span``;
 
@@ -196,10 +198,41 @@ const Button = styled.button`
   box-shadow: 0px 0px 10px black;
   
 `;
+const Filter = styled.div`
+  display: flex;
+  align-items: center;
+  
+`;
+
+
+
+
+const FilterShipping = styled.select`
+  margin-left: 0px;
+  padding: 3px;
+  border-radius: 10px;
+  background-color:  #2d2d2d;
+  border: 1px solid #ffa1ff;
+  color:white;
+   width:76px;
+
+   margin: auto;
+   margin-left: -100%;
+   ${mobile({ marginLeft:"0"})}
+   ${tablet({ marginLeft:"-40%"})}
+`;
+
+const FilterShippingOption = styled.option`
+`;
 
 const Cart = () => {
   const [isCheckoutOpen, setIsCheckoutOpen] = useState(false);
-  
+  const [selectedShipping, setSelectedShipping] = useState(1);
+
+  const shippingOptions = [
+    { id: 1, name: "Standard (5-7 nap)", price: 1200 },
+    { id: 2, name: "Expressz (2-3 nap)", price: 4000 },
+  ];
   const handleCheckoutClick = () => {
     setIsCheckoutOpen(true);
   }
@@ -211,12 +244,14 @@ const Cart = () => {
   const handleRemoveProduct = (productId) => {
     dispatch(removeProduct({ productId }));
   };
-  const shipping = 1200;
+ 
+
   return (
     <Container>
       
       <Navbar />
-      {isCheckoutOpen && <Checkout handleClose={handleClose} />}
+      {isCheckoutOpen && <Checkout handleClose={handleClose} 
+      selectedShippingMethod={shippingOptions.find(option => option.id === selectedShipping)}/>}
       <Wrapper>
         <Title>KOSÁR</Title>
         <Top>
@@ -265,16 +300,35 @@ const Cart = () => {
           <Summary>
             <SummaryTitle>RENDELÉS ÁTTEKINTÉSE</SummaryTitle>
             <SummaryItem>
-              <SummaryItemText>Részösszeg</SummaryItemText>
+              <SummaryItemText>Részösszeg:</SummaryItemText>
               <SummaryItemPrice>{cart.total.toLocaleString()} Ft</SummaryItemPrice>
             </SummaryItem>
             <SummaryItem>
-              <SummaryItemText>Szállítás</SummaryItemText>
-              <SummaryItemPrice>1200 Ft</SummaryItemPrice>
+              <SummaryItemText>Szállítás:</SummaryItemText>
+              <Filter>
+  <FilterShipping>
+  {shippingOptions.map((option) => (
+  <FilterShippingOption
+    key={option.id}
+    onClick={() => setSelectedShipping(option.id)}
+    active={option.id === selectedShipping}
+  >
+    {option.name}
+  </FilterShippingOption>
+))}
+  </FilterShipping>
+</Filter>
+
+<SummaryItemPrice>
+  {shippingOptions.find((option) => option.id === selectedShipping).price.toLocaleString()} Ft
+</SummaryItemPrice>
+
+
+           
             </SummaryItem>
             <SummaryItem type="total">
-              <SummaryItemText>Összesen</SummaryItemText>
-              <SummaryItemPrice>{(cart.total+shipping).toLocaleString()} Ft</SummaryItemPrice>
+              <SummaryItemText>Összesen:</SummaryItemText>
+              <SummaryItemPrice>{(cart.total + shippingOptions.find((option) => option.id === selectedShipping).price).toLocaleString()} Ft</SummaryItemPrice>
             </SummaryItem>
             <Button onClick={handleCheckoutClick}>FIZETÉS</Button>
            

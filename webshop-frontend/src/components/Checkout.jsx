@@ -107,7 +107,7 @@ const Button = styled.button`
   }
 `;
 
-const Checkout = ({ isOpen, handleClose }) => {
+const Checkout = ({ isOpen, handleClose, selectedShippingMethod  }) => {
   const [showCheckout, setShowCheckout] = useState(false);
   const [addressObj, setAddressObj] = useState(null);
   const [orderObj, setOrderObj] = useState(null);
@@ -160,6 +160,9 @@ const Checkout = ({ isOpen, handleClose }) => {
         body: JSON.stringify({
           userId: userId,
           addressId: data.id,
+          shippingMethodId: selectedShippingMethod, // Add selected shipping method ID
+          paymentMethodId: 1, // Add payment method ID
+
         }),
       });
       const orderData = await orderResponse.json();
@@ -184,6 +187,7 @@ const Checkout = ({ isOpen, handleClose }) => {
             quantity: product.quantity,
             userId: userId,
             orderId: orderData.id,
+            
           }),
         });
         const itemData = await itemResponse.json();
