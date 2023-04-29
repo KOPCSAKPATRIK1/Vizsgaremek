@@ -264,10 +264,12 @@ const Cart = () => {
         <Bottom>
           <Info>
             {cart.products.map(product=>( 
-            
+           
             <Product key={product.id}>
               <ProductDetail>
+              <Link key={product.id} to={`/product/${product.id}`}>
                 <Image src={product.imageUrl1} />
+                </Link>
                 <Details>
                   <ProductName>
                     <b>Termék:</b> {product.name}
@@ -291,7 +293,7 @@ const Cart = () => {
                 <ProductPrice>{product.price.toLocaleString()} Ft</ProductPrice>
               </PriceDetail>
             </Product>
-              
+         
               
               ))}
           
