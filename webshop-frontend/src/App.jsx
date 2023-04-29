@@ -10,6 +10,7 @@ import Logout from "./pages/Logout";
 import ProductList from "./pages/ProductList";
 import Cart from "./pages/Cart";
 import Profile from "./pages/Profile";
+import Info from "./pages/Info";
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
         <Route exact path="/products" element={<ProductList/>}></Route>
         <Route exact path="/cart" element={<Cart/>}></Route>
         <Route exact path="/profile" element={<Profile/>}></Route>
+        <Route exact path="/info" element={<Info/>}></Route>
       </Routes>
      
      

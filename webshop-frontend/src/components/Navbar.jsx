@@ -187,7 +187,7 @@ const Navbar = () => {
           {isDesktop &&<NavbarLink to="/"> FŐOLDAL </NavbarLink>}{" "}
           {isDesktop &&<NavbarLink to="/products"> SNEAKEREK </NavbarLink>}{" "}
            {isDesktop &&<NavbarLink to="/releases"> MEGJELENÉSEK </NavbarLink>}{" "}
-           {isDesktop &&<NavbarLink to="/product"> INFÓ </NavbarLink>}{" "}
+           {isDesktop &&<NavbarLink to="/info"> INFÓ </NavbarLink>}{" "}
         </Linkek>{" "}
       </Center>
       <Right>
