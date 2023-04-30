@@ -7,8 +7,16 @@ export class Stock {
   @PrimaryGeneratedColumn()
   id: number;
 
+  private _inStock: number;
+
   @Column()
-  inStock: number;
+  get inStock(): number {
+    return this._inStock;
+  }
+
+  set inStock(value: number) {
+    this._inStock = Math.max(value, 0);
+  }
 
   @ManyToOne(() => Size, (size) => size.stocks)
   size: Size;

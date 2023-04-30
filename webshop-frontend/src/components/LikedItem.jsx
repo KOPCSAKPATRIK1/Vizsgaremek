@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { mobile } from "../responsive";
-
+import { useNavigate } from "react-router-dom";
 const Info = styled.div`
   opacity: 0;
   width: 100%;
@@ -21,8 +21,9 @@ const Info = styled.div`
 const Container = styled.div`
   flex: 1;
   margin: 15px;
-  min-width: 300px;
-  height: 300px;
+  min-width: 200px;
+
+  height: 200px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -54,7 +55,7 @@ const Image = styled.img`
 const Title = styled.p`
   color: white;
   width: 100%;
-  height: 155%;
+  height: 165%;
   position: absolute;
   top: 0;
   left: 0;
@@ -64,31 +65,24 @@ const Title = styled.p`
   justify-content: center;
   text-transform: uppercase;
   text-align: center;
+  font-size: 14px;
   ${mobile({ fontSize: "13px", height: "125%" })}
 `;
 
-const Price = styled.p`
-  color: white;
-  width: 100%;
-  height: 175%;
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 3;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  ${mobile({ fontSize: "13px", height: "165%" })}
-`;
-const Release = ({ item }) => {
+const LikedItem = ({ item }) => {
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    navigate(`/product/${item.productId}`);
+  };
+
   return (
-    <Container>
-      <Image src={item.imageUrl1} />
+    <Container onClick={handleClick}>
+      <Image src={item.product.imgUrl1} />
       <Info></Info>
-      <Title>{item.name}</Title>
-      <Price>{item.releaseDate}</Price>
+      <Title>{item.product.name}</Title>
     </Container>
   );
 };
 
-export default Release;
+export default LikedItem;

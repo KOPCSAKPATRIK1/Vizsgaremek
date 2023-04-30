@@ -21,7 +21,7 @@ public partial class Order
 
     public virtual PaymentMethod? PaymentMethod { get; set; }
 
-    public virtual ShippingMethod? ShippingMethod { get; set; }
+    public virtual ShippingMethod ShippingMethod { get; set; } = null!;
 
     public virtual User User { get; set; } = null!;
 }

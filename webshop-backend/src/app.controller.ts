@@ -13,6 +13,8 @@ import {
   UnauthorizedException,
   Delete,
   Patch,
+  Put,
+  NotFoundException
 } from '@nestjs/common';
 import { DataSource } from 'typeorm';
 import { AppService } from './app.service';
@@ -78,10 +80,10 @@ export class AppController {
       user = await userRepo.findOneBy({ username: loginDto.identifier });
     }
     if (!user) {
-      throw new BadRequestException('invalid credentials');
+      throw new BadRequestException('Nincs ilyen fiók!');
     }
     if (!(await bcrypt.compare(loginDto.password, user.password))) {
-      throw new BadRequestException('Wrong password');
+      throw new BadRequestException('Hibás jelszó!');
     }
   
     const jwt = await this.jwtService.signAsync({ id: user.id });
@@ -123,12 +125,26 @@ export class AppController {
     return productRepo
       .createQueryBuilder('product')
       .leftJoinAndSelect('product.category', 'category')
-      .leftJoinAndSelect('product.sizes', 'size')
+      .leftJoin('product.stocks', 'stock')
       .where('product.inactive = :inactive', { inactive: 0 })
+      .select([
+        'product.id',
+        'product.name',
+        'product.desc',
+        'product.imageUrl1',
+        'product.imageUrl2',
+        'product.imageUrl3',
+        'product.imageUrl4',
+        'product.price',
+        'product.inactive',
+        'product.popular',
+        'category.id',
+        'category.name',
+        'stock.sizeId',
+        'stock.productId',
+      ])
       .getMany();
   }
-  
-
   @Get('/releases')
   async getReleases() {
     const productRepo = this.dataSource.getRepository(Release);
@@ -146,14 +162,16 @@ export class AppController {
     .getMany();
   }
 
-  @Get('/shoes/:id')
-  async getShoe(@Param('id') id: number) {
-    const productRepo = this.dataSource.getRepository(Product);
-    const product = await productRepo.findOne({
-      where: { id: id },
-      relations: ['category', 'sizes'],
-    });
-    return product;
+@Get('/shoes/:id')
+async getShoe(@Param('id') id: number) {
+  const productRepo = this.dataSource.getRepository(Product);
+  const product = await productRepo
+    .createQueryBuilder('product')
+    .leftJoinAndSelect('product.category', 'category')
+    .leftJoinAndSelect('product.stocks', 'stock')
+    .where('product.id = :id', { id })
+    .getOne();
+  return product;
   }
 
   @Get('/shoes/name/:name')
@@ -286,9 +304,22 @@ export class AppController {
   }
 
   @Get('/like/user/:id')
-  async getLikesByUserId(@Param('id') id: number){
+  async getLikesByUser(@Param('id') id: number) {
     const likeRepo = this.dataSource.getRepository(Like);
-    return likeRepo.findBy({ userId: id});
+    const likes = await likeRepo.createQueryBuilder('like')
+      .leftJoinAndSelect('like.product', 'product')
+      .where('like.userId = :userId', { userId: id })
+      .getMany();
+    return likes.map((like) => ({
+      id: like.id,
+      userId: like.userId,
+      productId: like.productId,
+      product: {
+        id: like.product.id,
+        name: like.product.name,
+        imgUrl1: like.product.imageUrl1,
+      },
+    }));
   }
 
   @Post('orderitem')
@@ -298,8 +329,7 @@ export class AppController {
     const orderItem = new OrderItem();
     orderItem.product = await this.dataSource.getRepository(Product).findOneBy({ id: OrderItemDto.productId });
     orderItem.quantity = OrderItemDto.quantity;
-    orderItem.size = await this.dataSource.getRepository(Size).findOneBy({ id: OrderItemDto.sizeId });
-    orderItem.user = await this.dataSource.getRepository(User).findOneBy({ id: OrderItemDto.userId });
+    orderItem.size = await this.dataSource.getRepository(Size).findOneBy({ id: OrderItemDto.sizeId });    
     orderItem.order = await this.dataSource.getRepository(Order).findOneBy({ id: OrderItemDto.orderId })
     await orderItemRepo.save(orderItem);
     return orderItem;
@@ -337,18 +367,16 @@ export class AppController {
 
   @Post('address')
   @HttpCode(200)
-  async addAddress(@Body() AddressDto: AddressDto){
+  async addAddress(@Body() AddressDto: AddressDto) {
     const addressRepo = this.dataSource.getRepository(Address);
     const address = new Address();
     address.city = AddressDto.city;
     address.postalCode = AddressDto.postalCode;
     address.state = AddressDto.state;
     address.streetAddress = AddressDto.streetAddress;
-    addressRepo.save(address);
     const savedAddress = await addressRepo.save(address);
     return { ...savedAddress, id: savedAddress.id };
   }
-
   @Get('address/:id')
   getAddressById(@Param('id') id: number){
     const addressRepo = this.dataSource.getRepository(Address);
@@ -368,6 +396,8 @@ export class AppController {
     const savedOrder = await orderRepo.save(order);
     return { ...savedOrder, id: savedOrder.id };
   }
+
+  
   
   @Get('stock/:productId')
   getStocks(@Param('productId') productId : number){
@@ -375,4 +405,22 @@ export class AppController {
     return stockRepo.findBy({ productId : productId});
   }
   
+  @Put('stock/:productId/:sizeId')
+  async updateStock(
+    @Param('productId') productId: number,
+    @Param('sizeId') sizeId: number
+  ) {
+    const stockRepo = this.dataSource.getRepository(Stock);
+    const stock = await stockRepo.findOne({
+      where: { productId: productId, sizeId: sizeId }
+    });
+    if (!stock) {
+      throw new NotFoundException('Stock not found');
+    }
+  
+    stock.inStock--;
+  
+    return stockRepo.save(stock);
+  }
+
 }

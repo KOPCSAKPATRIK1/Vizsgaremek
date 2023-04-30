@@ -19,7 +19,7 @@ public interface ICategoryService
     /// Kategória törlése.
     /// </summary>
     /// <param name="id">Kategória azonosítója.</param>
-    /// <returns>Sikerült e törölni a ktegóriát.</returns>
+    /// <returns>Sikerült e törölni a kategóriát.</returns>
     bool DeleteCategory(int id);
 
     /// <summary>

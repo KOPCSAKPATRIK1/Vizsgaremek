@@ -1,18 +1,18 @@
 import { configureStore } from "@reduxjs/toolkit";
 import cartReducer from "./cartRedux";
 import { persistStore, persistReducer } from "redux-persist";
-import storage from "redux-persist/lib/storage"; 
+import storage from "redux-persist/lib/storage";
 import {
-    FLUSH,
-    REHYDRATE,
-    PAUSE,
-    PERSIST,
-    PURGE,
-    REGISTER,
-  } from "redux-persist";
+  FLUSH,
+  REHYDRATE,
+  PAUSE,
+  PERSIST,
+  PURGE,
+  REGISTER,
+} from "redux-persist";
 
 const persistConfig = {
-  key: "cart", 
+  key: "cart",
   storage, // storage type to be used, e.g. localStorage or sessionStorage
 };
 
@@ -20,7 +20,7 @@ const persistedCartReducer = persistReducer(persistConfig, cartReducer);
 
 const store = configureStore({
   reducer: {
-    cart: persistedCartReducer, 
+    cart: persistedCartReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
@@ -30,6 +30,6 @@ const store = configureStore({
     }),
 });
 
-const persistor = persistStore(store); 
+const persistor = persistStore(store);
 
 export { store, persistor };

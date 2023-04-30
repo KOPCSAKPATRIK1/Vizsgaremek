@@ -2,6 +2,8 @@ import styled from "styled-components";
 import React, { useState, useEffect } from "react";
 import { keyframes } from "styled-components";
 import { LocalShipping, CreditCard } from "@mui/icons-material";
+import { mobile } from "../responsive";
+
 const fadeIn = keyframes`
   from {
     opacity: 0;
@@ -14,6 +16,7 @@ const Icon = styled.div`
   align-items: center;
   font-size: 30px;
   display: flex;
+  ${mobile({ fontSize: "20px", textAlign: "center" })}
 `;
 const Wrapper = styled.div`
   margin-top: 5%;
@@ -33,6 +36,7 @@ const Wrapper = styled.div`
   border-radius: 15px;
   animation: ${fadeIn} 0.5s ease-in-out;
   border: 2px solid #ffa1ff;
+  ${mobile({ width: "75%" })}
 `;
 
 const Container = styled.div`
@@ -102,9 +106,10 @@ const Button = styled.button`
   }
 `;
 
-const Checkout = ({ isOpen, handleClose }) => {
+const Checkout = ({ isOpen, handleClose, selectedShippingMethod }) => {
   const [showCheckout, setShowCheckout] = useState(false);
-
+  const [addressObj, setAddressObj] = useState(null);
+  const [orderObj, setOrderObj] = useState(null);
   useEffect(() => {
     setShowCheckout(isOpen);
   }, [isOpen]);
@@ -113,23 +118,54 @@ const Checkout = ({ isOpen, handleClose }) => {
     setShowCheckout(false);
     handleClose();
   };
-  const [streetAddress, setStreetAddress] = useState("");
-  const [city, setCity] = useState("");
-  const [state, setState] = useState("");
-  const [postalCode, setPostalCode] = useState("");
+
   const handleCheckout = async (event) => {
     event.preventDefault();
+
+    // validate input fields
+    if (!validatePostalCode(postalCode)) {
+      alert("Hibás irányítószám!");
+      return;
+    }
+    if (!validateExpire(cardExpire)) {
+      alert("Hibás lejárat (MM/YY formátumban adjuk meg)!");
+      return;
+    }
+    if (!validateSecurity(cardSecret)) {
+      alert("Hibás CCV (3 számjegy)!");
+      return;
+    }
+    if (!validateCardNumber(cardNumber)) {
+      alert("Hibás kártyaszám (16 számjegy)!");
+      return;
+    }
+
     try {
+      // create new address
       const response = await fetch("http://localhost:3000/address", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ streetAddress, city, state, postalCode }),
       });
       const data = await response.json();
-    } catch (error) {
-      console.error(error);
-    }
-    try {
+      setAddressObj(data);
+
+      // create new order
+      const userId = JSON.parse(localStorage.getItem("user")).id;
+      const orderResponse = await fetch("http://localhost:3000/order", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          userId: userId,
+          addressId: data.id,
+          shippingMethod: selectedShippingMethod.id, // Add selected shipping method ID
+          paymentMethod: 1, // Add payment method ID
+        }),
+      });
+      const orderData = await orderResponse.json();
+      setOrderObj(orderData);
+
+      // create new order items
       const cartItems = JSON.parse(localStorage.getItem("persist:cart"));
       const products = JSON.parse(cartItems.products);
       const selectedProducts = products.map((product) => ({
@@ -137,27 +173,91 @@ const Checkout = ({ isOpen, handleClose }) => {
         selectedSize: product.selectedSize,
         quantity: product.quantity,
       }));
-
-      const userId = JSON.parse(localStorage.getItem("user")).id;
-
       selectedProducts.forEach(async (product) => {
-        const response = await fetch("http://localhost:3000/orderitem", {
+        const userId = JSON.parse(localStorage.getItem("user")).id; // declare userId before using it
+        const itemResponse = await fetch("http://localhost:3000/orderitem", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
             productId: product.id,
-            sizeId: 1,
+            sizeId: product.selectedSize,
             quantity: product.quantity,
-            userId: userId,
-            orderId: 1, // replace this with the actual order ID
+            orderId: orderData.id,
           }),
         });
-        const data = await response.json();
+        const itemData = await itemResponse.json();
       });
+      // update stock for each selected product
+      await Promise.all(
+        selectedProducts.map(async (product) => {
+          const { id, selectedSize } = product;
+          const stockResponse = await fetch(
+            `http://localhost:3000/stock/${id}/${selectedSize}`,
+            {
+              method: "PUT",
+              headers: { "Content-Type": "application/json" },
+            }
+          );
+          const stockData = await stockResponse.json();
+        })
+      );
+
+      alert("Sikeres vásárlás!");
+      // delete cart from localStorage
+      localStorage.removeItem("persist:cart");
+      // wait 5 seconds and redirect to homepage
+      setTimeout(() => {
+        window.location.href = "/";
+      }, 3000);
     } catch (error) {
       console.error(error);
     }
   };
+  const [CardNumberError, setCardNumberError] = useState("");
+  const [expireError, setExpireError] = useState("");
+  const [securityError, setSecurityError] = useState("");
+  const [streetAddress, setStreetAddress] = useState("");
+  const [city, setCity] = useState("");
+  const [state, setState] = useState("");
+  const [postalCode, setPostalCode] = useState("");
+  const [cardNumber, setCardNumber] = useState("");
+  const [cardExpire, setCardExpire] = useState("");
+  const [cardSecret, setCardSecret] = useState("");
+  const validatePostalCode = (code) => {
+    const regex = /^[0-9]{4}$/;
+    return regex.test(code);
+  };
+  const validateCardNumber = (number) => {
+    const regex = /^[0-9]{16}$/;
+    if (!regex.test(number)) {
+      setCardNumberError("Hibás kártyaszám (16 számjegy)!");
+      return false;
+    } else {
+      setCardNumberError("");
+      return true;
+    }
+  };
+  const validateExpire = (expire) => {
+    const regex = /^(0[1-9]|1[0-2])\/([0-9]{2})$/;
+    if (!regex.test(expire)) {
+      setExpireError("Hibás lejárat (MM/YY formátumban adjuk meg)!");
+      return false;
+    } else {
+      setExpireError("");
+      return true;
+    }
+  };
+  const validateSecurity = (security) => {
+    const regex = /^[0-9]{3}$/;
+    if (!regex.test(security)) {
+      setSecurityError("Hibás CCV (3 számjegy)!");
+      return false;
+    } else {
+      setSecurityError("");
+      return true;
+    }
+  };
+
   useEffect(() => {
     const cartItems = JSON.parse(localStorage.getItem("persist:cart"));
     const products = JSON.parse(cartItems.products);
@@ -169,6 +269,7 @@ const Checkout = ({ isOpen, handleClose }) => {
     const userId = JSON.parse(localStorage.getItem("user")).id;
     console.log(selectedProducts, userId);
   }, []);
+
   return (
     <Wrapper className={showCheckout ? "fade-in" : ""}>
       <Container>
@@ -182,11 +283,11 @@ const Checkout = ({ isOpen, handleClose }) => {
           <Name>
             <div>
               <Label htmlFor="l-name">Vezetéknév</Label>
-              <Input type="text" name="l-name"></Input>
+              <Input type="text" name="l-name" required></Input>
             </div>
             <div>
               <Label htmlFor="f-name">Keresztnév</Label>
-              <Input type="text" name="f-name"></Input>
+              <Input type="text" name="f-name" required></Input>
             </div>
           </Name>
           <div>
@@ -234,16 +335,31 @@ const Checkout = ({ isOpen, handleClose }) => {
           </h1>
           <div>
             <Label htmlFor="card-num">Kártyaszám</Label>
-            <Input type="text" name="card-num"></Input>
+            <Input
+              required
+              type="text"
+              name="card-num"
+              onChange={(event) => setCardNumber(event.target.value)}
+            ></Input>
           </div>
           <CardInfo>
             <div>
               <Label htmlFor="card-num">Lejárat</Label>
-              <Input type="text" name="expire"></Input>
+              <Input
+                required
+                type="text"
+                name="expire"
+                onChange={(event) => setCardExpire(event.target.value)}
+              ></Input>
             </div>
             <div>
               <Label htmlFor="card-num">CCV</Label>
-              <Input type="text" name="security"></Input>
+              <Input
+                required
+                type="text"
+                name="security"
+                onChange={(event) => setCardSecret(event.target.value)}
+              ></Input>
             </div>
           </CardInfo>
           <Buttons>

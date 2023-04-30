@@ -5,11 +5,11 @@ import Footer from "../components/Footer";
 import React from "react";
 import LogoutButton from "../components/LogoutButton";
 import { mobile } from "../responsive";
+import Liked from "../components/Liked";
 
 const Container = styled.div`
   width: 100vw;
-  height: 100vh;
-  background: #2f2f2f;
+  height: 90vh;
   background-size: cover;
   display: flex;
   align-items: center;
@@ -18,28 +18,33 @@ const Container = styled.div`
 `;
 
 const Wrapper = styled.div`
-  width: 25%;
+  width: 20%;
   padding: 20px;
   background-color: #494949;
   border: 2px solid #ffa1ff;
+
   color: white;
   text-align: center;
   box-shadow: 0px 0px 20px #1f1f1f;
   ${mobile({ width: "50%" })}
+  margin: auto;
+  margin-top: 5%;
+  ${mobile({ marginTop: "14%" })}
 `;
 
-const Logout = () => {
+const Profile = () => {
   const user = JSON.parse(localStorage.getItem("user"));
   const username = user.username;
 
   return (
     <div>
       <Navbar />
+      <Wrapper>
+        <p>Szia, {username}!</p>
+        <LogoutButton></LogoutButton>
+      </Wrapper>
       <Container>
-        <Wrapper>
-          <p>Üdv, {username}!</p>
-          <LogoutButton></LogoutButton>
-        </Wrapper>
+        <Liked></Liked>
       </Container>
       <Newsletter />
       <Footer />
@@ -47,4 +52,4 @@ const Logout = () => {
   );
 };
 
-export default Logout;
+export default Profile;

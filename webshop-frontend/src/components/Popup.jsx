@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react';
-import styled from 'styled-components';
+import React, { useEffect } from "react";
+import styled from "styled-components";
 
 const PopupContainer = styled.div`
   position: fixed;
@@ -15,7 +15,7 @@ const PopupContainer = styled.div`
   box-shadow: 0px 4px 30px black;
 
   background-color: #4a4a4a;
-  
+
   font-weight: 500;
   color: white;
   font-size: 20px;

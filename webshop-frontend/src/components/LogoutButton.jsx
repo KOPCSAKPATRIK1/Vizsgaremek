@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import styled from "styled-components";
 const Button = styled.button`
   width: 100%;
@@ -16,18 +16,13 @@ const Button = styled.button`
 function LogoutButton() {
   function handleLogout() {
     // Clear authentication token and user data from local storage
-    localStorage.removeItem('accessToken');
-    localStorage.removeItem('user');
+    localStorage.removeItem("accessToken");
+    localStorage.removeItem("user");
     // Reload the current page to force a logout
-    window.location.href = '/login';
-
+    window.location.href = "/login";
   }
 
-  return (
-    <Button onClick={handleLogout}>
-      KIJELENTKEZÉS
-    </Button>
-  );
+  return <Button onClick={handleLogout}>KIJELENTKEZÉS</Button>;
 }
 
 export default LogoutButton;
