@@ -7,8 +7,7 @@
     xmlns:controls="using:CommunityToolkit.WinUI.UI.Controls"
     mc:Ignorable="d">
 
-    <Grid 
-        VerticalAlignment="Stretch">
+    <Grid>
         
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -42,11 +41,13 @@
         </StackPanel>
 
         <ScrollViewer 
-            Grid.Row="1">
+            Grid.Row="1"
+            HorizontalScrollBarVisibility="Visible">
             <controls:DataGrid
                 AutoGenerateColumns="False"
-                GridLinesVisibility="Horizontal"
+                GridLinesVisibility="None"
                 HeadersVisibility="Column"
+                AlternatingRowBackground="#212121"
                 IsReadOnly="True"
                 ItemsSource="{x:Bind ViewModel.Products, Mode=OneWay}"
                 SelectedItem="{x:Bind ViewModel.SelectedProduct, Mode=TwoWay}">
@@ -76,9 +77,22 @@
                             </DataTemplate>
                         </controls:DataGridTemplateColumn.CellTemplate>
                     </controls:DataGridTemplateColumn>
-                    <controls:DataGridTextColumn 
-                        Binding="{Binding Likes}" 
-                        Header="Kedvelések"/>
+                    <controls:DataGridTemplateColumn 
+                        Header="Kedvelések">
+                        <controls:DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <StackPanel 
+                                    Orientation="Horizontal" 
+                                    HorizontalAlignment="Center">
+                                    <FontIcon 
+                                        FontFamily="{StaticResource SymbolThemeFontFamily}"
+                                        Glyph="&#xE8E1;"
+                                        Margin="0,0,8,0"/>
+                                    <TextBlock Text="{Binding Likes}"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </controls:DataGridTemplateColumn.CellTemplate>
+                    </controls:DataGridTemplateColumn>
                     <controls:DataGridTextColumn 
                         Binding="{Binding Popular}"
                         FontWeight="Bold"

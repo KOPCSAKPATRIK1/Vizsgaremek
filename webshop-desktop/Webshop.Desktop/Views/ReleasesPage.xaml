@@ -7,8 +7,8 @@
     xmlns:controls="using:CommunityToolkit.WinUI.UI.Controls"
     mc:Ignorable="d">
 
-    <Grid 
-        VerticalAlignment="Stretch">
+    <Grid>
+        
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
@@ -23,12 +23,13 @@
             CloseButtonContent="OK"/>
 
         <ScrollViewer
-           Grid.Row="0" >
-
+           Grid.Row="0"
+            HorizontalScrollBarVisibility="Visible">
             <controls:DataGrid                
                 AutoGenerateColumns="False"
-                GridLinesVisibility="Horizontal"
+                GridLinesVisibility="None"
                 HeadersVisibility="Column"
+                AlternatingRowBackground="#212121"
                 IsReadOnly="True"
                 ItemsSource="{x:Bind ViewModel.Releases, Mode=OneWay}"
                 SelectedItem="{x:Bind ViewModel.SelectedRelease, Mode=TwoWay}">
@@ -40,9 +41,14 @@
                 </controls:DataGrid.Resources>
 
                 <controls:DataGrid.Columns>
-                    <controls:DataGridTextColumn Binding="{Binding Name}" Header="Név"/>
-                    <controls:DataGridTextColumn Binding="{Binding ReleaseDate}" Header="Megjelenés"/>
+                    <controls:DataGridTextColumn 
+                        Binding="{Binding Name}" 
+                        Header="Név"/>
+                    <controls:DataGridTextColumn 
+                        Binding="{Binding ReleaseDate}" 
+                        Header="Megjelenés"/>
                 </controls:DataGrid.Columns>
+                
                 <controls:DataGrid.RowDetailsTemplate>
                     <DataTemplate>
                         <controls:DataGrid                              
