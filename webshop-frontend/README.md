@@ -35,8 +35,8 @@ Az alkalmazás dokumentációja a 'docs' mappában található.
 
 ## Technológiák
 
-    * React JS
-    * Redux
-    * React Router
-    * Styled Components
-    * Material Ui
+* React JS
+* Redux
+* React Router
+* Styled Components
+* Material Ui
