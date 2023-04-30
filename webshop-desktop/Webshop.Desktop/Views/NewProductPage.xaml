@@ -8,7 +8,7 @@
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="*" />
+            <RowDefinition Height="*"/>
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
@@ -142,7 +142,7 @@
                 <NumberBox 
                     Text="{x:Bind ViewModel.ProductPrice, Mode=TwoWay}"
                     Header="*Ár"
-                    SpinButtonPlacementMode="Compact" Minimum="1000"
+                    SpinButtonPlacementMode="Compact" Minimum="10000"
                     Margin="10" />
 
                 <ComboBox                         

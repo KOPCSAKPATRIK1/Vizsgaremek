@@ -31,13 +31,13 @@ public partial class NewProductViewModel : ObservableRecipient, INavigationAware
     [ObservableProperty] private CategoryVmList _selectedCategory;
     public ObservableCollection<CategoryVmList> Categories { get; set; } = new();
 
-    [ObservableProperty] private string? _productName;
-    [ObservableProperty] private string? _productDesc;
-    [ObservableProperty] private string? _imageUrl1;
+    [ObservableProperty] private string _productName;
+    [ObservableProperty] private string _productDesc;
+    [ObservableProperty] private string _imageUrl1;
     [ObservableProperty] private string? _imageUrl2;
     [ObservableProperty] private string? _imageUrl3;
     [ObservableProperty] private string? _imageUrl4;
-    [ObservableProperty] private int _productPrice;
+    [ObservableProperty] private int? _productPrice;
     [ObservableProperty]
     private Dictionary<string, int> _sizesWithQuantity = new()
     {
@@ -101,14 +101,7 @@ public partial class NewProductViewModel : ObservableRecipient, INavigationAware
             ImageUrl3 = product.ImageUrl3;
             ImageUrl4 = product.ImageUrl4;
             SizesWithQuantity = product.SizesWithQuantity;
-            foreach (var category in Categories)
-            {
-                if (category.Id == product.CategoryId)
-                {
-                    SelectedCategory = category;
-                    break;
-                }
-            }
+            SelectedCategory = Categories.First(c => c.Id == product.CategoryId);
         }
     }
 
@@ -185,8 +178,10 @@ public partial class NewProductViewModel : ObservableRecipient, INavigationAware
 
     partial void OnSelectedCategoryChanged(CategoryVmList value)
     {
+        CategoryValidation();
         DeleteCategoryCommand.NotifyCanExecuteChanged();
         UpdateCategoryNameCommand.NotifyCanExecuteChanged();
+        SaveProductCommand.NotifyCanExecuteChanged();
     }
 
     #endregion
@@ -222,7 +217,7 @@ public partial class NewProductViewModel : ObservableRecipient, INavigationAware
                     ImageUrl3 = ImageUrl3,
                     ImageUrl4 = ImageUrl4,
                     SizesWithQuantity = SizesWithQuantity,
-                    Price = ProductPrice,
+                    Price = ProductPrice ?? 10000,
                     CategoryId = SelectedCategory.Id,
                 }, _productId);
                 TeachingTip.Subtitle = "Változtatások Elmentve";
@@ -239,7 +234,7 @@ public partial class NewProductViewModel : ObservableRecipient, INavigationAware
                     ImageUrl3 = ImageUrl3,
                     ImageUrl4 = ImageUrl4,
                     SizesWithQuantity = SizesWithQuantity,
-                    Price = ProductPrice,
+                    Price = ProductPrice ?? 10000,
                     CategoryId = SelectedCategory.Id,
                 });
                 TeachingTip.Subtitle = "Új termék(ek) hozzáadva";
@@ -268,8 +263,8 @@ public partial class NewProductViewModel : ObservableRecipient, INavigationAware
 
         if (string.IsNullOrWhiteSpace(dialogContent.ViewModel.CategoryName))
         {
-            TeachingTip.Subtitle = "Kategória neve nem lehet üres";            
-            NewCategory(); 
+            TeachingTip.Subtitle = "Kategória neve nem lehet üres";
+            NewCategory();
             TeachingTip.IsOpen = true;
         }
         else
@@ -278,6 +273,7 @@ public partial class NewProductViewModel : ObservableRecipient, INavigationAware
             TeachingTip.Subtitle = "Kategória felvéve";
             TeachingTip.IsOpen = true;
             LoadCategories();
+            SelectedCategory = Categories.First(c => c.Name == dialogContent.ViewModel.CategoryName);
         }
     }
 
@@ -313,6 +309,7 @@ public partial class NewProductViewModel : ObservableRecipient, INavigationAware
             TeachingTip.Subtitle = "Változtatások elmentve";
             TeachingTip.IsOpen = true;
             LoadCategories();
+            SelectedCategory = Categories.First(c => c.Name == dialogContent.ViewModel.CategoryName);
         }
     }
 
@@ -331,6 +328,7 @@ public partial class NewProductViewModel : ObservableRecipient, INavigationAware
             TeachingTip.IsOpen = true;
             LoadCategories();
         }
+        CategoryValidation();
     }
 
     [RelayCommand]

@@ -43,6 +43,7 @@ public class OrderService : IOrderService
                 City = o.Address.City,
                 State = o.Address.State,
                 PostalCode = o.Address.PostalCode,
+                ShippingMethod = o.ShippingMethod.Name,
                 Info = o.OrderItems.Select(oi => new OrderInfoVmList
                 {
                     CategoryName = oi.Product.Category.Name,

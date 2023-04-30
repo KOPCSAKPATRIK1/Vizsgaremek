@@ -7,7 +7,8 @@
     xmlns:controls="using:CommunityToolkit.WinUI.UI.Controls"
     mc:Ignorable="d">
 
-    <Grid VerticalAlignment="Stretch">
+    <Grid>
+        
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
@@ -22,11 +23,13 @@
             CloseButtonContent="OK"/>
 
         <ScrollViewer
-            Grid.Row="0">
+            Grid.Row="0"
+            HorizontalScrollBarVisibility="Visible">
             <controls:DataGrid                
                 AutoGenerateColumns="False"
-                GridLinesVisibility="Horizontal"
+                GridLinesVisibility="None"
                 HeadersVisibility="Column"
+                AlternatingRowBackground="#212121"
                 IsReadOnly="True"
                 ItemsSource="{x:Bind ViewModel.OrdersWithInfo, Mode=OneWay}"
                 SelectedItem="{x:Bind ViewModel.SelectedOrder, Mode=TwoWay}">
@@ -59,6 +62,9 @@
                     <controls:DataGridTextColumn 
                         Binding="{Binding PostalCode}" 
                         Header="Irányítószám"/>
+                    <controls:DataGridTextColumn
+                        Binding="{Binding ShippingMethod}"
+                        Header="Szállítási mód"/>
                 </controls:DataGrid.Columns>
                 <controls:DataGrid.RowDetailsTemplate>
                     <DataTemplate>
