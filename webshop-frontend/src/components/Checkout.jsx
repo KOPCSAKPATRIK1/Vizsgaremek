@@ -182,7 +182,6 @@ const Checkout = ({ isOpen, handleClose, selectedShippingMethod }) => {
             productId: product.id,
             sizeId: product.selectedSize,
             quantity: product.quantity,
-            userId: userId,
             orderId: orderData.id,
           }),
         });
