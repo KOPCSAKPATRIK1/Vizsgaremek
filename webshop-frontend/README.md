@@ -27,16 +27,16 @@ Az alkalmazás dokumentációja a 'docs' mappában található.
 
 ## Funkciók
 
-*Regisztráció és bejelentkezés: A felhasználók regisztrálhatnak és bejelentkezhetnek a webáruházba.
-*Kategóriák: A termékek kategóriák szerint csoportosítva jelennek meg a felhasználók számára.
-*Terméklista: A termékek listája, amelyek szűrhetők ár, márka és megjelenés ideje szerint.
-*Kosár: A felhasználók a kosárba helyezhetik a termékeket, és törölhetik is.
-*Pénztár: A felhasználók befejezhetik a vásárlást és fizethetnek a termékekért.
+* Regisztráció és bejelentkezés: A felhasználók regisztrálhatnak és bejelentkezhetnek a webáruházba.
+* Kategóriák: A termékek kategóriák szerint csoportosítva jelennek meg a felhasználók számára.
+* Terméklista: A termékek listája, amelyek szűrhetők ár, márka és megjelenés ideje szerint.
+* Kosár: A felhasználók a kosárba helyezhetik a termékeket, és törölhetik is.
+* Pénztár: A felhasználók befejezhetik a vásárlást és fizethetnek a termékekért.
 
 ## Technológiák
 
-    *React JS
-    *Redux
-    *React Router
-    *Styled Components
-    *Material Ui
+    * React JS
+    * Redux
+    * React Router
+    * Styled Components
+    * Material Ui
