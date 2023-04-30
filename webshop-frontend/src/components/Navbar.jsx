@@ -163,10 +163,12 @@ const Navbar = () => {
       </Center>
       <Right>
         <MenuIcons>
-          {username && (
+        {username ? (
             <React.Fragment>
               <Username>{username}</Username>
             </React.Fragment>
+          ) : (
+            <NavbarLink to="/login">  <Username>Bejelentkezés</Username> </NavbarLink>
           )}
           <IconLink to="/login">
             <AccountCircle
