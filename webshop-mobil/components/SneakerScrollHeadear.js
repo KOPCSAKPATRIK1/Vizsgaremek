@@ -12,7 +12,7 @@ const SneakerScrollHeadear = ({text, message}) => {
         <TouchableOpacity 
         onPress={() => navigation.navigate("Search",{message})}
         className="flex-1 justify-center items-end mx-3">
-            <Text className="text-[#ff6efa] text-[20px] justify-end">See all</Text>
+            <Text className="text-[#ff6efa] text-[20px] justify-end">Tovább</Text>
         </TouchableOpacity>
     </View>
   )

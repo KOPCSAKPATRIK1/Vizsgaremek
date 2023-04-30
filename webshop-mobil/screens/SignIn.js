@@ -64,12 +64,12 @@ const SignIn = () => {
         <View className="mt-[10vh] justify-center items-center space-y-10">
             <Input 
                 className="bg-[#212121] w-[90vw] text-[18px]"
-                label="Username or Email"
+                label="Felhasználónév vagy Email"
                 mode="flat"
                 activeUnderlineColor="#ffa1ff"
                 underlineColor="#ffa1ff"
                 textColor="white"
-                placeholder="username12"
+                placeholder="felhasználó12"
                 value={usernameOrEmail}
                 onChangeText={setUsernameOrEmail}
                 onFocus={()=> setUsernameOrEmailBad(false)}
@@ -77,7 +77,7 @@ const SignIn = () => {
             />
             <Input 
                 className="bg-[#212121] w-[90vw] text-[18px]"
-                label="Password"
+                label="Jelszó"
                 mode="flat"
                 activeUnderlineColor="#ffa1ff"
                 underlineColor="#ffa1ff"
@@ -94,20 +94,17 @@ const SignIn = () => {
         className="items-center justify-center mt-[10vh]"
         onPress={() => handleLogin()}>
             <View className="bg-[#ffa1ff] w-[70vw] h-[6vh] rounded-[20px] items-center justify-center">
-                <Text className="text-[20px] text-white tracking-wider">SIGN IN</Text>
+                <Text className="text-[20px] text-white tracking-wider">Bejelentkezés</Text>
             </View>
         </TouchableOpacity>
         <View className="flex justify-center items-center mt-5">
           <Text className="text-red-600 text-[]">{error}</Text>
         </View>
-        <TouchableOpacity className="mt-[2vh] w-[100%] px-[10vw]">
-            <Text className="text-white underline">Forgot password</Text>
-        </TouchableOpacity>
         <View className="absolute w-[200%] h-[100vh] top-[80vh] left-[-50vw] z-[-10] bg-[#ffa1ff] mt-[2vh]  rounded-full">
             <TouchableOpacity 
             className="mt-[10vh] justify-center items-center"
             onPress={()=> navigation.navigate("Register")}>
-                <Text className="text-white underline">Dont have an account? Register here</Text>
+                <Text className="text-white underline">Nincs még fiókod? Regisztrálj itt!</Text>
             </TouchableOpacity>
             </View>
         </View>

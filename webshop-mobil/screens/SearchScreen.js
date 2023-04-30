@@ -83,7 +83,7 @@ const SearchScreen = ({route}) => {
         })
       let json = await response.json();
         
-      if (message == "All") {
+      if (message == "Összes") {
           setData(json);
       } 
       else if(brands.includes(message)){
@@ -95,9 +95,9 @@ const SearchScreen = ({route}) => {
         });
         setData(helper);
       }
-      else if(message == "Popular"){
+      else if(message == "Népszerű"){
         getPopularshoes();
-      }else if(message == "Newest"){
+      }else if(message == "Legújabb"){
         getNewShoes();
       }
         
@@ -125,7 +125,7 @@ const SearchScreen = ({route}) => {
                 <TouchableOpacity><AntDesign name="search1" size={30} color="#ff6efa"/></TouchableOpacity>
                 <TextInput 
                     className="border-b border-[#ffa1ff] w-[80vw] text-[#fff] text-[18px] p-2"
-                    placeholder="Search..."
+                    placeholder="Keresés..."
                     placeholderTextColor="#fff"
                     value={search}
                     onChangeText={searchByName}

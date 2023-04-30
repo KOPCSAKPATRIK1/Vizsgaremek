@@ -34,11 +34,11 @@ const CartItem = ({item, deleteCartItem}) => {
                     <View className="w-[80%]">
                         <Text className="text-white text-[18px] font-bold">{product.name}</Text>
                     </View>
-                    <TouchableOpacity onPress={() => deleteCartItem(item.id)}><AntDesign name="delete" size={30} color="#ff6efa"/></TouchableOpacity>
+                    <TouchableOpacity onPress={() => deleteCartItem(item.id, item.productId, item.sizeId, item.quantity)}><AntDesign name="delete" size={30} color="#ff6efa"/></TouchableOpacity>
                 </View>
                 <Text className="text-white">{product.price} Ft</Text>
-                <Text className="text-white">Size: {item.sizeId}</Text>
-                <Text className="text-white">Qty: {item.quantity}</Text>
+                <Text className="text-white">Méret: {item.sizeId}</Text>
+                <Text className="text-white">Db: {item.quantity}</Text>
             </View>
         </View>
     </View>

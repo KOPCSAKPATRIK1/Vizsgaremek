@@ -430,7 +430,11 @@ export class AppController {
     const stockRepo = this.dataSource.getRepository(Stock);
     return stockRepo.findBy({ productId: productId });
   }
+<<<<<<< HEAD
+  
+=======
 
+>>>>>>> 5f7969eadec2633531f77eb724c1ab9c2080dddb
   @Put('stock/subtract/:productId/:sizeId/:number')
   async subtractStock(
     @Param('productId') productId: number,
@@ -453,7 +457,11 @@ export class AppController {
   async addStock(
     @Param('productId') productId: number,
     @Param('sizeId') sizeId: number,
+<<<<<<< HEAD
+    @Param('number') number: string
+=======
     @Param('number') number: number,
+>>>>>>> 5f7969eadec2633531f77eb724c1ab9c2080dddb
   ) {
     const stockRepo = this.dataSource.getRepository(Stock);
     const stock = await stockRepo.findOne({
@@ -462,9 +470,15 @@ export class AppController {
     if (!stock) {
       throw new NotFoundException('Stock not found');
     }
+<<<<<<< HEAD
+  
+    stock.inStock += parseInt(number, 10);
+  
+=======
 
     stock.inStock += number;
 
+>>>>>>> 5f7969eadec2633531f77eb724c1ab9c2080dddb
     return stockRepo.save(stock);
   }
 }

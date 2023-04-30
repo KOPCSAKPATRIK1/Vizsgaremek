@@ -62,9 +62,10 @@ const Product = ({ route }) => {
                 }
             })
         let json = await response.json();
+        console.log(json);
         json.forEach(item => {
             //sizes.push(item.sizeId);
-            stocks.push(item.inStock);
+            stocks.push(item._inStock);
         });
         console.log(sizes);
         console.log(stocks);
@@ -196,6 +197,7 @@ const Product = ({ route }) => {
         if (amount > 0 && size != 0) {
             postCart();
             updateStock();
+            ToastAndroid.show("Hozzádva a kosárhoz", ToastAndroid.SHORT);
         } else if (amount == 0) {
             ToastAndroid.show("Adja meg a mennyiséget!", ToastAndroid.SHORT);
         } else if (size == 0) {
@@ -261,8 +263,8 @@ const Product = ({ route }) => {
                                 setSize(selectedItem);
                                 amountFix();
                             }}
-                            defaultButtonText="Size"
-                            buttonStyle={{ width: 90, height: 40, borderColor: "#ffa1ff", borderStyle: "solid", borderWidth: 2, borderRadius: 5, backgroundColor: "#212121" }}
+                            defaultButtonText="Méretek"
+                            buttonStyle={{ width: 120, height: 40, borderColor: "#ffa1ff", borderStyle: "solid", borderWidth: 2, borderRadius: 5, backgroundColor: "#212121" }}
                             buttonTextStyle={{ color: 'white', fontSize: 20 }}
                             dropdownStyle={{ borderRadius: 5 }}
                             dropdownTextStyle={{ color: "white" }}
@@ -289,10 +291,10 @@ const Product = ({ route }) => {
                 <Text className="text-white text-[16px] mx-2 my-4">{data.desc}</Text>
                 <View className="flex-1 items-center">
                     <TouchableOpacity
-                        className="w-[180px] h-[50px] border-solid border-2 border-[#ffa1ff] rounded-[10px] items-center flex-row justify-around"
+                        className="border-solid border-2 border-[#ffa1ff] rounded-[10px] items-center flex-row justify-around p-2"
                         onPress={() => addToCart()}
                     >
-                        <Text className="text-white text-[20px]">Add to Cart</Text>
+                        <Text className="text-white text-[20px]">Kosárba Teszem</Text>
                         <IonIcons name="md-add-circle-outline" size={30} color="#ff6efa" />
                     </TouchableOpacity>
                 </View>

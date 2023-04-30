@@ -113,24 +113,24 @@ const Store = () => {
         />
 
         
-        <SneakerScrollHeadear text={"Popular Sneakers"} message={"Popular"} />
+        <SneakerScrollHeadear text={"Népszerű senakerek"} message={"Népszerű"} />
         <SneakerScroll data={popularShoes} />
         
-        <Text className="text-white text-[22px] m-3">Search by Brands</Text>
+        <Text className="text-white text-[22px] m-3">Válogass a kedvenceid közül!</Text>
         <ScrollView horizontal className="h-[150px] w-full">
           {carousel.map((item) => (
             <CarouselItem key={item.id} item={item} />
           ))}
         </ScrollView>
 
-        <SneakerScrollHeadear text={"Newest Sneakers"} message={"Newest"}/>
+        <SneakerScrollHeadear text={"Legújabb sneakerek"} message={"Legújabb"}/>
         <SneakerScroll data={newShoes} />
 
         <View className="border-solid border-2 border-t-[#ff6efa] border-b-[#ff6efa] my-5">
           <Image source={poster} className="w-full h-[275px]" />
         </View>
 
-        <SneakerScrollHeadear text={"All Sneakers"} message={"All"} />
+        <SneakerScrollHeadear text={"Összes sneaker"} message={"Összes"} />
         <SneakerScroll data={shoes} />
 
 

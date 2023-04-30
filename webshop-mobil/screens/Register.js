@@ -48,12 +48,12 @@ const Register = () => {
         const emailAddress = await response.json();
         console.log(emailAddress);
         if(emailAddress.email == email){
-            setEmailErrorMessage("Email address already used");
+            setEmailErrorMessage("Email cím már foglalt");
             setEmailBad(true);
         }
 
         if(email == ""){
-            setEmailErrorMessage("You must enter an email address")
+            setEmailErrorMessage("Adja meg az email címét!")
             setEmailBad(true);
         }
 
@@ -66,7 +66,7 @@ const Register = () => {
         setUsernameErrorMessage("")
         setUsernameBad(false);
         if(username.length < 6){
-            setUsernameErrorMessage("Username must be over 6 characters");
+            setUsernameErrorMessage("A felhasználónév legalább 6 karakter.");
             setUsernameBad(true);
         }
 
@@ -80,7 +80,7 @@ const Register = () => {
         const usernameErrorChecker = await response.json();
         console.log(usernameErrorChecker);
         if(usernameErrorChecker.username == username){
-            setUsernameErrorMessage("Username already used");
+            setUsernameErrorMessage("Felhasználónév foglalt");
             setUsernameBad(true);
         }
         return (usernameErrorMessage == "");
@@ -93,15 +93,15 @@ const Register = () => {
         setPasswordBad(false);
         var re = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}/;
         if(password.length == 0){
-            setPasswordErrorMessage("You must have a password");
+            setPasswordErrorMessage("Adjon meg egy jelszót!");
             setPasswordBad(true);
         }
         else if(password.length < 8){
-            setPasswordErrorMessage("Password must be atleast 8 characters");
+            setPasswordErrorMessage("A jelszó legalább 8 karakter");
             setPasswordBad(true);
         }
         else if(!re.test(password)){
-            setPasswordErrorMessage("Password must contain uppercase, lowercase and number");
+            setPasswordErrorMessage("Tartalmaznia kell nagybetűt, kisbetűt és számot");
             setPasswordBad(true);
         }
 
@@ -114,7 +114,7 @@ const Register = () => {
         setRePasswordErrorMessage("");
         setRePasswordBad(false);
         if(password != rePassword){
-            setRePasswordErrorMessage("Two passwords must match");
+            setRePasswordErrorMessage("Két jelszó nem egyezik");
             setRePasswordBad(true);
         }
 
@@ -154,18 +154,18 @@ const Register = () => {
   return (
     <View className="bg-[#212121] flex-1">
         <View className="mt-[8vh] justify-center items-center">
-            <Text className="text-[30px] font-bold text-[#ffa1ff]">Create a New Account</Text> 
+            <Text className="text-[30px] font-bold text-[#ffa1ff]">Új Fiók Létrehozása</Text> 
         </View>
         <View className="mt-[8vh] justify-center items-center space-y-8">
             <View>
                 <Input 
                       className="bg-[#212121] w-[90vw] text-[18px]"
-                      label="Username"
+                      label="Felhasználónév"
                       mode="flat"
                       activeUnderlineColor="#ffa1ff"
                       underlineColor="#ffa1ff"
                       textColor="white"
-                      placeholder="username12"
+                      placeholder="felhasználó12"
                       error={usernameBad}
                       onChangeText={newUsername => setUsername(newUsername)}
                       defaultValue={username}
@@ -182,7 +182,7 @@ const Register = () => {
                       activeUnderlineColor="#ffa1ff"
                       underlineColor="#ffa1ff"
                       textColor="white"
-                      placeholder="example@gmail.com"
+                      placeholder="példa@gmail.com"
                       error={emailBad}
                       onChangeText={newEmail => setEmail(newEmail)}
                       defaultValue={email}
@@ -194,7 +194,7 @@ const Register = () => {
             <View>
                 <Input 
                     className="bg-[#212121] w-[90vw] text-[18px]"
-                    label="Password"
+                    label="Jelszó"
                     mode="flat"
                     activeUnderlineColor="#ffa1ff"
                     underlineColor="#ffa1ff"
@@ -211,7 +211,7 @@ const Register = () => {
             <View>
                 <Input 
                     className="bg-[#212121] w-[90vw] text-[18px]"
-                    label="Password again"
+                    label="Jelszó ujra"
                     mode="flat"
                     activeUnderlineColor="#ffa1ff"
                     underlineColor="#ffa1ff"
@@ -235,21 +235,21 @@ const Register = () => {
                     setChecked(!checked);
                 }}
             />
-                <Text className="text-white">Agree with terms and conditions</Text>
+                <Text className="text-white">Elfogadom a felhasználói feltételeket</Text>
             </View>
             <View>
             <TouchableOpacity 
             className="items-center justify-center"
             onPress={() => register(username, email, password, rePassword)}>
                 <View className="bg-[#ffa1ff] w-[70vw] h-[6vh] rounded-[20px] items-center justify-center">
-                    <Text className="text-[20px] text-white tracking-wider">Register</Text>
+                    <Text className="text-[20px] text-white tracking-wider">Regisztráció</Text>
                 </View>
             </TouchableOpacity>
             <View className="absolute w-[200%] h-[100vh] top-[6vh] left-[-65vw] z-[-10] bg-[#ffa1ff] mt-[2vh] rounded-full">
             <TouchableOpacity 
             className="mt-[8vh] justify-center items-center"
             onPress={()=> navigation.navigate("SignIn")}>
-                <Text className="text-white underline">Already have an account? Sign in</Text>
+                <Text className="text-white underline">Már van fiókod? Jelentkezz be</Text>
             </TouchableOpacity>
             </View>
             </View>

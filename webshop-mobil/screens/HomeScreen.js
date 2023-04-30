@@ -21,21 +21,21 @@ const HomeScreen = () => {
         className="items-center justify-center mt-[35vh]"
         onPress={() => navigation.navigate("SignIn")}>
             <View className="bg-[#ffa1ff] w-[70vw] h-[6vh] rounded-[20px] items-center justify-center">
-                <Text className="text-[20px] text-white tracking-wider">SIGN IN</Text>
+                <Text className="text-[20px] text-white tracking-wider">Bejelentkezés</Text>
             </View>
         </TouchableOpacity>
         <TouchableOpacity 
         className="items-center justify-center mt-[7vh]"
         onPress={()=> navigation.navigate("Register")}>
             <View className="bg-white w-[70vw] h-[6vh] rounded-[20px] items-center justify-center">
-                <Text className="text-[20px] text-black tracking-wider">Register</Text>
+                <Text className="text-[20px] text-black tracking-wider">Regisztráció</Text>
             </View>
         </TouchableOpacity>
         <View className="absolute w-[200%] h-[200%] top-[75vh] left-[-50vw] z-[-10] bg-[#ffa1ff] mt-[2vh]  rounded-full">
             <TouchableOpacity 
             className="mt-[15vh] justify-center items-center"
             onPress={()=> navigation.navigate("Store")}>
-                <Text className="text-white underline">Countinue as guest</Text>
+                <Text className="text-white underline">Folytatás vendégként</Text>
             </TouchableOpacity>
         </View>
     </View>

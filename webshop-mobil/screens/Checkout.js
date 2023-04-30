@@ -18,15 +18,15 @@ const Checkout = () => {
     const navigation = useNavigation();
     const[user, setUser] = useState();
     const [data, setData] = useState({});
-    const [fullName, setFullName] = useState("Valentin Levente");
+    const [fullName, setFullName] = useState("");
     const [fullNameBad, setFullNameBad] = useState(false)
-    const [county, setCounty] = useState("Anyád");
+    const [county, setCounty] = useState("");
     const [countyBad, setCountyBad] = useState(false);
-    const [city, setCity] = useState("Anyád");
+    const [city, setCity] = useState("");
     const [cityBad, setCityBad] = useState(false);
-    const [postalCode, setPostalCode] = useState("1223");
+    const [postalCode, setPostalCode] = useState("");
     const [postalCodeBad, setPostalCodeBad] = useState(false);
-    const [streetAddress, setStreetAddress] = useState("anyád 12");
+    const [streetAddress, setStreetAddress] = useState("");
     const [streetAddressBad, setStreetAddressBad] = useState(false);
     const [shippingMethod, setShippingMethod] = useState("")
     const [shippingMethodObj, setShippingMethodObj] = useState([]);
@@ -360,27 +360,27 @@ const Checkout = () => {
             <View className="flex-row justify-around items-center bg-[#262626] h-[8vh]">
                   <View className="flex-row justify-center items-center w-[33%]">
                   <View className="w-7 h-7 bg-white items-center justify-center rounded-full mx-2 "><Text className="text-[16px]">1</Text></View>
-                  <Text className="text-[16px] text-white">Shipping</Text>
+                  <Text className="text-[16px] text-white">Szállítás</Text>
               </View>
               <View className="flex-row justify-center items-center w-[33%]">
                   <View className="w-7 h-7 bg-white items-center justify-center rounded-full mx-2 "><Text className="text-[16px]">2</Text></View>
-                  <Text className="text-[16px] text-white">Payment</Text>
+                  <Text className="text-[16px] text-white">Fizetés</Text>
               </View>
               <View className="flex-row justify-center items-center w-[33%]">
                   <View className="w-7 h-7 bg-white items-center justify-center rounded-full mx-2 "><Text className="text-[16px]">3</Text></View>
-                  <Text className="text-[16px] text-white">Review</Text>
+                  <Text className="text-[16px] text-white">Összegzés</Text>
               </View>
               </View>
               <ScrollView className="p-2" contentContainerStyle={{ alignItems: 'center' }}>
-                  <Text className="text-[24px] text-white mb-4 font-bold">Enter your shipping address</Text>
+                  <Text className="text-[24px] text-white mb-4 font-bold">Adja Meg a Lakcímét</Text>
                   <Input 
                       className="bg-[#212121] my-3 w-[95%]"
-                      label="Full name"
+                      label="Teljes név"
                       mode="flat"
                       activeUnderlineColor="#ffa1ff"
                       underlineColor="#ffa1ff"
                       textColor="white"
-                      placeholder="Luke Skywalker"
+                      placeholder="Jóska Pista"
                       error={fullNameBad}
                       onChangeText={newFullName => setFullName(newFullName)}
                       defaultValue={fullName}
@@ -389,7 +389,7 @@ const Checkout = () => {
                   />
                   <Input 
                       className="bg-[#212121] my-3 w-[95%]"
-                      label="State"
+                      label="Megye"
                       mode="flat"
                       activeUnderlineColor="#ffa1ff"
                       underlineColor="#ffa1ff"
@@ -402,7 +402,7 @@ const Checkout = () => {
                   />
                   <Input 
                       className="bg-[#212121] my-3 w-[95%]"
-                      label="City"
+                      label="Város"
                       mode="flat"
                       activeUnderlineColor="#ffa1ff"
                       underlineColor="#ffa1ff"
@@ -415,7 +415,7 @@ const Checkout = () => {
                   />
                   <Input 
                       className="bg-[#212121] my-3 w-[95%]"
-                      label="Postal code"
+                      label="Irányítószám"
                       mode="flat"
                       activeUnderlineColor="#ffa1ff"
                       underlineColor="#ffa1ff"
@@ -430,7 +430,7 @@ const Checkout = () => {
                   />
                   <Input 
                       className="bg-[#212121] my-3 w-[95%]"
-                      label="Street address"
+                      label="Utcai cím"
                       mode="flat"
                       activeUnderlineColor="#ffa1ff"
                       underlineColor="#ffa1ff"
@@ -441,7 +441,7 @@ const Checkout = () => {
                       defaultValue={streetAddress}
                       onBlur={()=> validateStreetAddress()}
                   />
-                  <Text className="text-white text-[22px] mt-4 mb-3">Chose a shipping method</Text>
+                  <Text className="text-white text-[22px] mt-4 mb-3">Kiszállítás</Text>
                   <TouchableOpacity onPress={()=> setShippingMethod("normal")} activeOpacity={1} className=" border-b-2 border-[#ffa1ff] border-solid mb-3">
                     <View className="flex-row w-[90vw] items-center">
                         <Text className="text-white text-[16px] font-bold my-1">3000 Ft</Text>
@@ -453,10 +453,10 @@ const Checkout = () => {
                             color="#ffa1ff"
                         />
                     </View>
-                    <Text className="text-white text-[16px] my-1 ">Delivery in 5 business days</Text>
+                    <Text className="text-white text-[16px] my-1 ">Kiszállítás 5 munkanap alatt.</Text>
                     <View className="flex-row items-center">
                         <AntDesign name="infocirlceo" size={15} color="#fff"/>
-                        <Text className="text-white text-[16px] mx-2 my-1">No delivery on public holidays.</Text>
+                        <Text className="text-white text-[16px] mx-2 my-1">Nincs kiszállítás ünnepnapon.</Text>
                     </View>
                   </TouchableOpacity>
                   <TouchableOpacity onPress={()=> setShippingMethod("express")} activeOpacity={1} className=" border-b-2 border-[#ffa1ff] border-solid mb-3">
@@ -470,14 +470,14 @@ const Checkout = () => {
                             color="#ffa1ff"
                         />
                     </View>
-                    <Text className="text-white text-[16px] my-1 ">Delivery in 1 business days</Text>
+                    <Text className="text-white text-[16px] my-1 ">Kiszállítás 1 munkanap alatt.</Text>
                     <View className="flex-row items-center">
                         <AntDesign name="infocirlceo" size={15} color="#fff"/>
-                        <Text className="text-white text-[16px] mx-2 my-1">No delivery on public holidays.</Text>
+                        <Text className="text-white text-[16px] mx-2 my-1">Nincs kiszállítás ünnepnapon.</Text>
                     </View>
                   </TouchableOpacity>
                   <TouchableOpacity onPress={() => addressDone()} className="w-[90vw] h-[50px] bg-[#ffa1ff] justify-center items-center mt-4 rounded-[5px]">
-                      <Text className="text-white text-[20px]">Confirm and Countinue</Text>
+                      <Text className="text-white text-[20px]">Elfogadás és Folytatás</Text>
                   </TouchableOpacity>
                   <View className="h-[3vh]"></View>
               </ScrollView>
@@ -493,20 +493,20 @@ const Checkout = () => {
                   <View className="w-7 h-7 bg-white items-center justify-center rounded-full mx-2 ">
                   <AntDesign name="checkcircle" size={27} color="#ff6efa"/>
                 </View>
-                  <Text className="text-[16px] text-white">Shipping</Text>
+                  <Text className="text-[16px] text-white">Szállítás</Text>
               </View>
               <View className="flex-row justify-center items-center w-[33%]">
                   <View className="w-7 h-7 bg-white items-center justify-center rounded-full mx-2 "><Text className="text-[16px]">2</Text></View>
-                  <Text className="text-[16px] text-white">Payment</Text>
+                  <Text className="text-[16px] text-white">Fizetés</Text>
               </View>
               <View className="flex-row justify-center items-center w-[33%]">
                   <View className="w-7 h-7 bg-white items-center justify-center rounded-full mx-2 "><Text className="text-[16px]">3</Text></View>
-                  <Text className="text-[16px] text-white">Review</Text>
+                  <Text className="text-[16px] text-white">Összegzés</Text>
               </View>
               </View>
               <ScrollView className="p-2" contentContainerStyle={{ alignItems: 'center', flex: 1 }}>
-                <Text className="text-white text-[22px] font-bold mb-2">Choose payment method</Text>
-                <Text className="text-white mb-4">You will not be charged until you review this order on the next page</Text>
+                <Text className="text-white text-[22px] font-bold mb-2">Fizetési módszer</Text>
+                <Text className="text-white mb-4">Addig nem számítunk fel díjat, amíg a következő oldalon nem tekinti át ezt a rendelést</Text>
                 <TouchableOpacity className="flex-row w-[90%] items-center my-1" onPress={() => setChecked('first')} activeOpacity={1}>
                     <View className="w-[15%]">
                         <RadioButton
@@ -517,7 +517,7 @@ const Checkout = () => {
                         />
                     </View>
                     <View className="w-[45%]">
-                        <Text className="text-white text-[16px]">Credit card</Text>
+                        <Text className="text-white text-[16px]">Bankkártya</Text>
                     </View>
                     <View className="w-[40%] justify-end items-end">
                         <Image source={creditCard} className="w-[20vw] h-[5vh]" />
@@ -549,7 +549,7 @@ const Checkout = () => {
                         />
                     </View>
                     <View className="w-[45%]">
-                        <Text className="text-white text-[16px]">Paying upon arrival</Text>
+                        <Text className="text-white text-[16px]">Utólagos fizetés</Text>
                     </View>
                     <View className="w-[40%] justify-end items-end">
                         <Image source={postPayment} className="w-[20vw] h-[5vh]" />
@@ -557,15 +557,15 @@ const Checkout = () => {
                 </TouchableOpacity>
                 {checked === "first" ? (
                     <ScrollView className="w-full mt-5">
-                    <Text className="text-white text-[22px]">Credit card</Text>
+                    <Text className="text-white text-[22px]">Bankkártya</Text>
                     <Input 
                         className="bg-[#212121] my-3"
-                        label="Full name"
+                        label="Teljes név"
                         mode="flat"
                         activeUnderlineColor="#ffa1ff"
                         underlineColor="#ffa1ff"
                         textColor="white"
-                        placeholder="Name on card"
+                        placeholder="Név a bankkártyán"
                         error={fullNameCrBad}
                         onChangeText={newFullName => setFullNameCr(newFullName)}
                         defaultValue={fullNameCr}
@@ -573,7 +573,7 @@ const Checkout = () => {
                     />
                     <Input 
                         className="bg-[#212121] my-3"
-                        label="Card number"
+                        label="Kártyaszám"
                         mode="flat"
                         activeUnderlineColor="#ffa1ff"
                         underlineColor="#ffa1ff"
@@ -590,12 +590,12 @@ const Checkout = () => {
                     <View className="w-[50%] items-start justify-start">
                         <Input 
                             className="bg-[#212121] my-3 w-[96%]"
-                            label="Expiration date"
+                            label="Lejárati dátum"
                             mode="flat"
                             activeUnderlineColor="#ffa1ff"
                             underlineColor="#ffa1ff"
                             textColor="white"
-                            placeholder="MM/YY"
+                            placeholder="HH/ÉÉ"
                             error={expirationDateBad}
                             //onChangeText={newExpDate => setExpirationDate(newExpDate)}
                             value={expirationDate}
@@ -609,7 +609,7 @@ const Checkout = () => {
                     <View className="w-[50%] items-end justify-end">
                         <Input 
                             className="bg-[#212121] my-3 w-[96%]"
-                            label="Security code"
+                            label="Biztonsági kód"
                             mode="flat"
                             activeUnderlineColor="#ffa1ff"
                             underlineColor="#ffa1ff"
@@ -635,7 +635,7 @@ const Checkout = () => {
                                 activeUnderlineColor="#ffa1ff"
                                 underlineColor="#ffa1ff"
                                 textColor="white"
-                                placeholder="example@gmail.com"
+                                placeholder="példa@gmail.com"
                                 error={paypalEmailBad}
                                 onChangeText={newEmail => setPaypalEmail(newEmail)}
                                 value={paypalEmail}
@@ -644,7 +644,7 @@ const Checkout = () => {
                         />
                         <Input 
                                 className="bg-[#212121] my-3"
-                                label="Password"
+                                label="Jelszó"
                                 mode="flat"
                                 activeUnderlineColor="#ffa1ff"
                                 underlineColor="#ffa1ff"
@@ -659,11 +659,11 @@ const Checkout = () => {
                     </View>
                 ) : (
                     <View className="w-full mt-5">
-                        <Text className="text-white text-[22px]">Paying upon arrival</Text>
+                        <Text className="text-white text-[22px]">Utólagos fizetés</Text>
                     </View>
                 )}
                 <TouchableOpacity onPress={() => paymentDone()} className="w-[90vw] h-[50px] bg-[#ffa1ff] justify-center items-center mt-8 rounded-[5px]">
-                    <Text className="text-white text-[20px]">Confirm and Countinue</Text>
+                    <Text className="text-white text-[20px]">Elfogadás és Folytatás</Text>
                 </TouchableOpacity>
                 
               </ScrollView>
@@ -678,34 +678,34 @@ const Checkout = () => {
                   <View className="w-7 h-7 bg-white items-center justify-center rounded-full mx-2 ">
                   <AntDesign name="checkcircle" size={27} color="#ff6efa"/>
                 </View>
-                  <Text className="text-[16px] text-white">Shipping</Text>
+                  <Text className="text-[16px] text-white">Szállítás</Text>
               </View>
               <View className="flex-row justify-center items-center w-[33%]">
                   <View className="w-7 h-7 bg-white items-center justify-center rounded-full mx-2 ">
                     <AntDesign name="checkcircle" size={27} color="#ff6efa"/>
                 </View>
-                  <Text className="text-[16px] text-white">Payment</Text>
+                  <Text className="text-[16px] text-white">Fizetés</Text>
               </View>
               <View className="flex-row justify-center items-center w-[33%]">
                   <View className="w-7 h-7 bg-white items-center justify-center rounded-full mx-2 "><Text className="text-[16px]">3</Text></View>
-                  <Text className="text-[16px] text-white">Review</Text>
+                  <Text className="text-[16px] text-white">Összegzés</Text>
               </View>
               </View>
               <ScrollView className="p-3">
                 <View className="flex-1">
                     <View>
-                        <Text className="text-white text-[22px]">My Cart</Text>
+                        <Text className="text-white text-[22px]">Kosarad tartalma</Text>
                         <ScrollView horizontal>
                             {data.map((item) => (
                                     <CheckoutItem item={item}/>
                             ))}
-                            <TouchableOpacity onPress={()=> navigation.navigate("Cart")}><Text className="text-[#ffa1ff] text-[19px] underline">Edit</Text></TouchableOpacity>
+                            <TouchableOpacity onPress={()=> navigation.navigate("Cart")}><Text className="text-[#ffa1ff] text-[19px] underline">Szerkesztés</Text></TouchableOpacity>
                         </ScrollView>
                     </View>
                     <View className="w-[100%] mt-6 border-solid border-2 border-[#121212] p-6">
                         <View className="flex-row justify-between">
-                            <Text className="text-white text-[19px]">Payment</Text>
-                            <TouchableOpacity onPress={()=> setPage(2)}><Text className="text-[#ffa1ff] text-[19px] underline">Edit</Text></TouchableOpacity>
+                            <Text className="text-white text-[19px]">Fizetés</Text>
+                            <TouchableOpacity onPress={()=> setPage(2)}><Text className="text-[#ffa1ff] text-[19px] underline">Szerkesztés</Text></TouchableOpacity>
                         </View>
                         {paymentMethod.id === 2 ? (
                             <View className="flex-row justify-between mt-8">
@@ -728,15 +728,15 @@ const Checkout = () => {
                     </View>
                     <View className="w-[100%] mt-6 border-solid border-2 border-[#121212] p-6">
                         <View className="flex-row justify-between">
-                            <Text className="text-white text-[19px]">Shipping address</Text>
-                            <TouchableOpacity onPress={()=> setPage(1)}><Text className="text-[#ffa1ff] text-[19px] underline">Edit</Text></TouchableOpacity>
+                            <Text className="text-white text-[19px]">Szállítási cím</Text>
+                            <TouchableOpacity onPress={()=> setPage(1)}><Text className="text-[#ffa1ff] text-[19px] underline">Szerkesztés</Text></TouchableOpacity>
                         </View>
                         <View className="flex-row justify-between mt-8">
-                            <Text className="text-white text-[16px]">Full name</Text>
+                            <Text className="text-white text-[16px]">Teljes név</Text>
                             <Text className="text-white text-[16px]">{fullName}</Text>
                         </View>
                         <View className="flex-row justify-between mt-8">
-                            <Text className="text-white text-[16px]">Address</Text>
+                            <Text className="text-white text-[16px]">Cím</Text>
                             <Text className="text-white text-[16px]">{postalCode}, {streetAddress}</Text>
                         </View>
                     </View>
@@ -744,17 +744,17 @@ const Checkout = () => {
                 </View>
               </ScrollView>
               <View className="absolute left-0 bottom-0 w-full bg-[#212121] border-t-2 border-solid border-[#121212] p-6 ">
-                <Text className="text-white text-[19px]">Order summary</Text>
+                <Text className="text-white text-[19px]">Rendelés összegzése</Text>
                 <View className="flex-row justify-between mt-6">
-                    <Text className="text-white text-[16px]">Subtotal:</Text>
+                    <Text className="text-white text-[16px]">Részösszeg:</Text>
                     <Text className="text-white text-[16px]">{total} Ft</Text>
                 </View>
                 <View className="flex-row justify-between mt-6">
-                    <Text className="text-white text-[16px]">Delivery:</Text>
+                    <Text className="text-white text-[16px]">Kiszállítás:</Text>
                     <Text className="text-white text-[16px]">{shippingMethodObj.price} Ft</Text>
                 </View>
                 <View className="flex-row justify-between mt-6">
-                    <Text className="text-white text-[16px]">Subtotal:</Text>
+                    <Text className="text-white text-[16px]">Összesen:</Text>
                     <Text className="text-white text-[16px]">{total + shippingMethodObj.price} Ft</Text>
                 </View>
                 <View className="w-full items-center">
@@ -773,29 +773,29 @@ const Checkout = () => {
                   <View className="w-7 h-7 bg-white items-center justify-center rounded-full mx-2 ">
                   <AntDesign name="checkcircle" size={27} color="#ff6efa"/>
                 </View>
-                  <Text className="text-[16px] text-white">Shipping</Text>
+                  <Text className="text-[16px] text-white">Szállítás</Text>
               </View>
               <View className="flex-row justify-center items-center w-[33%]">
                   <View className="w-7 h-7 bg-white items-center justify-center rounded-full mx-2 ">
                     <AntDesign name="checkcircle" size={27} color="#ff6efa"/>
                 </View>
-                  <Text className="text-[16px] text-white">Payment</Text>
+                  <Text className="text-[16px] text-white">Fizetés</Text>
               </View>
               <View className="flex-row justify-center items-center w-[33%]">
                   <View className="w-7 h-7 bg-white items-center justify-center rounded-full mx-2 ">
                   <AntDesign name="checkcircle" size={27} color="#ff6efa"/>
                 </View>
-                  <Text className="text-[16px] text-white">Review</Text>
+                  <Text className="text-[16px] text-white">Összegzés</Text>
               </View>
               </View>
                 <View className="flex-1 items-center justify-center">
                     <MaterialCommunityIcons name="truck-check-outline" size={70} color="#ffa1ff"/>
-                    <Text className="text-white text-[28px]">We are on it!</Text>
+                    <Text className="text-white text-[28px]">Rajta vagyunk!</Text>
                     <View className="w-[80%] my-4">
-                        <Text className="text-white text-[18px] text-center">Your payment has been recieved, nad you'll get notifications for your order's state.</Text>
+                        <Text className="text-white text-[18px] text-center">Befizetését megkaptuk, és hamarosan értesítést kap a rendelés állapotáról.</Text>
                     </View>
                     <TouchableOpacity className="w-[90vw] h-[50px] bg-[#ffa1ff] items-center justify-center rounded-[5px]" onPress={()=> navigation.navigate("Store")}>
-                        <Text className="text-white text-[20px]">Go back to home</Text>
+                        <Text className="text-white text-[20px]">Vissza a Főoldalra</Text>
                     </TouchableOpacity>
                 </View>
             </View>
