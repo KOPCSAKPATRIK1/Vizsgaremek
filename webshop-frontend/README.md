@@ -1,6 +1,12 @@
-# Cipő webáruház React App
+# 
 
 Ez a projekt egy cipő webáruházat valósít meg React JS segítségével. Célja a termékek megjelenítése, keresése és vásárlása. Az alkalmazás lehetővé teszi a felhasználók számára, hogy regisztráljanak, a kategóriák és termékek között navigáljanak, a termékeket a kosárba helyezzék, és teljesítsék a rendelést.
+
+## Előfeltételek
+
+Visual Studio Code vagy hasonló kódszerkesztő
+XAMPP
+
 
 ## Telepítés
 
@@ -23,7 +29,7 @@ Hibákat is láthatsz a konzolon.
 
 ## Használat
 
-Az alkalmazás dokumentációja a 'docs' mappában található.
+Az alkalmazás dokumentációjára szolgáló Microsoft Word fájl a 'docs' mappában található.
 
 ## Funkciók
 
