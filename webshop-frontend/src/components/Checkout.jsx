@@ -159,7 +159,7 @@ const Checkout = ({ isOpen, handleClose, selectedShippingMethod }) => {
           userId: userId,
           addressId: data.id,
           shippingMethod: selectedShippingMethod.id, // Add selected shipping method ID
-          paymentMethod: 1, // Add payment method ID
+          paymentMethod: 2, // Add payment method ID
         }),
       });
       const orderData = await orderResponse.json();
