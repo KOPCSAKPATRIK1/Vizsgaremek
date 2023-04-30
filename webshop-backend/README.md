@@ -4,13 +4,11 @@ Nest.js TypeScript projekt egy Cipő webáruház backendjének megvalósításá
 
 ## Előfeltételek
 
-Visual Studio Code vagy hasonló kódszerkesztő
-Node.js
-XAMPP
+* Visual Studio Code vagy hasonló kódszerkesztő
+* Node.js
+* XAMPP
 
 
-
-egy új adatbázis létrehozása "webshop" néven, majd a "webshop-desktop" mappában lévő webshop.sql beimportálása.
 ## Telepítés
 1. Klónozd le a projektet a gépedre a git clone https://github.com/KOPCSAKPATRIK1/Vizsgaremek paranccsal.
 2. XAMPP Control Panel: Apache és MySQL elindítása.
