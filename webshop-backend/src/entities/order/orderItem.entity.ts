@@ -18,12 +18,6 @@ export class OrderItem {
   @Column()
   productId: number;
 
-  @ManyToOne(() => User, (user) => user.orderItems)
-  user: User;
-
-  @Column()
-  userId: number;
-
   @ManyToOne(() => Order, (order) => order.orderItems)
   order: Order;
 

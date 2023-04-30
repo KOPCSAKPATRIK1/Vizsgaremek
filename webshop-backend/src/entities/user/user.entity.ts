@@ -23,6 +23,4 @@ export class User {
   @OneToMany(() => ShoppingCartItem, (cartItem) => cartItem.user)
   cartItems: ShoppingCartItem[];
 
-  @OneToMany(() => OrderItem, (orderItem) => orderItem.user)
-  orderItems: OrderItem[];
 }

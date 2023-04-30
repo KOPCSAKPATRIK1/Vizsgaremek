@@ -29,7 +29,7 @@ export class Product {
   @Column()
   imageUrl1: string;
 
-  @Column({ nullable:true})
+  @Column({ nullable: true })
   imageUrl2: string;
 
   @Column({ nullable: true })
@@ -55,8 +55,8 @@ export class Product {
 
   @OneToMany(() => ShoppingCartItem, (cartItem) => cartItem.product)
   cartItems: ShoppingCartItem[];
-   
-  @OneToMany(() => OrderItem, (orderItem) => orderItem.user)
+
+  @OneToMany(() => OrderItem, (orderItem) => orderItem.productId)
   orderItems: OrderItem[];
 
   @OneToMany(
@@ -64,25 +64,8 @@ export class Product {
     (shoppingCartItem) => shoppingCartItem.user,
   )
   shoppingCartItems: ShoppingCartItem[];
-  @ManyToOne(() => Product, (product) => product.likes)
-  @JoinColumn()
-  product: Product;
+
 
   @OneToMany(() => Like, (like) => like.product)
   likes: Like[];
-
-
-  @ManyToMany(() => Size)
-  @JoinTable({
-    name: 'product_sizes_size',
-    joinColumn: { name: 'productId', referencedColumnName: 'id' },
-    inverseJoinColumn: { name: 'sizeId', referencedColumnName: 'id' },
-  })
-  sizes: Size[];
-
-  //Methods
-
-  get numLikes(): number {
-    return this.likes.length;
-  }
 }

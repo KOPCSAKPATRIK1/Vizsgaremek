@@ -329,8 +329,7 @@ async getShoe(@Param('id') id: number) {
     const orderItem = new OrderItem();
     orderItem.product = await this.dataSource.getRepository(Product).findOneBy({ id: OrderItemDto.productId });
     orderItem.quantity = OrderItemDto.quantity;
-    orderItem.size = await this.dataSource.getRepository(Size).findOneBy({ id: OrderItemDto.sizeId });
-    orderItem.user = await this.dataSource.getRepository(User).findOneBy({ id: OrderItemDto.userId });
+    orderItem.size = await this.dataSource.getRepository(Size).findOneBy({ id: OrderItemDto.sizeId });    
     orderItem.order = await this.dataSource.getRepository(Order).findOneBy({ id: OrderItemDto.orderId })
     await orderItemRepo.save(orderItem);
     return orderItem;
