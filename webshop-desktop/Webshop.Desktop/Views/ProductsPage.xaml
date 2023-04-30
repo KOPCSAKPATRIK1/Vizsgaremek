@@ -15,6 +15,14 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
+        <TeachingTip
+            x:Name="TeachingTip_confirm"
+            Title="Foot Frenzy"
+            PreferredPlacement="Center"
+            PlacementMargin="20"
+            IsLightDismissEnabled="True"
+            CloseButtonContent="OK"/>
+
         <StackPanel
             Grid.Row="0"
             Orientation="Horizontal"
@@ -34,8 +42,10 @@
                 VerticalAlignment="Center"/>
             <ComboBox                         
                 MinWidth="140"
+                MaxDropDownHeight="150"
                 ItemsSource="{x:Bind ViewModel.Categories}" 
                 DisplayMemberPath="Name" 
+                ScrollViewer.VerticalScrollBarVisibility="Visible"
                 SelectedItem="{x:Bind ViewModel.SelectedCategory, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                 Height="35"/>
         </StackPanel>
@@ -182,6 +192,20 @@
                         Margin="0,0,5,0"/>
                     <TextBlock 
                         Text="Populáris"/>
+                </StackPanel>
+            </Button>
+
+            <Button               
+                Margin="10"
+                Command="{x:Bind ViewModel.DeleteProductCommand}">
+                <StackPanel Orientation="Horizontal">
+                    <FontIcon 
+                        FontFamily="{StaticResource SymbolThemeFontFamily}" 
+                        Glyph="&#xe74d;" 
+                        FontSize="16" 
+                        Margin="0,0,5,0"/>
+                    <TextBlock 
+                        Text="Törlés"/>
                 </StackPanel>
             </Button>
         </StackPanel>

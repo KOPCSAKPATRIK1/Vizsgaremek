@@ -110,14 +110,14 @@ public partial class NewProductViewModel : ObservableRecipient, INavigationAware
 
     }
 
-    public void NameValidation()
+    partial void OnProductNameChanged(string value)
     {
-        if (string.IsNullOrWhiteSpace(ProductName))
+        if (string.IsNullOrWhiteSpace(value))
         {
             NameValidationText = "A név nem lehet üres";
             NameValidationVisibility = true;
         }
-        else if (ProductName.Length < 4)
+        else if (value.Length < 4)
         {
             NameValidationText = "A névnek 3 karakternél hosszabbnak kell lennie";
             NameValidationVisibility = true;
@@ -129,14 +129,14 @@ public partial class NewProductViewModel : ObservableRecipient, INavigationAware
         SaveProductCommand.NotifyCanExecuteChanged();
     }
 
-    public void DescValidation()
+    partial void OnProductDescChanged(string value)
     {
-        if (string.IsNullOrWhiteSpace(ProductDesc))
+        if (string.IsNullOrWhiteSpace(value))
         {
             DescValidationText = "A leírás nem lehet üres";
             DescValidationVisibility = true;
         }
-        else if (ProductDesc.Length < 11)
+        else if (value.Length < 11)
         {
             DescValidationText = "A leírásnak 10 karakternél hosszabbnak kell lennie";
             DescValidationVisibility = true;
@@ -148,9 +148,9 @@ public partial class NewProductViewModel : ObservableRecipient, INavigationAware
         SaveProductCommand.NotifyCanExecuteChanged();
     }
 
-    public void Img1Validation()
+    partial void OnImageUrl1Changed(string value)
     {
-        if (string.IsNullOrWhiteSpace(ImageUrl1))
+        if (string.IsNullOrWhiteSpace(value))
         {
             Img1ValidationText = "Az első kép nem lehet üres";
             Img1ValidationVisibility = true;
@@ -160,11 +160,11 @@ public partial class NewProductViewModel : ObservableRecipient, INavigationAware
             Img1ValidationVisibility = false;
         }
         SaveProductCommand.NotifyCanExecuteChanged();
-    }
+    }    
 
-    public void CategoryValidation()
+    partial void OnSelectedCategoryChanged(CategoryVmList value)
     {
-        if (SelectedCategory == null)
+        if (value == null)
         {
             CategoryValidationText = "Válassz kategóriát";
             CategoryValidationVisibility = true;
@@ -174,11 +174,6 @@ public partial class NewProductViewModel : ObservableRecipient, INavigationAware
             CategoryValidationVisibility = false;
         }
         SaveProductCommand.NotifyCanExecuteChanged();
-    }
-
-    partial void OnSelectedCategoryChanged(CategoryVmList value)
-    {
-        CategoryValidation();
         DeleteCategoryCommand.NotifyCanExecuteChanged();
         UpdateCategoryNameCommand.NotifyCanExecuteChanged();
         SaveProductCommand.NotifyCanExecuteChanged();
@@ -191,10 +186,10 @@ public partial class NewProductViewModel : ObservableRecipient, INavigationAware
     [RelayCommand(CanExecute = nameof(IsValid))]
     private void SaveProduct()
     {
-        NameValidation();
-        DescValidation();
-        Img1Validation();
-        CategoryValidation();
+        OnProductNameChanged(ProductName);
+        OnProductDescChanged(ProductDesc);
+        OnImageUrl1Changed(ImageUrl1);
+        OnSelectedCategoryChanged(SelectedCategory);
 
         foreach (var sizeWithQuantity in SizesWithQuantity)
         {
@@ -237,8 +232,16 @@ public partial class NewProductViewModel : ObservableRecipient, INavigationAware
                     Price = ProductPrice ?? 10000,
                     CategoryId = SelectedCategory.Id,
                 });
+
                 TeachingTip.Subtitle = "Új termék(ek) hozzáadva";
                 TeachingTip.IsOpen = true;
+                ProductName = "";
+                ProductDesc = "";
+                ProductPrice = 0;
+                ImageUrl1 = "";
+                ImageUrl2 = "";
+                ImageUrl3 = "";
+                ImageUrl4 = "";                
             }
         }
     }
@@ -328,7 +331,7 @@ public partial class NewProductViewModel : ObservableRecipient, INavigationAware
             TeachingTip.IsOpen = true;
             LoadCategories();
         }
-        CategoryValidation();
+        OnSelectedCategoryChanged(SelectedCategory);
     }
 
     [RelayCommand]

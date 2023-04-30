@@ -27,8 +27,7 @@
                     Text="{x:Bind ViewModel.ProductName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"                         
                     Margin="10" 
                     Header="*Név:" 
-                    PlaceholderText="Air Force 1"
-                    LostFocus="{x:Bind ViewModel.NameValidation}"/>
+                    PlaceholderText="Air Force 1"/>
                 <TextBlock
                     Text="{x:Bind ViewModel.NameValidationText, Mode=TwoWay}"
                     Foreground="Red"
@@ -39,7 +38,6 @@
                     Margin="10" 
                     Header="*Leírás:" 
                     PlaceholderText="Ez egy cipő"
-                    LostFocus="{x:Bind ViewModel.DescValidation}"
                     TextWrapping="Wrap"
                     AcceptsReturn="True"/>
                 <TextBlock
@@ -51,7 +49,6 @@
                     Text="{x:Bind ViewModel.ImageUrl1, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                     Margin="10" Header="*Link 1:" 
                     PlaceholderText="Első Kép"
-                    LostFocus="{x:Bind ViewModel.Img1Validation}"
                     TextWrapping="Wrap"
                     AcceptsReturn="True"/>
                 <TextBlock
@@ -142,7 +139,7 @@
                 <NumberBox 
                     Text="{x:Bind ViewModel.ProductPrice, Mode=TwoWay}"
                     Header="*Ár"
-                    SpinButtonPlacementMode="Compact" Minimum="10000"
+                    SpinButtonPlacementMode="Compact"
                     Margin="10" />
 
                 <ComboBox                         
@@ -151,8 +148,7 @@
                     Margin="10"
                     ItemsSource="{x:Bind ViewModel.Categories}" 
                     DisplayMemberPath="Name" 
-                    SelectedItem="{x:Bind ViewModel.SelectedCategory, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                    LostFocus="{x:Bind ViewModel.CategoryValidation}"/>
+                    SelectedItem="{x:Bind ViewModel.SelectedCategory, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
                 <StackPanel                    
                     Orientation="Horizontal"

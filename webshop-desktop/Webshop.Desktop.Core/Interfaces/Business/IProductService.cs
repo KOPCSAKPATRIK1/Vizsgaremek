@@ -40,5 +40,12 @@ public interface IProductService
     /// </summary>
     /// <param name="product">Termék változtatott adatokkal.</param>
     /// <param name="id">Termék azonosító.</param>
-    void UpdateProduct(ProductDto product, int id);
+    void UpdateProduct(ProductDto product, int id);   
+
+    /// <summary>
+    /// Termék törlése.
+    /// </summary>
+    /// <param name="id">Termék azonosító.</param>
+    /// <returns>Sikerült e vagy nem</returns>
+    bool DeleteProduct(int id);
 }
