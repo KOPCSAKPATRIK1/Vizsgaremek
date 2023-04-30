@@ -1,39 +1,37 @@
 # Cipő webáruház React App
 
-Ez a projekt egy cipő webáruházat valósít meg React JS segítségével.
+Ez a projekt egy cipő webáruházat valósít meg React JS segítségével. Célja a termékek megjelenítése, keresése és vásárlása. Az alkalmazás lehetővé teszi a felhasználók számára, regisztráljanak, a kategóriák és termékek között navigáljanak, a termékeket a kosárba helyezzék, és teljesítsék a rendelést.
 
 ## Telepítés
 
-1. Klónozd le a projektet a gépedre a git clone https://github.com/your-username/cipo-webshop.git paranccsal.
+1. Klónozd le a projektet a gépedre a git clone https://github.com/KOPCSAKPATRIK1/Vizsgaremek paranccsal.
 2. Indítsd el a backend-et a backend README.md alapján. [https://github.com/KOPCSAKPATRIK1/Vizsgaremek/tree/master/webshop-backend](https://github.com/KOPCSAKPATRIK1/Vizsgaremek/tree/master/webshop-backend)
-2. Lépj be a projekt mappájába a cd .\webshop-frontend\ parancs segítségével.
+2. Lépj be a projekt mappájába a cd .\webshop-frontend\ konzolos parancs segítségével.
 3. Telepítsd a függőségeket a npm install paranccsal.
 4. Indítsd el a projektet a npm start paranccsal.
 
 ### `npm install`
+Telepíti a függőségeket.
+
+### `npm start`
 Fejlesztői módban futtatja az alkalmazást.\
 Nyissd meg a [http://localhost:3001](http://localhost:3001) url-t a böngészőben való megtekintéséhez.
 
-Az oldal újratöltődik, ha változtatásokat hajt végre.\
+Az oldal újratöltődik, ha változtatásokat hajtasz végre.\
 Hibákat is láthatsz a konzolon.
-### `npm start`
-
-
 
 
 ## Használat
 
-A webáruház főoldalán megtekinthetőek a kapható termékek. A kosárba való helyezéshez válassz ki egy terméket és méretet, majd kattints a "kosárba" gombra.
-
-A kosár ikonra kattintva megtekintheted a kosarad tartalmát és törölheted a kosárból a nem kívánt termékeket.
-
-A "fizetés" gombra kattintva megjelenik a fizetési oldal, ahol kiválaszthatod a szállítási módot és elküldheted a rendelést.
+Az alkalmazás dokumentációja a 'docs' mappában található.
 
 ## Funkciók
 
-    -Termékek böngészése és kosárba helyezése
-    -Kosár tartalmának megtekintése és szerkesztése
-    -Fizetési adatok megadása és rendelés elküldése
+Regisztráció és bejelentkezés: A felhasználók regisztrálhatnak és bejelentkezhetnek a webáruházba.
+Kategóriák: A termékek kategóriák szerint csoportosítva jelennek meg a felhasználók számára.
+Terméklista: A termékek listája, amelyek szűrhetők ár, márka és megjelenés ideje szerint.
+Kosár: A felhasználók a kosárba helyezhetik a termékeket, és törölhetik is.
+Pénztár: A felhasználók befejezhetik a vásárlást és fizethetnek a termékekért.
 
 ## Technológiák
 
