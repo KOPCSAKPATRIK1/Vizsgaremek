@@ -3,6 +3,7 @@ import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import styled from "styled-components";
 import { mobile, tablet } from "../responsive";
+import { Tooltip } from "@mui/material";
 const Button = styled.button`
   padding: 8px;
   border: 2px solid #ffa1ff;
@@ -63,9 +64,13 @@ const LikeButton = ({ userId, productId }) => {
   };
 
   return (
-    <Button onClick={handleLikeClick}>
-      {isLiked ? <FavoriteIcon /> : <FavoriteBorderIcon />}
-    </Button>
+    <Tooltip title={userId ? "" : "Kérlek előbb jelentkezz be!"}>
+    <span>
+      <Button onClick={userId ? handleLikeClick : null} disabled={!userId}>
+        {isLiked ? <FavoriteIcon /> : <FavoriteBorderIcon />}
+      </Button>
+    </span>
+  </Tooltip>
   );
 };
 

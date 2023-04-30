@@ -188,7 +188,7 @@ const SingleProduct = () => {
     setShowPopup(false);
   };
 
-  const userId = JSON.parse(localStorage.getItem("user")).id;
+  const userId = localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")).id : null;
   return (
     <Container>
       <Navbar />
