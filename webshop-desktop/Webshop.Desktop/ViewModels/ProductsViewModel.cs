@@ -1,6 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Microsoft.UI.Xaml.Controls;
 using Webshop.Desktop.Contracts.Services;
 using Webshop.Desktop.Contracts.ViewModels;
 using Webshop.Desktop.Core.Interfaces.Business;
@@ -20,6 +21,8 @@ public partial class ProductsViewModel : ObservableRecipient, INavigationAware
     private ProductVmList[] _products;
 
     #endregion
+
+    public TeachingTip TeachingTip;
 
     #region Observables
 
@@ -78,6 +81,7 @@ public partial class ProductsViewModel : ObservableRecipient, INavigationAware
         ChangeInactiveCommand.NotifyCanExecuteChanged();
         ChangePopularCommand.NotifyCanExecuteChanged();
         ChangeProductParametersCommand.NotifyCanExecuteChanged();
+        DeleteProductCommand.NotifyCanExecuteChanged();
     }
 
     partial void OnFilterTextChanging(string value)
@@ -155,6 +159,23 @@ public partial class ProductsViewModel : ObservableRecipient, INavigationAware
     private void ChangeProductParameters()
     {
         _navigationService.Frame?.Navigate(typeof(NewProductPage), SelectedProduct.Id);
+    }
+
+    [RelayCommand(CanExecute = nameof(CanExecuteCommand))]
+    private void DeleteProduct()
+    {
+        if (_productService.DeleteProduct(SelectedProduct.Id))
+        {
+            TeachingTip.Subtitle = "Sikeres törlés";
+            TeachingTip.IsOpen = true;
+            LoadProducts();
+        }
+        else
+        {
+            TeachingTip.Subtitle = "A termék rendelve lett vagy kosárban van probáld inaktivvá tenni";
+            TeachingTip.IsOpen = true;
+        }
+        
     }
 
     #endregion

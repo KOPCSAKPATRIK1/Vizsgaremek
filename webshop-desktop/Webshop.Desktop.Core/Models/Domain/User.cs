@@ -11,8 +11,6 @@ public partial class User
 
     public virtual ICollection<Like> Likes { get; } = new List<Like>();
 
-    public virtual ICollection<OrderItem> OrderItems { get; } = new List<OrderItem>();
-
     public virtual ICollection<Order> Orders { get; } = new List<Order>();
 
     public virtual ICollection<ShoppingCartItem> ShoppingCartItems { get; } = new List<ShoppingCartItem>();

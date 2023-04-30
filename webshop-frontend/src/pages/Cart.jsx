@@ -201,8 +201,9 @@ const Cart = () => {
   const [selectedShipping, setSelectedShipping] = useState(1);
 
   const shippingOptions = [
-    { id: 1, name: "Standard (5-7 nap)", price: 1200 },
-    { id: 2, name: "Expressz (2-3 nap)", price: 4000 },
+    { id: 1, name: "Standard (5-6 munkanap)", price: 2990 },
+    { id: 2, name: "Expressz (2-3 munkanap)", price: 5990 },
+    { id: 3, name: "24 órás", price: 9990 }
   ];
   const handleCheckoutClick = () => {
     setIsCheckoutOpen(true);

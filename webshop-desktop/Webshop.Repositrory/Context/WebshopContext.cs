@@ -205,8 +205,6 @@ public partial class WebshopContext : DbContext
 
             entity.HasIndex(e => e.OrderId, "FK_646bf9ece6f45dbe41c203e06e0");
 
-            entity.HasIndex(e => e.UserId, "FK_845716d96530a440c6cdc6c7346");
-
             entity.HasIndex(e => e.ProductId, "FK_904370c093ceea4369659a3c810");
 
             entity.HasIndex(e => e.SizeId, "FK_b92d3a6017b15d811d4b0c7b789");
@@ -229,10 +227,7 @@ public partial class WebshopContext : DbContext
                 .HasDefaultValueSql("'NULL'")
                 .HasColumnType("int(11)")
                 .HasColumnName("sizeId");
-            entity.Property(e => e.UserId)
-                .HasDefaultValueSql("'NULL'")
-                .HasColumnType("int(11)")
-                .HasColumnName("userId");
+           
 
             entity.HasOne(d => d.Order).WithMany(p => p.OrderItems)
                 .HasForeignKey(d => d.OrderId)
@@ -246,9 +241,7 @@ public partial class WebshopContext : DbContext
                 .HasForeignKey(d => d.SizeId)
                 .HasConstraintName("FK_b92d3a6017b15d811d4b0c7b789");
 
-            entity.HasOne(d => d.User).WithMany(p => p.OrderItems)
-                .HasForeignKey(d => d.UserId)
-                .HasConstraintName("FK_845716d96530a440c6cdc6c7346");
+            
         });
 
         modelBuilder.Entity<PaymentMethod>(entity =>
@@ -397,8 +390,6 @@ public partial class WebshopContext : DbContext
             entity.HasIndex(e => e.ProductId, "FK_54ae5bb4222e2d64ace88dc1416");
 
             entity.HasIndex(e => e.SizeId, "FK_7ed53be42af947cfdd52153f6f1");
-
-            entity.HasIndex(e => e.UserId, "FK_8c4ae7c19a3927c2fb1feefda2b");
 
             entity.Property(e => e.Id)
                 .HasColumnType("int(11)")

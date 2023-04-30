@@ -27,32 +27,29 @@
                     Text="{x:Bind ViewModel.ReleaseName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"                         
                     Margin="10" 
                     Header="*Név:" 
-                    PlaceholderText="Air Force 1"
-                    LostFocus="{x:Bind ViewModel.NameValidation}"/>
+                    PlaceholderText="Air Force 1"/>
                 <TextBlock
                     Text="{x:Bind ViewModel.NameValidationText, Mode=TwoWay}"
                     Foreground="Red"
-                    Visibility="{x:Bind ViewModel.NameValidationVisibility,Mode=OneWay}"/>
+                    Visibility="{x:Bind ViewModel.NameValidationVisibility, Mode=OneWay}"/>
 
                 <TextBox 
                     Text="{x:Bind ViewModel.ReleaseDesc, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"                         
                     Margin="10" 
                     Header="*Leírás:" 
                     PlaceholderText="Ez egy cipő"
-                    LostFocus="{x:Bind ViewModel.DescValidation}"
                     TextWrapping="Wrap"
                     AcceptsReturn="True"/>
                 <TextBlock
                     Text="{x:Bind ViewModel.DescValidationText, Mode=TwoWay}"
                     Foreground="Red"
-                    Visibility="{x:Bind ViewModel.DescValidationVisibility,Mode=OneWay}"/>
+                    Visibility="{x:Bind ViewModel.DescValidationVisibility, Mode=OneWay}"/>
 
                 <TextBox 
                     Text="{x:Bind ViewModel.ImageUrl1, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                     Margin="10" 
                     Header="*Link 1:" 
                     PlaceholderText="Első Kép"
-                    LostFocus="{x:Bind ViewModel.Img1Validation}"
                     TextWrapping="Wrap"
                     AcceptsReturn="True"/>
                 <TextBlock
@@ -87,8 +84,7 @@
                 <DatePicker 
                     Header="*Megjelenés dátuma" 
                     Margin="10"
-                    SelectedDate="{x:Bind ViewModel.SelectedDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                    LostFocus="{x:Bind ViewModel.DateValidation}"/>
+                    SelectedDate="{x:Bind ViewModel.SelectedDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                 <TextBlock
                     Text="{x:Bind ViewModel.DateValidationText, Mode=TwoWay}"
                     Foreground="Red"

@@ -23,8 +23,7 @@
             CloseButtonContent="OK"/>
 
         <ScrollViewer
-           Grid.Row="0"
-            HorizontalScrollBarVisibility="Visible">
+           Grid.Row="0">
             <controls:DataGrid                
                 AutoGenerateColumns="False"
                 GridLinesVisibility="None"

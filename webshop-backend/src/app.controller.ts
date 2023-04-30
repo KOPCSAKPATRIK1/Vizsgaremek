@@ -14,7 +14,7 @@ import {
   Delete,
   Patch,
   Put,
-  NotFoundException
+  NotFoundException,
 } from '@nestjs/common';
 import { DataSource } from 'typeorm';
 import { AppService } from './app.service';
@@ -68,7 +68,6 @@ export class AppController {
     return user;
   }
 
-
   @Post('/login')
   async login(
     @Body() loginDto: RegisterDto,
@@ -85,11 +84,11 @@ export class AppController {
     if (!(await bcrypt.compare(loginDto.password, user.password))) {
       throw new BadRequestException('Hibás jelszó!');
     }
-  
+
     const jwt = await this.jwtService.signAsync({ id: user.id });
-  
+
     response.cookie('jwt', jwt, { httpOnly: true });
-  
+
     return {
       message: 'success',
       accessToken: jwt,
@@ -110,10 +109,6 @@ export class AppController {
       if (!data) {
         throw new UnauthorizedException();
       }
-
-      //const user = await this.appService.findOne({ id: data['id'] });
-
-      //return user;
     } catch (e) {
       throw new UnauthorizedException();
     }
@@ -151,27 +146,29 @@ export class AppController {
     return productRepo.createQueryBuilder('release').getMany();
   }
 
-
   @Get('/shoes/popular')
   async getPopularShoes() {
-  const productRepo = this.dataSource.getRepository(Product);
-  return productRepo
-    .createQueryBuilder('product')
-    .leftJoinAndSelect('product.category', 'category')
-    .where('product.popular = :popular and product.inactive = :inactive', { popular: true, inactive: 0 })
-    .getMany();
+    const productRepo = this.dataSource.getRepository(Product);
+    return productRepo
+      .createQueryBuilder('product')
+      .leftJoinAndSelect('product.category', 'category')
+      .where('product.popular = :popular and product.inactive = :inactive', {
+        popular: true,
+        inactive: 0,
+      })
+      .getMany();
   }
 
-@Get('/shoes/:id')
-async getShoe(@Param('id') id: number) {
-  const productRepo = this.dataSource.getRepository(Product);
-  const product = await productRepo
-    .createQueryBuilder('product')
-    .leftJoinAndSelect('product.category', 'category')
-    .leftJoinAndSelect('product.stocks', 'stock')
-    .where('product.id = :id', { id })
-    .getOne();
-  return product;
+  @Get('/shoes/:id')
+  async getShoe(@Param('id') id: number) {
+    const productRepo = this.dataSource.getRepository(Product);
+    const product = await productRepo
+      .createQueryBuilder('product')
+      .leftJoinAndSelect('product.category', 'category')
+      .leftJoinAndSelect('product.stocks', 'stock')
+      .where('product.id = :id', { id })
+      .getOne();
+    return product;
   }
 
   @Get('/shoes/name/:name')
@@ -179,8 +176,11 @@ async getShoe(@Param('id') id: number) {
     const productRepo = this.dataSource.getRepository(Product);
     const shoes = await productRepo
       .createQueryBuilder('product')
-      .where('product.name LIKE :name and product.inactive = :inactive', { name: `%${name}%`, inactive: 0 })
-      .getMany(); 
+      .where('product.name LIKE :name and product.inactive = :inactive', {
+        name: `%${name}%`,
+        inactive: 0,
+      })
+      .getMany();
     return shoes;
   }
   @Get('/shoes/category/:id')
@@ -234,10 +234,16 @@ async getShoe(@Param('id') id: number) {
   async addToCart(@Body() cartDto: CartDto) {
     const cartRepo = this.dataSource.getRepository(ShoppingCartItem);
     const cart = new ShoppingCartItem();
-    cart.product = await this.dataSource.getRepository(Product).findOneBy({ id: cartDto.productId });
+    cart.product = await this.dataSource
+      .getRepository(Product)
+      .findOneBy({ id: cartDto.productId });
     cart.quantity = cartDto.quantity;
-    cart.size = await this.dataSource.getRepository(Size).findOneBy({ id: cartDto.sizeId });
-    cart.user = await this.dataSource.getRepository(User).findOneBy({ id: cartDto.userId });
+    cart.size = await this.dataSource
+      .getRepository(Size)
+      .findOneBy({ id: cartDto.sizeId });
+    cart.user = await this.dataSource
+      .getRepository(User)
+      .findOneBy({ id: cartDto.userId });
     await cartRepo.save(cart);
 
     return cart;
@@ -258,7 +264,7 @@ async getShoe(@Param('id') id: number) {
       relations: ['product'],
     });
     let sum = 0;
-    carts.forEach(item => {
+    carts.forEach((item) => {
       sum += item.product.price * item.quantity;
     });
     return sum;
@@ -272,24 +278,31 @@ async getShoe(@Param('id') id: number) {
   }
 
   @Delete('cart/delete/user/:userId')
-  async deleteCartItemsByUser(@Param('userId') userId: number){
+  async deleteCartItemsByUser(@Param('userId') userId: number) {
     const cartRepo = this.dataSource.getRepository(ShoppingCartItem);
     await cartRepo.delete({ userId: userId });
   }
 
   @Post('/like')
   @HttpCode(200)
-  async addToLike(@Body() LikeDto: LikeDto){
+  async addToLike(@Body() LikeDto: LikeDto) {
     const likeRepo = this.dataSource.getRepository(Like);
     const like = new Like();
-    like.product = await this.dataSource.getRepository(Product).findOneBy({id: LikeDto.productId});
-    like.user = await this.dataSource.getRepository(User).findOneBy({id: LikeDto.userId});
+    like.product = await this.dataSource
+      .getRepository(Product)
+      .findOneBy({ id: LikeDto.productId });
+    like.user = await this.dataSource
+      .getRepository(User)
+      .findOneBy({ id: LikeDto.userId });
     await likeRepo.save(like);
     return like;
   }
 
   @Delete('/like/:productId/:userId')
-  async deleteLikeByProductId(@Param('productid') productId: number, @Param('userId') userId: number){
+  async deleteLikeByProductId(
+    @Param('productid') productId: number,
+    @Param('userId') userId: number,
+  ) {
     const likeRepo = this.dataSource.getRepository(Like);
     const like = await likeRepo.findOne({
       where: { productId, userId },
@@ -298,15 +311,16 @@ async getShoe(@Param('id') id: number) {
   }
 
   @Get('/like/product/:id')
-  async getLikesByProductId(@Param('id') id: number){
+  async getLikesByProductId(@Param('id') id: number) {
     const likeRepo = this.dataSource.getRepository(Like);
-    return likeRepo.findBy({ productId: id});
+    return likeRepo.findBy({ productId: id });
   }
 
   @Get('/like/user/:id')
   async getLikesByUser(@Param('id') id: number) {
     const likeRepo = this.dataSource.getRepository(Like);
-    const likes = await likeRepo.createQueryBuilder('like')
+    const likes = await likeRepo
+      .createQueryBuilder('like')
       .leftJoinAndSelect('like.product', 'product')
       .where('like.userId = :userId', { userId: id })
       .getMany();
@@ -324,13 +338,19 @@ async getShoe(@Param('id') id: number) {
 
   @Post('orderitem')
   @HttpCode(200)
-  async addOrderItem(@Body() OrderItemDto: OrderItemDto){
+  async addOrderItem(@Body() OrderItemDto: OrderItemDto) {
     const orderItemRepo = this.dataSource.getRepository(OrderItem);
     const orderItem = new OrderItem();
-    orderItem.product = await this.dataSource.getRepository(Product).findOneBy({ id: OrderItemDto.productId });
+    orderItem.product = await this.dataSource
+      .getRepository(Product)
+      .findOneBy({ id: OrderItemDto.productId });
     orderItem.quantity = OrderItemDto.quantity;
-    orderItem.size = await this.dataSource.getRepository(Size).findOneBy({ id: OrderItemDto.sizeId });    
-    orderItem.order = await this.dataSource.getRepository(Order).findOneBy({ id: OrderItemDto.orderId })
+    orderItem.size = await this.dataSource
+      .getRepository(Size)
+      .findOneBy({ id: OrderItemDto.sizeId });
+    orderItem.order = await this.dataSource
+      .getRepository(Order)
+      .findOneBy({ id: OrderItemDto.orderId });
     await orderItemRepo.save(orderItem);
     return orderItem;
   }
@@ -342,25 +362,25 @@ async getShoe(@Param('id') id: number) {
   }
 
   @Get('shippingmethod')
-  getShippingMethods(){
+  getShippingMethods() {
     const shippingRepository = this.dataSource.getRepository(ShippingMethod);
     return shippingRepository.find();
   }
-  
+
   @Get('shippingmethod/:id')
-  getShippingMethodById(@Param('id') id: number){
+  getShippingMethodById(@Param('id') id: number) {
     const shippingRepository = this.dataSource.getRepository(ShippingMethod);
     return shippingRepository.findOneBy({ id: id });
   }
 
   @Get('paymentmethod')
-  getPaymentMethods(){
+  getPaymentMethods() {
     const paymentRepository = this.dataSource.getRepository(PaymentMethod);
     return paymentRepository.find();
   }
 
   @Get('paymentmethod/:id')
-  getPaymentMethodById(@Param('id') id: number){
+  getPaymentMethodById(@Param('id') id: number) {
     const paymentRepository = this.dataSource.getRepository(PaymentMethod);
     return paymentRepository.findOneBy({ id: id });
   }
@@ -378,67 +398,87 @@ async getShoe(@Param('id') id: number) {
     return { ...savedAddress, id: savedAddress.id };
   }
   @Get('address/:id')
-  getAddressById(@Param('id') id: number){
+  getAddressById(@Param('id') id: number) {
     const addressRepo = this.dataSource.getRepository(Address);
     return addressRepo.findOneBy({ id: id });
   }
 
   @Post('order')
   @HttpCode(200)
-  async addOrder(@Body() OrderDto: OrderDto){
+  async addOrder(@Body() OrderDto: OrderDto) {
     const orderRepo = this.dataSource.getRepository(Order);
     const order = new Order();
-    order.address = await this.dataSource.getRepository(Address).findOneBy({ id: OrderDto.addressId });
-    order.paymentMethod = await this.dataSource.getRepository(PaymentMethod).findOneBy({ id: OrderDto.paymentMethod });
-    order.shippingMethod = await this.dataSource.getRepository(ShippingMethod).findOneBy({ id: OrderDto.shippingMethod });
-    order.user = await this.dataSource.getRepository(User).findOneBy({ id: OrderDto.userId });
+    order.address = await this.dataSource
+      .getRepository(Address)
+      .findOneBy({ id: OrderDto.addressId });
+    order.paymentMethod = await this.dataSource
+      .getRepository(PaymentMethod)
+      .findOneBy({ id: OrderDto.paymentMethod });
+    order.shippingMethod = await this.dataSource
+      .getRepository(ShippingMethod)
+      .findOneBy({ id: OrderDto.shippingMethod });
+    order.user = await this.dataSource
+      .getRepository(User)
+      .findOneBy({ id: OrderDto.userId });
     order.orderDate = new Date();
     const savedOrder = await orderRepo.save(order);
     return { ...savedOrder, id: savedOrder.id };
   }
 
-  
-  
   @Get('stock/:productId')
-  getStocks(@Param('productId') productId : number){
+  getStocks(@Param('productId') productId: number) {
     const stockRepo = this.dataSource.getRepository(Stock);
-    return stockRepo.findBy({ productId : productId});
+    return stockRepo.findBy({ productId: productId });
   }
+<<<<<<< HEAD
   
+=======
+
+>>>>>>> 5f7969eadec2633531f77eb724c1ab9c2080dddb
   @Put('stock/subtract/:productId/:sizeId/:number')
   async subtractStock(
     @Param('productId') productId: number,
     @Param('sizeId') sizeId: number,
-    @Param('number') number: number
+    @Param('number') number: number,
   ) {
     const stockRepo = this.dataSource.getRepository(Stock);
     const stock = await stockRepo.findOne({
-      where: { productId: productId, sizeId: sizeId }
+      where: { productId: productId, sizeId: sizeId },
     });
     if (!stock) {
       throw new NotFoundException('Stock not found');
     }
-  
+
     stock.inStock -= number;
-  
+
     return stockRepo.save(stock);
   }
   @Put('stock/add/:productId/:sizeId/:number')
   async addStock(
     @Param('productId') productId: number,
     @Param('sizeId') sizeId: number,
+<<<<<<< HEAD
     @Param('number') number: string
+=======
+    @Param('number') number: number,
+>>>>>>> 5f7969eadec2633531f77eb724c1ab9c2080dddb
   ) {
     const stockRepo = this.dataSource.getRepository(Stock);
     const stock = await stockRepo.findOne({
-      where: { productId: productId, sizeId: sizeId }
+      where: { productId: productId, sizeId: sizeId },
     });
     if (!stock) {
       throw new NotFoundException('Stock not found');
     }
+<<<<<<< HEAD
   
     stock.inStock += parseInt(number, 10);
   
+=======
+
+    stock.inStock += number;
+
+>>>>>>> 5f7969eadec2633531f77eb724c1ab9c2080dddb
     return stockRepo.save(stock);
   }
 }

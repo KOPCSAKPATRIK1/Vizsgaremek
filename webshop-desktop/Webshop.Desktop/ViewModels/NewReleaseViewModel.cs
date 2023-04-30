@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Google.Protobuf.WellKnownTypes;
 using Microsoft.UI.Xaml.Controls;
 using Webshop.Desktop.Contracts.Services;
 using Webshop.Desktop.Contracts.ViewModels;
@@ -78,14 +79,14 @@ public partial class NewReleaseViewModel : ObservableRecipient, INavigationAware
 
     }
 
-    public void NameValidation()
+    partial void OnReleaseNameChanged(string? value)
     {
-        if (string.IsNullOrWhiteSpace(ReleaseName))
+        if (string.IsNullOrWhiteSpace(value))
         {
             NameValidationText = "A név nem lehet üres";
             NameValidationVisibility = true;
         }
-        else if (ReleaseName.Length < 4)
+        else if (value.Length < 4)
         {
             NameValidationText = "A névnek 3 karakternél hosszabbnak kell lennie";
             NameValidationVisibility = true;
@@ -97,14 +98,14 @@ public partial class NewReleaseViewModel : ObservableRecipient, INavigationAware
         SaveReleaseCommand.NotifyCanExecuteChanged();
     }
 
-    public void DescValidation()
+    partial void OnReleaseDescChanged(string? value)
     {
-        if (string.IsNullOrWhiteSpace(ReleaseDesc))
+        if (string.IsNullOrWhiteSpace(value))
         {
             DescValidationText = "A leírás nem lehet üres";
             DescValidationVisibility = true;
         }
-        else if (ReleaseDesc.Length < 11)
+        else if (value.Length < 11)
         {
             DescValidationText = "A leírásnak 10 karakternél hosszabbnak kell lennie";
             DescValidationVisibility = true;
@@ -116,9 +117,9 @@ public partial class NewReleaseViewModel : ObservableRecipient, INavigationAware
         SaveReleaseCommand.NotifyCanExecuteChanged();
     }
 
-    public void Img1Validation()
+    partial void OnImageUrl1Changed(string? value)
     {
-        if (string.IsNullOrWhiteSpace(ImageUrl1))
+        if (string.IsNullOrWhiteSpace(value))
         {
             Img1ValidationText = "Az első kép nem lehet üres";
             Img1ValidationVisibility = true;
@@ -130,9 +131,9 @@ public partial class NewReleaseViewModel : ObservableRecipient, INavigationAware
         SaveReleaseCommand.NotifyCanExecuteChanged();
     }
 
-    public void DateValidation()
+    partial void OnSelectedDateChanged(DateTimeOffset value)
     {
-        if (SelectedDate < DateTimeOffset.Now || SelectedDate == DateTimeOffset.Now)
+        if (value < DateTimeOffset.Now || value == DateTimeOffset.Now)
         {
             DateValidationText = "Megjelenés leghamarabb holnapi dátummal lehetséges";
             DateValidationVisibility = true;
@@ -151,10 +152,10 @@ public partial class NewReleaseViewModel : ObservableRecipient, INavigationAware
     [RelayCommand(CanExecute = nameof(IsValid))]
     private void SaveRelease()
     {
-        NameValidation();
-        DescValidation();
-        Img1Validation();
-        DateValidation();
+        OnReleaseNameChanged(ReleaseName);
+        OnReleaseDescChanged(ReleaseDesc);
+        OnImageUrl1Changed(ImageUrl1);
+        OnSelectedDateChanged(SelectedDate);
         if (IsValid() == true)
         {
             if (_releaseId != 0)
@@ -186,6 +187,13 @@ public partial class NewReleaseViewModel : ObservableRecipient, INavigationAware
                 });
                 TeachingTip.Subtitle = "Megjelenés hozzáadva";
                 TeachingTip.IsOpen = true;
+
+                ReleaseName = "";
+                ReleaseDesc = "";
+                ImageUrl1 = "";
+                ImageUrl2 = "";
+                ImageUrl3 = "";
+                ImageUrl4 = "";
             }
         }
     }

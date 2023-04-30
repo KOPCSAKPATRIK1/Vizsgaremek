@@ -159,7 +159,7 @@ const Checkout = ({ isOpen, handleClose, selectedShippingMethod }) => {
           userId: userId,
           addressId: data.id,
           shippingMethod: selectedShippingMethod.id, // Add selected shipping method ID
-          paymentMethod: 1, // Add payment method ID
+          paymentMethod: 2, // Add payment method ID
         }),
       });
       const orderData = await orderResponse.json();
@@ -192,7 +192,7 @@ const Checkout = ({ isOpen, handleClose, selectedShippingMethod }) => {
         selectedProducts.map(async (product) => {
           const { id, selectedSize } = product;
           const stockResponse = await fetch(
-            `http://localhost:3000/stock/subtract/${id}/${selectedSize}`,
+            `http://localhost:3000/stock/subtract/${id}/${selectedSize}/1`,
             {
               method: "PUT",
               headers: { "Content-Type": "application/json" },

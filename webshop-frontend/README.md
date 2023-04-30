@@ -1,76 +1,48 @@
-# Getting Started with Create React App
+# Cipő webáruház React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Ez a projekt egy cipő webáruházat valósít meg React JS segítségével. Célja a termékek megjelenítése, keresése és vásárlása. Az alkalmazás lehetővé teszi a felhasználók számára, hogy regisztráljanak, a kategóriák és termékek között navigáljanak, a termékeket a kosárba helyezzék, és teljesítsék a rendelést.
 
-## Available Scripts
+## Előfeltételek
 
-In the project directory, you can run:
+Visual Studio Code vagy hasonló kódszerkesztő
+XAMPP
+
+
+## Telepítés
+
+1. Klónozd le a projektet a gépedre a git clone https://github.com/KOPCSAKPATRIK1/Vizsgaremek paranccsal.
+2. Indítsd el a backend-et a backend README.md alapján. [https://github.com/KOPCSAKPATRIK1/Vizsgaremek/tree/master/webshop-backend](https://github.com/KOPCSAKPATRIK1/Vizsgaremek/tree/master/webshop-backend)
+2. Lépj be a projekt mappájába a cd .\webshop-frontend\ konzolos parancs segítségével.
+3. Telepítsd a függőségeket a npm install paranccsal.
+4. Indítsd el a projektet a npm start paranccsal.
+
+### `npm install`
+Telepíti a függőségeket.
 
 ### `npm start`
+Fejlesztői módban futtatja az alkalmazást.\
+Nyisdd meg a [http://localhost:3001](http://localhost:3001) url-t a böngészőben való megtekintéséhez.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Az oldal újratöltődik, ha változtatásokat hajtasz végre.\
+Hibákat is láthatsz a konzolon.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
 
-### `npm test`
+## Használat
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Az alkalmazás dokumentációjára szolgáló Microsoft Word fájl a 'docs' mappában található.
 
-### `npm run build`
+## Funkciók
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+* Regisztráció és bejelentkezés: A felhasználók regisztrálhatnak és bejelentkezhetnek a webáruházba.
+* Kategóriák: A termékek kategóriák szerint csoportosítva jelennek meg a felhasználók számára.
+* Terméklista: A termékek listája, amelyek szűrhetők ár, márka és megjelenés ideje szerint.
+* Kosár: A felhasználók a kosárba helyezhetik a termékeket, és törölhetik is.
+* Pénztár: A felhasználók befejezhetik a vásárlást és fizethetnek a termékekért.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Technológiák
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
-
-npm install @mui/material @mui/styled-engine-sc styled-components
-
-npm install @mui/icons-material
-
-npm install react-router-dom
+* React JS
+* Redux
+* React Router
+* Styled Components
+* Material Ui

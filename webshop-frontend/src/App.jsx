@@ -5,7 +5,6 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import { Routes, Route} from "react-router-dom";
 import ReleasesPage from "./pages/ReleasesPage";
-import Logout from "./pages/Logout";
 import ProductList from "./pages/ProductList";
 import Cart from "./pages/Cart";
 import Profile from "./pages/Profile";
@@ -21,7 +20,6 @@ function App() {
         <Route exact path="/product/:id" element={<SingleProduct />}></Route>
         <Route exact path="/*" element={<Home />}></Route>
         <Route exact path="/releases" element={<ReleasesPage />}></Route>
-        <Route exact path="/logout" element={<Logout />}></Route>
         <Route
           exact
           path="/products/:category"

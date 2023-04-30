@@ -14,6 +14,9 @@ public class ProductService : IProductService
     private readonly IRepository<Product> _productRepository;
     private readonly IRepository<Stock> _stockRepository;
     private readonly IRepository<Size> _sizeRepository;
+    private readonly IRepository<OrderItem> _orderItemRepository;
+    private readonly IRepository<Like> _likeRepository;
+    private readonly IRepository<ShoppingCartItem> _shoppingCartItemRepository;
 
     #endregion
 
@@ -22,11 +25,17 @@ public class ProductService : IProductService
     public ProductService(
         IRepository<Product> productRepository,
         IRepository<Stock> stockRepository,
-        IRepository<Size> sizeRepository)
+        IRepository<Size> sizeRepository,
+        IRepository<OrderItem> orderItemRepository,
+        IRepository<Like> likeRepository,
+        IRepository<ShoppingCartItem> shoppingCartItemRepository)
     {
         _productRepository = productRepository;
         _stockRepository = stockRepository;
         _sizeRepository = sizeRepository;
+        _orderItemRepository = orderItemRepository;
+        _likeRepository = likeRepository;
+        _shoppingCartItemRepository = shoppingCartItemRepository;
     }
 
     #endregion
@@ -190,6 +199,45 @@ public class ProductService : IProductService
                     _stockRepository.Update(existingStock);
                 }
             }
+        }
+    }
+
+    public bool DeleteProduct(int id)
+    {
+        var product = _productRepository.Find(p => p.Id == id).FirstOrDefault();
+        if (product != null)
+        {
+            if (_orderItemRepository.Find(o => o.ProductId == id).FirstOrDefault() != null ||
+                _shoppingCartItemRepository.Find(s => s.ProductId == id).FirstOrDefault() != null)
+            {
+                return false;
+            }
+            else
+            {
+                var likes = _likeRepository.Find(l => l.ProductId == id).ToArray();
+                if (likes != null)
+                {
+                    foreach (var like in likes)
+                    {
+                        _likeRepository.Remove(like);
+                    }
+                }
+
+                var stocks = _stockRepository.Find(s => s.ProductId == id).ToArray();
+                if (stocks != null)
+                {
+                    foreach (var stock in stocks)
+                    {
+                        _stockRepository.Remove(stock);
+                    }
+                }
+            }
+            _productRepository.Remove(product);
+            return true;
+        }
+        else
+        {
+            return false;
         }
     }
 }
