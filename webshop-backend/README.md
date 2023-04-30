@@ -1,6 +1,6 @@
 ### Cipő webáruház Backend
 
-## Description
+#
 
 Nest.js TypeScript projekt egy Cipő webáruház backendjének megvalósítására.
 
