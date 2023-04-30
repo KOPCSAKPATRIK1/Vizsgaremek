@@ -160,7 +160,7 @@ export class AppController {
     .leftJoinAndSelect('product.category', 'category')
     .where('product.popular = :popular and product.inactive = :inactive', { popular: true, inactive: 0 })
     .getMany();
-}
+  }
 
 @Get('/shoes/:id')
 async getShoe(@Param('id') id: number) {
