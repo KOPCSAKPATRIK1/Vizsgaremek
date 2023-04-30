@@ -63,8 +63,9 @@ const Liked = () => {
                 { !user ? (
                     <View className="h-[80vh] w-full items-center justify-center">
                         <Text className="text-[30px] text-white">Nem vagy bejelentkezve</Text>
-                        <TouchableOpacity className="border-solid border-2 border-[#ffa1ff] rounded-[10px] mt-10" onPress={() => navigation.navigate("Home")}>
-                            <MaterialCommunityIcon name="account-arrow-right-outline" size={80} color="#ff6efa"/>
+                        <TouchableOpacity className="border-solid border-2 border-[#ffa1ff] rounded-[10px] mt-10 flex-row items-center p-2" onPress={() => navigation.navigate("Home")}>
+                            <Text className="text-[#ffa1ff] text-[20px] mr-2">Bejelentkezés</Text>
+                            <MaterialCommunityIcon name="account-arrow-right-outline" size={40} color="#ff6efa"/>
                         </TouchableOpacity>
                     </View>
                 ) : data.length == 0 ? (

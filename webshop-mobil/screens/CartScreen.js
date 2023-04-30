@@ -18,10 +18,14 @@ const CartScreen = () => {
         navigation.setOptions({
             headerShown: false,
         });
-        console.log(user);
+        getUserData();
         getData();
         getTotalPrice();
     }, [])
+
+    const getUserData = async () => {
+        setUser(JSON.parse(await AsyncStorage.getItem('user')));
+    }
 
     const getData = async () => {
         const user = JSON.parse(await AsyncStorage.getItem('user'))
@@ -47,11 +51,12 @@ const CartScreen = () => {
         setPrice(await response.json());
     }
 
-    const deleteCartItem = (id) => {
+    const deleteCartItem = (id, productId, size, quantity) => {
         fetch('http://'+ ip + ':3000/cart/delete/' + id
         ,{
             method: 'DELETE'
         })
+        updateStock(productId, size, quantity);
         setData({});
         getData();
         getTotalPrice();
@@ -65,9 +70,28 @@ const CartScreen = () => {
         }
     }
 
+    const updateStock = async ( id , size, quantity) => {
+        console.log(id);
+        const response = await fetch(
+            'http://' + ip + ':3000/stock/add/'+ id +'/' + size + '/' + quantity,
+            {
+              method: "PUT",
+              headers: { "Content-Type": "application/json" },
+            }
+          );
+    }
+
     return (
         <View className="flex-1 bg-[#212121]">
-            {data.length == 0 ? (
+            { !user ? (
+                <View className="h-[80vh] w-full items-center justify-center">
+                    <Text className="text-[30px] text-white">Nem vagy bejelentkezve</Text>
+                    <TouchableOpacity className="border-solid border-2 border-[#ffa1ff] rounded-[10px] mt-10 flex-row items-center p-2" onPress={() => navigation.navigate("Home")}>
+                        <Text className="text-[#ffa1ff] text-[20px] mr-2">Bejelentkezés</Text>
+                        <MaterialCommunityIcon name="account-arrow-right-outline" size={40} color="#ff6efa"/>
+                    </TouchableOpacity>
+                </View>
+            ) : data.length == 0 ? (
                 <View className="h-[80vh] w-full items-center justify-center">
                     <Text className="text-[30px] text-white">Nincs cipő a kosaradban</Text>
                     <TouchableOpacity className="border-solid border-2 border-[#ffa1ff] rounded-[10px] mt-10 flex-row items-center p-2" onPress={() => navigation.navigate("Store")}>
@@ -91,14 +115,14 @@ const CartScreen = () => {
             <View className=" absolute left-0 bottom-[60px] w-full bg-[#121212] justify-center items-center">
                 <View className="flex-row w-[92vw] border-b-[1px] border-solid border-[#212121] pt-4 pb-2">
                     <View className="w-[70%]">
-                        <Text className="text-white text-[16px]"><Text className="font-bold">Total:</Text> (excluding delivery)</Text>
+                        <Text className="text-white text-[16px]"><Text className="font-bold">Összesen:</Text> (Szállítás nélkül)</Text>
                     </View>
                     <View className="w-[30%] justify-end items-end">
                         <Text className="text-white font-bold text-[16px]">{price} Ft</Text>
                     </View>
                 </View>
                 <TouchableOpacity className="my-3 w-[92vw] h-[40px] bg-[#ffa1ff] items-center justify-center" onPress={()=> checkout()}>
-                    <Text className="text-white text-[20px]">Check out</Text>
+                    <Text className="text-white text-[20px]">Fizetés</Text>
                 </TouchableOpacity>
             </View>
         <View className="absolute bottom-0 left-0 border-t-[1px] border-t-[#383838] bg-[#212121]" >
