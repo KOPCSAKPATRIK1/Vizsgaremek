@@ -405,7 +405,7 @@ async getShoe(@Param('id') id: number) {
     return stockRepo.findBy({ productId : productId});
   }
   
-  @Put('stock/subtract/:productId/:sizeId!:number')
+  @Put('stock/subtract/:productId/:sizeId/:number')
   async subtractStock(
     @Param('productId') productId: number,
     @Param('sizeId') sizeId: number,

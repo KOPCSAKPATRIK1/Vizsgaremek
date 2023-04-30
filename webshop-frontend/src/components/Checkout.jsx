@@ -192,7 +192,7 @@ const Checkout = ({ isOpen, handleClose, selectedShippingMethod }) => {
         selectedProducts.map(async (product) => {
           const { id, selectedSize } = product;
           const stockResponse = await fetch(
-            `http://localhost:3000/stock/subtract/${id}/${selectedSize}`,
+            `http://localhost:3000/stock/subtract/${id}/${selectedSize}/1`,
             {
               method: "PUT",
               headers: { "Content-Type": "application/json" },
