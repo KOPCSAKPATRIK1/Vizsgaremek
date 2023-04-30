@@ -405,7 +405,7 @@ async getShoe(@Param('id') id: number) {
     return stockRepo.findBy({ productId : productId});
   }
   
-  @Put('stock/:productId/:sizeId')
+  @Put('stock/subtract/:productId/:sizeId')
   async updateStock(
     @Param('productId') productId: number,
     @Param('sizeId') sizeId: number
@@ -422,5 +422,21 @@ async getShoe(@Param('id') id: number) {
   
     return stockRepo.save(stock);
   }
-
+  @Put('stock/add/:productId/:sizeId')
+  async addStock(
+    @Param('productId') productId: number,
+    @Param('sizeId') sizeId: number
+  ) {
+    const stockRepo = this.dataSource.getRepository(Stock);
+    const stock = await stockRepo.findOne({
+      where: { productId: productId, sizeId: sizeId }
+    });
+    if (!stock) {
+      throw new NotFoundException('Stock not found');
+    }
+  
+    stock.inStock++;
+  
+    return stockRepo.save(stock);
+  }
 }
