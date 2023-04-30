@@ -1,4 +1,4 @@
-import { View, Text, Image, TouchableOpacity, ScrollView } from 'react-native'
+import { View, Text, Image, TouchableOpacity, ScrollView, ToastAndroid } from 'react-native'
 import React, { useLayoutEffect, useState } from 'react'
 import { useNavigation } from '@react-navigation/native'
 import Navbar from '../components/Navbar';
@@ -13,7 +13,7 @@ const Product = ({route}) => {
 
     const navigation = useNavigation();
     const id = route.params.id;
-    const[size, setSize] = useState(null);
+    const[size, setSize] = useState(0);
     const [imageUrl, setImageUrl] = useState("");
     const [user, setUser] = useState({}); 
     const [amount, setAmount] = useState(1);
@@ -150,13 +150,19 @@ const Product = ({route}) => {
         const index = sizes.indexOf(size);
         if(amount + 1 < stocks[index]){
             setAmount(amount + 1);
+        } else {
+            if(amount == 0){
+                ToastAndroid.show("Ebböl a méretből kifogytunk", ToastAndroid.SHORT);
+            } else {
+                ToastAndroid.show("Nincs több cipő", ToastAndroid.SHORT);
+            }
         }
     }
     const amountFix = () => {
         setAmount(0);
     }
 
-    const addToCart = async () => {
+    const postCart = async () => {
         await fetch('http://' + ip + ':3000/cart', {
             method: 'POST', 
             headers: {
@@ -174,6 +180,16 @@ const Product = ({route}) => {
         })
 
         console.log(amount, id, user.id, size);
+    }
+
+    const addToCart = () => {
+        if(amount > 0 && size != 0) {
+            postCart();
+        } else if(amount == 0){
+            ToastAndroid.show("Adja meg a mennyiséget!", ToastAndroid.SHORT);
+        } else if(size == 0){
+            ToastAndroid.show("Adja meg a méretet!", ToastAndroid.SHORT);
+        }
     }
 
 
@@ -243,18 +259,18 @@ const Product = ({route}) => {
                 </View>
                 <View className="mx-2">
                     <View className="flex-row border-solid border-2 border-[#ffa1ff] rounded-[5px]">
+                    <TouchableOpacity 
+                            className="flex h-[32px] w-[32px] border-solid border-2 border-[#ffa1ff] m-[2px] rounded-full items-center justify-center"
+                            onPress={() => amountReduce()}
+                        >
+                            <Text className="text-[25px] text-white ">-</Text>
+                        </TouchableOpacity>
+                        <Text className="text-white text-[25px] mx-1">{amount}</Text>
                         <TouchableOpacity 
                             className="flex h-[32px] w-[32px] border-solid border-2 border-[#ffa1ff] m-[2px] rounded-full items-center justify-center"
                             onPress={() => amountIncrease()}
                         >
                             <Text className="text-[25px] text-white ">+</Text>
-                        </TouchableOpacity>
-                        <Text className="text-white text-[25px] mx-1">{amount}</Text>
-                        <TouchableOpacity 
-                            className="flex h-[32px] w-[32px] border-solid border-2 border-[#ffa1ff] m-[2px] rounded-full items-center justify-center"
-                            onPress={() => amountReduce()}
-                        >
-                            <Text className="text-[25px] text-white ">-</Text>
                         </TouchableOpacity>
                     </View>
                 </View>

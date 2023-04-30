@@ -1,9 +1,10 @@
-import { View, Text, ScrollView, FlatList, TouchableOpacity } from 'react-native'
+import { View, Text, ScrollView, FlatList, TouchableOpacity, ToastAndroid } from 'react-native'
 import React, { useLayoutEffect, useState } from 'react'
 import { useNavigation } from '@react-navigation/native'
 import Navbar from '../components/Navbar';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import CartItem from '../components/CartItem';
+import MaterialCommunityIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 const ip = require('../assets/ipAddress.js').ipAddress;
 
 const CartScreen = () => {
@@ -56,18 +57,37 @@ const CartScreen = () => {
         getTotalPrice();
     }
 
+    const checkout = () => {
+        if(data.length == 0){
+            ToastAndroid.show('Üres a kosarad.', ToastAndroid.SHORT);
+        } else {
+            navigation.navigate("Checkout");
+        }
+    }
+
     return (
         <View className="flex-1 bg-[#212121]">
-        <ScrollView className="mt-10">
-            <FlatList 
-                className="w-full"
-                //contentContainerStyle={{alignItems: 'center', justifyContent: 'center'}}
-                data={data}
-                renderItem={({item}) => <CartItem item={item} deleteCartItem={deleteCartItem} />}
-                keyExtractor={(item) => item.id.toString()}
-            />
-            <View className="h-[25vh]"></View>
-        </ScrollView>
+            {data.length == 0 ? (
+                <View className="h-[80vh] w-full items-center justify-center">
+                    <Text className="text-[30px] text-white">Nincs cipő a kosaradban</Text>
+                    <TouchableOpacity className="border-solid border-2 border-[#ffa1ff] rounded-[10px] mt-10 flex-row items-center p-2" onPress={() => navigation.navigate("Store")}>
+                        <Text className="text-[#ffa1ff] text-[20px] mr-2">Keresgélés</Text>
+                        <MaterialCommunityIcon name="arrow-collapse-right" size={40} color="#ff6efa"/>
+                    </TouchableOpacity>
+                </View>
+            ) : (
+                <ScrollView className="mt-10">
+                    <FlatList 
+                        className="w-full"
+                        //contentContainerStyle={{alignItems: 'center', justifyContent: 'center'}}
+                        data={data}
+                        renderItem={({item}) => <CartItem item={item} deleteCartItem={deleteCartItem} />}
+                        keyExtractor={(item) => item.id.toString()}
+                    />
+                    <View className="h-[25vh]"></View>
+                </ScrollView>
+            )}
+        
             <View className=" absolute left-0 bottom-[60px] w-full bg-[#121212] justify-center items-center">
                 <View className="flex-row w-[92vw] border-b-[1px] border-solid border-[#212121] pt-4 pb-2">
                     <View className="w-[70%]">
@@ -77,7 +97,7 @@ const CartScreen = () => {
                         <Text className="text-white font-bold text-[16px]">{price} Ft</Text>
                     </View>
                 </View>
-                <TouchableOpacity className="my-3 w-[92vw] h-[40px] bg-[#ffa1ff] items-center justify-center" onPress={()=> navigation.navigate("Checkout")}>
+                <TouchableOpacity className="my-3 w-[92vw] h-[40px] bg-[#ffa1ff] items-center justify-center" onPress={()=> checkout()}>
                     <Text className="text-white text-[20px]">Check out</Text>
                 </TouchableOpacity>
             </View>

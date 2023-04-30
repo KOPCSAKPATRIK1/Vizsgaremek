@@ -149,20 +149,28 @@ const Checkout = () => {
         console.log(cardNumber);
       }
       const validateExpirationDate = ()=> {
-        const currentDate = new Date();
+        const currentYear = new Date().getFullYear().toString().slice(-2);
+        const currentMonth = new Date().getMonth() + 1;
         if(expirationDate.length == 4){
             setExpirationDate(expirationDate.slice(0,3) + "0" + expirationDate.slice(-1));
         }
-        if(expirationDate.length < 5 || expirationDate.slice(0,2) < currentDate.getFullYear.slice(-2) || expirationDate.slice(-2) > 12){
+        if(expirationDate.length < 5 || parseInt(expirationDate.slice(0,3)) < currentYear || parseInt(expirationDate.slice(-2)) > 12 ){
             setExpirationDateBad(true);
         }else{
-            setExpirationDateBad(false);
+            if(parseInt(expirationDate.slice(-2)) < currentMonth){
+                setExpirationDateBad(true);
+            }else {
+                setExpirationDateBad(false);
+            }
         }
+        console.log(currentMonth);
     }
     
       const editExpirationDate = (text)=> {
-        if(text.length == 2){
+        if(text.length === 2 && text.length > expirationDate.length){
             text += "/";
+        } else if(text.length === 2 && text.length < expirationDate.length) {
+            text = text.slice(0, 1);
         }
         setExpirationDate(text);
       }
@@ -548,7 +556,7 @@ const Checkout = () => {
                     </View>
                 </TouchableOpacity>
                 {checked === "first" ? (
-                    <View className="w-full mt-5">
+                    <ScrollView className="w-full mt-5">
                     <Text className="text-white text-[22px]">Credit card</Text>
                     <Input 
                         className="bg-[#212121] my-3"
@@ -616,7 +624,7 @@ const Checkout = () => {
                         />
                     </View>
                   </View>
-                </View>
+                </ScrollView>
                 ) : checked === "second" ? (
                     <View className="w-full mt-5">
                         <Text className="text-white text-[22px]">Paypal</Text>
