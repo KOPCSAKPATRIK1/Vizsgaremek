@@ -42,7 +42,7 @@ const DropdownMenu = () => {
         <MenuItem component={Link} to="/releases" onClick={handleClose}>
           MEGJELENÉSEK
         </MenuItem>
-        <MenuItem component={Link} to="/product" onClick={handleClose}>
+        <MenuItem component={Link} to="/info" onClick={handleClose}>
           INFÓ
         </MenuItem>
       </Menu>
