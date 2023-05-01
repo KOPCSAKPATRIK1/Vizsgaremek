@@ -38,6 +38,7 @@ Az alkalmazás dokumentációjára szolgáló Microsoft Word fájl a 'docs' mapp
 * Terméklista: A termékek listája, amelyek szűrhetők ár, márka és megjelenés ideje szerint.
 * Kosár: A felhasználók a kosárba helyezhetik a termékeket, és törölhetik is.
 * Pénztár: A felhasználók befejezhetik a vásárlást és fizethetnek a termékekért.
+* Like: A felhasználók tudják like-olni a termékeket. A profiljukon bármikor megtekinthetik a kedvenc termékeiket.
 
 ## Technológiák
 
