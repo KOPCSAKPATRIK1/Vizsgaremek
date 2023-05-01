@@ -118,7 +118,7 @@ const Checkout = () => {
             if(shippingMethod == "normal"){
                 getShippingMethods(1);
             }else {
-                getShippingMethods(2);
+                getShippingMethods(3);
             }
             setPage(2);
         }
@@ -225,12 +225,49 @@ const Checkout = () => {
 
 
 
-      const submitOrder = ()=> {
-        postAddress();
-        postOrder();
-        data.forEach((item) => {
-            postOrderItem(item);
+      const submitOrder = async ()=> {
+        //postAddress();
+        await fetch('http://' + ip + ':3000/address', {
+            method: 'POST', 
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            /*mode: 'cors', */
+            body: JSON.stringify(
+                {
+                    "state": county,
+                    "city": city,
+                    "postalCode": postalCode,
+                    "streetAddress": streetAddress 
+                }
+            )
         })
+        .then(response => response.json())
+        .then( async data => {
+            await fetch('http://' + ip + ':3000/order', {
+                method: 'POST', 
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                /*mode: 'cors', */
+                body: JSON.stringify(
+                    {
+                        "userId": user.id,
+                        "addressId": data.id,
+                        "shippingMethod": shippingMethodObj.id,
+                        "paymentMethod": paymentMethod.id   
+                    }
+                )
+            })
+            .then(response => response.json())
+            .then(obj => {
+                data.forEach((item, obj) => {
+                    postOrderItem(item);
+                })
+            })
+        })
+        //postOrder();
+        
         deleteCart();
         setPage(4);
       }
@@ -300,8 +337,8 @@ const Checkout = () => {
         })
         .then(response => response.json())
         .then(data => {
-          // The data variable contains the returned object
-          setAddressObj(data);
+          setAddressObj(data.id);
+          console.log(addressObj.id);
         })
     }
 
@@ -315,7 +352,7 @@ const Checkout = () => {
             body: JSON.stringify(
                 {
                     "userId": user.id,
-                    "addressId": addressObj.id,
+                    "addressId": addressObj,
                     "shippingMethod": shippingMethodObj.id,
                     "paymentMethod": paymentMethod.id   
                 }
@@ -323,12 +360,12 @@ const Checkout = () => {
         })
         .then(response => response.json())
         .then(data => {
-          // The data variable contains the returned object
-          setOrderObj(data);
+          setOrderObj(data.id);
+          console.log(orderObj.id);
         })
     }
 
-    const postOrderItem = async (cartItem) => {
+    const postOrderItem = async (cartItem, obj) => {
         await fetch('http://' + ip + ':3000/orderitem', {
             method: 'POST', 
             headers: {
@@ -339,9 +376,8 @@ const Checkout = () => {
                 {
                     "quantity": cartItem.quantity,
                     "productId": cartItem.productId,
-                    "userId": cartItem.userId,
                     "sizeId": cartItem.sizeId,
-                    "orderId": orderObj.id
+                    "orderId": obj.id
                 }
             )
         })
@@ -444,7 +480,7 @@ const Checkout = () => {
                   <Text className="text-white text-[22px] mt-4 mb-3">Kiszállítás</Text>
                   <TouchableOpacity onPress={()=> setShippingMethod("normal")} activeOpacity={1} className=" border-b-2 border-[#ffa1ff] border-solid mb-3">
                     <View className="flex-row w-[90vw] items-center">
-                        <Text className="text-white text-[16px] font-bold my-1">3000 Ft</Text>
+                        <Text className="text-white text-[16px] font-bold my-1">2990 Ft</Text>
                         <Text className="text-white text-[16px] mx-7 my-1">Normál</Text>
                         <RadioButton
                             value="normal"
@@ -453,7 +489,7 @@ const Checkout = () => {
                             color="#ffa1ff"
                         />
                     </View>
-                    <Text className="text-white text-[16px] my-1 ">Kiszállítás 5 munkanap alatt.</Text>
+                    <Text className="text-white text-[16px] my-1 ">Kiszállítás 5-6 munkanap alatt.</Text>
                     <View className="flex-row items-center">
                         <AntDesign name="infocirlceo" size={15} color="#fff"/>
                         <Text className="text-white text-[16px] mx-2 my-1">Nincs kiszállítás ünnepnapon.</Text>
@@ -461,7 +497,7 @@ const Checkout = () => {
                   </TouchableOpacity>
                   <TouchableOpacity onPress={()=> setShippingMethod("express")} activeOpacity={1} className=" border-b-2 border-[#ffa1ff] border-solid mb-3">
                     <View className="flex-row w-[90vw] items-center">
-                        <Text className="text-white text-[16px] font-bold my-1">8000 Ft</Text>
+                        <Text className="text-white text-[16px] font-bold my-1">9900 Ft</Text>
                         <Text className="text-white text-[16px] mx-7 my-1">Express</Text>
                         <RadioButton
                             value="express"
@@ -470,7 +506,7 @@ const Checkout = () => {
                             color="#ffa1ff"
                         />
                     </View>
-                    <Text className="text-white text-[16px] my-1 ">Kiszállítás 1 munkanap alatt.</Text>
+                    <Text className="text-white text-[16px] my-1 ">Kiszállítás 24 óra alatt.</Text>
                     <View className="flex-row items-center">
                         <AntDesign name="infocirlceo" size={15} color="#fff"/>
                         <Text className="text-white text-[16px] mx-2 my-1">Nincs kiszállítás ünnepnapon.</Text>

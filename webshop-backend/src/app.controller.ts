@@ -422,6 +422,9 @@ export class AppController {
       .findOneBy({ id: OrderDto.userId });
     order.orderDate = new Date();
     const savedOrder = await orderRepo.save(order);
+    console.log(await this.dataSource
+      .getRepository(Address)
+      .findOneBy({ id: OrderDto.addressId }));
     return { ...savedOrder, id: savedOrder.id };
   }
 
