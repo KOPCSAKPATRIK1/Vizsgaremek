@@ -1,6 +1,6 @@
 # Áttekintés
 
-Androidos cipő e-commerce applikáció, melynek célja egy letisztult, dinamikus és felhasználóbarát felület megvalósítása modern és világszynvonalu elemekkel.
+Androidos cipő e-commerce applikáció, melynek célja egy letisztult, dinamikus és felhasználóbarát felület megvalósítása modern elemekkel.
 
 ### Használt technológiák:
 - React Native expo

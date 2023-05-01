@@ -4,8 +4,8 @@ Ez a projekt egy cipő webáruházat valósít meg React JS segítségével. Cé
 
 ## Előfeltételek
 
-Visual Studio Code vagy hasonló kódszerkesztő
-XAMPP
+* Visual Studio Code vagy hasonló kódszerkesztő
+* XAMPP
 
 
 ## Telepítés
