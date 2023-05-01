@@ -226,7 +226,6 @@ const Checkout = () => {
 
 
       const submitOrder = async ()=> {
-        //postAddress();
         await fetch('http://' + ip + ':3000/address', {
             method: 'POST', 
             headers: {
@@ -243,7 +242,8 @@ const Checkout = () => {
             )
         })
         .then(response => response.json())
-        .then( async data => {
+        .then( async address => {
+            console.log(address.id);
             await fetch('http://' + ip + ':3000/order', {
                 method: 'POST', 
                 headers: {
@@ -253,7 +253,7 @@ const Checkout = () => {
                 body: JSON.stringify(
                     {
                         "userId": user.id,
-                        "addressId": data.id,
+                        "addressId": address.id,
                         "shippingMethod": shippingMethodObj.id,
                         "paymentMethod": paymentMethod.id   
                     }
@@ -261,13 +261,11 @@ const Checkout = () => {
             })
             .then(response => response.json())
             .then(obj => {
-                data.forEach((item, obj) => {
-                    postOrderItem(item);
+                data.forEach((item) => {
+                    postOrderItem(item, obj);
                 })
             })
-        })
-        //postOrder();
-        
+        })        
         deleteCart();
         setPage(4);
       }
@@ -319,53 +317,8 @@ const Checkout = () => {
         setTotal(await response.json());
     }
 
-    const postAddress = async () => {
-        await fetch('http://' + ip + ':3000/address', {
-            method: 'POST', 
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            /*mode: 'cors', */
-            body: JSON.stringify(
-                {
-                    "state": county,
-                    "city": city,
-                    "postalCode": postalCode,
-                    "streetAddress": streetAddress 
-                }
-            )
-        })
-        .then(response => response.json())
-        .then(data => {
-          setAddressObj(data.id);
-          console.log(addressObj.id);
-        })
-    }
-
-    const postOrder = async () => {
-        await fetch('http://' + ip + ':3000/order', {
-            method: 'POST', 
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            /*mode: 'cors', */
-            body: JSON.stringify(
-                {
-                    "userId": user.id,
-                    "addressId": addressObj,
-                    "shippingMethod": shippingMethodObj.id,
-                    "paymentMethod": paymentMethod.id   
-                }
-            )
-        })
-        .then(response => response.json())
-        .then(data => {
-          setOrderObj(data.id);
-          console.log(orderObj.id);
-        })
-    }
-
     const postOrderItem = async (cartItem, obj) => {
+        console.log(obj.id);
         await fetch('http://' + ip + ':3000/orderitem', {
             method: 'POST', 
             headers: {
