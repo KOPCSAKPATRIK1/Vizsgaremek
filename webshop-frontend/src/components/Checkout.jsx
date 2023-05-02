@@ -205,10 +205,9 @@ const Checkout = ({ isOpen, handleClose, selectedShippingMethod }) => {
       alert("Sikeres vásárlás!");
       // delete cart from localStorage
       localStorage.removeItem("persist:cart");
-      // wait 5 seconds and redirect to homepage
-      setTimeout(() => {
+      //redirect to homepage
         window.location.href = "/";
-      }, 3000);
+
     } catch (error) {
       console.error(error);
     }
