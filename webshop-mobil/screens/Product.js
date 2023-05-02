@@ -67,8 +67,6 @@ const Product = ({ route }) => {
             //sizes.push(item.sizeId);
             stocks.push(item._inStock);
         });
-        console.log(sizes);
-        console.log(stocks);
     }
 
     const [likes, setLikes] = useState([]);
@@ -185,12 +183,12 @@ const Product = ({ route }) => {
 
     const updateStock = async () => {
         const response = await fetch(
-            'http://' + ip + ':3000/stock/subtract/'+ id +'/' + size + '/' + amount,
+            'http://' + ip + ':3000/stock/subtract/' + id + '/' + size + '/' + amount,
             {
-              method: "PUT",
-              headers: { "Content-Type": "application/json" },
+                method: "PUT",
+                headers: { "Content-Type": "application/json" },
             }
-          );
+        );
     }
 
     const addToCart = () => {
