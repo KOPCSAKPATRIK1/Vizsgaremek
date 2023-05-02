@@ -45,9 +45,9 @@ const Releases = () => {
 
   return (
     <div>
-      {loading && <div>A moment please...</div>}
+      {loading && <div>Adatok betöltése folyamatban...</div>}
       {error && (
-        <div>{`There is a problem fetching the post data - ${error}`}</div>
+        <div>{`Probléma történt az adatok betöltésével. - ${error}`}</div>
       )}
 
       <Container>
