@@ -9,6 +9,7 @@ import { Tooltip } from "@mui/material";
 import { mobile} from "../responsive";
 import { useMediaQuery } from "@mui/material";
 import DropdownMenu from "./DropdownMenu";
+import { NavLink } from "react-router-dom";
 const Wrapper = styled.div`
   padding: 10px 20px;
   display: flex;
@@ -67,7 +68,7 @@ const Linkek = styled.div`
   display: flex;
 `;
 
-const NavbarLink = styled(Link)`
+const NavbarLink = styled(NavLink)`
   justify-content: right;
   font-size: 20px;
   word-spacing: 20px;
@@ -78,10 +79,11 @@ const NavbarLink = styled(Link)`
   margin: 15px;
   text-decoration: none;
   ${mobile({ fontSize: "10px", marginLeft: "10px" })}
-  &:hover,
-  &:focus {
-  }
-  &:active {
+ 
+  &.active {
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    text-decoration-thickness: 2px;
   }
 `;
 const IconLink = styled(Link)`

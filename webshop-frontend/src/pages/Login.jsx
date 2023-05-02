@@ -5,7 +5,7 @@ import Footer from "../components/Footer";
 import { Link } from "react-router-dom";
 import React, { useState } from "react";
 import { mobile } from "../responsive";
-
+import { Visibility, VisibilityOff } from '@mui/icons-material';
 const Container = styled.div`
   width: 100vw;
   height: 100vh;
@@ -70,6 +70,28 @@ const Links = styled(Link)`
   color: white;
 `;
 
+const InputWrapper = styled.div`
+    flex: 1;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  position: relative;
+  min-width: 80%;
+  input {
+    padding-right: 40px;
+    min-width: 45%;
+  }
+`;
+
+const EyeIcon= styled.div`
+color: #5a5a5a;
+position: absolute;
+  right: 7px;
+  top: 54%;
+  transform: translateY(-50%);
+  cursor: pointer;
+`
+
 const Login = () => {
   const accessToken = localStorage.getItem("accessToken");
 
@@ -81,6 +103,7 @@ const Login = () => {
   const [usernameOrEmail, setUsernameOrEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const handleLogin = async (event) => {
     event.preventDefault();
     if (!usernameOrEmail) {
@@ -128,13 +151,19 @@ const Login = () => {
               onChange={(event) => setUsernameOrEmail(event.target.value)}
               required
             />
-            <Input
-              type="password"
-              placeholder="Jelszó"
-              value={password}
-              onChange={(event) => setPassword(event.target.value)}
-              required
-            />
+              <InputWrapper>
+              <Input
+                type={showPassword ? "text" : "password"}
+                placeholder="Jelszó"
+                value={password}
+                onChange={(event) => setPassword(event.target.value)}
+                required
+                
+              />
+              <EyeIcon onClick={() => setShowPassword(!showPassword)}>
+                {showPassword ? <Visibility /> : <VisibilityOff />}
+              </EyeIcon>
+            </InputWrapper>
             <Button type="submit">BEJELENTKEZÉS</Button>
             {error && <p>{error}</p>}
             <Links to="/register">NINCS FIÓKOD? CSINÁLJ EGYET MOST!</Links>

@@ -1,11 +1,11 @@
 import React from "react";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
 import { useState } from "react";
 import { sliderItems } from "../data";
 import { mobile, tablet } from "../responsive";
-
+import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 const Container = styled.div`
   width: 100%;
   height: 90vh;
@@ -80,6 +80,27 @@ const Desc = styled.p`
   font-weight: 500;
   letter-spacing: 3px;
 `;
+// keyframe for arrow animation
+const arrowAnimation = keyframes`
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(10px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+`;
+
+const ArrowDown = styled(ArrowDropDownIcon)`
+  position: absolute;
+  bottom: 150px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: #ffa1ff;
+  animation: ${arrowAnimation} 1s ease infinite;
+`;
 
 const Slideshow = () => {
   const [slideIndex, setSlideIndex] = useState(0);
@@ -94,13 +115,14 @@ const Slideshow = () => {
   return (
     <Container>
       <Arrow direction="left" onClick={() => handleClick("left")}>
-        <KeyboardArrowLeftIcon></KeyboardArrowLeftIcon>
+        <KeyboardArrowLeftIcon />
       </Arrow>
       <Wrapper slideIndex={slideIndex}>
         {sliderItems.map((item) => (
           <Slide bg={item.bg} key={item.id}>
             <ImgContainer>
               <Img src={item.img} />
+                  <ArrowDown style={{ fontSize: 100, color: "grey" }} />
             </ImgContainer>
             <InfoContainer>
               <Title>{item.title}</Title>
@@ -110,7 +132,7 @@ const Slideshow = () => {
         ))}
       </Wrapper>
       <Arrow direction="right" onClick={() => handleClick("right")}>
-        <KeyboardArrowRightIcon></KeyboardArrowRightIcon>
+        <KeyboardArrowRightIcon />
       </Arrow>
     </Container>
   );
