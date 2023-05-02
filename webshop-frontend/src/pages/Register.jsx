@@ -3,6 +3,8 @@ import Navbar from "../components/Navbar";
 import Newsletter from "../components/Newsletter";
 import Footer from "../components/Footer";
 import React, { useState } from "react";
+import { Visibility, VisibilityOff } from '@mui/icons-material';
+import { mobile, tablet } from "../responsive";
 
 const Container = styled.div`
   width: 100vw;
@@ -24,6 +26,8 @@ const Wrapper = styled.div`
   box-shadow: 0px 0px 20px #1f1f1f;
   background: #494949;
   color: white;
+  ${mobile({ width: "60%" })}
+  ${tablet({ minWidth: "60%" })}
 `;
 
 const Title = styled.h1`
@@ -68,13 +72,35 @@ const Error = styled.p`
   margin-left: auto;
   margin-right: auto;
 `;
+const InputWrapper = styled.div`
+    flex: 1;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  position: relative;
+  min-width: 80%;
+  input {
+    padding-right: 40px;
+    min-width: 45%;
+  }
+`;
+
+const EyeIcon= styled.div`
+color: #5a5a5a;
+position: absolute;
+  right: 15px;
+  top: 71%;
+  transform: translateY(-50%);
+  cursor: pointer;
+`
+
 
 const Register = () => {
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-
+  const [showPassword, setShowPassword] = useState(false);
   const [registrationSuccess, setRegistrationSuccess] = useState(false);
 
   const handleRegistration = async (event) => {
@@ -146,13 +172,19 @@ const Register = () => {
               onChange={(event) => setEmail(event.target.value)}
               required
             />
-            <Input
-              type="password"
-              placeholder="Jelszó"
-              value={password}
-              onChange={(event) => setPassword(event.target.value)}
-              required
-            />
+            <InputWrapper>
+              <Input
+                type={showPassword ? "text" : "password"}
+                placeholder="Jelszó"
+                value={password}
+                onChange={(event) => setPassword(event.target.value)}
+                required
+                
+              />
+              <EyeIcon onClick={() => setShowPassword(!showPassword)}>
+                {showPassword ? <Visibility /> : <VisibilityOff />}
+              </EyeIcon>
+            </InputWrapper>
             <Agreement>
               Fiók létrehozásával hozzájárulok személyes adataim{" "}
               <b>ADATVÉDELMI SZABÁLYZAT</b> szerinti kezeléséhez
