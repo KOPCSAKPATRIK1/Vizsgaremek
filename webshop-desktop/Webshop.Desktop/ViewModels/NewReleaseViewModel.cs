@@ -194,6 +194,10 @@ public partial class NewReleaseViewModel : ObservableRecipient, INavigationAware
                 ImageUrl2 = "";
                 ImageUrl3 = "";
                 ImageUrl4 = "";
+                NameValidationVisibility = false;
+                DescValidationVisibility = false;
+                Img1ValidationVisibility = false;
+                DateValidationVisibility = false;
             }
         }
     }

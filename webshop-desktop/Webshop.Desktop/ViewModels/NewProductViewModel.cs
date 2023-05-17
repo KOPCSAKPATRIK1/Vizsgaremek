@@ -241,7 +241,11 @@ public partial class NewProductViewModel : ObservableRecipient, INavigationAware
                 ImageUrl1 = "";
                 ImageUrl2 = "";
                 ImageUrl3 = "";
-                ImageUrl4 = "";                
+                ImageUrl4 = "";
+                NameValidationVisibility = false;
+                DescValidationVisibility = false;
+                Img1ValidationVisibility = false;
+                CategoryValidationVisibility = false;
             }
         }
     }
