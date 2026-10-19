@@ -1,0 +1,2 @@
+# kit: generated conventions are rebuilt with `kit scan`, never merged line by line
+.claude/conventions/** merge=binary linguist-generated=true
